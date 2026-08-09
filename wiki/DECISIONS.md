@@ -13,6 +13,15 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 
 `필요한 기능 → 기존 제품·오픈소스·Skill·MCP 조사 → 실제 검증 → 채택 또는 탈락 → 부족한 연결부만 최소 제작`
 
+## Spec Kit 도입
+
+- 📝 승인됨: 자연어 요구사항을 구조화하는 기본 절차로 GitHub Spec Kit을 채택합니다.
+- 기본 절차는 `Specify → Clarify → Plan → Tasks → Analyze → Implement → Converge`로 사용합니다.
+- 최초 적용은 `codex/spec-kit-pilot` 시험 브랜치에서 수행하며 검증 전에는 `main`에 합치지 않습니다.
+- Codex를 현재 Spec Kit 기본 통합으로 사용합니다.
+- Antigravity는 직접 Skill 인식이 검증될 때까지 Spec Kit이 생성한 Markdown 산출물을 전달받습니다.
+- 도입 전 복구 기준은 Git 태그 `rollback/before-spec-kit-20260809`입니다.
+
 ## 공통 상태 언어
 
 - 💡 제안: 아이디어일 뿐이며 아직 구현되지 않은 상태입니다.
