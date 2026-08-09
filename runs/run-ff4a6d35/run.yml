@@ -1,0 +1,12 @@
+run_id: "run-ff4a6d35"
+run_type: "feature"
+request: "AI OS V2 M1.1 검증 요청"
+stage: "intake"
+status: "cancelled"
+created_at: "2026-08-09T14:22:36Z"
+git_safety_at_creation: "PASS"
+memory: {"official_branch": "main", "official_commit": "7674debbe3f22c16df1e3ef81af25fa4052c91ca"}
+v2_workspace: {"branch": "antigravity/v2-m1-run-core", "head": "7674debbe3f22c16df1e3ef81af25fa4052c91ca"}
+project: {"path": "/home/user/바탕화면/test_project", "branch": "master", "base_commit": "bca1ad036bcc5cecaceb2b2d3bc1a9f2ef3d82d7"}
+integrations: {"spec_kit": {"workflow_run_id": null}}
+is_legacy: false

@@ -1,0 +1,433 @@
+#!/usr/bin/env python3
+import os
+import sys
+import subprocess
+import argparse
+import uuid
+import json
+from datetime import datetime, timezone
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+# Helper to run shell commands
+def run_cmd(cmd, cwd=None):
+    try:
+        res = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=cwd)
+        return res.returncode, res.stdout.strip(), res.stderr.strip()
+    except Exception as e:
+        return -1, "", str(e)
+
+# Helper to parse simple yaml/json-inline format with legacy validation
+def read_yaml(filepath):
+    if not os.path.exists(filepath):
+        return None
+    data = {}
+    with open(filepath, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            if ':' in line:
+                key, val_str = line.split(':', 1)
+                key = key.strip()
+                val_str = val_str.strip()
+                try:
+                    val = json.loads(val_str)
+                except Exception:
+                    val = val_str.strip('"').strip("'")
+                data[key] = val
+
+    # Validate legacy run format for M1.1 schema
+    if "run_id" in data:
+        if "memory" not in data or "project" not in data:
+            data["is_legacy"] = True
+        else:
+            data["is_legacy"] = False
+
+    return data
+
+# Helper to write simple yaml
+def write_yaml(filepath, data):
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    with open(filepath, 'w', encoding='utf-8') as f:
+        for k, v in data.items():
+            v_str = json.dumps(v, ensure_ascii=False)
+            f.write(f"{k}: {v_str}\n")
+
+def read_milestones(v2_root):
+    state_path = os.path.join(v2_root, "state", "milestones.json")
+    with open(state_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def get_git_commit(repo_path):
+    code, out, err = run_cmd("git rev-parse HEAD", cwd=repo_path)
+    if code != 0:
+        return None
+    return out
+
+def get_origin_main_commit(repo_path):
+    code, out, err = run_cmd("git rev-parse origin/main", cwd=repo_path)
+    if code == 0:
+        return out
+    code, out, err = run_cmd("git rev-parse remotes/origin/main", cwd=repo_path)
+    if code == 0:
+        return out
+    return None
+
+def get_git_branch(repo_path):
+    code, out, err = run_cmd("git rev-parse --abbrev-ref HEAD", cwd=repo_path)
+    if code != 0:
+        return "unknown"
+    return out
+
+def check_git_safety(project_path):
+    if not os.path.exists(project_path) or not os.path.isdir(project_path):
+        return False, "Project path does not exist or is not a directory."
+
+    # 1. Inside git work tree?
+    code, out, err = run_cmd("git rev-parse --is-inside-work-tree", cwd=project_path)
+    if code != 0 or out != "true":
+        return False, "Project path is not a valid Git repository."
+
+    # 2. Get HEAD commit
+    head = get_git_commit(project_path)
+    if not head:
+        return False, "Failed to resolve HEAD commit of the project."
+
+    # 3. Check uncommitted changes (dirty working tree)
+    code, out, err = run_cmd("git status --porcelain", cwd=project_path)
+    if code != 0:
+        return False, f"Failed to check git status: {err}"
+    if out:
+        return False, f"Dirty working tree: uncommitted changes exist in project:\n{out}"
+
+    # 4. Check for merge conflicts
+    git_dir_code, git_dir, _ = run_cmd("git rev-parse --git-dir", cwd=project_path)
+    if git_dir_code == 0:
+        if not os.path.isabs(git_dir):
+            git_dir = os.path.abspath(os.path.join(project_path, git_dir))
+        if os.path.exists(os.path.join(git_dir, "MERGE_HEAD")):
+            return False, "Conflict detected: MERGE_HEAD exists."
+
+    conflict_code, conflict_out, _ = run_cmd("git diff --name-only --diff-filter=U", cwd=project_path)
+    if conflict_code == 0 and conflict_out:
+        return False, f"Conflict detected: unresolved merge conflicts exist:\n{conflict_out}"
+
+    return True, "Git safety checks passed."
+
+def get_active_run():
+    v2_root = os.path.dirname(os.path.abspath(__file__))
+    runs_dir = os.path.join(v2_root, "runs")
+    if not os.path.exists(runs_dir):
+        return None
+    for run_id in os.listdir(runs_dir):
+        run_file = os.path.join(runs_dir, run_id, "run.yml")
+        if os.path.exists(run_file):
+            run_data = read_yaml(run_file)
+            if run_data and not run_data.get("is_legacy", False):
+                status = run_data.get("status", "").lower()
+                if status in ["created", "active", "paused"]:
+                    return run_data
+    return None
+
+def cmd_create(args):
+    project_path = os.path.abspath(args.project)
+
+    # 1. Active Run Check (Limit to 1 active run at a time)
+    active_run = get_active_run()
+    if active_run:
+        print(f"Error: Active Run already exists. Cannot create a new one.", file=sys.stderr)
+        print(f"Existing Run ID: {active_run.get('run_id')}", file=sys.stderr)
+        print(f"Current Status: {active_run.get('status')}", file=sys.stderr)
+        sys.exit(1)
+
+    # 2. Git Safety check
+    success, msg = check_git_safety(project_path)
+    if not success:
+        print(f"Error: Git Safety Check Failed.\nReason: {msg}", file=sys.stderr)
+        sys.exit(1)
+
+    # 3. Retrieve commits and branches
+    v2_root = os.path.dirname(os.path.abspath(__file__))
+    base_memory_commit_official = get_origin_main_commit(v2_root)
+    base_memory_commit_local = get_git_commit(v2_root)
+
+    v2_workspace_branch = get_git_branch(v2_root)
+    project_branch = get_git_branch(project_path)
+    base_project_commit = get_git_commit(project_path)
+
+    if not base_memory_commit_official:
+        print("Error: Failed to resolve Base Memory Commit (origin/main HEAD).", file=sys.stderr)
+        sys.exit(1)
+
+    # 4. Generate unique Run ID (8-char hex UUID)
+    run_id = f"run-{uuid.uuid4().hex[:8]}"
+
+    # 5. Create Run record (M1.1 Schema)
+    run_data = {
+        "run_id": run_id,
+        "run_type": args.type,
+        "request": args.spec,
+        "stage": "intake",
+        "status": "created",
+        "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "git_safety_at_creation": "PASS",
+        "memory": {
+            "official_branch": "main",
+            "official_commit": base_memory_commit_official
+        },
+        "v2_workspace": {
+            "branch": v2_workspace_branch,
+            "head": base_memory_commit_local
+        },
+        "project": {
+            "path": project_path,
+            "branch": project_branch,
+            "base_commit": base_project_commit
+        },
+        "integrations": {
+            "spec_kit": {
+                "workflow_run_id": None
+            }
+        }
+    }
+
+    run_file = os.path.join(v2_root, "runs", run_id, "run.yml")
+    write_yaml(run_file, run_data)
+
+    # 6. Output Verification
+    print("AI OS V2 — M1.1\n")
+    print(f"Run ID:\n{run_id}\n")
+    print(f"Request:\n{args.spec}\n")
+    print(f"Project Path:\n{project_path}\n")
+    print(f"Project Branch:\n{project_branch}\n")
+    print(f"Base Memory (Official):\n{base_memory_commit_official}\n")
+    print(f"V2 Workspace Branch:\n{v2_workspace_branch}\n")
+    print(f"V2 Workspace HEAD:\n{base_memory_commit_local}\n")
+    print(f"Base Project Commit:\n{base_project_commit}\n")
+    print("Stage:\nIntake\n")
+    print("Status:\nCreated\n")
+    print("Git Safety at Creation:\nPASS\n")
+    print("Git Safety Now:\nPASS")
+
+def cmd_show(args):
+    v2_root = os.path.dirname(os.path.abspath(__file__))
+    run_file = os.path.join(v2_root, "runs", args.run_id, "run.yml")
+
+    if not os.path.exists(run_file):
+        print(f"Error: Run ID '{args.run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+
+    run_data = read_yaml(run_file)
+    if not run_data:
+        print(f"Error: Failed to parse run data for '{args.run_id}'.", file=sys.stderr)
+        sys.exit(1)
+
+    # Handle legacy runs compatibility
+    if run_data.get("is_legacy", False):
+        print("AI OS V2 — M1.1 (Legacy Run)\n")
+        print(f"Run ID:\n{run_data.get('run_id')}\n")
+        print(f"Request:\n{run_data.get('request')}\n")
+        print("Status:\nLegacy / Incompatible\n")
+        print("Note: This run was created with an older schema and is not fully compatible.")
+        return
+
+    project_info = run_data.get("project", {})
+    project_path = project_info.get("path", "")
+
+    # Perform live Git Safety Check for target project
+    git_safety_now = "DIRTY"
+    if project_path:
+        safety_pass, _ = check_git_safety(project_path)
+        if safety_pass:
+            git_safety_now = "PASS"
+
+    memory_info = run_data.get("memory", {})
+    workspace_info = run_data.get("v2_workspace", {})
+
+    print("AI OS V2 — M1.1\n")
+    print(f"Run ID:\n{run_data.get('run_id')}\n")
+    print(f"Request:\n{run_data.get('request')}\n")
+    print(f"Project Path:\n{project_path}\n")
+    print(f"Project Branch:\n{project_info.get('branch')}\n")
+    print(f"Base Memory (Official):\n{memory_info.get('official_commit')}\n")
+    print(f"V2 Workspace Branch:\n{workspace_info.get('branch')}\n")
+    print(f"V2 Workspace HEAD:\n{workspace_info.get('head')}\n")
+    print(f"Base Project Commit:\n{project_info.get('base_commit')}\n")
+
+    stage = str(run_data.get('stage', '')).capitalize()
+    status = str(run_data.get('status', '')).capitalize()
+    print(f"Stage:\n{stage}\n")
+    print(f"Status:\n{status}\n")
+    print(f"Git Safety at Creation:\n{run_data.get('git_safety_at_creation')}\n")
+    print(f"Git Safety Now:\n{git_safety_now}")
+
+# Update Run status logic
+def update_run_status(run_id, target_status):
+    v2_root = os.path.dirname(os.path.abspath(__file__))
+    run_file = os.path.join(v2_root, "runs", run_id, "run.yml")
+    if not os.path.exists(run_file):
+        print(f"Error: Run ID '{run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+
+    run_data = read_yaml(run_file)
+    if not run_data:
+        print(f"Error: Failed to load run data.", file=sys.stderr)
+        sys.exit(1)
+
+    if run_data.get("is_legacy", False):
+        print(f"Error: Cannot update status of legacy/incompatible run '{run_id}'.", file=sys.stderr)
+        sys.exit(1)
+
+    current_status = run_data.get("status", "").lower()
+    t_status = target_status.lower()
+
+    allowed = False
+    if t_status == "paused":
+        if current_status in ["created", "active"]:
+            allowed = True
+    elif t_status == "active":
+        if current_status == "paused":
+            allowed = True
+    elif t_status == "failed":
+        if current_status in ["created", "active", "paused"]:
+            allowed = True
+    elif t_status == "cancelled":
+        if current_status in ["created", "active", "paused"]:
+            allowed = True
+
+    if not allowed:
+        print(f"Error: Invalid status transition from '{current_status}' to '{t_status}'.", file=sys.stderr)
+        sys.exit(1)
+
+    run_data["status"] = t_status
+    write_yaml(run_file, run_data)
+    print(f"Success: Run '{run_id}' status updated from '{current_status}' to '{t_status}'.")
+
+# Custom HTTP Request Handler for serving dashboard and REST APIs
+class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
+    def log_message(self, format, *args):
+        pass
+
+    def do_GET(self):
+        v2_root = os.path.dirname(os.path.abspath(__file__))
+
+        # REST API: Fetch all Runs
+        if self.path == "/api/runs":
+            runs_dir = os.path.join(v2_root, "runs")
+            runs_list = []
+            if os.path.exists(runs_dir):
+                for run_id in os.listdir(runs_dir):
+                    run_file = os.path.join(runs_dir, run_id, "run.yml")
+                    if os.path.exists(run_file):
+                        run_data = read_yaml(run_file)
+                        if run_data:
+                            runs_list.append(run_data)
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps(runs_list, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # REST API: Milestone Road Map Status
+        if self.path == "/api/milestones":
+            try:
+                milestones = read_milestones(v2_root)
+            except (OSError, json.JSONDecodeError) as exc:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": f"Core milestone state unavailable: {exc}"}, ensure_ascii=False).encode('utf-8'))
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps(milestones, ensure_ascii=False).encode('utf-8'))
+            return
+
+        # Serve static html page
+        if self.path == "/" or self.path == "/index.html":
+            html_path = os.path.join(v2_root, "dashboard.html")
+            if os.path.exists(html_path):
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.end_headers()
+                with open(html_path, 'r', encoding='utf-8') as f:
+                    self.wfile.write(f.read().encode('utf-8'))
+                return
+
+        self.send_response(404)
+        self.end_headers()
+
+def cmd_dashboard(args):
+    port = args.port
+    server_address = ('127.0.0.1', port)
+    httpd = HTTPServer(server_address, DashboardHTTPRequestHandler)
+    print(f"AI OS V2 Dashboard starting at http://127.0.0.1:{port} ...")
+    print("Press Ctrl+C to stop.")
+
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("\nStopping dashboard server.")
+        httpd.server_close()
+
+def main():
+    parser = argparse.ArgumentParser(description="AI OS V2 Core Command Line Interface")
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    run_parser = subparsers.add_parser("run", help="Manage V2 runs")
+    run_subparsers = run_parser.add_subparsers(dest="run_command", required=True)
+
+    # v2 run create
+    create_parser = run_subparsers.add_parser("create", help="Create a new run")
+    create_parser.add_argument("--project", required=True, help="Path to the target project directory")
+    create_parser.add_argument("--spec", required=True, help="Natural language request/spec description")
+    create_parser.add_argument("--type", choices=["feature", "change"], default="feature", help="Type of run")
+
+    # v2 run show
+    show_parser = run_subparsers.add_parser("show", help="Show details of a run")
+    show_parser.add_argument("run_id", help="The Run ID to inspect")
+
+    # v2 run pause
+    pause_parser = run_subparsers.add_parser("pause", help="Pause a run")
+    pause_parser.add_argument("run_id", help="The Run ID to pause")
+
+    # v2 run resume
+    resume_parser = run_subparsers.add_parser("resume", help="Resume a paused run")
+    resume_parser.add_argument("run_id", help="The Run ID to resume")
+
+    # v2 run fail
+    fail_parser = run_subparsers.add_parser("fail", help="Mark a run as failed")
+    fail_parser.add_argument("run_id", help="The Run ID to mark as failed")
+
+    # v2 run cancel
+    cancel_parser = run_subparsers.add_parser("cancel", help="Cancel a run")
+    cancel_parser.add_argument("run_id", help="The Run ID to cancel")
+
+    # v2 dashboard
+    dashboard_parser = subparsers.add_parser("dashboard", help="Start dashboard local web server")
+    dashboard_parser.add_argument("--port", type=int, default=8200, help="Local server port (default: 8200)")
+
+    args = parser.parse_args()
+
+    if args.command == "run":
+        if args.run_command == "create":
+            cmd_create(args)
+        elif args.run_command == "show":
+            cmd_show(args)
+        elif args.run_command == "pause":
+            update_run_status(args.run_id, "paused")
+        elif args.run_command == "resume":
+            update_run_status(args.run_id, "active")
+        elif args.run_command == "fail":
+            update_run_status(args.run_id, "failed")
+        elif args.run_command == "cancel":
+            update_run_status(args.run_id, "cancelled")
+    elif args.command == "dashboard":
+        cmd_dashboard(args)
+
+if __name__ == "__main__":
+    main()

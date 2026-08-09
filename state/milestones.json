@@ -1,0 +1,46 @@
+[
+  {
+    "id": "M1",
+    "name": "Run·Git 안전 기반",
+    "status": "completed",
+    "desc": "M1.1 독립 검증 12개 항목 PASS",
+    "verified_at": "2026-08-09",
+    "evidence": "M1.1 isolated verification: 12/12 PASS"
+  },
+  {
+    "id": "M2",
+    "name": "Spec과 승인 Gate",
+    "status": "pending",
+    "desc": "요구사항 승인 전 Plan 대기"
+  },
+  {
+    "id": "M3",
+    "name": "조건부 Design과 Plan/Tasks",
+    "status": "pending",
+    "desc": "Task 분해 및 UI/UX 디자인 시스템 검증"
+  },
+  {
+    "id": "M4",
+    "name": "Feature Run 완성",
+    "status": "pending",
+    "desc": "Rollback/Restore 검증 및 완성"
+  },
+  {
+    "id": "M5",
+    "name": "얇은 V2 UI",
+    "status": "pending",
+    "desc": "대시보드 및 Live Preview 통합"
+  },
+  {
+    "id": "M6",
+    "name": "Change Run",
+    "status": "pending",
+    "desc": "영향도 분석 및 회귀 검증"
+  },
+  {
+    "id": "M7",
+    "name": "MVP E2E",
+    "status": "pending",
+    "desc": "전체 플로우 유효성 종합 검증"
+  }
+]

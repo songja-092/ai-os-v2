@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI OS V2 — Milestone Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f1f5f9;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(15, 23, 42, 0.06);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --primary-accent: #0284c7; /* Sky */
+            --secondary-accent: #4f46e5; /* Indigo */
+            --success-color: #10b981;
+            --pending-color: #f59e0b;
+            --glow-color: rgba(2, 132, 199, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.04) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(2, 132, 199, 0.04) 0px, transparent 50%);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            width: 100%;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .system-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary-accent);
+            background: rgba(2, 132, 199, 0.06);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(2, 132, 199, 0.12);
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.5); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(2, 132, 199, 0); }
+            100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.06);
+            transition: border-color 0.3s ease;
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+            padding-bottom: 12px;
+        }
+
+        .progress-bar-container {
+            margin-bottom: 32px;
+            background: rgba(15, 23, 42, 0.02);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(15, 23, 42, 0.03);
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+
+        .progress-track {
+            height: 10px;
+            background: rgba(15, 23, 42, 0.05);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+            border-radius: 6px;
+            width: 14.3%;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .milestone-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .milestone-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 20px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            transition: all 0.2s ease;
+        }
+
+        .milestone-item.completed {
+            background: rgba(16, 185, 129, 0.03);
+            border-color: rgba(16, 185, 129, 0.08);
+        }
+
+        .milestone-item.active {
+            background: #ffffff;
+            border-color: var(--primary-accent);
+            box-shadow: 0 4px 20px var(--glow-color);
+            transform: scale(1.01);
+        }
+
+        .milestone-status-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            font-size: 13px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .completed .milestone-status-icon {
+            background: var(--success-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+        }
+
+        .active .milestone-status-icon {
+            background: var(--primary-accent);
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+
+        .pending .milestone-status-icon {
+            background: rgba(15, 23, 42, 0.04);
+            color: var(--text-secondary);
+            border: 1px dashed rgba(15, 23, 42, 0.1);
+        }
+
+        .milestone-info {
+            flex-grow: 1;
+        }
+
+        .milestone-info h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .milestone-item.pending h4 {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .milestone-info p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 3px;
+        }
+
+        .milestone-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .completed .milestone-badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+
+        .active .milestone-badge {
+            background: rgba(2, 132, 199, 0.1);
+            color: var(--primary-accent);
+        }
+
+        .pending .milestone-badge {
+            background: rgba(15, 23, 42, 0.04);
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+
+        <header>
+            <h1>AI OS V2</h1>
+            <div class="system-status">
+                <span class="pulse-dot"></span>
+                <span id="current-milestone-text">Core 상태 불러오는 중</span>
+            </div>
+        </header>
+
+        <div class="card">
+            <div class="card-title">
+                <span>프로젝트 진행 현황판</span>
+                <span style="font-size: 14px; color: var(--primary-accent); font-weight: 700;" id="milestone-percentage">—</span>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-label">
+                    <span>전체 마일스톤 달성도</span>
+                    <span id="progress-text">불러오는 중</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="milestone-list" id="milestones-container">
+                <!-- Milestones dynamic loading -->
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        async function loadMilestones() {
+            try {
+                const response = await fetch('/api/milestones');
+                const milestones = await response.json();
+                const container = document.getElementById('milestones-container');
+                container.innerHTML = '';
+
+                let completedCount = 0;
+                let activeMilestone = '';
+                let nextMilestone = '';
+
+                milestones.forEach(m => {
+                    const item = document.createElement('div');
+                    item.className = `milestone-item ${m.status}`;
+
+                    let iconText = '';
+                    let statusLabel = '';
+
+                    if (m.status === 'completed') {
+                        completedCount++;
+                        iconText = '✓';
+                        statusLabel = '완료';
+                    } else if (m.status === 'active') {
+                        iconText = '▶';
+                        statusLabel = '진행 중';
+                        activeMilestone = `${m.id} ${m.name}`;
+                    } else {
+                        iconText = '•';
+                        statusLabel = '대기';
+                        if (!nextMilestone) nextMilestone = `${m.id} ${m.name}`;
+                    }
+
+                    item.innerHTML = `
+                        <div class="milestone-status-icon">${iconText}</div>
+                        <div class="milestone-info">
+                            <h4>${m.id} — ${m.name}</h4>
+                            <p>${m.desc}</p>
+                        </div>
+                        <span class="milestone-badge">${statusLabel}</span>
+                    `;
+                    container.appendChild(item);
+                });
+
+                // Update Progress and text
+                const percent = Math.round((completedCount / milestones.length) * 100) + '%';
+                document.getElementById('progress-fill').style.width = (completedCount / milestones.length * 100) + '%';
+                document.getElementById('progress-text').innerText = `${completedCount} / ${milestones.length} 완료`;
+                document.getElementById('milestone-percentage').innerText = percent;
+
+                if (activeMilestone) {
+                    document.getElementById('current-milestone-text').innerText = `현재 진행: ${activeMilestone}`;
+                } else if (nextMilestone) {
+                    document.getElementById('current-milestone-text').innerText = `다음 단계: ${nextMilestone}`;
+                } else {
+                    document.getElementById('current-milestone-text').innerText = `모든 마일스톤 완료`;
+                }
+
+            } catch (error) {
+                console.error("Failed to load milestones:", error);
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadMilestones();
+            // Poll milestones status every 5 seconds
+            setInterval(loadMilestones, 5000);
+        });
+    </script>
+</body>
+</html>
