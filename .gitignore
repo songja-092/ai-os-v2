@@ -5,14 +5,11 @@
 *.pem
 *.key
 
-# Obsidian device-local state
-.obsidian/workspace.json
-.obsidian/workspace-mobile.json
-.obsidian/cache/
+# Obsidian device-local settings and plugins
+.obsidian/
 .trash/
 
 # Generated and dependency artifacts
 node_modules/
 dist/
 test-results/
-
