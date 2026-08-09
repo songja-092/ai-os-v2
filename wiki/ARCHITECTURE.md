@@ -107,6 +107,7 @@ Git Commit / Push
 | 디자인 시스템 제안 | UI UX Pro Max | 📝 승인됨, 미설치 |
 | 설계·독립 검증 | Codex | 사용 중 |
 | 실제 구현 | Antigravity | 수동 운영 방식 확정 |
+| 구현 최소화 규칙 | Ponytail | 🔨 파일럿 브랜치 설치, 실제 Task 미검증 |
 | 환경별 검증 | 프로젝트별 도구 | 💡 Target Environment에 따라 선택 |
 | 자동 오케스트레이션 | 없음 | 현재 필요하지 않음 |
 
