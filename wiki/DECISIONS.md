@@ -16,11 +16,52 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 ## Spec Kit 도입
 
 - 📝 승인됨: 자연어 요구사항을 구조화하는 기본 절차로 GitHub Spec Kit을 채택합니다.
-- 기본 절차는 `Specify → Clarify → Plan → Tasks → Analyze → Implement → Converge`로 사용합니다.
+- 사용자에게 보이는 기본 절차는 `Specify/Clarify → 요구사항 승인 → Plan/Tasks → 계획 승인 → Implement`로 사용합니다.
+- `Analyze`, `Converge` 등은 필요할 때 사용하는 내부 검증 수단이며 사용자 흐름의 고정 단계로 만들지 않습니다.
 - 최초 적용은 `codex/spec-kit-pilot` 시험 브랜치에서 수행하며 검증 전에는 `main`에 합치지 않습니다.
 - Codex를 현재 Spec Kit 기본 통합으로 사용합니다.
-- Antigravity는 직접 Skill 인식이 검증될 때까지 Spec Kit이 생성한 Markdown 산출물을 전달받습니다.
+- Antigravity는 Spec Kit을 직접 실행할 필요 없이 승인된 Markdown 산출물과 Codex 작업 지시서를 전달받아 수동으로 구현합니다.
 - 도입 전 복구 기준은 Git 태그 `rollback/before-spec-kit-20260809`입니다.
+
+## V1 사용 경계
+
+- 기존 `/home/user/바탕화면/ai_os`는 요구사항, UX 흐름과 실패 원인을 분석하는 참고 자료로만 사용합니다.
+- V1의 Kernel, Collector, Truth Guard, UI와 테스트 코드는 V2로 자동 이식하지 않습니다.
+- V1에 존재한다는 사실만으로 V2에 적용되었거나 검증된 것으로 기록하지 않습니다.
+
+## Agent 역할과 권한
+
+- 웹 ChatGPT는 아이디어 조사와 정리를 담당하며 구현 완료를 판정하지 않습니다.
+- Codex는 저장소 기반 설계, 작업 범위 작성과 독립 검증을 담당합니다.
+- Antigravity는 기본적으로 수동 구현 Agent로 사용합니다.
+- Antigravity의 파일 변경, 명령 실행, 설치, 외부 연결, 배포 및 Commit은 사용자가 범위를 확인할 수 있어야 합니다.
+- V2는 특정 구현 Agent에 종속되지 않으며 Antigravity를 Codex 또는 다른 Agent로 교체할 수 있는 Markdown 작업 지시서를 사용합니다.
+
+## 저장과 복구
+
+- 사용자에게 보이는 `저장`의 공식 의미는 승인된 변경의 Git Commit입니다.
+- 새 부품을 도입하기 전 기준 Commit 또는 복구 태그를 남깁니다.
+- 파일럿은 별도 브랜치에서 수행하고 검증 실패 시 `main`을 변경하지 않습니다.
+- AI OS V2 Wiki의 확정 SHA를 `Base Memory Commit`으로 기록하고, 실제 프로젝트 구현 결과의 `Result Commit`과 구분합니다.
+- 실제 프로젝트의 Result Commit은 Codex 검증과 사용자 실물 최종 승인 이후에만 생성합니다.
+- Rollback 시험은 `Result Commit → 이전 Commit 정상 확인 → Result Commit 복구 → 결과 재실행 확인`까지 수행합니다.
+
+## 디자인 파일럿
+
+- 📝 승인됨: UI UX Pro Max를 디자인 단계 핵심 파일럿 부품으로 채택합니다.
+- 디자인은 UI/UX가 필요한 프로젝트에서만 거치는 조건부 단계입니다.
+- 디자인 단계는 특정 도구에 종속되지 않습니다. 현재 기본 파일럿 부품은 UI UX Pro Max이며, 향후 검증된 Skill·오픈소스·MCP로 추가하거나 교체할 수 있습니다.
+- UI UX Pro Max는 디자인 스타일, 색상, 글꼴, 레이아웃과 UX 규칙을 제안하며 최종 디자인을 결정하지 않습니다.
+- 사용자가 디자인 결과를 직접 확인하고 선택하기 전에는 구현 단계로 넘어가지 않습니다.
+- 최초 도입은 별도 브랜치, 고정 버전과 도입 전 복구점으로 수행합니다.
+- Antigravity는 승인된 디자인 결과와 Codex 작업 지시서를 전달받아 수동으로 구현합니다.
+
+## 대상 환경과 검증
+
+- 각 프로젝트의 Spec에서 `Target Environment`를 먼저 확정합니다.
+- 대상 환경은 Web, Android, iOS, Desktop, CLI, API, Server 또는 기타가 될 수 있습니다.
+- Design과 Verification 도구는 Target Environment에 맞게 조건부로 선택합니다.
+- Playwright는 웹 프로젝트의 검증 후보이며 V2 전체의 고정 테스트 엔진이 아닙니다.
 
 ## 공통 상태 언어
 
