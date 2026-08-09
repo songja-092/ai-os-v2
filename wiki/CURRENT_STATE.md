@@ -14,8 +14,8 @@
 
 ## 공식 기억 동기화 상태
 
-- 이 문서 변경 전 기준 `main`은 `66bd89b1542ffa4364259ad6e47b5705fb7f0eed`이며 로컬 HEAD와 `origin/main`이 일치함을 확인했습니다.
-- 새 설계 Commit/Push 후 그 SHA를 다음 M1 작업의 `Base Memory Commit`으로 사용합니다.
+- 현재 설계 기준 `main`은 `d85c9482c14b6bda70cea4dda3b5dae9df883aed`이며 로컬 HEAD와 `origin/main`이 일치함을 확인했습니다.
+- 이번 문서 보완 Commit/Push 후 새 SHA를 다음 M1 작업의 `Base Memory Commit`으로 사용합니다.
 
 ## 디자인 파일럿 상태
 
@@ -45,3 +45,4 @@
 - 첫 MVP는 활성 Run 하나만 지원하며 별도 DB와 전용 UI를 만들지 않습니다.
 - M1~M4에서 실제 Core Workflow를 먼저 검증하고, M5에서 그 실제 상태만 읽는 얇은 V2 UI를 구현합니다.
 - 병원 웹은 M4 Feature Run의 실제 결과물로 사용하고, 예약 버튼 수정은 M6 Change Run에서 검증합니다.
+- 각 마일스톤은 실제 PASS 증거가 생긴 뒤 `CURRENT_STATE.md` 갱신안을 만들고 사용자 승인 후 Commit/Push합니다. Obsidian은 같은 로컬 파일을 사용하므로 승인된 변경을 즉시 표시합니다.
