@@ -1,31 +1,31 @@
 # Current State
 
-현재 단계는 V2 개발 기반과 최초 파일럿 작업을 확정하는 단계입니다. Kernel, Planner, Collector, Multi-Agent 및 V2 UI는 구현하지 않습니다.
+현재 단계는 V2 MVP 설계를 닫고 `M1 — Run·Git 안전 기반` 구현을 시작하기 직전입니다. Kernel, Planner, Collector, Multi-Agent 및 자체 실행 엔진은 구현하지 않습니다.
 
 이전 지식 연결 시험 기록은 존재하지만, 파일럿 시작 기준인 네 연결의 Repository, Branch, Commit SHA와 실제 증거를 한 보고서에서 최종 확인해야 합니다.
 
 ## Spec Kit 도입 상태
 
-- 🔨 구현됨: `codex/spec-kit-pilot` 브랜치에 GitHub Spec Kit `v0.16.1` 기반을 설치했습니다.
+- 🔨 구현됨: GitHub Spec Kit `v0.16.1` 기반이 현재 `main`에 설치되어 있습니다.
 - 🔨 구현됨: 기존 V2 원칙을 `.specify/memory/constitution.md`에 연결했습니다.
 - ✅ 검증됨: Spec Kit Codex 통합의 관리 파일 상태 검사가 오류와 누락 없이 통과했습니다.
-- 확인 필요: 완전히 새로운 Codex 세션에서 프로젝트 Skill 자동 인식 확인.
-- 미실행: 실제 기능의 Spec → Plan → Tasks → Implement 왕복 시험.
+- ✅ 검증됨: 현재 설치된 Workflow가 Run, Status, Resume, 승인 Gate와 `Specify → Plan → Tasks → Implement` 단계를 제공함을 실제 CLI와 Workflow 정의에서 확인했습니다.
+- 확인 필요: Clarify, 조건부 Design, Manual Agent 대기, 독립 검증과 Git 복구 단계를 하나의 V2 Workflow로 연결하는 최소 설정.
 
 ## 공식 기억 동기화 상태
 
-- 확인 필요: 현재 로컬 Wiki 수정본을 사용자 승인 후 Commit/Push하여 GitHub `main`과 일치시켜야 합니다.
-- 확인 필요: 파일럿 시작 시 ChatGPT, Codex, Antigravity가 같은 `Base Memory Commit`을 읽었다는 증거를 남겨야 합니다.
+- 이 문서 변경 전 기준 `main`은 `66bd89b1542ffa4364259ad6e47b5705fb7f0eed`이며 로컬 HEAD와 `origin/main`이 일치함을 확인했습니다.
+- 새 설계 Commit/Push 후 그 SHA를 다음 M1 작업의 `Base Memory Commit`으로 사용합니다.
 
 ## 디자인 파일럿 상태
 
 - 📝 승인됨: UI UX Pro Max를 디자인 단계 핵심 파일럿 부품으로 채택했습니다.
 - 미설치: 별도 파일럿 브랜치와 도입 전 복구점을 확인한 뒤 고정 버전으로 시험합니다.
-- 미실행: 디자인 시스템 제안, 사용자 디자인 선택과 Target Environment 실제 결과 검증.
+- 확인 필요: 실제 설치·출처·버전·라이선스와 디자인 시스템 결과 검증. Product Design + ImageGen으로 만든 기존 병원 웹 이미지는 비교 참고자료이며 UI UX Pro Max 검증 결과가 아닙니다.
 
 ## Ponytail 도입 상태
 
-- 🔨 구현됨: `codex/ponytail-pilot` 브랜치에 공식 Ponytail Skill을 프로젝트 단위로 설치했습니다.
+- 🔨 구현됨: 공식 Ponytail Skill이 현재 `main`에 프로젝트 단위로 설치되어 있습니다.
 - 설치 기준: `DietrichGebert/ponytail` Commit `2ed6c52c9d7e5e56942508591085fd45dea277d3`.
 - 적용 수준: 첫 파일럿은 `lite`로 사용합니다.
 - 확인 필요: 새로운 Codex 작업에서 프로젝트 Skill 자동 인식과 실제 코드 변경 품질 검증.
@@ -39,8 +39,9 @@
 - 구현 Agent가 보고한 완료를 그대로 공식 사실로 저장하지 않습니다. 실제 결과와 검증 증거를 확인한 뒤 승인된 변경만 Git에 저장합니다.
 - 기존 `ai_os`는 참고 자료이며 V2 코드 재사용 원본이 아닙니다.
 
-## 다음 검증 대상
+## 확정된 다음 단계
 
-- 작은 실제 프로젝트 한 개에서 `요청 → Spec → 구현 지시 → Antigravity 구현 → 실행/브라우저 검증 → 승인 → Commit → Rollback` 왕복 시험
-- 첫 실제 코딩 Task에서 Ponytail `lite`가 불필요한 파일·코드·의존성을 줄이면서 완료 조건과 안전 기준을 유지하는지 확인
-- Spec Kit 파일럿 결과를 근거로 `main` 채택 또는 롤백 결정
+- M1에서 Spec Kit Workflow Run ID를 우선 재사용하여 Run, 대상 Project, `Base Memory Commit`, `Base Project Commit`, 상태와 재개 지점을 연결합니다.
+- 첫 MVP는 활성 Run 하나만 지원하며 별도 DB와 전용 UI를 만들지 않습니다.
+- M1~M4에서 실제 Core Workflow를 먼저 검증하고, M5에서 그 실제 상태만 읽는 얇은 V2 UI를 구현합니다.
+- 병원 웹은 M4 Feature Run의 실제 결과물로 사용하고, 예약 버튼 수정은 M6 Change Run에서 검증합니다.

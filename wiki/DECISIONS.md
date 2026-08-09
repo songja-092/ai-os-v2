@@ -18,7 +18,7 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - 📝 승인됨: 자연어 요구사항을 구조화하는 기본 절차로 GitHub Spec Kit을 채택합니다.
 - 사용자에게 보이는 기본 절차는 `Specify/Clarify → 요구사항 승인 → Plan/Tasks → 계획 승인 → Implement`로 사용합니다.
 - `Analyze`, `Converge` 등은 필요할 때 사용하는 내부 검증 수단이며 사용자 흐름의 고정 단계로 만들지 않습니다.
-- 최초 적용은 `codex/spec-kit-pilot` 시험 브랜치에서 수행하며 검증 전에는 `main`에 합치지 않습니다.
+- Spec Kit `v0.16.1` 기반과 Codex 통합은 현재 `main`에 반영되어 있습니다. V2 전체 Workflow 연결과 실제 Feature Run은 아직 미구현·미검증입니다.
 - Codex를 현재 Spec Kit 기본 통합으로 사용합니다.
 - Antigravity는 Spec Kit을 직접 실행할 필요 없이 승인된 Markdown 산출물과 Codex 작업 지시서를 전달받아 수동으로 구현합니다.
 - 도입 전 복구 기준은 Git 태그 `rollback/before-spec-kit-20260809`입니다.
@@ -62,6 +62,29 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - 대상 환경은 Web, Android, iOS, Desktop, CLI, API, Server 또는 기타가 될 수 있습니다.
 - Design과 Verification 도구는 Target Environment에 맞게 조건부로 선택합니다.
 - Playwright는 웹 프로젝트의 검증 후보이며 V2 전체의 고정 테스트 엔진이 아닙니다.
+
+## V2 Core와 Run
+
+- 📝 승인됨: V2 Core는 AI 모델이나 새 Kernel이 아니라 기존 도구의 실행 순서, 승인 Gate, 결과 참조, 증거와 Git 복구점을 한 Run으로 연결하는 Workflow입니다.
+- 가능한 경우 Spec Kit Workflow의 Run ID, Status, Resume와 Gate를 그대로 사용합니다. 별도 Run 엔진이나 ID 생성기를 먼저 만들지 않습니다.
+- 첫 MVP는 `Feature Run`과 `Change Run` 두 종류 및 활성 Run 하나만 지원합니다.
+- Run에는 Spec·Design·Plan 본문을 복제하지 않고 실제 산출물 경로와 Commit SHA를 참조합니다.
+- `Base Memory Commit`, `Base Project Commit`, `Result Project Commit`, 검증된 Run을 Wiki에 반영한 `V2 State Commit`을 구분합니다.
+- 외부 AI 유료 API는 MVP 필수 조건으로 사용하지 않습니다. 기존 도구의 로컬 CLI, 파일과 프로세스 연결은 허용합니다.
+
+## Manual Agent Adapter
+
+- Antigravity 자동 호출은 현재 검증되지 않았으므로 초기 V2는 수동 전달을 공식 상태로 지원합니다.
+- 전달 자료에는 Run ID, 프로젝트 경로, 작업 Branch, Base Project Commit, 승인된 Tasks, 수정 허용·금지 범위, 허용 명령과 검증 방법을 포함합니다.
+- 회수 자료에는 Run ID, 변경 파일, 실행 명령과 결과, 미해결 문제와 Git diff를 포함합니다.
+- Antigravity 보고만으로 Task를 `✅ 검증됨`으로 바꾸지 않습니다.
+
+## UI와 복구 안전
+
+- M1~M4에서는 전용 V2 UI를 구현하지 않고 Spec Kit 상태와 Obsidian의 Run 기록으로 Core를 검증합니다.
+- V2 UI는 M5에서 실제 Core Workflow 상태를 읽고 승인 시 같은 Run을 Resume하는 얇은 인터페이스로 구현합니다.
+- MVP 웹 Preview는 사용자가 승인한 `localhost` 또는 `127.0.0.1` 개발 서버 하나만 지원합니다. Phone·Tablet·Desktop 전환은 MVP 범위에서 제외합니다.
+- Rollback/Restore 검증은 사용자의 현재 작업 폴더를 변경하지 않도록 별도 임시 `git worktree`에서 수행합니다.
 
 ## Ponytail 파일럿
 

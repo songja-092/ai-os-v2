@@ -9,58 +9,33 @@ Obsidian/Wiki <-> GitHub main -> Archify
 
 GitHub `main`이 공식 원본입니다. Obsidian은 같은 Markdown을 읽고 편집하는 인터페이스이며 Archify는 원본이 아니라 특정 commit에서 만들어지는 파생 결과입니다.
 
-## V2 작업 운영 구조
+## V2 Core 구조
 
 ```text
 사용자
-  |
-  | 아이디어와 원하는 결과
+  | 자연어 요청
   v
-웹 ChatGPT
-  | 조사 결과와 정리된 요구
+Spec Kit Workflow 기반 V2 Core
+  | Run ID / Base Commit / 상태
+  | Specify / Clarify / 승인 Gate
+  | 조건부 Research / Design
+  | Plan / Tasks / 승인 Gate
   v
-Codex + Spec Kit
-  | 실제 저장소 조사
-  | Specify / Clarify
+Manual Agent Adapter
+  | Antigravity 작업 지시서
+  | 사용자 전달 및 권한 승인
+  | 구현 결과 회수
   v
-사용자 요구사항 승인
-  |
+V2 Core Resume
+  | Codex 독립 검증
+  | 사용자 실물 확인과 최종 승인
+  | Result Commit
+  | 별도 worktree Rollback / Restore
   v
-Target Environment 결정
-  |
-  v
-Design 필요 여부
-  | UI/UX가 필요한 경우에만
-  v
-UI UX Pro Max
-  | 디자인 시스템 제안
-  v
-사용자 디자인 승인
-  |
-  v
-Codex
-  | Plan / Tasks
-  | 기술 검토와 Antigravity 작업 지시서
-  v
-사용자 승인
-  |
-  v
-Antigravity (수동 구현)
-  | 파일 변경과 명령별 사용자 권한 확인
-  | Build / Lint / Test 결과
-  v
-Codex 독립 검증
-  | 실제 파일·명령·브라우저 증거
-  v
-사용자 실물 확인과 최종 승인
-  |
-  v
-Git Commit / Push
-  |
-  +--> Wiki 현재 상태와 결정
-  +--> Archify 구조 시각화
-  `--> Rollback 기준점
+Run 종료와 승인된 Wiki 갱신
 ```
+
+V2 Core는 AI를 직접 호출하는 새 오케스트레이터가 아닙니다. Spec Kit의 기존 Workflow 엔진을 우선 사용하고, 빠진 단계의 순서·Gate·외부 결과 참조만 최소 연결합니다.
 
 ## 사용자에게 보이는 흐름
 
@@ -88,6 +63,25 @@ Git Commit / Push
 12. **Save**: 승인된 한 변경을 Commit/Push하고 Wiki와 시각화가 해당 SHA를 가리키게 합니다.
 13. **Recover**: 이전 Commit을 확인한 뒤 결과 Commit으로 복구하고 재실행합니다.
 
+각 단계는 `running`, `waiting_user`, `waiting_agent`, `blocked`, `failed`, `completed`, `cancelled` 중 하나의 실제 상태를 가집니다. 실패하거나 중단된 Run은 원인과 재개 지점을 남깁니다.
+
+## Run 기록 경계
+
+- V2 저장소는 공식 기억과 Workflow 연결 정의를 보관합니다.
+- 제작 프로젝트 저장소는 실제 소프트웨어와 Result Commit을 보관합니다.
+- Spec Kit 산출물은 원본 경로를 참조하고 Run 기록에 복제하지 않습니다.
+- 첫 MVP는 활성 Run 하나만 지원하고 DB를 사용하지 않습니다.
+
+## 구현 마일스톤
+
+1. **M1 — Run·Git 안전 기반**: Workflow Run ID, Project, 두 Base Commit, Branch, 상태·중단·재개를 연결합니다.
+2. **M2 — Spec과 승인 Gate**: 실제 Specify/Clarify 결과가 승인 전 멈추고 승인 후 같은 Run에서 재개되는지 검증합니다.
+3. **M3 — 조건부 Design과 Plan/Tasks**: 필요한 단계만 실행하고 승인된 Tasks를 생성합니다.
+4. **M4 — Feature Run 완성**: Manual Agent Handoff, 구현 결과 회수, 독립 검증, 사용자 승인, Result Commit과 안전한 Rollback/Restore를 병원 웹에서 검증합니다.
+5. **M5 — 얇은 V2 UI**: M1~M4의 실제 상태와 산출물을 읽고 승인·Resume와 웹 Live Preview를 제공합니다.
+6. **M6 — Change Run**: 기존 결과의 작은 수정에서 필요한 단계만 실행하고 회귀 검증과 새 Commit을 만듭니다.
+7. **M7 — MVP E2E**: V2 UI에서 병원 웹 Feature Run과 예약 버튼 Change Run을 실제로 완료합니다.
+
 ## 증거 규칙
 
 - 아이디어나 화면 예시는 실제 구현과 분리하여 표시합니다.
@@ -103,12 +97,14 @@ Git Commit / Push
 | 공식 기억과 버전 | GitHub + Wiki | ✅ 연결 검증 기록 존재 |
 | 사람용 편집 | Obsidian | ✅ 연결 검증 기록 존재 |
 | 구조 시각화 | Archify | 연결 검증 증거 재확인 필요 |
-| 자연어 명세 | Spec Kit | 🔨 시험 브랜치 적용, 실제 기능 왕복 미검증 |
+| 자연어 명세 | Spec Kit | 🔨 `main` 적용, 실제 Feature Run 미검증 |
 | 디자인 시스템 제안 | UI UX Pro Max | 📝 승인됨, 미설치 |
 | 설계·독립 검증 | Codex | 사용 중 |
 | 실제 구현 | Antigravity | 수동 운영 방식 확정 |
-| 구현 최소화 규칙 | Ponytail | 🔨 파일럿 브랜치 설치, 실제 Task 미검증 |
+| 구현 최소화 규칙 | Ponytail | 🔨 `main` 설치, 실제 Task 미검증 |
 | 환경별 검증 | 프로젝트별 도구 | 💡 Target Environment에 따라 선택 |
-| 자동 오케스트레이션 | 없음 | 현재 필요하지 않음 |
+| Core Workflow | Spec Kit Workflow | 🔨 기본 Run/Gate/Resume 존재, V2 전체 연결 미구현 |
+| V2 UI | 없음 | M5 이전에는 구현하지 않음 |
+| 자동 AI 호출 | 없음 | MVP 필수 아님, Manual Agent Adapter 사용 |
 
-Kernel, Planner, Collector, Multi-Agent와 V2 전용 UI는 현재 아키텍처의 필수 구성요소가 아닙니다. 반복 작업에서 실제 필요가 증명되기 전에는 만들지 않습니다.
+Kernel, Planner, Collector, Multi-Agent와 자체 실행 엔진은 현재 아키텍처의 필수 구성요소가 아닙니다. V2 UI는 Core를 대신하지 않으며 M1~M4에서 검증된 실제 상태를 M5에서 보여주는 인터페이스입니다.
