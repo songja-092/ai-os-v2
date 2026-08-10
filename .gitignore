@@ -13,3 +13,8 @@
 node_modules/
 dist/
 test-results/
+
+# AI OS V2 Generated files
+runs/
+specs/
+.specify/workflows/runs/

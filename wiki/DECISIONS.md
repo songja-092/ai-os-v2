@@ -135,3 +135,11 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - ✅ 검증됨: 실제 동작을 확인했고 그 증거가 존재하는 상태입니다.
 
 구현 전에는 구현됐다고 표현하지 않습니다. 실제 검증 전에는 `PASS`, `완료`, `검증됨`이라고 표현하지 않습니다. 직접 확인하지 못한 내용은 `확인 필요`라고 표현합니다.
+
+## M2 요구사항 정리 및 승인 Gate 구현 (M2.0)
+
+- ✅ 검증됨: 자연어 제작 요청을 받아 `specify workflow run speckit`을 비동기로 실행하고 생성된 Run ID를 `run.yml`에 바인딩하는 Intake 단계를 구현 및 검증 완료했습니다.
+- ✅ 검증됨: sandbox mode overriding 및 approvals bypass를 위해 wrapper `bin/codex` 스크립트를 사용하여 `--dangerously-bypass-approvals-and-sandbox`를 전달하게 하여, Codex가 샌드박스 제약과 대화형 승인 대기 없이 명세서를 안전하고 빠르게 자동 작성할 수 있도록 구축 및 검증했습니다.
+- ✅ 검증됨: 요구사항 수정 요청 시 (`v2 spec modify`) 이전 버전의 백업본(`spec.md.v{N}`)을 생성하고, version을 1 증가시키며, 이전 승인은 `pending`으로 리셋되고 변경 전후 diff를 화면에 보여주는 수정 흐름을 구현 및 검증했습니다.
+- ✅ 검증됨: 최종 요구사항 승인 시 (`v2 spec approve`) `requirements_status: "approved"`, `next_stage_allowed: true`로 상태 전이가 일어나고 백그라운드 workflow run을 resume 시켜 다음 단계(Plan 등)로 정상 진입하게 하는 승인 Gate 흐름을 구현 및 검증했습니다.
+

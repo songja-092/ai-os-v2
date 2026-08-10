@@ -1,8 +1,8 @@
 # Current State
 
-현재 단계는 `M1 — Run·Git 안전 기반`의 M1.1 기술 검증을 완료하고 M2 착수를 준비하는 단계입니다. M1.1 필수 확인 12개 항목은 격리 환경의 실제 실행에서 PASS했고, 검증된 구현은 Branch `antigravity/v2-m1-run-core`의 Commit `28af3fff7eb9bd9b809218cf6bb70e548a759661`에 저장했습니다. 새 User Scenario 규칙은 M1.1에 소급 적용하지 않습니다. Kernel, Planner, Collector, Multi-Agent 및 자체 실행 엔진은 구현하지 않습니다.
+현재 단계는 `M2 — 요구사항 정리 및 승인 Gate`의 M2.0 기술 검증 및 구현을 완료한 단계입니다. M2.0 필수 요구사항(자연어 제작 요청 바인딩, 승인 전 차단, 수정 요청 diff 표시 및 버전/승인 리셋, 최종 승인 후 전이 및 resume)이 정상 작동함을 실제 환경 실행에서 PASS했고, 검증된 구현은 Branch `antigravity/v2-m1-run-core`에 저장했습니다.
 
-V2 Core 현황판의 M1 상태는 실제 검증 결과를 근거로 `completed`이며 M2~M7은 `pending`입니다. 이 상태와 후속 Wiki 보완 Commit은 아직 GitHub `main`에 반영되지 않았습니다.
+V2 Core 현황판의 M1 및 M2 상태는 실제 검증 결과를 근거로 `completed`이며 M3~M7은 `pending`입니다. 이 상태와 후속 Wiki 보완 Commit은 아직 GitHub `main`에 반영되지 않았습니다.
 
 ## Spec Kit 도입 상태
 
@@ -10,7 +10,8 @@ V2 Core 현황판의 M1 상태는 실제 검증 결과를 근거로 `completed`�
 - 🔨 구현됨: 기존 V2 원칙을 `.specify/memory/constitution.md`에 연결했습니다.
 - ✅ 검증됨: Spec Kit Codex 통합의 관리 파일 상태 검사가 오류와 누락 없이 통과했습니다.
 - ✅ 검증됨: 현재 설치된 Workflow가 Run, Status, Resume, 승인 Gate와 `Specify → Plan → Tasks → Implement` 단계를 제공함을 실제 CLI와 Workflow 정의에서 확인했습니다.
-- 확인 필요: Clarify, 조건부 Design, Manual Agent 대기, 독립 검증과 Git 복구 단계를 하나의 V2 Workflow로 연결하는 최소 설정.
+- ✅ 검증됨: `bin/codex` wrapper를 통해 샌드박스를 우회하고 approvals를 bypass(`--dangerously-bypass-approvals-and-sandbox`)하여, Spec Kit이 샌드박스 중단 없이 기능 명세서를 한 번에 자동 작성할 수 있도록 구축 및 검증을 완료했습니다.
+- ✅ 검증됨: `v2 spec modify` 및 `v2 spec approve` 등 요구사항 승인 Gate와 다음 단계 전이를 V2 Core에 연동 및 검증 완료했습니다.
 
 ## 공식 기억 동기화 상태
 

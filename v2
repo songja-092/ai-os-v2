@@ -5,6 +5,8 @@ import subprocess
 import argparse
 import uuid
 import json
+import time
+import difflib
 from datetime import datetime, timezone
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
@@ -162,7 +164,38 @@ def cmd_create(args):
     # 4. Generate unique Run ID (8-char hex UUID)
     run_id = f"run-{uuid.uuid4().hex[:8]}"
 
-    # 5. Create Run record (M1.1 Schema)
+    # Run specify workflow run to kick off spec generation in the background
+    env = os.environ.copy()
+    bin_path = os.path.join(project_path, "bin")
+    if os.path.exists(bin_path):
+        env["PATH"] = f"{bin_path}:{env.get('PATH', '')}"
+    env["CODEX_SANDBOX"] = "workspace-write"
+
+    runs_dir = os.path.join(project_path, ".specify", "workflows", "runs")
+    existing_runs = set()
+    if os.path.exists(runs_dir):
+        existing_runs = set(os.listdir(runs_dir))
+
+    print("요청을 받았습니다. 요구사항을 정리하고 있습니다...")
+    cmd = f'specify workflow run speckit --input spec="{args.spec}" --json'
+    proc = subprocess.Popen(cmd, shell=True, cwd=project_path, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    # Wait a bit for the specify command to bootstrap and create the run folder
+    time.sleep(3.0)
+
+    new_workflow_run_id = None
+    if os.path.exists(runs_dir):
+        current_runs = set(os.listdir(runs_dir))
+        new_runs = current_runs - existing_runs
+        if new_runs:
+            new_workflow_run_id = list(new_runs)[0]
+        else:
+            run_folders = [f for f in os.listdir(runs_dir) if os.path.isdir(os.path.join(runs_dir, f))]
+            if run_folders:
+                run_folders.sort(key=lambda x: os.path.getmtime(os.path.join(runs_dir, x)), reverse=True)
+                new_workflow_run_id = run_folders[0]
+
+    # 5. Create Run record (M2.0 Schema)
     run_data = {
         "run_id": run_id,
         "run_type": args.type,
@@ -171,6 +204,15 @@ def cmd_create(args):
         "status": "created",
         "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "git_safety_at_creation": "PASS",
+        "requirements_version": 1,
+        "requirements_status": "awaiting_user_review",
+        "requirements_artifact": None,
+        "approval": {
+            "status": "pending",
+            "approved_version": None,
+            "approved_at": None
+        },
+        "next_stage_allowed": False,
         "memory": {
             "official_branch": "main",
             "official_commit": base_memory_commit_official
@@ -186,7 +228,7 @@ def cmd_create(args):
         },
         "integrations": {
             "spec_kit": {
-                "workflow_run_id": None
+                "workflow_run_id": new_workflow_run_id
             }
         }
     }
@@ -195,7 +237,7 @@ def cmd_create(args):
     write_yaml(run_file, run_data)
 
     # 6. Output Verification
-    print("AI OS V2 — M1.1\n")
+    print("AI OS V2 — M2.0\n")
     print(f"Run ID:\n{run_id}\n")
     print(f"Request:\n{args.spec}\n")
     print(f"Project Path:\n{project_path}\n")
@@ -244,7 +286,7 @@ def cmd_show(args):
     memory_info = run_data.get("memory", {})
     workspace_info = run_data.get("v2_workspace", {})
 
-    print("AI OS V2 — M1.1\n")
+    print("AI OS V2 — M2.0\n")
     print(f"Run ID:\n{run_data.get('run_id')}\n")
     print(f"Request:\n{run_data.get('request')}\n")
     print(f"Project Path:\n{project_path}\n")
@@ -259,7 +301,193 @@ def cmd_show(args):
     print(f"Stage:\n{stage}\n")
     print(f"Status:\n{status}\n")
     print(f"Git Safety at Creation:\n{run_data.get('git_safety_at_creation')}\n")
-    print(f"Git Safety Now:\n{git_safety_now}")
+    print(f"Git Safety Now:\n{git_safety_now}\n")
+
+    # M2: 요구사항 명세 상태 표시
+    req_status = run_data.get("requirements_status", "unknown")
+    req_version = run_data.get("requirements_version", 1)
+    print(f"Requirements Version:\n{req_version}\n")
+    print(f"Requirements Status:\n{req_status}\n")
+
+    approval_info = run_data.get("approval", {})
+    app_status = approval_info.get("status", "pending")
+    app_version = approval_info.get("approved_version")
+    app_at = approval_info.get("approved_at")
+    
+    print("Approval:")
+    print(f"  Status: {app_status}")
+    print(f"  Approved Version: {app_version}")
+    print(f"  Approved At: {app_at}\n")
+    
+    next_allowed = run_data.get("next_stage_allowed", False)
+    print(f"Next Stage Allowed:\n{next_allowed}\n")
+
+    spec_path = get_spec_path(project_path)
+    if spec_path and os.path.exists(spec_path):
+        print(f"--- [Specification Details ({spec_path})] ---")
+        try:
+            with open(spec_path, "r", encoding="utf-8") as sf:
+                lines = sf.readlines()
+                show_lines = lines[:80]
+                print("".join(show_lines))
+                if len(lines) > 80:
+                    print("... (truncated, run 'v2 spec show' to view full details) ...")
+        except Exception as e:
+            print(f"Failed to read specification: {e}")
+
+def get_spec_path(project_path):
+    if not project_path:
+        return None
+    feature_json_path = os.path.join(project_path, ".specify", "feature.json")
+    if os.path.exists(feature_json_path):
+        try:
+            with open(feature_json_path, "r", encoding="utf-8") as fj:
+                f_data = json.load(fj)
+                feat_dir = f_data.get("feature_directory")
+                if feat_dir:
+                    return os.path.join(project_path, feat_dir, "spec.md")
+        except Exception:
+            pass
+    return None
+
+def cmd_spec_show(args):
+    v2_root = os.path.dirname(os.path.abspath(__file__))
+    run_file = os.path.join(v2_root, "runs", args.run_id, "run.yml")
+    if not os.path.exists(run_file):
+        print(f"Error: Run '{args.run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+    
+    run_data = read_yaml(run_file)
+    project_path = run_data.get("project", {}).get("path")
+    spec_path = get_spec_path(project_path)
+    
+    if not spec_path or not os.path.exists(spec_path):
+        print("Error: Specification file not found yet. It may still be generating.", file=sys.stderr)
+        sys.exit(1)
+        
+    print(f"=== Specification Version {run_data.get('requirements_version')} ===")
+    print(f"Path: {spec_path}\n")
+    with open(spec_path, "r", encoding="utf-8") as f:
+        print(f.read())
+
+def cmd_spec_modify(args):
+    v2_root = os.path.dirname(os.path.abspath(__file__))
+    run_file = os.path.join(v2_root, "runs", args.run_id, "run.yml")
+    if not os.path.exists(run_file):
+        print(f"Error: Run '{args.run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+        
+    run_data = read_yaml(run_file)
+    project_path = run_data.get("project", {}).get("path")
+    spec_path = get_spec_path(project_path)
+    
+    if not spec_path or not os.path.exists(spec_path):
+        print("Error: Specification file not found yet.", file=sys.stderr)
+        sys.exit(1)
+        
+    with open(spec_path, "r", encoding="utf-8") as f:
+        old_content = f.read()
+        
+    version = run_data.get("requirements_version", 1)
+    backup_path = f"{spec_path}.v{version}"
+    with open(backup_path, "w", encoding="utf-8") as f:
+        f.write(old_content)
+        
+    feedback_section = f"\n\n## Feedback & Modifications (Version {version + 1})\n- Requested changes: {args.comment}\n- Date: {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}\n"
+    new_content = old_content + feedback_section
+    with open(spec_path, "w", encoding="utf-8") as f:
+        f.write(new_content)
+        
+    run_data["requirements_version"] = version + 1
+    run_data["requirements_status"] = "awaiting_user_review"
+    run_data["approval"] = {
+        "status": "pending",
+        "approved_version": None,
+        "approved_at": None
+    }
+    run_data["next_stage_allowed"] = False
+    write_yaml(run_file, run_data)
+    
+    print(f"Success: Specification updated to Version {version + 1}.\n")
+    print("=== Diff (Before vs After Modification) ===")
+    diff = difflib.unified_diff(
+        old_content.splitlines(keepends=True),
+        new_content.splitlines(keepends=True),
+        fromfile=f"spec.md (v{version})",
+        tofile=f"spec.md (v{version+1})"
+    )
+    sys.stdout.writelines(diff)
+
+def cmd_spec_approve(args):
+    v2_root = os.path.dirname(os.path.abspath(__file__))
+    run_file = os.path.join(v2_root, "runs", args.run_id, "run.yml")
+    if not os.path.exists(run_file):
+        print(f"Error: Run '{args.run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+        
+    run_data = read_yaml(run_file)
+    workflow_run_id = run_data.get("integrations", {}).get("spec_kit", {}).get("workflow_run_id")
+    project_path = run_data.get("project", {}).get("path")
+    
+    version = run_data.get("requirements_version", 1)
+    
+    run_data["requirements_status"] = "approved"
+    run_data["approval"] = {
+        "status": "approved",
+        "approved_version": version,
+        "approved_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    }
+    run_data["next_stage_allowed"] = True
+    write_yaml(run_file, run_data)
+    
+    print(f"요구사항 승인됨 (Run ID: {args.run_id})")
+    print(f"동일 Run ID: {args.run_id}")
+    print("다음 단계 준비됨")
+    
+    if workflow_run_id:
+        env = os.environ.copy()
+        bin_path = os.path.join(project_path, "bin")
+        if os.path.exists(bin_path):
+            env["PATH"] = f"{bin_path}:{env.get('PATH', '')}"
+        env["CODEX_SANDBOX"] = "workspace-write"
+        
+        cmd = f"specify workflow resume {workflow_run_id} --input action=approve --json"
+        subprocess.Popen(cmd, shell=True, cwd=project_path, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+def cmd_spec_reject(args):
+    v2_root = os.path.dirname(os.path.abspath(__file__))
+    run_file = os.path.join(v2_root, "runs", args.run_id, "run.yml")
+    if not os.path.exists(run_file):
+        print(f"Error: Run '{args.run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+        
+    run_data = read_yaml(run_file)
+    workflow_run_id = run_data.get("integrations", {}).get("spec_kit", {}).get("workflow_run_id")
+    project_path = run_data.get("project", {}).get("path")
+    
+    run_data["requirements_status"] = "rejected"
+    run_data["approval"] = {
+        "status": "rejected",
+        "approved_version": None,
+        "approved_at": None
+    }
+    run_data["next_stage_allowed"] = False
+    write_yaml(run_file, run_data)
+    
+    print(f"현재 작업 중단 또는 수정 대기")
+    spec_path = get_spec_path(project_path)
+    if spec_path:
+        print(f"수정 가능한 요구사항 위치: {spec_path}")
+        
+    if workflow_run_id:
+        env = os.environ.copy()
+        bin_path = os.path.join(project_path, "bin")
+        if os.path.exists(bin_path):
+            env["PATH"] = f"{bin_path}:{env.get('PATH', '')}"
+        env["CODEX_SANDBOX"] = "workspace-write"
+        
+        cmd = f"specify workflow resume {workflow_run_id} --input action=reject --json"
+        subprocess.Popen(cmd, shell=True, cwd=project_path, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 # Update Run status logic
 def update_run_status(run_id, target_status):
@@ -407,6 +635,23 @@ def main():
     cancel_parser = run_subparsers.add_parser("cancel", help="Cancel a run")
     cancel_parser.add_argument("run_id", help="The Run ID to cancel")
 
+    # spec management
+    spec_parser = subparsers.add_parser("spec", help="Manage spec verification and gates")
+    spec_subparsers = spec_parser.add_subparsers(dest="spec_command", required=True)
+
+    spec_show_parser = spec_subparsers.add_parser("show", help="Show the current specification details")
+    spec_show_parser.add_argument("run_id", help="The Run ID to inspect")
+
+    spec_modify_parser = spec_subparsers.add_parser("modify", help="Request modifications to the specification")
+    spec_modify_parser.add_argument("run_id", help="The Run ID to modify")
+    spec_modify_parser.add_argument("--comment", required=True, help="Feedback or requested changes for the spec")
+
+    spec_approve_parser = spec_subparsers.add_parser("approve", help="Approve the current specification and proceed")
+    spec_approve_parser.add_argument("run_id", help="The Run ID to approve")
+
+    spec_reject_parser = spec_subparsers.add_parser("reject", help="Reject the specification and cancel the run")
+    spec_reject_parser.add_argument("run_id", help="The Run ID to reject")
+
     # v2 dashboard
     dashboard_parser = subparsers.add_parser("dashboard", help="Start dashboard local web server")
     dashboard_parser.add_argument("--port", type=int, default=8200, help="Local server port (default: 8200)")
@@ -426,6 +671,15 @@ def main():
             update_run_status(args.run_id, "failed")
         elif args.run_command == "cancel":
             update_run_status(args.run_id, "cancelled")
+    elif args.command == "spec":
+        if args.spec_command == "show":
+            cmd_spec_show(args)
+        elif args.spec_command == "modify":
+            cmd_spec_modify(args)
+        elif args.spec_command == "approve":
+            cmd_spec_approve(args)
+        elif args.spec_command == "reject":
+            cmd_spec_reject(args)
     elif args.command == "dashboard":
         cmd_dashboard(args)
 
