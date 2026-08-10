@@ -1,6 +1,6 @@
 # Current State
 
-현재 단계는 `M1 — Run·Git 안전 기반`의 M1.1 범위를 구현하고 독립 검증한 뒤 M2 착수를 준비하는 단계입니다. M1.1 필수 확인 12개 항목은 격리 환경의 실제 실행에서 PASS했고, 검증된 구현은 Branch `antigravity/v2-m1-run-core`의 Commit `28af3fff7eb9bd9b809218cf6bb70e548a759661`에 저장했습니다. Kernel, Planner, Collector, Multi-Agent 및 자체 실행 엔진은 구현하지 않습니다.
+현재 단계는 `M1 — Run·Git 안전 기반`의 M1.1 기술 검증을 완료하고 M2 착수를 준비하는 단계입니다. M1.1 필수 확인 12개 항목은 격리 환경의 실제 실행에서 PASS했고, 검증된 구현은 Branch `antigravity/v2-m1-run-core`의 Commit `28af3fff7eb9bd9b809218cf6bb70e548a759661`에 저장했습니다. 새 User Scenario 규칙은 M1.1에 소급 적용하지 않습니다. Kernel, Planner, Collector, Multi-Agent 및 자체 실행 엔진은 구현하지 않습니다.
 
 V2 Core 현황판의 M1 상태는 실제 검증 결과를 근거로 `completed`이며 M2~M7은 `pending`입니다. 이 상태와 후속 Wiki 보완 Commit은 아직 GitHub `main`에 반영되지 않았습니다.
 
@@ -43,9 +43,11 @@ V2 Core 현황판의 M1 상태는 실제 검증 결과를 근거로 `completed`�
 ## 확정된 다음 단계
 
 - M1 결과와 승인된 Wiki 보완 Commit을 원격 Branch에 Push하여 다른 AI가 같은 기준을 읽을 수 있게 합니다.
+- 다음 단계는 병원 웹 자체를 제품으로 완성하는 작업이 아니라, M2~M4 제작 파이프라인을 검증하는 일회성 병원 웹 파일럿입니다.
 - M2에서 실제 Spec Kit Specify/Clarify Workflow Run ID를 기존 V2 Run의 `integrations.spec_kit.workflow_run_id`에 연결합니다.
 - 사용자 승인 전 Plan을 차단하고, 승인·거절·수정 요청 뒤 같은 V2 Run을 Resume하는 흐름을 검증합니다.
 - 첫 MVP는 활성 Run 하나만 지원하며 별도 DB와 전용 UI를 만들지 않습니다.
 - M1~M4에서 실제 Core Workflow를 먼저 검증하고, M5에서 그 실제 상태만 읽는 얇은 V2 UI를 구현합니다.
 - 병원 웹은 M4 Feature Run의 실제 결과물로 사용하고, 예약 버튼 수정은 M6 Change Run에서 검증합니다.
+- 병원 웹의 시각적 완성도를 V2 성공 기준으로 사용하지 않습니다. 승인 Gate, 같은 Run의 지속, 승인 요구 반영, 사용자·Codex 검증 분리, 실패 지점 보존과 마지막 정상 상태 복구를 검증합니다. 예약 데이터 저장, 관리자, 로그인과 실제 운영 배포는 파일럿 범위에서 제외합니다.
 - 각 마일스톤은 실제 PASS 증거가 생긴 뒤 `CURRENT_STATE.md` 갱신안을 만들고 사용자 승인 후 Commit/Push합니다. Obsidian은 같은 로컬 파일을 사용하므로 승인된 변경을 즉시 표시합니다.

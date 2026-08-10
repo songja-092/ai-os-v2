@@ -104,6 +104,28 @@ M5에서 구현할 화면은 M1~M4의 실제 Run 상태만 읽습니다.
 - 실패·취소 시 실행 중인 개발 서버, 임시 worktree와 잠금을 정리하되 원인, 마지막 성공 단계와 재개점은 보존합니다.
 - 검증 증거는 최소한 실행 명령, 종료 코드, 실행 시각, 대상 Commit SHA와 산출물 경로를 기록합니다.
 
+## User Scenario 기록과 계산
+
+각 마일스톤의 사용자 확인과 Codex 기술 검증은 같은 Scenario ID 아래 별도 결과로 저장합니다. Scenario는 최소한 `scenario_id`, `scenario_version`, `milestone`, `run_id`, `surface`, 필수 여부, 사용자 확인 항목, Codex 확인 항목, 두 결과, 메모, 증거와 검증 시각을 가집니다.
+
+```yaml
+target:
+  repository: hospital-web
+  core_commit_sha: core123
+  project_commit_sha: web456
+  environment: web
+  url: http://127.0.0.1:5173
+```
+
+제작 프로젝트가 아직 없는 단계에서는 `project_commit_sha: null`로 기록합니다. 종합 상태는 별도로 편집하지 않고 다음 규칙으로 계산합니다.
+
+- 현재 Commit과 Scenario 버전이 같고 `user_result: pass`, `codex_result: pass`이면 `PASS`
+- 필수 결과가 아직 없으면 `pending`
+- 사용자 또는 Codex 결과가 실패이면 `FAIL`
+- Commit 또는 `scenario_version`이 달라지면 이전 결과를 보존한 채 `stale` 및 재검증 필요
+
+실제 Run·Gate·Task 상태는 V2 Core, 기술 검증과 증거는 Codex, 사용자 판정은 사용자가 소유합니다. Codex가 현황판을 갱신할 때도 이 원본 상태를 임의로 추측하거나 대신 판정하지 않습니다.
+
 ## 구현 마일스톤
 
 1. **M1 — Run·Git 안전 기반**: V2 Run ID, Project, 두 Base Commit, Branch, 상태·중단·재개와 nullable Spec Kit Workflow 매핑을 연결합니다.

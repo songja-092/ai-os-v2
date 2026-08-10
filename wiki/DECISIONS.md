@@ -63,6 +63,15 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - Design과 Verification 도구는 Target Environment에 맞게 조건부로 선택합니다.
 - Playwright는 웹 프로젝트의 검증 후보이며 V2 전체의 고정 테스트 엔진이 아닙니다.
 
+## 사용자 흐름 검증
+
+- 📝 승인됨: 마일스톤마다 `V2 User Scenario — Given/When/Then 방식`으로 사용자가 직접 확인할 흐름과 Codex 기술 검증을 분리해 기록합니다. Cucumber와 별도 테스트 플랫폼은 설치하지 않습니다.
+- `user_result`는 사용자만 판정하고 `codex_result`는 Codex가 실제 기술 증거를 확인한 뒤 기록합니다. Codex와 V2 Core는 사용자 판정을 대신하지 않습니다.
+- Scenario 대상은 V2 Core의 `core_commit_sha`와 제작 프로젝트의 `project_commit_sha`를 분리합니다. 제작 프로젝트가 없는 M2·M3에서는 `project_commit_sha: null`을 허용합니다.
+- 종합 상태는 별도 원본 값으로 저장하지 않고 현재 Commit, `scenario_version`, `user_result`, `codex_result`에서 계산합니다. Commit 또는 Scenario 버전이 바뀌면 이전 PASS는 삭제하지 않고 `stale`로 표시해 재검증합니다.
+- M2·M3에서는 상태 파일과 Workflow Gate를 검증하고 Playwright를 사용하지 않습니다. M4 이후 웹 프로젝트에서 먼저 기존 Codex 브라우저 검증 기능을 사용하며, 반복 자동검증 가치가 확인될 때만 해당 제작 프로젝트에 Playwright를 검토합니다.
+- Playwright Codegen은 테스트 초안에만 사용하며 생성 결과 자체를 PASS 증거로 사용하지 않습니다. 외부 `webapp-testing` Skill은 현재 Codex 기능과 중복되므로 설치하지 않습니다.
+
 ## V2 Core와 Run
 
 - 📝 승인됨: V2 Core는 AI 모델이나 새 Kernel이 아니라 기존 도구의 실행 순서, 승인 Gate, 결과 참조, 증거와 Git 복구점을 한 Run으로 연결하는 Workflow입니다.
@@ -87,6 +96,7 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - Rollback/Restore 검증은 사용자의 현재 작업 폴더를 변경하지 않도록 별도 임시 `git worktree`에서 수행합니다.
 - 마일스톤 진행 중 임시 상태를 Wiki의 확정 사실로 자동 저장하지 않습니다. 실제 PASS 증거가 생기면 V2 Core가 `CURRENT_STATE.md` 갱신안을 만들고, 사용자 승인 후 Commit/Push하여 공식 기억으로 확정합니다.
 - Obsidian은 V2 저장소의 동일한 Wiki 파일을 Vault에서 읽으므로 별도 동기화 프로그램 없이 로컬 변경을 즉시 표시합니다. GitHub와 Archify 반영은 각각 Push와 별도 갱신 검증 후 확정합니다.
+- 실제 Run·Gate·Task 상태는 V2 Core, 기술 검증 결과와 증거는 Codex, 사용자 확인 결과는 사용자가 소유합니다. 현황판은 이 원본을 읽어 표시하며 승인 없이 상태를 만들거나 변경하지 않습니다.
 
 ## UI·관리자 화면 제작 후보
 

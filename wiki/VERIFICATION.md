@@ -42,6 +42,15 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 
 각 마일스톤은 아래 기술 PASS 기준과 함께 사용자가 직접 수행할 흐름을 제공합니다. 사용자 확인 전에는 해당 항목을 자동 PASS 처리하지 않으며, 기술 검증과 필수 사용자 흐름 확인이 모두 끝나야 마일스톤을 완료로 기록합니다.
 
+### 공통 User Scenario 판정 규칙
+
+- 사용자 확인과 Codex 기술 검증을 별도 결과로 보존합니다.
+- V2 Core Commit과 제작 프로젝트 Commit을 분리해 기록합니다. 제작 프로젝트가 없는 M2·M3의 `project_commit_sha`는 `null`입니다.
+- 종합 PASS는 현재 Commit 및 Scenario 버전 일치, 필수 `user_result: pass`, `codex_result: pass`를 모두 만족할 때 계산합니다.
+- Commit 또는 `scenario_version`이 바뀌면 이전 결과를 삭제하지 않고 `stale`로 표시하고 재검증합니다.
+- 실패 후 수정했으면 같은 목적의 Scenario를 새 대상 Commit에서 다시 실행합니다.
+- 테스트에는 개인정보 대신 가짜 데이터를 사용합니다.
+
 ### M1 — Run·Git 안전 기반
 
 - V2 Run ID가 생성되고 대상 Project, Run 전용 Branch, `Base Memory Commit`과 `Base Project Commit`이 연결됩니다.
@@ -52,6 +61,8 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 - 사용자 작업 폴더와 `main`을 임의로 변경하지 않습니다.
 - PASS 증거를 기준으로 `CURRENT_STATE.md` 갱신안을 만들 수 있습니다.
 
+사용자 Scenario는 새 규칙을 소급해 만들지 않습니다. 기존 승인 범위의 CLI·상태 파일 재조회, 재개와 상태 전이는 Codex가 기술적으로 검증합니다.
+
 ### M2 — Spec과 승인 Gate
 
 - 사용자의 자연어 원문으로 실제 Spec Kit Specify/Clarify 산출물을 생성합니다.
@@ -60,6 +71,8 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 - 사용자 승인 전 Plan이 실행되지 않습니다.
 - 승인 후 새 Run을 만들지 않고 기존 Run을 Resume합니다.
 - 거절·수정 요청 시 같은 Run에서 Spec을 고치고 승인 Gate로 돌아갑니다.
+
+사용자는 정리된 요구사항을 읽고 수정 요청, 승인 전 차단과 승인 후 진행을 확인합니다. Codex는 같은 Run ID와 실제 Gate 상태가 일치하는지 검증합니다. Playwright는 사용하지 않습니다.
 
 ### M3 — 조건부 Research·Design과 Plan/Tasks
 
@@ -70,6 +83,8 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 - 승인된 Spec과 Design을 참조하는 Plan/Tasks가 생성됩니다.
 - 사용자가 계획을 승인하기 전에는 Handoff 또는 Implement 단계로 진입하지 않습니다.
 - 진행률은 승인된 Task 집합의 검증 완료 수를 기준으로 계산합니다.
+
+사용자는 디자인 선택지와 Plan을 확인하고 승인 또는 수정 요청을 수행합니다. Codex는 선택한 Design 결과가 같은 Run의 Plan과 Tasks에 실제로 연결됐는지 파일과 상태로 검증합니다. Playwright는 사용하지 않습니다.
 
 ### M4 — Feature Run 완성
 
@@ -82,6 +97,8 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 - Result Project Commit의 `main` 반영은 자동 수행하지 않으며 별도 사용자 승인을 요구합니다.
 - 실패·취소 시 임시 서버, worktree와 잠금을 정리하고 재개점을 보존합니다.
 
+사용자는 병원 웹의 승인된 핵심 흐름을 직접 사용하고 `통과` 또는 `문제 있음`을 판정합니다. Codex는 기존 브라우저 검증 기능으로 실제 상호작용, Console 오류, Spec 일치와 대상 Commit을 확인합니다. 반복 가치가 확인된 흐름만 추후 Playwright 자동검증 후보로 전환합니다.
+
 ### M5 — 얇은 V2 UI
 
 - UI의 Project, Run, 단계, Task, 승인, 검증과 Commit 상태가 실제 Core 상태와 일치합니다.
@@ -90,6 +107,8 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 - 새로고침 또는 V2 UI 재시작 후에도 Core의 저장된 상태를 다시 표시합니다.
 - UI가 임의 진행률, PASS, 증거 또는 Commit SHA를 생성하지 않습니다.
 - 기술 로그를 숨겨도 실패 원인, 사용자 선택과 다음 행동은 확인할 수 있습니다.
+
+사용자는 현황판, 승인·수정 버튼과 Preview를 직접 사용합니다. Codex는 UI 표시가 실제 Core 원본 상태와 일치하는지 기존 브라우저 검증 기능으로 확인합니다. Driver.js는 사용 안내가 실제로 필요할 때만 별도 후보로 검토합니다.
 
 ### M6 — Change Run
 
@@ -101,6 +120,8 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 - 새 Result Project Commit과 안전한 Rollback/Restore 증거가 존재합니다.
 - `main` 반영은 별도 사용자 승인을 요구합니다.
 
+사용자는 요청한 부분만 바뀌고 기존 기능이 유지되는지 확인합니다. Codex는 영향받는 기존 Scenario를 새 Project Commit에서 재실행하며, 반복 회귀검증이 필요할 때만 제작 프로젝트 단위 Playwright 도입을 검토합니다.
+
 ### M7 — MVP E2E
 
 - V2 UI에서 시작한 병원 웹 Feature Run이 실제 결과물과 Result Project Commit까지 완료됩니다.
@@ -111,3 +132,5 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 - UI, Core, 제작 프로젝트 Git과 승인된 Wiki 상태가 서로 일치합니다.
 - M7 PASS는 `AI OS V2 MVP` 검증을 의미하며 상업 배포·다중 사용자·무인 운영 완료를 의미하지 않습니다.
 - 위 항목을 모두 확인한 경우에만 `AI OS V2 MVP = ✅ 검증됨`으로 판정합니다.
+
+사용자는 자연어 요청부터 결과 확인, 저장과 복구까지 전체 흐름을 직접 수행합니다. Codex는 Core와 제작 프로젝트 Commit, E2E 결과, Rollback과 Restore 증거가 모두 같은 Run 기록과 일치하는지 확인합니다.
