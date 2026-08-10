@@ -40,56 +40,74 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 
 ## V2 Core MVP PASS 기준
 
+각 마일스톤은 아래 기술 PASS 기준과 함께 사용자가 직접 수행할 흐름을 제공합니다. 사용자 확인 전에는 해당 항목을 자동 PASS 처리하지 않으며, 기술 검증과 필수 사용자 흐름 확인이 모두 끝나야 마일스톤을 완료로 기록합니다.
+
 ### M1 — Run·Git 안전 기반
 
-- 실제 Spec Kit Workflow Run ID가 생성됩니다.
-- 대상 Project, Run 전용 Branch, `Base Memory Commit`과 `Base Project Commit`이 연결됩니다.
+- V2 Run ID가 생성되고 대상 Project, Run 전용 Branch, `Base Memory Commit`과 `Base Project Commit`이 연결됩니다.
+- `integrations.spec_kit.workflow_run_id` 필드가 존재하며 M2에서 실제 Workflow가 연결되기 전에는 `null`입니다.
+- 공식 원격 `origin/main` SHA는 `memory.official_commit`, 현재 로컬 V2 HEAD는 `v2_workspace.head`에 서로 분리되어 기록됩니다.
 - `running`, 대기, 실패, 취소와 재개 상태를 실제 Run에서 구분할 수 있습니다.
+- 프로세스를 종료하고 다시 실행해도 저장된 Run 상태와 재개점을 읽을 수 있습니다.
 - 사용자 작업 폴더와 `main`을 임의로 변경하지 않습니다.
-- PASS 증거를 기준으로 `CURRENT_STATE.md` 갱신안을 만들 수 있고 Obsidian에서 로컬 변경을 확인할 수 있습니다.
+- PASS 증거를 기준으로 `CURRENT_STATE.md` 갱신안을 만들 수 있습니다.
 
 ### M2 — Spec과 승인 Gate
 
 - 사용자의 자연어 원문으로 실제 Spec Kit Specify/Clarify 산출물을 생성합니다.
-- Spec과 완료 조건이 같은 Run ID에 연결됩니다.
+- 실제 Spec Kit Workflow Run ID를 기존 V2 Run의 `integrations.spec_kit.workflow_run_id`에 연결합니다.
+- Spec, 제외 범위와 완료 조건이 같은 Run ID에 연결됩니다.
 - 사용자 승인 전 Plan이 실행되지 않습니다.
 - 승인 후 새 Run을 만들지 않고 기존 Run을 Resume합니다.
+- 거절·수정 요청 시 같은 Run에서 Spec을 고치고 승인 Gate로 돌아갑니다.
 
-### M3 — 조건부 Design과 Plan/Tasks
+### M3 — 조건부 Research·Design과 Plan/Tasks
 
-- Research와 Design 필요 여부를 판정하고 사용자에게 범위를 보여줍니다.
+- Research와 Design 필요 여부, 실행 이유와 생략 이유를 사용자에게 보여줍니다.
 - 필요하지 않은 조건부 단계는 실행하지 않습니다.
+- 조사로 요구사항이 달라지면 Spec 갱신과 재승인을 거칩니다.
 - UI/UX가 필요하면 검증된 디자인 도구의 결과와 사용자 선택 증거가 존재합니다.
 - 승인된 Spec과 Design을 참조하는 Plan/Tasks가 생성됩니다.
-- 진행 상태는 실제 승인된 Tasks 수와 검증 완료 수를 사용합니다.
+- 사용자가 계획을 승인하기 전에는 Handoff 또는 Implement 단계로 진입하지 않습니다.
+- 진행률은 승인된 Task 집합의 검증 완료 수를 기준으로 계산합니다.
 
 ### M4 — Feature Run 완성
 
-- Antigravity 전달 자료와 회수 결과가 같은 Run ID와 Base Project Commit을 가리킵니다.
+- Antigravity 전달 자료와 회수 결과가 같은 Run ID, Run Branch와 Base Project Commit을 가리킵니다.
+- 승인된 Task 범위 밖의 변경이 없는지 Git diff로 확인합니다.
 - 구현 결과가 실제 대상 환경에서 실행됩니다.
-- Codex가 구현 Agent 보고와 별도로 검증 증거를 남깁니다.
-- 사용자 실물 승인 후에만 Result Project Commit을 생성합니다.
+- Codex가 구현 Agent 보고와 별도로 실행 명령, 종료 코드, 대상 SHA와 산출물 경로가 포함된 검증 증거를 남깁니다.
+- 사용자가 실제 결과를 승인한 뒤 Run Branch에 Result Project Commit을 생성합니다.
 - 별도 임시 worktree에서 이전 Commit과 Result Commit을 각각 실행해 Rollback/Restore를 확인합니다.
+- Result Project Commit의 `main` 반영은 자동 수행하지 않으며 별도 사용자 승인을 요구합니다.
+- 실패·취소 시 임시 서버, worktree와 잠금을 정리하고 재개점을 보존합니다.
 
 ### M5 — 얇은 V2 UI
 
 - UI의 Project, Run, 단계, Task, 승인, 검증과 Commit 상태가 실제 Core 상태와 일치합니다.
 - 승인과 수정 요청이 실제 Workflow Gate와 Run 상태에 반영됩니다.
-- 웹 프로젝트는 승인된 로컬 개발 서버의 실제 Live Preview를 표시합니다.
-- UI가 임의 진행률, PASS 또는 Commit SHA를 생성하지 않습니다.
+- 웹 프로젝트는 승인된 로컬 개발 서버의 실제 Live Preview와 연결 실패 상태를 표시합니다.
+- 새로고침 또는 V2 UI 재시작 후에도 Core의 저장된 상태를 다시 표시합니다.
+- UI가 임의 진행률, PASS, 증거 또는 Commit SHA를 생성하지 않습니다.
+- 기술 로그를 숨겨도 실패 원인, 사용자 선택과 다음 행동은 확인할 수 있습니다.
 
 ### M6 — Change Run
 
-- 기존 Result Project Commit에서 별도 Change Run을 생성합니다.
-- 변경 영향 범위를 사용자에게 보여주고 승인받습니다.
+- 기존 Result Project Commit을 Base Project Commit으로 사용하는 별도 Change Run을 생성합니다.
+- 변경 영향 범위와 수행·생략할 단계를 사용자에게 보여주고 승인받습니다.
 - 영향받지 않은 Feature Run 전체 단계를 반복하지 않습니다.
-- 수정 대상 검증과 필요한 최소 회귀 검증을 통과합니다.
+- 수정 대상 검증과 승인된 최소 회귀 검증을 통과합니다.
+- 기존 Feature Run의 증거를 새 증거처럼 복제하지 않고 Change Run의 새 증거를 남깁니다.
 - 새 Result Project Commit과 안전한 Rollback/Restore 증거가 존재합니다.
+- `main` 반영은 별도 사용자 승인을 요구합니다.
 
 ### M7 — MVP E2E
 
-- V2 UI에서 시작한 병원 웹 Feature Run이 실제 결과물과 Commit까지 완료됩니다.
-- V2 UI에서 시작한 예약 버튼 Change Run이 필요한 단계만 실행해 새 Commit까지 완료됩니다.
+- V2 UI에서 시작한 병원 웹 Feature Run이 실제 결과물과 Result Project Commit까지 완료됩니다.
+- V2 UI에서 시작한 예약 버튼 Change Run이 필요한 단계만 실행해 새 Result Project Commit까지 완료됩니다.
 - 두 Run 모두 승인 Gate, 독립 검증, 사용자 실물 승인과 Rollback/Restore 증거를 가집니다.
+- V2 UI와 Core를 종료한 뒤 새 세션에서 공식 Wiki와 저장된 Run을 다시 읽고 완료 상태와 증거를 동일하게 표시합니다.
+- 새 세션에서 완료된 프로젝트를 기준으로 추가 Change Run을 시작할 수 있습니다.
 - UI, Core, 제작 프로젝트 Git과 승인된 Wiki 상태가 서로 일치합니다.
+- M7 PASS는 `AI OS V2 MVP` 검증을 의미하며 상업 배포·다중 사용자·무인 운영 완료를 의미하지 않습니다.
 - 위 항목을 모두 확인한 경우에만 `AI OS V2 MVP = ✅ 검증됨`으로 판정합니다.

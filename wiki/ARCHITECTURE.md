@@ -51,19 +51,20 @@ V2 Core는 AI를 직접 호출하는 새 오케스트레이터가 아닙니다. 
 
 ## 제작 파이프라인
 
-1. **Intake**: 자연어 요구와 참고 URL을 받습니다.
-2. **Research**: 필요한 근거를 공식 문서, GitHub, Web과 실사용 자료에서 조사하고 출처를 남깁니다.
-3. **Specify/Clarify**: Spec Kit으로 요구사항, 제외 범위와 완료 조건을 정리하고 사용자가 승인합니다.
-4. **Target Environment**: Web, Android, iOS, Desktop, CLI, API, Server 또는 기타 대상 환경을 확정합니다.
-5. **Conditional Design**: UI/UX가 필요한 경우에만 디자인 도구를 선택합니다. 현재 기본 파일럿은 UI UX Pro Max이며 사용자가 결과를 승인합니다.
-6. **Plan/Tasks**: 승인된 요구사항과 디자인을 실제 구현 계획과 작은 작업으로 변환합니다.
-7. **Reuse Decision**: 기존 제품·OSS·Skill·MCP·서비스를 비교 검증합니다.
+1. **Intake**: 자연어 요구, 참고 URL과 대상 Project를 받습니다.
+2. **Specify/Clarify**: 사용자 원문을 보존한 채 요구사항, 제외 범위와 완료 조건을 정리하고 사용자가 승인합니다.
+3. **Target Environment**: Web, Android, iOS, Desktop, CLI, API, Server 또는 기타 대상 환경을 확정합니다.
+4. **Conditional Research**: 승인된 요구를 구현하는 데 외부 근거가 필요할 때만 공식 문서, GitHub, Web과 실사용 자료를 조사합니다. 조사로 요구가 달라지면 Spec을 갱신하고 다시 승인받습니다.
+5. **Conditional Design**: UI/UX가 필요한 경우에만 디자인 도구를 선택하고 사용자가 결과를 승인합니다.
+6. **Plan/Tasks**: 승인된 Spec, Research와 Design을 작은 구현 작업으로 변환하고 사용자가 계획을 승인합니다.
+7. **Reuse Decision**: 기존 제품·OSS·Skill·MCP·서비스를 비교하고 필요한 부품만 선택합니다.
 8. **Handoff**: Codex가 변경 파일, 허용 명령, 금지 범위, 검증 방법과 복구점을 포함한 구현 지시서를 만듭니다.
-9. **Implement**: Antigravity가 사용자 승인 아래 한 Task씩 구현합니다.
-10. **Verify**: Target Environment에 맞는 실제 실행 검증을 수행합니다. 웹이면 Playwright, CLI면 명령/출력, API면 요청/응답 검증처럼 도구를 조건부로 선택합니다.
+9. **Implement**: Antigravity가 승인된 Task를 한 개씩 구현합니다.
+10. **Verify**: Codex가 Target Environment에서 구현 Agent와 독립적으로 검증하고 증거를 기록합니다.
 11. **Accept**: 사용자가 실제 결과를 확인하고 승인하거나 수정을 요청합니다.
-12. **Save**: 승인된 한 변경을 Commit/Push하고 Wiki와 시각화가 해당 SHA를 가리키게 합니다.
-13. **Recover**: 이전 Commit을 확인한 뒤 결과 Commit으로 복구하고 재실행합니다.
+12. **Save**: 승인된 결과를 Run Branch의 Result Project Commit으로 저장합니다.
+13. **Recover**: 별도 worktree에서 이전 Commit과 Result Commit을 각각 실행해 복구 가능성을 확인합니다.
+14. **Promote**: 검증·복구가 끝난 Result Commit을 `main`에 반영할지는 별도 사용자 승인으로 결정합니다.
 
 각 단계는 `running`, `waiting_user`, `waiting_agent`, `blocked`, `failed`, `completed`, `cancelled` 중 하나의 실제 상태를 가집니다. 실패하거나 중단된 Run은 원인과 재개 지점을 남깁니다.
 
@@ -90,6 +91,8 @@ M5에서 구현할 화면은 M1~M4의 실제 Run 상태만 읽습니다.
 - 웹 Live Preview는 사용자 승인 `localhost` 또는 `127.0.0.1` 개발 서버를 사용합니다.
 - CLI, API와 Server 프로젝트는 Live Preview 대신 해당 환경의 실제 실행 결과를 표시합니다.
 - Commit과 Rollback 상태는 실제 SHA와 검증 결과가 없으면 완료로 표시하지 않습니다.
+- 각 마일스톤은 `Core 검증`과 `사용자가 직접 확인할 흐름`을 나란히 보여줍니다. 사용자 확인 항목은 `대기`, `확인 가능`, `PASS`, `FAIL`로 구분하며 Codex나 UI가 사용자를 대신해 PASS 처리하지 않습니다.
+- 사용자 흐름 항목은 해당 마일스톤 범위에만 둡니다. 예를 들어 M2는 자연어 Spec과 승인 Gate를 확인하며 파일 업로드 같은 제품 기능은 승인된 Feature Run 범위가 생기는 M4 이후에 확인합니다.
 
 ## Run 기록 경계
 
@@ -97,10 +100,13 @@ M5에서 구현할 화면은 M1~M4의 실제 Run 상태만 읽습니다.
 - 제작 프로젝트 저장소는 실제 소프트웨어와 Result Commit을 보관합니다.
 - Spec Kit 산출물은 원본 경로를 참조하고 Run 기록에 복제하지 않습니다.
 - 첫 MVP는 활성 Run 하나만 지원하고 DB를 사용하지 않습니다.
+- `Result Project Commit`은 Run Branch의 검증된 결과이며 자동으로 `main` 반영을 의미하지 않습니다.
+- 실패·취소 시 실행 중인 개발 서버, 임시 worktree와 잠금을 정리하되 원인, 마지막 성공 단계와 재개점은 보존합니다.
+- 검증 증거는 최소한 실행 명령, 종료 코드, 실행 시각, 대상 Commit SHA와 산출물 경로를 기록합니다.
 
 ## 구현 마일스톤
 
-1. **M1 — Run·Git 안전 기반**: Workflow Run ID, Project, 두 Base Commit, Branch, 상태·중단·재개를 연결합니다.
+1. **M1 — Run·Git 안전 기반**: V2 Run ID, Project, 두 Base Commit, Branch, 상태·중단·재개와 nullable Spec Kit Workflow 매핑을 연결합니다.
 2. **M2 — Spec과 승인 Gate**: 실제 Specify/Clarify 결과가 승인 전 멈추고 승인 후 같은 Run에서 재개되는지 검증합니다.
 3. **M3 — 조건부 Design과 Plan/Tasks**: 필요한 단계만 실행하고 승인된 Tasks를 생성합니다.
 4. **M4 — Feature Run 완성**: Manual Agent Handoff, 구현 결과 회수, 독립 검증, 사용자 승인, Result Commit과 안전한 Rollback/Restore를 병원 웹에서 검증합니다.
@@ -116,6 +122,7 @@ M5에서 구현할 화면은 M1~M4의 실제 Run 상태만 읽습니다.
 - 실제 파일 또는 설정이 있어야 `🔨 구현됨`입니다.
 - 해당 기능을 직접 실행한 증거가 있어야 `✅ 검증됨`입니다.
 - 구현 Agent의 보고만으로 PASS 처리하지 않습니다.
+- 실행 검증에는 명령, 종료 코드, 실행 시각, 대상 Commit SHA와 산출물 경로를 남깁니다.
 - 조사 결과에는 원문 URL, 확인 날짜와 채택/탈락 이유를 남깁니다.
 
 ## 현재 부품 상태

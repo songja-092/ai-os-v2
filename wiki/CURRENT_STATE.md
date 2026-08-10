@@ -1,8 +1,8 @@
 # Current State
 
-현재 단계는 V2 MVP 설계를 닫고 `M1 — Run·Git 안전 기반` 구현을 시작하기 직전입니다. Kernel, Planner, Collector, Multi-Agent 및 자체 실행 엔진은 구현하지 않습니다.
+현재 단계는 `M1 — Run·Git 안전 기반`의 M1.1 범위를 구현하고 독립 검증한 뒤 M2 착수를 준비하는 단계입니다. M1.1 필수 확인 12개 항목은 격리 환경의 실제 실행에서 PASS했고, 검증된 구현은 Branch `antigravity/v2-m1-run-core`의 Commit `28af3fff7eb9bd9b809218cf6bb70e548a759661`에 저장했습니다. Kernel, Planner, Collector, Multi-Agent 및 자체 실행 엔진은 구현하지 않습니다.
 
-이전 지식 연결 시험 기록은 존재하지만, 파일럿 시작 기준인 네 연결의 Repository, Branch, Commit SHA와 실제 증거를 한 보고서에서 최종 확인해야 합니다.
+V2 Core 현황판의 M1 상태는 실제 검증 결과를 근거로 `completed`이며 M2~M7은 `pending`입니다. 이 상태와 후속 Wiki 보완 Commit은 아직 GitHub `main`에 반영되지 않았습니다.
 
 ## Spec Kit 도입 상태
 
@@ -14,8 +14,9 @@
 
 ## 공식 기억 동기화 상태
 
-- 현재 설계 기준 `main`은 `d85c9482c14b6bda70cea4dda3b5dae9df883aed`이며 로컬 HEAD와 `origin/main`이 일치함을 확인했습니다.
-- 이번 문서 보완 Commit/Push 후 새 SHA를 다음 M1 작업의 `Base Memory Commit`으로 사용합니다.
+- 확인한 공식 원격 `origin/main`은 `7674debbe3f22c16df1e3ef81af25fa4052c91ca`입니다.
+- 로컬 작업 Branch는 M1 구현·검증 및 후보 문서 Commit을 포함해 `origin/main`보다 앞서 있으며 아직 원격에 Push되지 않았습니다.
+- V2 Run의 공식 기억은 `memory.official_commit`, 로컬 구현 기준은 `v2_workspace.head`로 분리해 기록합니다.
 
 ## 디자인 파일럿 상태
 
@@ -41,7 +42,9 @@
 
 ## 확정된 다음 단계
 
-- M1에서 Spec Kit Workflow Run ID를 우선 재사용하여 Run, 대상 Project, `Base Memory Commit`, `Base Project Commit`, 상태와 재개 지점을 연결합니다.
+- M1 결과와 승인된 Wiki 보완 Commit을 원격 Branch에 Push하여 다른 AI가 같은 기준을 읽을 수 있게 합니다.
+- M2에서 실제 Spec Kit Specify/Clarify Workflow Run ID를 기존 V2 Run의 `integrations.spec_kit.workflow_run_id`에 연결합니다.
+- 사용자 승인 전 Plan을 차단하고, 승인·거절·수정 요청 뒤 같은 V2 Run을 Resume하는 흐름을 검증합니다.
 - 첫 MVP는 활성 Run 하나만 지원하며 별도 DB와 전용 UI를 만들지 않습니다.
 - M1~M4에서 실제 Core Workflow를 먼저 검증하고, M5에서 그 실제 상태만 읽는 얇은 V2 UI를 구현합니다.
 - 병원 웹은 M4 Feature Run의 실제 결과물로 사용하고, 예약 버튼 수정은 M6 Change Run에서 검증합니다.
