@@ -88,6 +88,16 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - 마일스톤 진행 중 임시 상태를 Wiki의 확정 사실로 자동 저장하지 않습니다. 실제 PASS 증거가 생기면 V2 Core가 `CURRENT_STATE.md` 갱신안을 만들고, 사용자 승인 후 Commit/Push하여 공식 기억으로 확정합니다.
 - Obsidian은 V2 저장소의 동일한 Wiki 파일을 Vault에서 읽으므로 별도 동기화 프로그램 없이 로컬 변경을 즉시 표시합니다. GitHub와 Archify 반영은 각각 Push와 별도 갱신 검증 후 확정합니다.
 
+## 실제 Galaxy Preview 후보
+
+- 📝 승인됨: 웹/PWA 구현 결과를 실제 Galaxy에서 확인하는 선택형 Verification Adapter를 후속 후보로 둡니다. 현재는 미설치·미구현·미검증입니다.
+- 1차 후보 조합은 `scrcpy + adb reverse + Chrome DevTools Remote Debugging`입니다. scrcpy는 실제 기기 화면과 PC 제어, Chrome DevTools는 DOM·Console·Network 검증을 담당합니다.
+- 최초 도입은 V2 내부 화면 삽입이 아니라 별도 scrcpy 창을 사용합니다. Tango/ya-webadb 기반 내부 패널은 반복 필요성이 실제로 확인될 때만 후속 검토합니다.
+- M1·M2·M3 범위에는 포함하지 않습니다. M4에서 실제 웹 결과물이 생긴 뒤 별도 기술 실험을 수행하고, 성공한 외부 실행 방식만 M5 Preview 선택지와 M7 실기기 승인 검증 후보로 사용합니다.
+- 최초 대상은 웹/PWA로 제한하며 Android 네이티브 앱 지원은 실제 요구가 생길 때 별도 판단합니다.
+- USB 연결과 `adb reverse`를 기본으로 검토하고, Vite 개발 서버의 LAN 공개 및 무선 ADB 외부 노출은 기본값으로 사용하지 않습니다.
+- 연결 실패 시 기존 Mock Preview를 계속 사용할 수 있어야 하며, 설치·연결 실험이 PASS되기 전에는 V2에 적용된 것으로 기록하지 않습니다.
+
 ## Ponytail 파일럿
 
 - 📝 승인됨: 불필요한 코드와 의존성을 줄이는 구현 규칙으로 Ponytail을 파일럿 채택합니다.
