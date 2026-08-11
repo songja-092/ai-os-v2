@@ -18,7 +18,7 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - 📝 승인됨: 자연어 요구사항을 구조화하는 기본 절차로 GitHub Spec Kit을 채택합니다.
 - 사용자에게 보이는 기본 절차는 `Specify/Clarify → 요구사항 승인 → Plan/Tasks → 계획 승인 → Implement`로 사용합니다.
 - `Analyze`, `Converge` 등은 필요할 때 사용하는 내부 검증 수단이며 사용자 흐름의 고정 단계로 만들지 않습니다.
-- Spec Kit `v0.16.1` 기반과 Codex 통합은 현재 `main`에 반영되어 있습니다. V2 전체 Workflow 연결과 실제 Feature Run은 아직 미구현·미검증입니다.
+- Spec Kit `v0.16.1` 기반과 Codex 통합을 사용합니다. M2 기본 경로는 Spec Kit Workflow가 아니라 공식 Skill과 Artifact 형식을 직접 재사용합니다.
 - Codex를 현재 Spec Kit 기본 통합으로 사용합니다.
 - Antigravity는 Spec Kit을 직접 실행할 필요 없이 승인된 Markdown 산출물과 Codex 작업 지시서를 전달받아 수동으로 구현합니다.
 - 도입 전 복구 기준은 Git 태그 `rollback/before-spec-kit-20260809`입니다.
@@ -32,8 +32,10 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 ## Agent 역할과 권한
 
 - 웹 ChatGPT는 아이디어 조사와 정리를 담당하며 구현 완료를 판정하지 않습니다.
-- Codex는 저장소 기반 설계, 작업 범위 작성과 독립 검증을 담당합니다.
-- Antigravity는 기본적으로 수동 구현 Agent로 사용합니다.
+- V2 Core는 Run, Gate와 상태를 소유하는 유일한 Orchestrator입니다. 사용자 표시명 `Zeus`는 V2 Core를 가리키며 별도 AI 모델이 아닙니다.
+- Codex는 내부 설정, Core, Run, Gate, Git, Skill 연결, 저장소 기반 설계와 기술 검증을 담당합니다.
+- Antigravity는 승인된 지시서를 기준으로 실제 웹·앱·화면·기능을 구현하며 M4 전까지 V2 내부 작업에서 대기합니다.
+- 동일 Run에는 한 번에 쓰기 담당자 한 명만 허용합니다.
 - Antigravity의 파일 변경, 명령 실행, 설치, 외부 연결, 배포 및 Commit은 사용자가 범위를 확인할 수 있어야 합니다.
 - V2는 특정 구현 Agent에 종속되지 않으며 Antigravity를 Codex 또는 다른 Agent로 교체할 수 있는 Markdown 작업 지시서를 사용합니다.
 
@@ -69,13 +71,14 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - `user_result`는 사용자만 판정하고 `codex_result`는 Codex가 실제 기술 증거를 확인한 뒤 기록합니다. Codex와 V2 Core는 사용자 판정을 대신하지 않습니다.
 - Scenario 대상은 V2 Core의 `core_commit_sha`와 제작 프로젝트의 `project_commit_sha`를 분리합니다. 제작 프로젝트가 없는 M2·M3에서는 `project_commit_sha: null`을 허용합니다.
 - 종합 상태는 별도 원본 값으로 저장하지 않고 현재 Commit, `scenario_version`, `user_result`, `codex_result`에서 계산합니다. Commit 또는 Scenario 버전이 바뀌면 이전 PASS는 삭제하지 않고 `stale`로 표시해 재검증합니다.
-- M2·M3에서는 상태 파일과 Workflow Gate를 검증하고 Playwright를 사용하지 않습니다. M4 이후 웹 프로젝트에서 먼저 기존 Codex 브라우저 검증 기능을 사용하며, 반복 자동검증 가치가 확인될 때만 해당 제작 프로젝트에 Playwright를 검토합니다.
+- M2·M3에서는 V2 Core Gate와 Artifact를 검증하고 Playwright를 사용하지 않습니다. M4 이후 웹 프로젝트에서 먼저 기존 Codex 브라우저 검증 기능을 사용하며, 반복 자동검증 가치가 확인될 때만 해당 제작 프로젝트에 Playwright를 검토합니다.
 - Playwright Codegen은 테스트 초안에만 사용하며 생성 결과 자체를 PASS 증거로 사용하지 않습니다. 외부 `webapp-testing` Skill은 현재 Codex 기능과 중복되므로 설치하지 않습니다.
 
 ## V2 Core와 Run
 
-- 📝 승인됨: V2 Core는 AI 모델이나 새 Kernel이 아니라 기존 도구의 실행 순서, 승인 Gate, 결과 참조, 증거와 Git 복구점을 한 Run으로 연결하는 Workflow입니다.
-- 가능한 경우 Spec Kit Workflow의 Run ID, Status, Resume와 Gate를 그대로 사용합니다. 별도 Run 엔진이나 ID 생성기를 먼저 만들지 않습니다.
+- ✅ 검증됨: V2 Core(Zeus)는 AI 모델이나 새 Kernel이 아니라 Run, Gate, 상태, 결과 참조와 Git 복구점을 소유하는 유일한 Orchestrator입니다.
+- Spec Kit은 공식 Skill과 Artifact 형식을 제공하며 Run이나 Gate 상태를 소유하지 않습니다. Spec Kit Workflow는 M2 기본 실행 경로에서 제외합니다.
+- `workflow_run_id`는 과거 증거 호환을 위한 nullable 선택 필드입니다.
 - 첫 MVP는 `Feature Run`과 `Change Run` 두 종류 및 활성 Run 하나만 지원합니다.
 - Run에는 Spec·Design·Plan 본문을 복제하지 않고 실제 산출물 경로와 Commit SHA를 참조합니다.
 - `Base Memory Commit`, `Base Project Commit`, `Result Project Commit`, 검증된 Run을 Wiki에 반영한 `V2 State Commit`을 구분합니다.
@@ -91,7 +94,7 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 ## UI와 복구 안전
 
 - M1~M4에서는 전용 V2 UI를 구현하지 않고 Spec Kit 상태와 Obsidian의 Run 기록으로 Core를 검증합니다.
-- V2 UI는 M5에서 실제 Core Workflow 상태를 읽고 승인 시 같은 Run을 Resume하는 얇은 인터페이스로 구현합니다.
+- V2 UI는 M5에서 실제 Core 상태를 읽고 사용자 승인을 같은 V2 Run의 Gate에 반영하는 얇은 인터페이스로 구현합니다.
 - MVP 웹 Preview는 사용자가 승인한 `localhost` 또는 `127.0.0.1` 개발 서버 하나만 지원합니다. Phone·Tablet·Desktop 전환은 MVP 범위에서 제외합니다.
 - Rollback/Restore 검증은 사용자의 현재 작업 폴더를 변경하지 않도록 별도 임시 `git worktree`에서 수행합니다.
 - 마일스톤 진행 중 임시 상태를 Wiki의 확정 사실로 자동 저장하지 않습니다. 실제 PASS 증거가 생기면 V2 Core가 `CURRENT_STATE.md` 갱신안을 만들고, 사용자 승인 후 Commit/Push하여 공식 기억으로 확정합니다.
@@ -136,10 +139,8 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 
 구현 전에는 구현됐다고 표현하지 않습니다. 실제 검증 전에는 `PASS`, `완료`, `검증됨`이라고 표현하지 않습니다. 직접 확인하지 못한 내용은 `확인 필요`라고 표현합니다.
 
-## M2 요구사항 정리 및 승인 Gate 구현 (M2.0)
+## M2 요구사항 정리 및 승인 Gate (M2.0)
 
-- ✅ 검증됨: 자연어 제작 요청을 받아 `specify workflow run speckit`을 비동기로 실행하고 생성된 Run ID를 `run.yml`에 바인딩하는 Intake 단계를 구현 및 검증 완료했습니다.
-- ✅ 검증됨: sandbox mode overriding 및 approvals bypass를 위해 wrapper `bin/codex` 스크립트를 사용하여 `--dangerously-bypass-approvals-and-sandbox`를 전달하게 하여, Codex가 샌드박스 제약과 대화형 승인 대기 없이 명세서를 안전하고 빠르게 자동 작성할 수 있도록 구축 및 검증했습니다.
-- ✅ 검증됨: 요구사항 수정 요청 시 (`v2 spec modify`) 이전 버전의 백업본(`spec.md.v{N}`)을 생성하고, version을 1 증가시키며, 이전 승인은 `pending`으로 리셋되고 변경 전후 diff를 화면에 보여주는 수정 흐름을 구현 및 검증했습니다.
-- ✅ 검증됨: 최종 요구사항 승인 시 (`v2 spec approve`) `requirements_status: "approved"`, `next_stage_allowed: true`로 상태 전이가 일어나고 백그라운드 workflow run을 resume 시켜 다음 단계(Plan 등)로 정상 진입하게 하는 승인 Gate 흐름을 구현 및 검증했습니다.
-
+- ✅ 검증됨: 공식 Run `run-05dbfc27`에서 `execution_mode: skills`, `workflow_run_id: null`로 `speckit-specify`와 `speckit-plan`을 직접 호출했습니다.
+- ✅ 검증됨: 승인 전 Plan 차단, Spec 본문 수정, Version `1 → 2`, 승인 초기화와 현재 Version 승인, 승인 후 Plan Artifact 생성과 새 프로세스 재조회를 확인했습니다.
+- `run-3b0ffae8`은 다른 Agent 변경이 섞인 `diagnostic_failed` 기록이며 M2 PASS 증거로 사용하지 않습니다.

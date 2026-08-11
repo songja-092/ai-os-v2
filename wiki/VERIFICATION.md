@@ -54,7 +54,7 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 ### M1 — Run·Git 안전 기반
 
 - V2 Run ID가 생성되고 대상 Project, Run 전용 Branch, `Base Memory Commit`과 `Base Project Commit`이 연결됩니다.
-- `integrations.spec_kit.workflow_run_id` 필드가 존재하며 M2에서 실제 Workflow가 연결되기 전에는 `null`입니다.
+- `integrations.spec_kit.workflow_run_id`는 과거 Workflow 증거 호환을 위한 nullable 선택 필드이며 skills 기본 경로에서는 `null`입니다.
 - 공식 원격 `origin/main` SHA는 `memory.official_commit`, 현재 로컬 V2 HEAD는 `v2_workspace.head`에 서로 분리되어 기록됩니다.
 - `running`, 대기, 실패, 취소와 재개 상태를 실제 Run에서 구분할 수 있습니다.
 - 프로세스를 종료하고 다시 실행해도 저장된 Run 상태와 재개점을 읽을 수 있습니다.
@@ -63,16 +63,21 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 
 사용자 Scenario는 새 규칙을 소급해 만들지 않습니다. 기존 승인 범위의 CLI·상태 파일 재조회, 재개와 상태 전이는 Codex가 기술적으로 검증합니다.
 
-### M2 — Spec과 승인 Gate
+### M2 — Spec과 승인 Gate (구조 A 전환)
 
-- 사용자의 자연어 원문으로 실제 Spec Kit Specify/Clarify 산출물을 생성합니다.
-- 실제 Spec Kit Workflow Run ID를 기존 V2 Run의 `integrations.spec_kit.workflow_run_id`에 연결합니다.
-- Spec, 제외 범위와 완료 조건이 같은 Run ID에 연결됩니다.
-- 사용자 승인 전 Plan이 실행되지 않습니다.
-- 승인 후 새 Run을 만들지 않고 기존 Run을 Resume합니다.
-- 거절·수정 요청 시 같은 Run에서 Spec을 고치고 승인 Gate로 돌아갑니다.
+- 공식 검증 Run: `run-05dbfc27`
+- ✅ `execution_mode: skills`, `workflow_run_id: null`
+- ✅ `speckit-specify` 직접 호출로 `spec.md`와 요구사항 체크리스트 생성
+- ✅ 승인 전 `v2 plan` 종료코드 `1`로 차단
+- ✅ `v2 spec modify`가 Spec 본문을 실제로 변경하고 Version을 `1 → 2`로 증가시킨 후 승인을 `pending`으로 초기화
+- ✅ `v2 spec approve`가 현재 Version `2`만 승인하고 외부 Workflow를 Resume하지 않음
+- ✅ 승인만으로 Plan이 자동 시작되지 않음
+- ✅ `v2 plan`이 `speckit-plan` Skill을 직접 호출하고 비어 있지 않은 `plan.md`를 같은 Run에 연결
+- ✅ 새 프로세스에서 같은 Run을 재조회하고 `git diff --check` 통과
 
-사용자는 정리된 요구사항을 읽고 수정 요청, 승인 전 차단과 승인 후 진행을 확인합니다. Codex는 같은 Run ID와 실제 Gate 상태가 일치하는지 검증합니다. Playwright는 사용하지 않습니다.
+`run-3b0ffae8`은 다른 Agent 변경이 섞인 `diagnostic_failed` 기록이며 M2 PASS 증거가 아닙니다. 다른 기존 실패 Run도 M2 PASS 증거로 사용하지 않습니다.
+
+사용자는 정리된 요구사항의 수정 요청, 승인 전 차단, 승인 후 plan.md 생성 완료를 확인합니다. Codex는 V2 Run 과 생성된 Markdown Artifact 들의 실물 정합성을 검증합니다. Playwright는 사용하지 않습니다.
 
 ### M3 — 조건부 Research·Design과 Plan/Tasks
 
@@ -102,7 +107,7 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 ### M5 — 얇은 V2 UI
 
 - UI의 Project, Run, 단계, Task, 승인, 검증과 Commit 상태가 실제 Core 상태와 일치합니다.
-- 승인과 수정 요청이 실제 Workflow Gate와 Run 상태에 반영됩니다.
+- 승인과 수정 요청이 실제 V2 Core Gate와 Run 상태에 반영됩니다.
 - 웹 프로젝트는 승인된 로컬 개발 서버의 실제 Live Preview와 연결 실패 상태를 표시합니다.
 - 새로고침 또는 V2 UI 재시작 후에도 Core의 저장된 상태를 다시 표시합니다.
 - UI가 임의 진행률, PASS, 증거 또는 Commit SHA를 생성하지 않습니다.
