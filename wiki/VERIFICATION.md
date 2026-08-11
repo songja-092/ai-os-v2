@@ -91,6 +91,22 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 
 사용자는 디자인 선택지와 Plan을 확인하고 승인 또는 수정 요청을 수행합니다. Codex는 선택한 Design 결과가 같은 Run의 Plan과 Tasks에 실제로 연결됐는지 파일과 상태로 검증합니다. Playwright는 사용하지 않습니다.
 
+#### M3 실제 검증 결과
+
+- ✅ Run ID 유지: `run-05dbfc27`
+- ✅ UI UX Pro Max `v2.14.1`과 `frontend-app-builder` 직접 호출 증거 존재
+- ✅ Option C v2 모바일 우선 Preview와 Browser 검증 Artifact 존재
+- ✅ 기술 검증 PASS와 사용자 `needs_improvement` 판정을 분리 보존
+- ✅ M4 파이프라인 시험 승인만 기록하고 상업 디자인·Reference 승인은 `false` 유지
+- ✅ Spec Kit `v0.16.1` Codex integration 복구 후 Missing/Modified managed files 0
+- ✅ 공식 `speckit-tasks` Skill 호출 1회, 자동 재시도·새 Run·Workflow 사용 없음
+- ✅ `tasks.md` T001~T047 순차 생성 및 Spec·Plan·Option C 범위 정합성 확인
+- ✅ M4 Handoff의 6개 묶음에 47개 Task 누락 0·중복 0
+- ✅ 승인된 Spec·Plan·Preview v1·v2·v3 해시 불변
+- ✅ 제작 프로젝트 기준점 Commit: `2554340`
+
+M3 판정은 `✅ 검증됨`입니다. M4 Handoff Gate는 `ready_for_antigravity`이며 실제 M4 구현은 아직 시작하지 않았습니다.
+
 ### M4 — Feature Run 완성
 
 - Antigravity 전달 자료와 회수 결과가 같은 Run ID, Run Branch와 Base Project Commit을 가리킵니다.

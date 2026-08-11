@@ -132,8 +132,8 @@ target:
 
 1. **M1 — Run·Git 안전 기반**: V2 Run ID, Project, 두 Base Commit, Branch, 상태·중단·재개와 nullable `workflow_run_id` 호환 필드를 연결합니다.
 2. **M2 — Spec과 승인 Gate**: `run-05dbfc27`에서 Spec Kit Skill, Artifact, 승인 전 차단과 승인 후 Plan 생성을 같은 V2 Run으로 검증했습니다.
-3. **M3 — 조건부 Design과 Plan/Tasks**: 필요한 단계만 실행하고 승인된 Tasks를 생성합니다.
-4. **M4 — Feature Run 완성**: Manual Agent Handoff, 구현 결과 회수, 독립 검증, 사용자 승인, Result Commit과 안전한 Rollback/Restore를 병원 웹에서 검증합니다.
+3. **M3 — 조건부 Design과 Plan/Tasks — ✅ 완료**: `run-05dbfc27`에서 Option C v2, 공식 Tasks 47개와 검증된 6묶음 Handoff를 생성했습니다.
+4. **M4 — Feature Run 완성 — 진행 준비**: Manual Agent Handoff가 `ready_for_antigravity`이고 구현은 `not_started`입니다. 구현 결과 회수, 독립 검증, 사용자 승인, Result Commit과 안전한 Rollback/Restore를 병원 웹에서 검증합니다.
 5. **M5 — 얇은 V2 UI**: M1~M4의 실제 상태와 산출물을 읽고 V2 Gate 승인과 웹 Live Preview를 제공합니다.
 6. **M6 — Change Run**: 기존 결과의 작은 수정에서 필요한 단계만 실행하고 회귀 검증과 새 Commit을 만듭니다.
 7. **M7 — MVP E2E**: V2 UI에서 병원 웹 Feature Run과 예약 버튼 Change Run을 실제로 완료합니다.
@@ -155,11 +155,11 @@ target:
 |---|---|---|
 | 공식 기억과 버전 | GitHub + Wiki | ✅ 연결 검증 기록 존재 |
 | 사람용 편집 | Obsidian | ✅ 연결 검증 기록 존재 |
-| 구조 시각화 | Archify | 연결 검증 증거 재확인 필요 |
+| 구조 시각화 | Archify | M3 기준점 Commit에서 재생성·검증 |
 | 자연어 명세 및 계획 | Spec Kit Skills | ✅ 구조 A Skills 직접 호출 및 Plan 성공 검증 |
-| 디자인 시스템 제안 | UI UX Pro Max | 📝 승인됨, 미설치 |
+| 디자인 시스템 제안 | UI UX Pro Max | ✅ M3 설치·직접 호출·Artifact 생성 검증 |
 | 설계·독립 검증 | Codex | 사용 중 |
-| 실제 구현 | Antigravity | M4 실제 구현 전까지 대기 |
+| 실제 구현 | Antigravity | M4 Handoff 준비 완료, 구현 미시작 |
 | 구현 최소화 규칙 | Ponytail | 🔨 `main` 설치, 실제 Task 미검증 |
 | 환경별 검증 | 프로젝트별 도구 | 💡 Target Environment에 따라 선택 |
 | Core Workflow | V2 Core Orchestrator | ✅ 단독 Run/Gate/상태 소유 검증 완료 (구조 A) |

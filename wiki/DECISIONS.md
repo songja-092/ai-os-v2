@@ -144,3 +144,14 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - ✅ 검증됨: 공식 Run `run-05dbfc27`에서 `execution_mode: skills`, `workflow_run_id: null`로 `speckit-specify`와 `speckit-plan`을 직접 호출했습니다.
 - ✅ 검증됨: 승인 전 Plan 차단, Spec 본문 수정, Version `1 → 2`, 승인 초기화와 현재 Version 승인, 승인 후 Plan Artifact 생성과 새 프로세스 재조회를 확인했습니다.
 - `run-3b0ffae8`은 다른 Agent 변경이 섞인 `diagnostic_failed` 기록이며 M2 PASS 증거로 사용하지 않습니다.
+
+## M3 Design·Plan·Tasks 완료
+
+- ✅ 검증됨: 공식 Run `run-05dbfc27`에서 UI UX Pro Max와 `frontend-app-builder`를 실제 호출하여 구조가 다른 디자인 탐색 v1과 모바일 우선 Option C v2를 생성했습니다.
+- ✅ 검증됨: Option C v2는 390px·430px·1440px, 화면 이동, 오류·완료 상태와 Console 기준 Browser 기술 검증을 통과했습니다.
+- 사용자 디자인 만족은 `needs_improvement`이며 Option C v2는 `approved_for_m4_pipeline_test`로만 승인합니다. 상업 디자인 승인이나 Reference 승격으로 해석하지 않습니다.
+- 미완성 v3는 `aborted_draft` 참고자료이며 공식 디자인 증거가 아닙니다.
+- ✅ 검증됨: 공식 `speckit-tasks` Skill을 같은 Run에서 한 번 호출해 T001~T047을 생성했고 새 Run·Workflow·자동 재시도는 사용하지 않았습니다.
+- ✅ 검증됨: 47개 Task를 정확히 한 번씩 포함하는 6개 작업 묶음과 수정 허용·금지 경계를 가진 M4 Handoff를 작성했습니다.
+- M4 Handoff Gate는 `ready_for_antigravity`, 구현 상태는 `not_started`입니다. Handoff 준비만으로 Antigravity를 자동 실행하지 않습니다.
+- 제작 프로젝트 M3 기준점 Commit은 `2554340`이며 Push는 별도 승인 전까지 수행하지 않습니다.
