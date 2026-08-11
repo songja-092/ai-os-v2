@@ -105,7 +105,7 @@ Rollback과 Restore는 현재 작업 폴더가 아닌 별도 임시 `git worktre
 - ✅ 승인된 Spec·Plan·Preview v1·v2·v3 해시 불변
 - ✅ 제작 프로젝트 기준점 Commit: `2554340`
 
-M3 판정은 `✅ 검증됨`입니다. M4 Handoff Gate는 `ready_for_antigravity`이며 실제 M4 구현은 아직 시작하지 않았습니다.
+M3 판정은 `✅ 검증됨`입니다. 이후 M4 Handoff를 5개 최소 실행 묶음으로 정리해 실제 구현에 사용했습니다.
 
 ### M4 — Feature Run 완성
 
@@ -119,6 +119,24 @@ M3 판정은 `✅ 검증됨`입니다. M4 Handoff Gate는 `ready_for_antigravity
 - 실패·취소 시 임시 서버, worktree와 잠금을 정리하고 재개점을 보존합니다.
 
 사용자는 병원 웹의 승인된 핵심 흐름을 직접 사용하고 `통과` 또는 `문제 있음`을 판정합니다. Codex는 기존 브라우저 검증 기능으로 실제 상호작용, Console 오류, Spec 일치와 대상 Commit을 확인합니다. 반복 가치가 확인된 흐름만 추후 Playwright 자동검증 후보로 전환합니다.
+
+#### M4 실제 검증 결과
+
+- ✅ Run ID 유지: `run-05dbfc27`
+- ✅ 구현 Agent: Antigravity
+- ✅ 기준 Project Commit: `25543402bacf1e57dac797a8a66abad4498d97f0`
+- ✅ Result Project Commit: `c9703520ff9a7a6ce95f64918ada4ce08160175d`
+- ✅ `npm run typecheck`, `npm run build`, `git diff --check`
+- ✅ Codex 인앱 Browser에서 390px·430px·1440px, 메뉴·의료진·예약 오류·완료·메인 복귀 검증
+- ✅ 애플리케이션 Console 오류와 깨진 이미지 없음
+- ✅ 코드에서 외부 전송·브라우저 저장 API 부재, 제출 후 초기화와 새로고침 후 입력 미복원 확인
+- ✅ 사용자의 M4 파이프라인 테스트 승인
+- ✅ 별도 임시 worktree에서 기준 Commit의 제품 부재와 Result Commit의 설치·Typecheck·Build 재현 확인
+- 비차단 이슈: `HERO-01`의 390px 한국어 제목 줄바꿈
+- 상업 디자인 승인: `false`
+- Reference 승인: `false`
+
+M4 판정은 `✅ 검증됨`이며 다음 단계는 M5입니다.
 
 ### M5 — 얇은 V2 UI
 

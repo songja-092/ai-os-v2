@@ -26,14 +26,16 @@
   {
     "id": "M4",
     "name": "Feature Run 완성",
-    "status": "active",
-    "desc": "검증된 Handoff 준비 완료 · Antigravity 구현 미시작"
+    "status": "completed",
+    "desc": "Antigravity 구현·Codex 검증·사용자 승인·Result Commit·Rollback/Restore PASS",
+    "verified_at": "2026-08-11",
+    "evidence": "run-05dbfc27 · test_project c970352"
   },
   {
     "id": "M5",
     "name": "얇은 V2 UI",
-    "status": "pending",
-    "desc": "대시보드 및 Live Preview 통합"
+    "status": "active",
+    "desc": "M1~M4 실제 상태를 읽는 최소 대시보드와 Live Preview 설계"
   },
   {
     "id": "M6",
