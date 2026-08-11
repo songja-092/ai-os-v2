@@ -47,7 +47,7 @@ def next_steps(markdown: str) -> list[str]:
     collecting = False
     items: list[str] = []
     for line in lines:
-        if line.strip() == "## 확정된 다음 단계":
+        if line.strip() in {"## 다음 단계", "## 확정된 다음 단계"}:
             collecting = True
             continue
         if collecting and line.startswith("## "):
