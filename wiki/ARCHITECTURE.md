@@ -41,15 +41,13 @@ Codex는 내부 설정, Core, Run, Gate, Git, Skill 연결과 기술 검증을 �
 
 ## 사용자에게 보이는 흐름
 
-기술 단계를 그대로 노출하지 않고 다음 다섯 단계로 표현합니다.
+기술 단계를 그대로 노출하지 않고 다음 세 단계로 표현합니다.
 
-1. 원하는 결과 말하기
-2. 조사 결과와 선택지 보기
-3. 시안과 작업 계획 승인하기
-4. 구현 결과를 실제 화면에서 사용해 보기
-5. 저장하거나 이전 상태로 되돌리기
+1. 원하는 것을 말하기
+2. 추천 결과 또는 시안 고르기
+3. 실제 결과를 확인하고 완료 또는 수정 말하기
 
-사용자는 코드, 명령어와 내부 Agent 연결을 직접 관리하지 않습니다. 사용자가 직접 판단하는 지점은 요구사항, 조건부 디자인, 작업 계획, 보안·실행 권한과 최종 결과 승인입니다.
+기존 프로젝트를 가져오면 V2가 실제 상태와 부족한 부분을 분석하고 `추천대로 진행` 또는 `직접 선택`을 제시합니다. 사용자는 코드, 명령어와 내부 Agent 연결을 직접 관리하지 않으며 Run ID, SHA, Spec·Plan·Tasks와 기술 로그는 필요할 때만 자세히 봅니다.
 
 ## 제작 파이프라인
 
@@ -70,9 +68,9 @@ Codex는 내부 설정, Core, Run, Gate, Git, Skill 연결과 기술 검증을 �
 
 각 단계는 `running`, `waiting_user`, `waiting_agent`, `blocked`, `failed`, `completed`, `cancelled` 중 하나의 실제 상태를 가집니다. 실패하거나 중단된 Run은 원인과 재개 지점을 남깁니다.
 
-## V2 화면 뼈대
+## V2 화면 뼈대 — Core MVP 이후 후보
 
-M5에서 구현할 화면은 M1~M4의 실제 Run 상태만 읽습니다.
+Dashboard를 구현할 때는 M1~M7에서 검증된 실제 Run 상태만 읽습니다. Dashboard는 현재 Core MVP의 필수 마일스톤이 아닙니다.
 
 ```text
 ┌─────────────────────────┬──────────────────────────────────┐
@@ -134,9 +132,9 @@ target:
 2. **M2 — Spec과 승인 Gate**: `run-05dbfc27`에서 Spec Kit Skill, Artifact, 승인 전 차단과 승인 후 Plan 생성을 같은 V2 Run으로 검증했습니다.
 3. **M3 — 조건부 Design과 Plan/Tasks — ✅ 완료**: `run-05dbfc27`에서 Option C v2, 공식 Tasks 47개와 5개 최소 실행 묶음 Handoff를 생성했습니다.
 4. **M4 — Feature Run 완성 — ✅ 완료**: Antigravity 구현, Codex 독립 검증, 사용자 승인, Result Commit `c970352`와 임시 worktree Rollback/Restore를 병원 웹에서 검증했습니다.
-5. **M5 — 얇은 V2 UI — 다음 단계**: M1~M4의 실제 상태와 산출물을 읽고 V2 Gate 승인과 웹 Live Preview를 제공합니다.
-6. **M6 — Change Run**: 기존 결과의 작은 수정에서 필요한 단계만 실행하고 회귀 검증과 새 Commit을 만듭니다.
-7. **M7 — MVP E2E**: V2 UI에서 병원 웹 Feature Run과 예약 버튼 Change Run을 실제로 완료합니다.
+5. **M5 — 수집·분석·레시피 선택 Core — 다음 단계**: 새 프로젝트 또는 기존 프로젝트의 실제 상태를 수집하고 부족한 부분과 완료 수준을 분석하여 검증된 제작 레시피 하나와 다음 한 작업을 추천합니다. 자동 크롤러·별도 DB·Dashboard는 만들지 않습니다.
+6. **M6 — 기존 프로젝트 Change Run**: 기존 Result Commit 또는 가져온 바이브코딩 프로젝트의 작은 부족 영역 하나만 수정하고 영향 범위 검증, 사용자 확인, 새 Commit과 Rollback/Restore를 수행합니다.
+7. **M7 — PDF 도면 스탬프 MVP E2E**: M5에서 선택한 레시피로 모바일에서 PDF 선택, 한 페이지 표시, 스탬프 배치·이동·크기 조절, 원본 보존과 새 PDF 내보내기를 구현하고 전체 사이클·중단 후 재개·Rollback/Restore를 검증합니다.
 
 각 마일스톤이 PASS하면 V2 Core가 `CURRENT_STATE.md` 갱신안을 생성합니다. 사용자가 승인한 갱신만 Commit/Push하며 Obsidian은 같은 로컬 Wiki를 즉시 표시합니다. Archify 자동 갱신은 현재 구현된 것으로 간주하지 않습니다.
 
@@ -163,7 +161,13 @@ target:
 | 구현 최소화 규칙 | Ponytail | 🔨 `main` 설치, 실제 Task 미검증 |
 | 환경별 검증 | 프로젝트별 도구 | 💡 Target Environment에 따라 선택 |
 | Core Workflow | V2 Core Orchestrator | ✅ 단독 Run/Gate/상태 소유 검증 완료 (구조 A) |
-| V2 UI | 없음 | M5 이전에는 구현하지 않음 |
+| V2 UI | 없음 | Core MVP 이후 후보 |
 | 자동 AI 호출 | 없음 | MVP 필수 아님, Manual Agent Adapter 사용 |
 
-Kernel, Planner, Collector, Multi-Agent와 자체 실행 엔진은 현재 아키텍처의 필수 구성요소가 아닙니다. V2 UI는 Core를 대신하지 않으며 M1~M4에서 검증된 실제 상태를 M5에서 보여주는 인터페이스입니다.
+Kernel, Planner, 별도 Collector 서버, Multi-Agent와 자체 실행 엔진은 현재 아키텍처의 필수 구성요소가 아닙니다. M5의 수집·분석은 기존 파일 검색, 실행 확인과 공식 자료 조사로 검증하며 Dashboard는 검증된 Core 흐름을 나중에 감싸는 인터페이스입니다.
+
+## MVP 이후 연결
+
+M7이 PASS하면 Core는 완료 상태만 표시하고 멈추지 않고 `wiki/POST_MVP_ROADMAP.md`의 최우선 미검증 후보를 읽습니다. 이 자동 연결은 `상태 조회 → 후보 로드 → 수집 → 분석 → 추천 → Preview 준비`까지만 허용하며 구현 Gate를 자동 통과하지 않습니다.
+
+첫 후보는 `web_camera_capture`입니다. `getUserMedia`와 Canvas/ImageCapture를 기준으로 Galaxy 실기기, 권한 거절, 카메라 전환, 회전, 연속 촬영, 압축과 실패 대체 경로를 조사합니다. 실제 구현·설치·제품 변경은 사용자 선택 이후 별도 Run에서 수행합니다.
