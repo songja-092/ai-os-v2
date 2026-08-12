@@ -11,6 +11,9 @@ from datetime import datetime, timezone
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import tempfile
 import shutil
+import glob
+import socket
+import re
 
 # Helper to run shell commands
 def run_cmd(cmd, cwd=None):
@@ -182,13 +185,32 @@ def build_codex_exec_command(prompt, skip_git_repo_check=False):
     return cmd
 
 
-def run_skill(project_path, skill_name, prompt, timeout, allowed_roots):
-    # Skill이 대상 프로젝트에 실제 설치되어 있어야 한다.
-    skill_dir = os.path.join(project_path, ".agents", "skills", skill_name)
-    skill_file = os.path.join(skill_dir, "SKILL.md")
+def resolve_skill(skill_name, project_path):
+    """Resolve project Skills first, then installed Codex plugin Skills."""
+    project_skill = os.path.join(project_path, ".agents", "skills", skill_name, "SKILL.md")
+    if os.path.isfile(project_skill):
+        return project_skill, skill_name
 
-    if not os.path.exists(skill_file):
-        raise FileNotFoundError(f"Skill '{skill_name}' not found at {skill_file}")
+    plugin_skills = {
+        "frontend-app-builder": "build-web-apps:frontend-app-builder",
+        "frontend-testing-debugging": "build-web-apps:frontend-testing-debugging",
+    }
+    invocation_name = plugin_skills.get(skill_name)
+    if invocation_name:
+        pattern = os.path.expanduser(
+            f"~/.codex/plugins/cache/openai-curated-remote/build-web-apps/*/skills/{skill_name}/SKILL.md"
+        )
+        matches = sorted(glob.glob(pattern))
+        if matches:
+            return matches[-1], invocation_name
+    return None, None
+
+
+def run_skill(project_path, skill_name, prompt, timeout, allowed_roots):
+    skill_file, invocation_name = resolve_skill(skill_name, project_path)
+
+    if not skill_file:
+        raise FileNotFoundError(f"Skill '{skill_name}' is not installed for this project or Codex.")
 
     with open(skill_file, "r", encoding="utf-8") as sf:
         if not sf.read().strip():
@@ -200,7 +222,7 @@ def run_skill(project_path, skill_name, prompt, timeout, allowed_roots):
     before_changes = get_git_changed_paths(project_path)
 
     # Codex의 프로젝트 Skill 호출 문법을 그대로 사용한다. Skill 본문을 Prompt에 복제하지 않는다.
-    skill_prompt = f"${skill_name} {prompt}"
+    skill_prompt = f"${invocation_name} {prompt}"
     cmd = build_codex_exec_command(skill_prompt)
 
     env = os.environ.copy()
@@ -235,6 +257,8 @@ def run_skill(project_path, skill_name, prompt, timeout, allowed_roots):
         "before_changes": sorted(before_changes),
         "after_changes": sorted(after_changes),
         "unexpected_changes": unexpected,
+        "skill_file": skill_file,
+        "invocation_name": invocation_name,
     }
 
 
@@ -277,6 +301,569 @@ def write_skill_log(log_path, skill_name, result):
         log_file.write(result["stdout"])
         log_file.write("\n--- Stderr ---\n")
         log_file.write(result["stderr"])
+
+
+def run_codex_task(cwd, prompt, timeout, skip_git_repo_check=False):
+    """Run one non-interactive Codex task without introducing another orchestrator."""
+    if not prompt.strip():
+        raise ValueError("Codex task prompt is empty.")
+    cmd = build_codex_exec_command(prompt, skip_git_repo_check=skip_git_repo_check)
+    env = os.environ.copy()
+    env.pop("SPECKIT_INTEGRATION_CODEX_EXTRA_ARGS", None)
+    try:
+        result = subprocess.run(
+            cmd,
+            shell=False,
+            cwd=cwd,
+            env=env,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise TimeoutError(f"Codex task timed out after {timeout} seconds.") from exc
+    return {
+        "command": [*cmd[:-1], "<structured collection-analysis prompt>"],
+        "returncode": result.returncode,
+        "stdout": result.stdout,
+        "stderr": result.stderr,
+    }
+
+
+def write_codex_task_log(log_path, result):
+    with open(log_path, "w", encoding="utf-8") as log_file:
+        log_file.write(f"Command: {json.dumps(result['command'], ensure_ascii=False)}\n")
+        log_file.write(f"Exit Code: {result['returncode']}\n")
+        log_file.write("--- Stdout ---\n")
+        log_file.write(result["stdout"])
+        log_file.write("\n--- Stderr ---\n")
+        log_file.write(result["stderr"])
+
+
+def validate_analysis_artifact(analysis_path, analysis_kind):
+    if not os.path.isfile(analysis_path) or os.path.getsize(analysis_path) == 0:
+        raise ValueError("analysis.md is missing or empty.")
+    with open(analysis_path, "r", encoding="utf-8") as analysis_file:
+        analysis = analysis_file.read()
+    if "## 후보 3" in analysis:
+        raise ValueError("analysis.md contains more than two candidates.")
+
+    profiles = {
+        "natural_request": [
+            ("실제 목표",), ("가능 여부",), ("후보 1",), ("최종 추천",),
+            ("포함 범위",), ("제외 범위",), ("위험", "보안", "제한"),
+            ("Preview", "검증"), ("완료 수준",), ("next_action:",),
+        ],
+        "user_provided_source": [
+            ("확인 목적",), ("실제 접근 범위", "확인한 범위"),
+            ("확인하지 못한 범위", "미확인"), ("자료에서 발견한 주장",),
+            ("공식 출처에서 확인된 사실",), ("현재 V2와 중복", "중복 여부"),
+            ("최종 판정",), ("판정 이유", "이유"),
+            ("V2 적용 위치", "재검토 조건", "도입 시점"), ("next_action:",),
+        ],
+    }
+    if analysis_kind not in profiles:
+        raise ValueError(f"Unknown analysis validation profile: {analysis_kind}")
+    missing = [
+        "/".join(alternatives)
+        for alternatives in profiles[analysis_kind]
+        if not any(term in analysis for term in alternatives)
+    ]
+    if missing:
+        raise ValueError(
+            f"analysis.md failed profile '{analysis_kind}'; missing: {', '.join(missing)}"
+        )
+    return analysis
+
+
+def validate_collection_analysis_artifacts(run_dir):
+    paths = {
+        "research": os.path.join(run_dir, "research.md"),
+        "analysis": os.path.join(run_dir, "analysis.md"),
+        "user_summary": os.path.join(run_dir, "user-summary.md"),
+    }
+    for label, path in paths.items():
+        if not os.path.isfile(path) or os.path.getsize(path) == 0:
+            raise ValueError(f"Required {label} Artifact is missing or empty.")
+
+    with open(paths["research"], "r", encoding="utf-8") as research_file:
+        research = research_file.read()
+    analysis = validate_analysis_artifact(paths["analysis"], "natural_request")
+    with open(paths["user_summary"], "r", encoding="utf-8") as summary_file:
+        summary = summary_file.read()
+
+    urls = sorted(set(re.findall(r"https?://[^\s)>\]]+", research)))
+    if not urls:
+        raise ValueError("research.md does not contain a source URL.")
+    required_research = ["공식 자료", "GitHub", "성공·실패 사례", "확인 일자"]
+    required_summary = ["요청", "가능 여부", "추천 방식", "포함", "제외", "위험", "다음 작업"]
+    for label in required_research:
+        if label not in research:
+            raise ValueError(f"research.md is missing section: {label}")
+    for label in required_summary:
+        if label not in summary:
+            raise ValueError(f"user-summary.md is missing section: {label}")
+
+    selected_match = re.search(r"^selected_recipe:\s*([a-z0-9][a-z0-9_-]*)\s*$", analysis, re.MULTILINE)
+    next_match = re.search(r"^next_action:\s*(preview|local_product)\s*$", analysis, re.MULTILINE)
+    if not selected_match or not next_match:
+        raise ValueError("analysis.md is missing selected_recipe or a valid next_action marker.")
+    return paths, selected_match.group(1), next_match.group(1), urls
+
+
+def classify_source(source_url=None, source_text=None, source_file=None):
+    provided = [value is not None for value in (source_url, source_text, source_file)]
+    if sum(provided) > 1:
+        raise ValueError("Only one representative source may be provided per Run.")
+    if source_url is not None:
+        if not re.match(r"^https?://", source_url):
+            raise ValueError("source_url must be a public HTTP or HTTPS URL.")
+        if "youtube.com/" in source_url or "youtu.be/" in source_url:
+            source_type = "youtube"
+        elif "github.com/" in source_url:
+            source_type = "github"
+        else:
+            source_type = "web"
+        return source_type, source_url
+    if source_text is not None:
+        if not source_text.strip():
+            raise ValueError("source_text is empty.")
+        return "text", source_text
+    if source_file is not None:
+        path = os.path.abspath(source_file)
+        if not os.path.isfile(path) or os.path.getsize(path) == 0:
+            raise ValueError("source_file does not exist or is empty.")
+        allowed_extensions = {
+            ".md", ".txt", ".pdf", ".png", ".jpg", ".jpeg", ".webp",
+            ".py", ".js", ".ts", ".tsx", ".jsx", ".json", ".yml", ".yaml", ".toml",
+        }
+        if os.path.splitext(path)[1].lower() not in allowed_extensions:
+            raise ValueError("source_file type is not supported by the M5 MVP.")
+        return "file", path
+    return None, None
+
+
+def write_source_input(path, source_type, source_value, request):
+    if source_type == "text":
+        limit = 12000
+        stored_value = source_value[:limit]
+        truncated = len(source_value) > limit
+        source_display = stored_value
+    else:
+        truncated = False
+        source_display = source_value
+    collected_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    content = f"""# 사용자 제공 자료
+
+## 확인 목적
+
+{request}
+
+## 자료 종류
+
+{source_type}
+
+## 사용자가 제공한 자료
+
+{source_display}
+
+## 원문 보존 범위
+
+{'사용자 본문의 앞 12,000자만 보존함' if truncated else '사용자가 제공한 대표 자료 1개를 보존함'}
+
+## 접근 결과
+
+- 접근 성공 여부: pending
+- 실제 읽은 범위: pending
+- 자막 존재 여부: unknown
+- 수집 시각: {collected_at}
+
+access_status: pending
+transcript_status: unknown
+content_scope: unknown
+"""
+    with open(path, "w", encoding="utf-8") as source_file:
+        source_file.write(content)
+
+
+def validate_source_analysis_artifacts(source_root, artifact_root=None):
+    artifact_root = artifact_root or source_root
+    source_path = os.path.join(source_root, "source-input.md")
+    if not os.path.isfile(source_path) or os.path.getsize(source_path) == 0:
+        raise ValueError("source-input.md is missing or empty.")
+    paths = {
+        "research": os.path.join(artifact_root, "research.md"),
+        "analysis": os.path.join(artifact_root, "analysis.md"),
+        "user_summary": os.path.join(artifact_root, "user-summary.md"),
+    }
+    for label, path in paths.items():
+        if not os.path.isfile(path) or os.path.getsize(path) == 0:
+            raise ValueError(f"Required {label} Artifact is missing or empty.")
+    source_text = open(source_path, "r", encoding="utf-8").read()
+    research = open(paths["research"], "r", encoding="utf-8").read()
+    analysis = validate_analysis_artifact(paths["analysis"], "user_provided_source")
+    summary = open(paths["user_summary"], "r", encoding="utf-8").read()
+    urls = sorted(set(re.findall(r"https?://[^\s)>\]]+", research)))
+    for label in ["공식 자료", "GitHub", "성공·실패 사례", "확인 일자"]:
+        if label not in research:
+            raise ValueError(f"research.md is missing section: {label}")
+
+    for label in ["제공 자료에서 발견한 주장", "공식 출처에서 실제 확인된 사실", "미확인"]:
+        if label not in research:
+            raise ValueError(f"research.md is missing source-analysis section: {label}")
+    for label in ["자료 핵심 요약", "언급된 도구", "V2에서 비어 있는 역할", "예상 효과", "복잡도", "작은 파일럿"]:
+        if label not in analysis:
+            raise ValueError(f"analysis.md is missing source-analysis section: {label}")
+    for label in ["확인한 범위", "확인하지 못한 범위", "공식 확인", "판정", "내가 할 일"]:
+        if label not in summary:
+            raise ValueError(f"user-summary.md is missing source-analysis section: {label}")
+    recipe_match = re.search(r"^selected_recipe:\s*source-evaluation\s*$", analysis, re.MULTILINE)
+
+    access_match = re.search(r"^access_status:\s*(accessible|partial|unavailable)\s*$", source_text, re.MULTILINE)
+    transcript_match = re.search(
+        r"^transcript_status:\s*(full|partial|unavailable|not_applicable|unknown)\s*$",
+        source_text,
+        re.MULTILINE,
+    )
+    scope_match = re.search(r"^content_scope:\s*([^\n]+)$", source_text, re.MULTILINE)
+    disposition_match = re.search(
+        r"^disposition:\s*(discarded|deferred|candidate|pilot_ready|needs_more_source)\s*$",
+        analysis,
+        re.MULTILINE,
+    )
+    verified_match = re.search(r"^official_sources_verified:\s*(true|false)\s*$", analysis, re.MULTILINE)
+    next_match = re.search(
+        r"^next_action:\s*(register_candidate|prepare_pilot|discard|defer|request_more_source)\s*$",
+        analysis,
+        re.MULTILINE,
+    )
+    if not all([recipe_match, access_match, transcript_match, scope_match, disposition_match, verified_match, next_match]):
+        raise ValueError("Source-analysis machine-readable markers are missing or invalid.")
+    disposition = disposition_match.group(1)
+    official_verified = verified_match.group(1) == "true"
+    if disposition in {"candidate", "pilot_ready"} and not official_verified:
+        raise ValueError("candidate or pilot_ready requires official source verification.")
+    if official_verified and len(urls) < 2:
+        raise ValueError("Official cross-verification requires the provided URL plus an official source URL.")
+    return {
+        "source_path": source_path,
+        "paths": paths,
+        "access_status": access_match.group(1),
+        "transcript_status": transcript_match.group(1),
+        "content_scope": scope_match.group(1).strip(),
+        "disposition": disposition,
+        "official_sources_verified": official_verified,
+        "next_action": next_match.group(1),
+        "urls": urls,
+    }
+
+
+def build_isolated_analysis_context(temp_root, args, source_type, source_value, project_path):
+    output_dir = os.path.join(temp_root, "output")
+    os.makedirs(output_dir, exist_ok=False)
+    request_path = os.path.join(temp_root, "request.md")
+    source_path = os.path.join(temp_root, "source-input.md")
+    project_context_path = os.path.join(temp_root, "project-context.md")
+    v2_context_path = os.path.join(temp_root, "v2-context.md")
+
+    with open(request_path, "w", encoding="utf-8") as request_file:
+        request_file.write(
+            "# 요청\n\n"
+            f"{args.request}\n\n"
+            "## 확인 목적\n\n사용자 제공 자료에서 V2에 적용할 수 있는 기능·도구·제작 방식을 판정합니다.\n\n"
+            "## 결과\n\nresearch.md, analysis.md, user-summary.md를 생성합니다.\n"
+        )
+    write_source_input(source_path, source_type, source_value, args.request)
+
+    package_path = os.path.join(project_path, "package.json")
+    stack = "확인 가능한 package.json 없음"
+    if os.path.isfile(package_path):
+        try:
+            package = json.load(open(package_path, "r", encoding="utf-8"))
+            dependency_names = sorted(
+                set(package.get("dependencies", {})) | set(package.get("devDependencies", {}))
+            )
+            stack = ", ".join(dependency_names) or "package.json에 직접 의존성 없음"
+        except (OSError, json.JSONDecodeError):
+            stack = "package.json 해석 실패"
+    with open(project_context_path, "w", encoding="utf-8") as context_file:
+        context_file.write(
+            "# 최소 프로젝트 문맥\n\n"
+            f"- 프로젝트 종류: Vite·TypeScript 기반 기존 병원 웹 파일럿\n"
+            f"- 기준 Commit: {get_git_commit(project_path)}\n"
+            f"- 확인된 기술 스택: {stack}\n"
+            "- 기존 검증 레시피: 사용자 제공 영상·게시물 분석 레시피 없음\n"
+            "- 설치된 관련 기능: Codex 웹 조사, Product Design, frontend-app-builder, UI UX Pro Max\n"
+            "- 현재 마일스톤: M5 IN_PROGRESS\n"
+            "- 금지 범위: 설치, 코드 실행, 제품 변경, Preview, 후보 자동 등록, M6\n"
+        )
+    with open(v2_context_path, "w", encoding="utf-8") as rules_file:
+        rules_file.write(
+            "# V2 Source Analysis 규칙\n\n"
+            "- 제공 자료의 주장과 공식 확인 사실을 분리합니다.\n"
+            "- 공식 저장소·문서·예제·Release·Issue를 우선합니다.\n"
+            "- 후보는 최대 2개입니다.\n"
+            "- 설치·실행·다운로드·로그인 우회를 하지 않습니다.\n"
+            "- 접근하지 못한 내용을 추측하지 않습니다.\n"
+            "- 접근 불가 시 needs_more_source는 정상 결과입니다.\n"
+            "- output 안의 세 Artifact와 source-input.md만 수정합니다.\n"
+        )
+    return {
+        "output_dir": output_dir,
+        "request_path": request_path,
+        "source_path": source_path,
+        "project_context_path": project_context_path,
+        "v2_context_path": v2_context_path,
+    }
+
+
+def cmd_analyze(args):
+    project_path = os.path.abspath(args.project)
+    try:
+        source_type, source_value = classify_source(args.source_url, args.source_text, args.source_file)
+    except ValueError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        sys.exit(1)
+    active_run = get_active_run()
+    if active_run:
+        print("Error: Active Run already exists. Cannot create an analysis Run.", file=sys.stderr)
+        print(f"Existing Run ID: {active_run.get('run_id')}", file=sys.stderr)
+        sys.exit(1)
+
+    safe, reason = check_git_safety(project_path)
+    if not safe:
+        print(f"Error: Git Safety Check Failed.\nReason: {reason}", file=sys.stderr)
+        sys.exit(1)
+
+    v2_root = os.path.dirname(os.path.abspath(__file__))
+    official_commit = get_origin_main_commit(v2_root)
+    workspace_head = get_git_commit(v2_root)
+    if not official_commit or not workspace_head:
+        print("Error: Unable to resolve V2 memory commits.", file=sys.stderr)
+        sys.exit(1)
+
+    run_id = f"run-{uuid.uuid4().hex[:8]}"
+    run_dir = os.path.join(v2_root, "runs", run_id)
+    os.makedirs(run_dir, exist_ok=False)
+    run_file = os.path.join(run_dir, "run.yml")
+    log_path = os.path.join(run_dir, "collection.log")
+    started_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    input_type = "user_provided_source" if source_type else "natural_language_request"
+    run_data = {
+        "run_id": run_id,
+        "run_type": "analysis",
+        "request": args.request,
+        "user_request": args.request,
+        "input_type": input_type,
+        "stage": "collection_analysis",
+        "status": "active",
+        "created_at": started_at,
+        "git_safety_at_creation": "PASS",
+        "research_status": "required",
+        "execution_path": "standard",
+        "next_stage_allowed": False,
+        "preview_gate": "blocked_user_review_required",
+        "memory": {"official_branch": "main", "official_commit": official_commit},
+        "v2_workspace": {"branch": get_git_branch(v2_root), "head": workspace_head},
+        "project": {
+            "path": project_path,
+            "branch": get_git_branch(project_path),
+            "base_commit": get_git_commit(project_path),
+        },
+        "collection_analysis": {
+            "status": "in_progress",
+            "analysis_kind": "user_provided_source" if source_type else "natural_request",
+            "research_artifact": None,
+            "analysis_artifact": None,
+            "user_summary_artifact": None,
+            "selected_recipe": None,
+            "recipe_status": None,
+            "next_action": None,
+            "codex_call_count": 0,
+            "validation": {
+                "status": "pending",
+                "profile": "user_provided_source" if source_type else "natural_request",
+                "errors": [],
+            },
+        },
+    }
+    if source_type:
+        run_data["source"] = {
+            "type": source_type,
+            "provided_by": "user",
+            "url": source_value if source_type in {"youtube", "github", "web"} else None,
+            "file": source_value if source_type == "file" else None,
+            "access_status": "pending",
+            "transcript_status": "unknown",
+            "content_scope": "unknown",
+        }
+        run_data["collection_analysis"].update({
+            "disposition": None,
+            "disposition_reason": None,
+            "official_sources_verified": False,
+        })
+    write_yaml(run_file, run_data)
+
+    source_input_path = None
+    if source_type:
+        source_input_path = os.path.join(run_dir, "source-input.md")
+        write_source_input(source_input_path, source_type, source_value, args.request)
+
+    before_project = get_git_changed_paths(project_path)
+    before_v2 = get_git_changed_paths(v2_root)
+    isolation = None
+    isolated = None
+    if source_type:
+        isolation = tempfile.TemporaryDirectory(prefix=f"ai-os-v2-source-analysis-{run_id}-")
+        temp_root = os.path.realpath(isolation.name)
+        if os.path.commonpath([os.path.realpath(v2_root), temp_root]) == os.path.realpath(v2_root):
+            isolation.cleanup()
+            print("Error: Source-analysis isolation path is inside the V2 repository.", file=sys.stderr)
+            sys.exit(1)
+        isolated = build_isolated_analysis_context(temp_root, args, source_type, source_value, project_path)
+        run_data["collection_analysis"]["isolation"] = {
+            "mode": "temporary_directory",
+            "temp_path": temp_root,
+            "inside_parent_git": False,
+        }
+        write_yaml(run_file, run_data)
+        prompt = f"""Perform one user-provided-source collection and analysis task for AI OS V2 Run {run_id}.
+This is an isolated temporary analysis workspace. Read {isolated['request_path']}, {isolated['source_path']}, {isolated['project_context_path']}, and {isolated['v2_context_path']}.
+Do not inspect or modify the parent V2 repository or target product repository. The V2 Core already performed their Git safety checks and supplied only the required facts here.
+
+Use only publicly accessible content and current Codex web/file capabilities. Do not bypass login, paywalls, regional restrictions, private access, or automated blocking. Do not download a social video or copy a long transcript/article. If video audio or transcript cannot actually be inspected, say so and limit content_scope to the title, description, public page, user-provided summary, or official links you truly read. Extract claims from the provided material, then cross-check mentioned tools against official repositories, official documentation/examples, releases, maintenance state, issues/failure evidence, and existing V2 capabilities. A social post, video, blog, or star count is not verification.
+
+Update {isolated['source_path']} without removing the original purpose/source. Replace its pending result with the actual access range and end it with exact lines:
+access_status: accessible|partial|unavailable
+transcript_status: full|partial|unavailable|not_applicable|unknown
+content_scope: <short factual scope>
+
+Create exactly these three additional non-empty files:
+1. {isolated['output_dir']}/research.md with the normal headings '공식 자료', 'GitHub', '성공·실패 사례', '확인 일자', plus separate headings '제공 자료에서 발견한 주장', '공식 출처에서 실제 확인된 사실', and '미확인'. Include direct URLs and never mix a source claim with an official fact.
+2. {isolated['output_dir']}/analysis.md with headings '확인 목적', '실제 접근 범위', '확인하지 못한 범위', '자료 핵심 요약', '자료에서 발견한 주장', '공식 출처에서 확인된 사실', '언급된 도구', '현재 V2와 중복', 'V2에서 비어 있는 역할', '도입 시점' or '재검토 조건', '예상 효과', '복잡도', '작은 파일럿', '최종 판정', and '판정 이유'. Use exactly one disposition. End with exact lines `selected_recipe: source-evaluation`, `next_action: preview`, then `disposition: <discarded|deferred|candidate|pilot_ready|needs_more_source>`, `official_sources_verified: <true|false>`, and a final source action `next_action: <register_candidate|prepare_pilot|discard|defer|request_more_source>`. Candidate/pilot_ready require an official source; inaccessible material may validly become needs_more_source.
+3. {isolated['output_dir']}/user-summary.md in plain Korean with '확인한 범위', '확인하지 못한 범위', '공식 확인', '판정', and '내가 할 일'. Choices may be 후보로 등록 / 작은 시험 준비 / 폐기 / 나중에, but do not register anything automatically.
+
+Do not install, execute discovered code, edit Wiki, register a candidate, implement/preview a feature, or write outside this temporary workspace. Only source-input.md and the three files inside output may change. Maximum result is researched. Finish after writing the files without questions."""
+    else:
+        prompt = f"""Perform one read-only collection and analysis task for AI OS V2 Run {run_id}.
+User request (preserve verbatim): {args.request}
+Target project: {project_path}
+Run directory: {run_dir}
+
+Read the target project's actual files, Git state, installed tools, and existing V2 documentation. Determine whether a verified V2 recipe already exists. This request has no verified recipe, so research is required. Use current primary sources: one official approach and at most two maintained alternatives. Check official documentation, maintained GitHub repositories, and concrete success or failure evidence. General web sources are supporting evidence only. Do not install anything, implement the feature, create a Preview, alter the target project, edit run.yml, or write outside the Run directory.
+
+Create exactly these three non-empty files:
+1. {run_dir}/research.md with headings containing '공식 자료', 'GitHub', '성공·실패 사례', and '확인 일자'. Include direct source URLs and distinguish confirmed facts from limitations.
+2. {run_dir}/analysis.md with headings containing '실제 목표', '가능 여부', '후보 1' (and optional '후보 2', never 후보 3), '최종 추천', '포함 범위', '제외 범위', '모바일', '보안', '저장', 'Preview', and '완료 수준'. End with exact machine-readable lines `selected_recipe: <lowercase-kebab-id>` and `next_action: preview` or `next_action: local_product`.
+3. {run_dir}/user-summary.md in plain Korean for a coding beginner, with headings containing '요청', '가능 여부', '추천 방식', '포함', '제외', '위험', and '다음 작업'. Show only one next action and do not ask the user to choose packages or technical tools.
+
+Maximum result status is researched. Do not claim implemented, verified, or reusable_recipe. Finish after writing the three files; do not ask questions."""
+    try:
+        execution_cwd = isolation.name if source_type else v2_root
+        result = run_codex_task(
+            execution_cwd,
+            prompt,
+            900,
+            skip_git_repo_check=bool(source_type),
+        )
+        run_data["collection_analysis"]["codex_call_count"] = 1
+        write_codex_task_log(log_path, result)
+        after_project = get_git_changed_paths(project_path)
+        after_v2 = get_git_changed_paths(v2_root)
+        project_new = sorted(after_project - before_project)
+        v2_new = sorted(after_v2 - before_v2)
+        unexpected_v2 = [
+            path for path in v2_new
+            if not is_allowed_skill_change(path, [os.path.relpath(run_dir, v2_root)])
+        ]
+        if result["returncode"] != 0:
+            raise RuntimeError(f"Codex collection-analysis exited with {result['returncode']}.")
+        if project_new or unexpected_v2:
+            raise RuntimeError(
+                f"Files changed outside the allowed Run directory: project={project_new}, v2={unexpected_v2}"
+            )
+        if source_type:
+            allowed_temp_files = {
+                "request.md", "source-input.md", "project-context.md", "v2-context.md",
+                os.path.join("output", "research.md"),
+                os.path.join("output", "analysis.md"),
+                os.path.join("output", "user-summary.md"),
+            }
+            actual_temp_files = {
+                os.path.relpath(os.path.join(root, name), isolation.name)
+                for root, _, names in os.walk(isolation.name)
+                for name in names
+            }
+            unexpected_temp = sorted(actual_temp_files - allowed_temp_files)
+            if unexpected_temp:
+                raise RuntimeError(f"Unexpected files in isolated workspace: {unexpected_temp}")
+            source_result = validate_source_analysis_artifacts(isolation.name, isolated["output_dir"])
+            shutil.copy2(source_result["source_path"], source_input_path)
+            official_paths = {}
+            for label, source_path in source_result["paths"].items():
+                target_path = os.path.join(run_dir, os.path.basename(source_path))
+                shutil.copy2(source_path, target_path)
+                official_paths[label] = target_path
+            paths = official_paths
+            selected_recipe = "source-evaluation"
+            next_action = source_result["next_action"]
+            urls = source_result["urls"]
+            run_data["source"].update({
+                "access_status": source_result["access_status"],
+                "transcript_status": source_result["transcript_status"],
+                "content_scope": source_result["content_scope"],
+            })
+            run_data["collection_analysis"].update({
+                "disposition": source_result["disposition"],
+                "official_sources_verified": source_result["official_sources_verified"],
+            })
+        else:
+            paths, selected_recipe, next_action, urls = validate_collection_analysis_artifacts(run_dir)
+        run_data["status"] = "awaiting_user_review"
+        run_data["collection_analysis"].update({
+            "status": "awaiting_user_review",
+            "research_artifact": paths["research"],
+            "analysis_artifact": paths["analysis"],
+            "user_summary_artifact": paths["user_summary"],
+            "selected_recipe": selected_recipe,
+            "recipe_status": "researched",
+            "next_action": next_action,
+            "source_url_count": len(urls),
+            "completed_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        })
+        run_data["collection_analysis"]["validation"] = {
+            "status": "PASS",
+            "profile": run_data["collection_analysis"]["analysis_kind"],
+            "errors": [],
+        }
+        write_yaml(run_file, run_data)
+    except Exception as exc:
+        run_data["status"] = "failed"
+        run_data["next_stage_allowed"] = False
+        run_data["preview_gate"] = "blocked_collection_analysis_failed"
+        run_data["failure_reason"] = str(exc)
+        run_data["collection_analysis"]["status"] = "failed"
+        run_data["collection_analysis"]["validation"] = {
+            "status": "failed",
+            "profile": run_data["collection_analysis"].get("analysis_kind"),
+            "errors": [str(exc)],
+        }
+        write_yaml(run_file, run_data)
+        print(f"Error: Collection-analysis failed: {exc}", file=sys.stderr)
+        print(f"Run ID: {run_id}", file=sys.stderr)
+        print(f"Log: {log_path}", file=sys.stderr)
+        sys.exit(1)
+    finally:
+        if isolation is not None:
+            isolation.cleanup()
+
+    print(f"AI OS V2 Collection Analysis Run: {run_id}")
+    print("Status: awaiting_user_review")
+    print(f"Selected Recipe: {selected_recipe}")
+    print(f"Next Action: {next_action}")
+    print(f"User Summary: {paths['user_summary']}")
 
 def cmd_create(args):
     project_path = os.path.abspath(args.project)
@@ -442,6 +1029,37 @@ def cmd_show(args):
         print(f"Request:\n{run_data.get('request')}\n")
         print("Status:\nLegacy / Incompatible\n")
         print("Note: This run was created with an older schema and is not fully compatible.")
+        return
+
+    if run_data.get("stage") == "collection_analysis":
+        analysis = run_data.get("collection_analysis", {})
+        status = analysis.get("status", "unknown")
+        completed = status == "awaiting_user_review"
+        print("AI OS V2 — 기능 조사\n")
+        print(f"Run ID: {run_data.get('run_id')}")
+        print(f"요청: {run_data.get('user_request') or run_data.get('request')}\n")
+        print(f"[{'완료' if completed else '진행 중'}] 요청 접수")
+        print(f"[{'완료' if completed else '진행 중'}] 자료 수집")
+        print(f"[{'완료' if completed else '대기'}] 제작 방식 분석")
+        print(f"[{'사용자 확인 대기' if completed else '차단'}] 추천 방식")
+        print("[차단] Preview 제작\n")
+        print(f"조사 필요성: {run_data.get('research_status')}")
+        print(f"추천 레시피: {analysis.get('selected_recipe')}")
+        print(f"레시피 상태: {analysis.get('recipe_status')}")
+        if run_data.get("input_type") == "user_provided_source":
+            source = run_data.get("source", {})
+            print(f"자료 접근: {source.get('access_status')}")
+            print(f"확인 범위: {source.get('content_scope')}")
+            print(f"후보 판정: {analysis.get('disposition')}")
+            print(f"공식 출처 교차검증: {analysis.get('official_sources_verified')}")
+        print(f"다음 작업: {analysis.get('next_action')}\n")
+        summary_path = analysis.get("user_summary_artifact")
+        if summary_path and os.path.isfile(summary_path):
+            with open(summary_path, "r", encoding="utf-8") as summary_file:
+                print(summary_file.read().strip())
+        elif run_data.get("failure_reason"):
+            print(f"문제: {run_data.get('failure_reason')}")
+        print("\n내가 할 일: 진행 / 다른 방식 / 나중에")
         return
 
     project_info = run_data.get("project", {})
@@ -840,6 +1458,352 @@ def cmd_plan(args):
 
     print(f"Success: Technical Plan generated successfully at {plan_path}")
 
+
+def get_run_file(run_id):
+    v2_root = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(v2_root, "runs", run_id, "run.yml")
+
+
+def require_design_prerequisites(run_id):
+    run_file = get_run_file(run_id)
+    if not os.path.isfile(run_file):
+        raise ValueError(f"Run '{run_id}' not found.")
+    run_data = read_yaml(run_file)
+    if run_data.get("is_legacy"):
+        raise ValueError("Legacy Run cannot enter the design stage.")
+    if run_data.get("status") in {"failed", "rejected", "cancelled"}:
+        raise ValueError(f"Run status '{run_data.get('status')}' blocks design generation.")
+    approval = run_data.get("approval", {})
+    if (
+        run_data.get("requirements_status") != "approved"
+        or approval.get("status") != "approved"
+        or approval.get("approved_version") != run_data.get("requirements_version")
+    ):
+        raise ValueError("The current specification Version is not approved.")
+    spec_path = run_data.get("requirements_artifact")
+    plan_path = run_data.get("planning_artifact")
+    for label, path in (("spec.md", spec_path), ("plan.md", plan_path)):
+        if not path or not os.path.isfile(path) or os.path.getsize(path) == 0:
+            raise ValueError(f"Required Artifact '{label}' is missing or empty.")
+    project_path = run_data.get("project", {}).get("path")
+    if not project_path or not os.path.isdir(project_path):
+        raise ValueError("Run project path is unavailable.")
+    skill_file, _ = resolve_skill("ui-ux-pro-max", project_path)
+    if not skill_file:
+        raise ValueError("UI UX Pro Max is not installed.")
+    return run_file, run_data, project_path, spec_path, plan_path, skill_file
+
+
+def run_ui_ux_pro_max(skill_file, artifact_dir, log_path):
+    search_script = os.path.join(os.path.dirname(skill_file), "scripts", "search.py")
+    if not os.path.isfile(search_script):
+        raise ValueError(f"UI UX Pro Max search tool is missing: {search_script}")
+    queries = [
+        ("A", "community hospital healthcare warm reassuring human-centered spacious"),
+        ("B", "hospital healthcare professional clinical information-dense efficient"),
+    ]
+    outputs = []
+    log_parts = []
+    for option, query in queries:
+        command = [
+            sys.executable,
+            search_script,
+            query,
+            "--design-system",
+            "-f",
+            "markdown",
+            "-p",
+            f"Hospital Preview {option}",
+        ]
+        result = subprocess.run(
+            command,
+            shell=False,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=120,
+        )
+        log_parts.append(
+            f"Option: {option}\nCommand: {json.dumps(command, ensure_ascii=False)}\n"
+            f"Exit Code: {result.returncode}\n--- Stdout ---\n{result.stdout}\n"
+            f"--- Stderr ---\n{result.stderr}\n"
+        )
+        if result.returncode != 0 or not result.stdout.strip():
+            with open(log_path, "w", encoding="utf-8") as log_file:
+                log_file.write("\n".join(log_parts))
+            raise RuntimeError(f"UI UX Pro Max failed for option {option}.")
+        outputs.append(f"# Option {option}\n\n{result.stdout.strip()}\n")
+    os.makedirs(artifact_dir, exist_ok=False)
+    with open(os.path.join(artifact_dir, "design-system.md"), "w", encoding="utf-8") as output_file:
+        output_file.write("# UI UX Pro Max Design Directions\n\n")
+        output_file.write("\n\n".join(outputs))
+    with open(log_path, "w", encoding="utf-8") as log_file:
+        log_file.write("\n".join(log_parts))
+
+
+def ensure_preview_server(project_path, run_dir):
+    host, port = "127.0.0.1", 4173
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        already_running = sock.connect_ex((host, port)) == 0
+    finally:
+        sock.close()
+    if not already_running:
+        server_log_path = os.path.join(run_dir, "design-preview-server.log")
+        server_log = open(server_log_path, "a", encoding="utf-8")
+        subprocess.Popen(
+            [sys.executable, "-m", "http.server", str(port), "--bind", host, "--directory", "design-preview"],
+            cwd=project_path,
+            stdin=subprocess.DEVNULL,
+            stdout=server_log,
+            stderr=subprocess.STDOUT,
+            start_new_session=True,
+        )
+    return f"http://{host}:{port}"
+
+
+def cmd_design_generate(args):
+    lock_path = None
+    run_file = None
+    run_data = None
+    try:
+        run_file, run_data, project_path, spec_path, plan_path, ui_skill_file = require_design_prerequisites(args.run_id)
+        run_dir = os.path.dirname(run_file)
+        lock_path = os.path.join(run_dir, "design.lock")
+        try:
+            lock_fd = os.open(lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            os.write(lock_fd, str(os.getpid()).encode("ascii"))
+            os.close(lock_fd)
+        except FileExistsError as exc:
+            raise RuntimeError("Another design task is already running for this Run.") from exc
+
+        current_design = run_data.get("design", {})
+        if current_design.get("status") in {"design_in_progress", "awaiting_design_review", "approved"}:
+            raise ValueError(f"Design generation is blocked by current status '{current_design.get('status')}'.")
+
+        version = int(current_design.get("version") or 0) + 1
+        relative_artifact = os.path.join("design-preview", args.run_id, f"v{version}")
+        artifact_dir = os.path.join(project_path, relative_artifact)
+        if os.path.exists(artifact_dir):
+            raise FileExistsError(f"Version Artifact already exists: {artifact_dir}")
+
+        run_data["stage"] = "design"
+        run_data["design"] = {
+            "version": version,
+            "status": "design_in_progress",
+            "skill_name": "ui-ux-pro-max",
+            "skill_version": "2.14.1",
+            "renderer_skill": "build-web-apps:frontend-app-builder",
+            "verification_skill": "build-web-apps:frontend-testing-debugging",
+            "artifact_path": artifact_dir,
+            "preview_url": None,
+            "selected_option": None,
+            "user_result": "pending",
+            "primary_viewport": "mobile",
+            "started_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "logs": {},
+            "technical_verification": "pending",
+        }
+        run_data["tasks_gate"] = "blocked_design_approval_required"
+        run_data["m4_handoff_gate"] = "blocked_design_approval_required"
+        write_yaml(run_file, run_data)
+
+        ui_log = os.path.join(run_dir, f"design-v{version}-ui-ux-pro-max.log")
+        renderer_log = os.path.join(run_dir, f"design-v{version}-frontend-app-builder.log")
+        verification_log = os.path.join(run_dir, f"design-v{version}-frontend-testing-debugging.log")
+        run_data["design"]["logs"] = {
+            "ui_ux_pro_max": ui_log,
+            "renderer": renderer_log,
+            "verification": verification_log,
+        }
+        write_yaml(run_file, run_data)
+        run_ui_ux_pro_max(ui_skill_file, artifact_dir, ui_log)
+
+        renderer_prompt = f"""Create the M3 static A/B design Preview for V2 Run {args.run_id}.
+Read the approved specification at {spec_path}, the plan at {plan_path}, and UI UX Pro Max output at {artifact_dir}/design-system.md.
+Write only inside {artifact_dir}. Do not change existing manual Preview files or product source. Do not install packages and do not use Image Gen for this constrained static Preview.
+Create index.html, styles.css, and design-options.yml. Minimal inline JavaScript is allowed in index.html.
+The page must open with option A in Mobile view and provide working controls for A/B and Mobile/PC views. Mobile is the primary design and review baseline; PC is a secondary responsive check.
+A: warm neighborhood clinic; story-first Hero; order hospital introduction -> wide friendly clinician profiles -> soft hours guide -> reservation form -> completion panel.
+B: professional medical center; operational Hero; core services and hours immediately below; desktop two-column information plus independent reservation panel; dense horizontal clinician rows; mobile order core info -> reservation jump -> clinicians -> hospital guide.
+Options A and B must differ in at least four structural dimensions: Hero, section order, hours placement, clinician structure, reservation location, navigation, or mobile flow. They must remain distinguishable without color or images.
+Include missing-photo fallback, form error example, completion example, mobile and desktop responsive CSS, semantic HTML, keyboard-visible controls, no horizontal overflow, and no functionality outside the approved scope.
+design-options.yml must record both layout_archetype values, section_order arrays, and at least four structural_differences.
+Produce the files immediately, do not ask questions, and exit."""
+        renderer_result = run_skill(
+            project_path,
+            "frontend-app-builder",
+            renderer_prompt,
+            900,
+            [relative_artifact],
+        )
+        write_skill_log(renderer_log, "build-web-apps:frontend-app-builder", renderer_result)
+        required = ["index.html", "styles.css", "design-system.md", "design-options.yml"]
+        missing = [name for name in required if not os.path.isfile(os.path.join(artifact_dir, name)) or os.path.getsize(os.path.join(artifact_dir, name)) == 0]
+        if renderer_result["returncode"] != 0 or renderer_result["unexpected_changes"] or missing:
+            raise RuntimeError(
+                f"Preview renderer validation failed: exit={renderer_result['returncode']}, "
+                f"unexpected={renderer_result['unexpected_changes']}, missing={missing}"
+            )
+
+        base_url = ensure_preview_server(project_path, run_dir)
+        preview_url = f"{base_url}/{args.run_id}/v{version}/"
+        verification_prompt = f"""Validate the static M3 Preview at {preview_url} for V2 Run {args.run_id}.
+Use the Browser plugin first. Test A/B switching and Mobile/PC switching, page identity, meaningful content, Console errors, horizontal overflow, missing clinician fallback, reservation form/error example, completion panel, and approved-scope compliance.
+Also verify the AI-pattern checklist: no invented metrics/testimonials, no decorative badge or fake dashboard chrome, no repetitive generic card grid, no emoji icons, and clear Korean healthcare copy.
+Confirm A/B differ structurally in at least four required dimensions and remain distinguishable without relying on color or images.
+Write only {artifact_dir}/verification.json as a JSON object containing overall_status, checks, structural_difference_count, ai_tells, console_errors, tested_viewports, tested_at, and preview_url. overall_status must be PASS only if every required check passes. Do not modify any other file. Do not ask questions; perform the validation and exit."""
+        verification_result = run_skill(
+            project_path,
+            "frontend-testing-debugging",
+            verification_prompt,
+            900,
+            [relative_artifact],
+        )
+        write_skill_log(verification_log, "build-web-apps:frontend-testing-debugging", verification_result)
+        verification_path = os.path.join(artifact_dir, "verification.json")
+        if not os.path.isfile(verification_path) or os.path.getsize(verification_path) == 0:
+            raise RuntimeError("Browser verification Artifact was not created.")
+        with open(verification_path, "r", encoding="utf-8") as verification_file:
+            verification = json.load(verification_file)
+        if (
+            verification_result["returncode"] != 0
+            or verification_result["unexpected_changes"]
+            or verification.get("overall_status") != "PASS"
+            or int(verification.get("structural_difference_count", 0)) < 4
+        ):
+            raise RuntimeError("Browser or structural verification did not PASS.")
+
+        run_data["design"].update({
+            "status": "awaiting_design_review",
+            "preview_url": preview_url,
+            "completed_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "logs": {
+                "ui_ux_pro_max": ui_log,
+                "renderer": renderer_log,
+                "verification": verification_log,
+            },
+            "technical_verification": "PASS",
+            "verification_artifact": verification_path,
+        })
+        write_yaml(run_file, run_data)
+        print(f"Design Preview generated for {args.run_id}")
+        print(f"Preview URL: {preview_url}")
+        print("Status: awaiting_design_review")
+    except Exception as exc:
+        if run_file and run_data:
+            run_data.setdefault("design", {})["status"] = "design_failed"
+            run_data["design"]["failure_reason"] = str(exc)
+            write_yaml(run_file, run_data)
+        print(f"Error: M3 design generation failed: {exc}", file=sys.stderr)
+        sys.exit(1)
+    finally:
+        if lock_path and os.path.exists(lock_path):
+            os.unlink(lock_path)
+
+
+def cmd_design_show(args):
+    run_file = get_run_file(args.run_id)
+    if not os.path.isfile(run_file):
+        print(f"Error: Run '{args.run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+    run_data = read_yaml(run_file)
+    design = run_data.get("design")
+    if not design:
+        print("Design: not_started")
+        return
+    print(json.dumps(design, ensure_ascii=False, indent=2))
+    print(f"Tasks Gate: {run_data.get('tasks_gate', 'unknown')}")
+    print(f"M4 Handoff Gate: {run_data.get('m4_handoff_gate', 'unknown')}")
+
+
+def cmd_design_detail(args):
+    run_file, run_data, project_path, spec_path, plan_path, _ = require_design_prerequisites(args.run_id)
+    current = run_data.get("design", {})
+    if int(current.get("version") or 0) != 1:
+        print("Error: Mobile detail generation requires the preserved v1 exploration Artifact.", file=sys.stderr)
+        sys.exit(1)
+    source_dir = current.get("artifact_path")
+    target_rel = os.path.join("design-preview", args.run_id, "v2")
+    target_dir = os.path.join(project_path, target_rel)
+    if not source_dir or not os.path.isdir(source_dir) or os.path.exists(target_dir):
+        print("Error: v1 is missing or v2 already exists; no overwrite is allowed.", file=sys.stderr)
+        sys.exit(1)
+    run_dir = os.path.dirname(run_file)
+    log_path = os.path.join(run_dir, "design-v2-frontend-app-builder.log")
+    run_data["design"] = {
+        "version": 2,
+        "status": "design_detail_in_progress",
+        "skill_name": "ui-ux-pro-max",
+        "skill_version": "2.14.1",
+        "renderer_skill": "build-web-apps:frontend-app-builder",
+        "artifact_path": target_dir,
+        "preview_url": None,
+        "selected_option": "C",
+        "user_result": "pending",
+        "primary_viewport": "mobile",
+        "source_artifact": source_dir,
+        "started_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "logs": {"renderer": log_path},
+        "technical_verification": "pending",
+    }
+    run_data["tasks_gate"] = "blocked_final_design_approval_required"
+    run_data["m4_handoff_gate"] = "blocked_final_design_approval_required"
+    write_yaml(run_file, run_data)
+    prompt = f"""Create the mobile-first C detailed design Artifact for V2 Run {args.run_id}.
+Read, but never modify, v1 at {source_dir}, the approved spec at {spec_path}, and plan at {plan_path}.
+Write only inside {target_dir}. Do not install packages, call Image Gen, perform external research, or modify product source.
+Create index.html, styles.css, design-system.md, and design-options.yml. Use static HTML/CSS and minimal JavaScript.
+C combines A's warm trustworthy tone with B's fast information navigation. This is a mobile-first detailed prototype, not a resized desktop page.
+Required views in one prototype: mobile main, mobile clinicians, mobile reservation request, and reservation completion state. Main includes hospital identity, today's status, hours, clinician navigation, phone action, reservation action, and hospital guide. Do not add clinician detail, separate hospital guide page, backend, persistence, login, admin, payment, API, or real personal data.
+Default viewport mode is Mobile and baseline CSS is 390px mobile-first; support 430px Galaxy and expand using min-width media queries to a secondary 1440px PC reference.
+Required mobile flow: main -> clinicians -> reservation -> empty-submit errors -> fake-data submit -> completion. Implement working navigation/menu, tel link, reservation navigation, validation, fake submission, and completion without storing or sending data.
+Use one consistent Header, mobile menu, typography, color, spacing, buttons, forms, clinician image ratio/fallback, errors, completion, footer, phone and reservation actions.
+Add stable review overlay labels H-01+, D-01+, R-01+, C-01+ to major regions. Include one control that shows/hides all labels. Labels must be visually separate from product copy and identified as review-only. Do not implement drag, resize, or free pins.
+design-options.yml must record version v2, option C, mobile_first true, target widths 390/430/1440, screen list, label list with descriptions, scope exclusions, and v1 source path.
+The preview must start on Mobile Main with review labels visible. Produce files now and exit without questions."""
+    try:
+        result = run_skill(project_path, "frontend-app-builder", prompt, 900, [target_rel])
+        write_skill_log(log_path, "build-web-apps:frontend-app-builder", result)
+        required = ["index.html", "styles.css", "design-system.md", "design-options.yml"]
+        missing = [name for name in required if not os.path.isfile(os.path.join(target_dir, name)) or os.path.getsize(os.path.join(target_dir, name)) == 0]
+        if result["returncode"] != 0 or result["unexpected_changes"] or missing:
+            raise RuntimeError(f"renderer exit={result['returncode']}, unexpected={result['unexpected_changes']}, missing={missing}")
+        run_data["design"]["status"] = "awaiting_technical_verification"
+        run_data["design"]["preview_url"] = f"http://127.0.0.1:4173/{args.run_id}/v2/"
+        run_data["design"]["rendered_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        write_yaml(run_file, run_data)
+        print(f"Mobile-first C detail generated at {target_dir}")
+    except Exception as exc:
+        run_data["design"]["status"] = "design_failed"
+        run_data["design"]["failure_reason"] = str(exc)
+        write_yaml(run_file, run_data)
+        print(f"Error: C detail generation failed: {exc}", file=sys.stderr)
+        sys.exit(1)
+
+
+def cmd_design_select(args):
+    run_file = get_run_file(args.run_id)
+    if not os.path.isfile(run_file):
+        print(f"Error: Run '{args.run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+    run_data = read_yaml(run_file)
+    design = run_data.get("design", {})
+    if design.get("status") != "awaiting_design_review" or design.get("technical_verification") != "PASS":
+        print("Error: A technically verified design is not awaiting user review.", file=sys.stderr)
+        sys.exit(1)
+    design["status"] = "approved"
+    design["selected_option"] = args.option
+    design["user_result"] = "approved"
+    design["primary_viewport"] = args.primary_viewport
+    design["selected_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    run_data["design"] = design
+    run_data["tasks_gate"] = "allowed"
+    run_data["m4_handoff_gate"] = "blocked_tasks_and_plan_approval_required"
+    write_yaml(run_file, run_data)
+    print(f"Design option {args.option} approved for {args.run_id}")
+
 # Update Run status logic
 def update_run_status(run_id, target_status):
     v2_root = os.path.dirname(os.path.abspath(__file__))
@@ -960,6 +1924,14 @@ def main():
     run_parser = subparsers.add_parser("run", help="Manage V2 runs")
     run_subparsers = run_parser.add_subparsers(dest="run_command", required=True)
 
+    analyze_parser = subparsers.add_parser("analyze", help="Create one collection-analysis Run")
+    analyze_parser.add_argument("--project", required=True, help="Path to the target project directory")
+    analyze_parser.add_argument("--request", required=True, help="Natural-language functional request")
+    analyze_sources = analyze_parser.add_mutually_exclusive_group()
+    analyze_sources.add_argument("--source-url", help="One public URL provided by the user")
+    analyze_sources.add_argument("--source-text", help="One text body provided by the user")
+    analyze_sources.add_argument("--source-file", help="One local file provided by the user")
+
     # v2 run create
     create_parser = run_subparsers.add_parser("create", help="Create a new run")
     create_parser.add_argument("--project", required=True, help="Path to the target project directory")
@@ -1007,6 +1979,24 @@ def main():
     plan_parser = subparsers.add_parser("plan", help="Start plan phase for an approved specification")
     plan_parser.add_argument("run_id", help="The Run ID to plan")
 
+    design_parser = subparsers.add_parser("design", help="Generate, inspect, or approve M3 design Artifacts")
+    design_subparsers = design_parser.add_subparsers(dest="design_command", required=True)
+    design_generate_parser = design_subparsers.add_parser("generate", help="Generate a versioned A/B Preview")
+    design_generate_parser.add_argument("run_id", help="The existing Run ID")
+    design_show_parser = design_subparsers.add_parser("show", help="Show the design state for a Run")
+    design_show_parser.add_argument("run_id", help="The existing Run ID")
+    design_detail_parser = design_subparsers.add_parser("detail", help="Generate the mobile-first C v2 detail")
+    design_detail_parser.add_argument("run_id", help="The existing Run ID")
+    design_select_parser = design_subparsers.add_parser("select", help="Approve one generated design option")
+    design_select_parser.add_argument("run_id", help="The existing Run ID")
+    design_select_parser.add_argument("--option", required=True, choices=["A", "B"], help="Approved option")
+    design_select_parser.add_argument(
+        "--primary-viewport",
+        choices=["mobile", "desktop"],
+        default="mobile",
+        help="Primary design and review viewport (default: mobile)",
+    )
+
     # v2 dashboard
     dashboard_parser = subparsers.add_parser("dashboard", help="Start dashboard local web server")
     dashboard_parser.add_argument("--port", type=int, default=8200, help="Local server port (default: 8200)")
@@ -1037,6 +2027,17 @@ def main():
             cmd_spec_reject(args)
     elif args.command == "plan":
         cmd_plan(args)
+    elif args.command == "analyze":
+        cmd_analyze(args)
+    elif args.command == "design":
+        if args.design_command == "generate":
+            cmd_design_generate(args)
+        elif args.design_command == "detail":
+            cmd_design_detail(args)
+        elif args.design_command == "show":
+            cmd_design_show(args)
+        elif args.design_command == "select":
+            cmd_design_select(args)
     elif args.command == "dashboard":
         cmd_dashboard(args)
 

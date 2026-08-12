@@ -1,0 +1,18 @@
+run_id: "run-7bc24e97"
+run_type: "analysis"
+request: "이 영상에서 AI OS V2에 적용할 수 있는 디자인 제작 방식과 도구를 확인해줘."
+user_request: "이 영상에서 AI OS V2에 적용할 수 있는 디자인 제작 방식과 도구를 확인해줘."
+input_type: "user_provided_source"
+stage: "collection_analysis"
+status: "awaiting_user_review"
+created_at: "2026-08-12T13:14:11Z"
+git_safety_at_creation: "PASS"
+research_status: "required"
+execution_path: "standard"
+next_stage_allowed: false
+preview_gate: "blocked_user_review_required"
+memory: {"official_branch": "main", "official_commit": "7674debbe3f22c16df1e3ef81af25fa4052c91ca"}
+v2_workspace: {"branch": "antigravity/v2-m1-run-core", "head": "ea90073343cc2b9b6ae31c29c1d6eda77e48a9fd"}
+project: {"path": "/home/user/바탕화면/test_project", "branch": "master", "base_commit": "c9703520ff9a7a6ce95f64918ada4ce08160175d"}
+collection_analysis: {"status": "awaiting_user_review", "analysis_kind": "user_provided_source", "research_artifact": "/home/user/바탕화면/ai_os_v2/runs/run-7bc24e97/research.md", "analysis_artifact": "/home/user/바탕화면/ai_os_v2/runs/run-7bc24e97/analysis.md", "user_summary_artifact": "/home/user/바탕화면/ai_os_v2/runs/run-7bc24e97/user-summary.md", "selected_recipe": "source-evaluation", "recipe_status": "researched", "next_action": "request_more_source", "codex_call_count": 1, "validation": {"status": "PASS", "profile": "user_provided_source", "errors": []}, "disposition": "needs_more_source", "disposition_reason": null, "official_sources_verified": false, "isolation": {"mode": "temporary_directory", "temp_path": "/tmp/ai-os-v2-source-analysis-run-7bc24e97-c2dtoxpc", "inside_parent_git": false}, "source_url_count": 1, "completed_at": "2026-08-12T13:16:22Z"}
+source: {"type": "youtube", "provided_by": "user", "url": "https://www.youtube.com/watch?v=4AvQQHDTJFE&t=1184s", "file": null, "access_status": "unavailable", "transcript_status": "unknown", "content_scope": "사용자 제공 YouTube URL과 영상 ID만 확인; 제목·설명·영상·오디오·자막은 미확인"}

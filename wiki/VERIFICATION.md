@@ -148,8 +148,12 @@ M4 판정은 `✅ 검증됨`이며 다음 단계는 M5입니다.
 - ✅ V2 Core 내부 Codex 호출 1회와 자동 재시도 없음
 - ✅ `research.md`, `analysis.md`, `user-summary.md` 생성·비어 있지 않음·출처 URL 확인
 - ✅ `recipe_status: researched`, 사용자 확인 전 Preview Gate 차단과 새 프로세스 재조회
-- ⏳ 사용자 제공 URL·본문·파일 기반 수집과 공식 출처 교차검증: 미검증
-- 전체 판정: `M5 IN_PROGRESS`
+- ✅ 사용자 제공 URL·본문·파일 선택 입력과 `analysis_kind: user_provided_source`
+- ✅ 임시 Git 격리 작업공간에서 하위 Codex 실행 후 검증된 Artifact만 공식 Run으로 회수
+- ✅ 접근 불가 자료의 실제 확인·미확인 범위를 분리하고 `needs_more_source`로 정상 종료: `run-7bc24e97`
+- ✅ 자연어 분석 프로필 회귀검증과 기존 `run-78f0af7d` Artifact 해시 불변
+- ✅ 사용자 확인 전 Preview Gate 차단, 후보 Wiki 자동 등록 없음, 새 프로세스 재조회
+- 전체 판정: `M5 ✅ 검증됨`
 
 - 새 프로젝트 또는 기존 바이브코딩 프로젝트의 실제 파일, 실행 가능 여부, 기존 Artifact·오류·Commit과 설치 도구를 읽습니다.
 - 확인한 사실과 확인하지 못한 항목을 구분하고, 화면·기능·데이터·검증·배포 중 부족하거나 깨진 영역을 판정합니다.

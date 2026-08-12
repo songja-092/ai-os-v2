@@ -38,15 +38,16 @@
   {
     "id": "M5",
     "name": "수집·분석·기능 레시피 선택",
-    "status": "active",
-    "desc": "자연어 요청 경로 run-78f0af7d PASS · 사용자 제공 URL·본문·파일 경로 검증 진행 중",
-    "evidence": "run-78f0af7d · Core Codex call 1 · researched · Preview gate blocked",
+    "status": "completed",
+    "desc": "자연어 요청과 사용자 제공 자료를 격리 수집·분석하고 researched 또는 needs_more_source로 판정",
+    "verified_at": "2026-08-12",
+    "evidence": "run-78f0af7d · run-7bc24e97 · analysis profiles · isolated child Codex · Preview gate blocked",
     "standard_flow": "wiki/V2_STANDARD_USER_FLOW.md"
   },
   {
     "id": "M6",
     "name": "기존 프로젝트 Change Run",
-    "status": "pending",
+    "status": "active",
     "desc": "병원 프로젝트 HERO-01 모바일 줄바꿈 국소 수정·회귀검증·복구",
     "standard_flow": "wiki/V2_STANDARD_USER_FLOW.md"
   },
