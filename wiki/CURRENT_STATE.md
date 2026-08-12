@@ -2,7 +2,7 @@
 
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
 
-현재 `M4 — Feature Run 완성`까지 검증을 마쳤으며 다음 단계는 `M5 — 수집·분석·레시피 선택 Core 검증`입니다. Dashboard UI는 Core MVP 이후 후보로 미룹니다.
+현재 `M4 — Feature Run 완성`까지 검증을 마쳤으며 `M5 — 수집·분석·레시피 선택 Core 검증`을 진행 중입니다. 자연어 요청 경로는 `run-78f0af7d`에서 V2 Core 내부 Codex 1회 호출, 조사·분석 Artifact 생성, 사용자 확인 Gate까지 PASS했습니다. 사용자 제공 URL·본문·파일 경로는 아직 미검증이므로 M5 전체는 완료가 아닙니다. Dashboard UI는 Core MVP 이후 후보로 미룹니다.
 
 M2 공식 검증 Run은 `run-05dbfc27`입니다. `execution_mode: skills`, `workflow_run_id: null`인 동일 Run에서 Specify, 승인 전 Plan 차단, Spec 본문 수정과 Version 증가, 승인, Plan Artifact 생성과 새 프로세스 재조회를 확인했습니다.
 

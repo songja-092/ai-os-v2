@@ -1,0 +1,16 @@
+run_id: "run-78f0af7d"
+run_type: "analysis"
+request: "공사 일정을 달력에 기간 막대로 표시하고 터치로 시작일과 종료일을 변경하게 해줘."
+user_request: "공사 일정을 달력에 기간 막대로 표시하고 터치로 시작일과 종료일을 변경하게 해줘."
+stage: "collection_analysis"
+status: "awaiting_user_review"
+created_at: "2026-08-12T12:49:41Z"
+git_safety_at_creation: "PASS"
+research_status: "required"
+execution_path: "standard"
+next_stage_allowed: false
+preview_gate: "blocked_user_review_required"
+memory: {"official_branch": "main", "official_commit": "7674debbe3f22c16df1e3ef81af25fa4052c91ca"}
+v2_workspace: {"branch": "antigravity/v2-m1-run-core", "head": "865560f42d3385bddbfb772eee207f1f17392abf"}
+project: {"path": "/home/user/바탕화면/test_project", "branch": "master", "base_commit": "c9703520ff9a7a6ce95f64918ada4ce08160175d"}
+collection_analysis: {"status": "awaiting_user_review", "research_artifact": "/home/user/바탕화면/ai_os_v2/runs/run-78f0af7d/research.md", "analysis_artifact": "/home/user/바탕화면/ai_os_v2/runs/run-78f0af7d/analysis.md", "user_summary_artifact": "/home/user/바탕화면/ai_os_v2/runs/run-78f0af7d/user-summary.md", "selected_recipe": "fullcalendar-standard-touch-range", "recipe_status": "researched", "next_action": "preview", "codex_call_count": 1, "source_url_count": 12, "completed_at": "2026-08-12T12:52:36Z"}
