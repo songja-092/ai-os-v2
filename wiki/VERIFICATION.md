@@ -1,5 +1,7 @@
 # Verification
 
+표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다. Gate와 완료 판정은 이 표준을 기준으로 검증합니다.
+
 ## Required checks
 
 - Obsidian에서 변경한 Markdown이 GitHub의 동일 commit에 존재하는가

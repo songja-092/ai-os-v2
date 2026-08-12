@@ -5,7 +5,8 @@
     "status": "completed",
     "desc": "M1.1 독립 검증 12개 항목 PASS",
     "verified_at": "2026-08-09",
-    "evidence": "M1.1 isolated verification: 12/12 PASS"
+    "evidence": "M1.1 isolated verification: 12/12 PASS",
+    "standard_flow": "wiki/V2_STANDARD_USER_FLOW.md"
   },
   {
     "id": "M2",
@@ -13,7 +14,8 @@
     "status": "completed",
     "desc": "run-05dbfc27에서 Spec 수정·승인 Gate·Plan 생성 PASS",
     "verified_at": "2026-08-10",
-    "evidence": "run-05dbfc27 · Spec Version 2 · workflow_run_id null"
+    "evidence": "run-05dbfc27 · Spec Version 2 · workflow_run_id null",
+    "standard_flow": "wiki/V2_STANDARD_USER_FLOW.md"
   },
   {
     "id": "M3",
@@ -21,7 +23,8 @@
     "status": "completed",
     "desc": "Option C v2·공식 Tasks 47개·M4 Handoff 검증 완료",
     "verified_at": "2026-08-11",
-    "evidence": "test_project 2554340 · run-05dbfc27"
+    "evidence": "test_project 2554340 · run-05dbfc27",
+    "standard_flow": "wiki/V2_STANDARD_USER_FLOW.md"
   },
   {
     "id": "M4",
@@ -29,24 +32,28 @@
     "status": "completed",
     "desc": "Antigravity 구현·Codex 검증·사용자 승인·Result Commit·Rollback/Restore PASS",
     "verified_at": "2026-08-11",
-    "evidence": "run-05dbfc27 · test_project c970352"
+    "evidence": "run-05dbfc27 · test_project c970352",
+    "standard_flow": "wiki/V2_STANDARD_USER_FLOW.md"
   },
   {
     "id": "M5",
     "name": "수집·분석·기능 레시피 선택",
     "status": "active",
-    "desc": "test_project와 PDF 도면 스탬프 요청을 분석해 최대 2개 레시피와 다음 작업 하나를 제시"
+    "desc": "test_project와 PDF 도면 스탬프 요청을 분석해 최대 2개 레시피와 다음 작업 하나를 제시",
+    "standard_flow": "wiki/V2_STANDARD_USER_FLOW.md"
   },
   {
     "id": "M6",
     "name": "기존 프로젝트 Change Run",
     "status": "pending",
-    "desc": "병원 프로젝트 HERO-01 모바일 줄바꿈 국소 수정·회귀검증·복구"
+    "desc": "병원 프로젝트 HERO-01 모바일 줄바꿈 국소 수정·회귀검증·복구",
+    "standard_flow": "wiki/V2_STANDARD_USER_FLOW.md"
   },
   {
     "id": "M7",
     "name": "PDF 도면 스탬프 MVP E2E",
     "status": "pending",
-    "desc": "모바일 PDF 스탬프 local_product의 전체 제작·검증·Commit·Rollback/Restore"
+    "desc": "모바일 PDF 스탬프 local_product의 전체 제작·검증·Commit·Rollback/Restore",
+    "standard_flow": "wiki/V2_STANDARD_USER_FLOW.md"
   }
 ]

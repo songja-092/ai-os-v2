@@ -1,5 +1,7 @@
 # Post-MVP Roadmap
 
+표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
+
 M7 PASS 이후 V2가 사용자의 반복 설명 없이 다음 조사·분석 후보를 불러오기 위한 공식 로드맵입니다. 이 문서는 자동 구현 권한을 부여하지 않습니다.
 
 ## 연속 실행 상태

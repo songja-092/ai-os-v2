@@ -1,5 +1,7 @@
 # Architecture
 
+표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
+
 ## 현재 기반
 
 ```text

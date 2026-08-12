@@ -1,5 +1,7 @@
 # Decisions
 
+표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다. 이 문서와 충돌하면 표준 흐름을 우선하고 충돌을 보고합니다.
+
 - GitHub 저장소와 Git commit을 공식 기록으로 사용합니다.
 - Obsidian은 Wiki를 읽고 편집하는 인터페이스로 사용합니다.
 - Archify 결과는 Source of Truth가 아닌 commit 기반 파생 시각화로 취급합니다.
