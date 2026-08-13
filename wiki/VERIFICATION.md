@@ -199,6 +199,20 @@ M4 판정은 `✅ 검증됨`이며 다음 단계는 M5입니다.
 
 M7에서는 로그인, Backend, 클라우드 저장, 다중 사용자, 서명 인증, OCR, 기존 PDF 문장 편집, 복잡한 도면 측정과 실제 배포를 제외합니다.
 
+#### M7 실제 검증 결과
+
+- ✅ 공식 Run ID: `run-c0a968f3`
+- ✅ 구현 Agent: Antigravity
+- ✅ 구현 라이브러리: `pdfjs-dist` (PDF 한 페이지 표시 및 썸네일바 생성용), `pdf-lib` (좌표 변환 및 새 PDF 다운로드용)
+- ✅ 모바일 반응형 뷰포트(390px, 430px) 및 PC(1440px) 가로 넘침 차단 및 시인성(텍스트 15~20% 스케일링) 최적화 완료
+- ✅ 퀵 문자 프리셋 동적 관리(`localStorage` 영구 보존, Rename/Delete 분리), 도면 여백 클릭 시 선택 해제, 스탬프 선택 시 dashed blue bounding box 활성화 시각 표시 검증 완료
+- ✅ 우측 속성 설정 패널 340px 및 상시 노출(선택 유무에 따라 사전 설정으로 자동 분기 변경) 검증 완료
+- ✅ 원본 PDF SHA256 해시 불변: `c5573243ac74e0ad0ea4170e6289e571056f1faf189ea477c8e987442a58d20e` (PASS)
+- ✅ `npx tsc --noEmit` & `npm run lint` & `npm run build` 모두 성공 (종료코드 0)
+- ✅ 사용자의 최종 승인("오케이 통과") 획득 완료
+
+M7 판정은 `✅ 검증됨`이며, 이에 따라 V2 Core MVP 검증이 공식적으로 통과되었습니다.
+
 ### POST-MVP 연속 실행
 
 - M7 PASS 후 `wiki/POST_MVP_ROADMAP.md`를 실제로 읽고 첫 미검증 후보 `direct_partial_edit_panel`을 선택합니다. `web_camera_capture`는 기능 후보로 유지합니다.

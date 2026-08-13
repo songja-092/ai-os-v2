@@ -2,7 +2,7 @@
 
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
 
-현재 `M6 — 기존 프로젝트 Change Run`까지 완료했으며 다음 단계는 `M7 — PDF 도면 스탬프 MVP E2E`입니다. M5 자연어 요청 경로는 `run-78f0af7d`, 사용자 제공 자료 경로는 `run-7bc24e97`에서 V2 Core 내부 Codex 1회 호출, 격리 실행, Artifact 생성·회수, 분석 종류별 검증 프로필, 사용자 확인 Gate와 새 프로세스 재조회를 확인했습니다. 접근 불가능한 자료를 추측하지 않고 `needs_more_source`로 정상 종료하는 경로도 검증했습니다. Dashboard UI는 Core MVP 이후 후보로 미룹니다.
+현재 `M7 — PDF 도면 스탬프 MVP E2E`까지 성공적으로 구현 및 사용자 최종 승인 완료되었습니다. M7 공식 Run은 `run-c0a968f3`이며, 모바일(390px, 430px) 및 데스크탑(1440px) 반응형 PDF 도면 스탬프 에디터(`m7-pdf-stamp` 프로젝트)를 E2E 검증하고 사용자 최종 통과(Accept)를 획득했습니다. pdf-lib를 통한 PDF 새 다운로드 및 PDF 원본 해시의 불변(PASS)을 확인했으며, 구현 프로젝트는 사용자 최종 확인 후 Commit 대기 상태입니다. M5 자연어 요청 경로는 `run-78f0af7d`, 사용자 제공 자료 경로는 `run-7bc24e97`에서 V2 Core 내부 Codex 1회 호출, 격리 실행, Artifact 생성·회수, 분석 종류별 검증 프로필, 사용자 확인 Gate와 새 프로세스 재조회를 확인했습니다. 접근 불가능한 자료를 추측하지 않고 `needs_more_source`로 정상 종료하는 경로도 검증했습니다. Dashboard UI는 Core MVP 이후 후보로 미룹니다.
 
 M2 공식 검증 Run은 `run-05dbfc27`입니다. `execution_mode: skills`, `workflow_run_id: null`인 동일 Run에서 Specify, 승인 전 Plan 차단, Spec 본문 수정과 Version 증가, 승인, Plan Artifact 생성과 새 프로세스 재조회를 확인했습니다.
 
@@ -41,11 +41,11 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 
 ## 다음 단계
 
-- M5의 수집·분석·레시피 선택 Core와 M6의 Quick Change Run·AI 부분 수정·회귀·복구 흐름은 완료했습니다.
+- M5의 수집·분석·레시피 선택 Core와 M6의 Quick Change Run·AI 부분 수정·회귀·복구 흐름, 그리고 M7 모바일 PDF 도면 스탬프 `local_product` E2E 구현 및 사용자 검증을 완료했습니다.
 - 사용자에게는 `원하는 것을 말하기 → 추천 결과 또는 시안 고르기 → 실제 결과를 확인하고 완료 또는 수정 말하기`만 보이며, 기본 행동은 `[추천대로 진행]`과 `[직접 선택]`으로 단순화합니다.
 - 자동 인터넷 크롤러, 별도 수집 서버·DB, 학습기, Dashboard UI와 Multi-Agent는 M5 범위에 포함하지 않습니다.
 - 디자인 레시피는 현재 설치된 Product Design·frontend-app-builder·UI UX Pro Max를 우선 재사용합니다. Taste와 Google Stitch Skills는 미설치 후보이며 실제 작은 검증 전에는 채택 또는 검증됨으로 기록하지 않습니다.
 - Supabase의 Auth·Postgres·RLS·Migration·검증·배포 흐름은 병원 파일럿에 추가하지 않고, 데이터 저장이 승인된 후속 프로젝트의 조건부 Full-stack 레시피 후보로 둡니다.
 - M5의 공식 분석 요청은 `PDF 도면 위에 스탬프를 배치·이동·크기 조절하고 원본을 보존한 채 새 PDF로 저장`이며, 구현이나 패키지 설치 없이 최대 두 개의 현실적인 레시피와 다음 작업 하나만 제시합니다.
-- M7은 M5에서 선택한 레시피로 모바일 PDF 도면 스탬프 `local_product`를 E2E 검증합니다.
+- M7은 M5에서 선택한 레시피로 모바일 PDF 도면 스탬프 `local_product`를 E2E 검증 및 승인 받았습니다.
 - M7 이후 첫 UI 후보는 `Direct Partial Edit Panel`의 HERO-01 소형 파일럿이며, 웹 카메라 촬영은 기능 후보로 유지합니다. 실제 구현은 사용자 승인 전 시작하지 않습니다.

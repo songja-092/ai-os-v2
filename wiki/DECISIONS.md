@@ -207,3 +207,10 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - ✅ 검증됨: 47개 Task를 정확히 한 번씩 포함하는 6개 작업 묶음과 수정 허용·금지 경계를 가진 M4 Handoff를 작성했습니다.
 - M4 Handoff Gate는 `ready_for_antigravity`, 구현 상태는 `not_started`입니다. Handoff 준비만으로 Antigravity를 자동 실행하지 않습니다.
 - 제작 프로젝트 M3 기준점 Commit은 `2554340`이며 Push는 별도 승인 전까지 수행하지 않습니다.
+
+## M7 PDF 도면 스탬프 MVP E2E 완료
+
+- ✅ 검증됨: 공식 Run `run-c0a968f3` 에서 `pdf-lib` 와 `pdfjs-dist` 를 적용하여 E2E 모바일 PDF 도면 스탬프 제품을 구축했습니다.
+- ✅ 검증됨: 사용자 퀵 프리셋 동적 관리(`localStorage` 영구 보존, Rename/Delete 분리), 도면 여백 클릭 시 선택 해제, 스탬프 선택 시 dashed blue bounding box 활성화 시각 표시를 구현 및 검증했습니다.
+- ✅ 검증됨: 우측 속성 설정 패널을 340px 너비로 확장하고 비선택 시에도 구조가 닫히지 않고 고정되어 표시(단, 미선택 시에는 사전 설정 적용값으로 동작)되도록 조작 플로우를 변경 완료하여 사용자의 최종 통과(Accept)를 획득했습니다.
+- ✅ 검증됨: 원본 PDF의 SHA256 해시값은 수정되지 않고 보존(PASS)되며, 합성된 PDF가 올바르게 내보내짐을 확인했습니다.
