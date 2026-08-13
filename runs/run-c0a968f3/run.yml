@@ -1,0 +1,40 @@
+run_id: "run-c0a968f3"
+run_type: "feature"
+milestone: "M7"
+request: "PDF 도면을 열고 스탬프 하나를 터치로 배치·이동·크기 조절한 뒤, 원본은 유지하고 스탬프가 반영된 새 PDF로 저장하고 싶어."
+user_request: "PDF 도면을 열고 스탬프 하나를 터치로 배치·이동·크기 조절한 뒤, 원본은 유지하고 스탬프가 반영된 새 PDF로 저장하고 싶어."
+input_type: "natural_language_request"
+stage: "completed"
+status: "completed"
+created_at: "2026-08-13T11:55:35Z"
+git_safety_at_creation: "PASS"
+research_status: "required"
+execution_path: "standard"
+next_stage_allowed: false
+preview_gate: "approved"
+memory: {"official_branch": "main", "official_commit": "72db6dc2fa5cde72c78cfd66184d13cc57ffc5aa"}
+v2_workspace: {"branch": "antigravity/v2-m1-run-core", "head": "95d6b40a6cd122b951ff4754343f0ad660ca4074"}
+project: {"path": "/home/user/바탕화면/test_project", "branch": "master", "base_commit": "e2625bba034e5aef4b130c5640d041ab6b76c925", "result_commit": "3b592c8037a276cb1eb0bf18bd27e3b49e9c3701"}
+collection_analysis: {"status": "approved", "analysis_kind": "natural_request", "source_input_artifact": "/home/user/바탕화면/ai_os_v2/runs/run-c0a968f3/source-input.md", "research_artifact": "/home/user/바탕화면/ai_os_v2/runs/run-c0a968f3/research.md", "analysis_artifact": "/home/user/바탕화면/ai_os_v2/runs/run-c0a968f3/analysis.md", "user_summary_artifact": "/home/user/바탕화면/ai_os_v2/runs/run-c0a968f3/user-summary.md", "selected_recipe": "pdfjs-stamp-editor-local-export", "recipe_status": "researched", "next_action": "local_product", "codex_call_count": 1, "validation": {"status": "PASS", "profile": "natural_request", "errors": []}, "isolation": {"mode": "temporary_directory", "temp_path": "/tmp/ai-os-v2-m7-analysis-run-c0a968f3-8mbzr84i", "inside_parent_git": false}, "source_url_count": 19, "completed_at": "2026-08-13T11:58:32Z", "user_result": "approved", "approved_recipe": "pdfjs-stamp-editor-local-export", "approved_at": "2026-08-13T12:09:21Z"}
+input_artifact: {"path": "/home/user/바탕화면/ai_os_v2/test-artifacts/m7/input/sample-floor-plan.pdf", "sha256": "c5573243ac74e0ad0ea4170e6289e571056f1faf189ea477c8e987442a58d20e", "page_count": 1, "role": "initial_intake_input"}
+final_verification_artifacts:
+  source: {"path": "/home/user/바탕화면/ai_os_v2/test-artifacts/m7/verification/two-page-floor-plan.pdf", "sha256": "bb59d68049892ad24f5442f138c4098aacea37ad33ac8644d83ffd05a888927e", "page_count": 2, "role": "expanded_multi_page_verification_input"}
+  output: {"path": "/home/user/바탕화면/ai_os_v2/test-artifacts/m7/verification/stamped-two-page-floor-plan.pdf", "sha256": "d40efdb91344c6c1a75f19049e39c92c980504ffd6d590871308bde81e699e44", "page_count": 2}
+  sha_difference_reason: "최초 1페이지 intake 입력은 변경되지 않았고, 범위가 다중 페이지로 확정된 뒤 별도의 2페이지 검증 입력을 생성했으므로 SHA가 다르다. 출력 SHA는 기호가 합성된 새 PDF이므로 원본과 다르다."
+is_legacy: false
+implementation_gate: "completed"
+m7_handoff_gate: "completed"
+preview: {"version": 4, "status": "approved", "method": "imagegen_ui_mockup", "artifact_path": "/home/user/.codex/generated_images/019fe4a7-c59f-79b2-8a7d-0fee321b27a2/exec-3a1e999b-f4b3-4ac2-839a-8a44166eff61.png", "sha256": "c870f530dda384eedabacf710e5b22aebbca77702a334f5867e96a5c1deeff62", "preserved_versions": [{"version": 1, "artifact_path": "/home/user/.codex/generated_images/019fe4a7-c59f-79b2-8a7d-0fee321b27a2/exec-8295ea58-cdca-4b5f-95e8-3209c91b6290.png"}, {"version": 2, "artifact_path": "/home/user/.codex/generated_images/019fe4a7-c59f-79b2-8a7d-0fee321b27a2/exec-9ca2cfbd-3fe4-4b9b-aa98-5cbbad846ed1.png"}, {"version": 3, "artifact_path": "/home/user/.codex/generated_images/019fe4a7-c59f-79b2-8a7d-0fee321b27a2/exec-e1c3d87d-83d7-4973-a2f0-2e8c25139750.png"}], "primary_viewport": "390px_mobile", "user_result": "approved", "approved_at": "2026-08-13T12:32:01Z", "scope_revision": "multi_page_multiple_small_electrical_symbols_with_single_border_shape", "included_scope": ["multi_page_pdf_open", "page_navigation", "multiple_symbols_per_page", "independent_symbol_state", "editable_short_text", "editable_color", "single_border_shape", "one_finger_position", "extra_small_default_size", "size_slider", "size_minus_plus", "new_pdf_export", "original_pdf_unchanged"], "excluded_from_m7": ["page_reordering", "long_press_reordering", "pinch_scaling"], "editable_labels": ["A", "B", "C", "D", "S/W", "custom_short_text"], "editable_colors": ["red", "blue", "green", "black"], "border_shapes": ["square", "circle", "triangle"], "border_shape_selection": "single_choice", "symbol_size_policy": {"default": "extra_small", "user_adjustable": true, "touch_target_larger_than_printed_symbol": true}, "symbol_instance_policy": {"per_page": "multiple", "properties_independent": ["label", "color", "border_shape", "position", "size"]}}
+post_mvp_candidates: [{"id": "pdf_page_reordering", "status": "proposed", "features": ["page_order_change", "long_press_reordering"]}, {"id": "pdf_symbol_pinch_scaling", "status": "proposed", "features": ["two_finger_pinch_resize"]}]
+m7_artifacts: {"status": "validated", "spec": {"path": "/home/user/바탕화면/test_project/specs/003-pdf-drawing-stamp/spec.md", "sha256": "75c31ab76c400d1a89a0f44bc5347fe11a362aa9487bf3bb567a0eadb5dd0d12"}, "plan": {"path": "/home/user/바탕화면/test_project/specs/003-pdf-drawing-stamp/plan.md", "sha256": "2ce9f5ccdbb8f911302cf8078c49bfac38acc0e95e5f1b846eb3c2dee48e4be3"}, "tasks": {"path": "/home/user/바탕화면/test_project/specs/003-pdf-drawing-stamp/tasks.md", "sha256": "eb8a53ff2f590f0b25e74e925e869d874c6b59306d9b6e9586d7ce001d99c565", "task_count": 17}, "handoff": {"path": "/home/user/바탕화면/test_project/specs/003-pdf-drawing-stamp/m7-handoff.md", "sha256": "e4536706c2e414c40d571645b1643e0ebd2740601d68c8ae9a65bd116395234b"}, "libraries": [{"name": "pdfjs-dist", "role": "rendering_and_viewport", "installed": true, "version": "4.4.168"}, {"name": "pdf-lib", "role": "pdf_symbol_composition_and_export", "installed": true, "version": "1.17.1"}], "validation": "PASS"}
+antigravity: {"status": "completed", "auto_start": false}
+m7_result:
+  implementation_result: "pass"
+  implementation_agent: "antigravity"
+  codex_verification: "pass"
+  user_result: "pass"
+  overall_result: "pass"
+  product_result_commit: "3b592c8037a276cb1eb0bf18bd27e3b49e9c3701"
+  export_fix: "PDF.js Worker와 pdf-lib가 같은 ArrayBuffer를 공유하지 않도록 입력 바이트를 복사"
+  rollback_restore: "PASS"
+  completed_at: "2026-08-13T23:21:37+09:00"

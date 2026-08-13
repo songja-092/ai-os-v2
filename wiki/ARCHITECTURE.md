@@ -136,7 +136,7 @@ target:
 4. **M4 — Feature Run 완성 — ✅ 완료**: Antigravity 구현, Codex 독립 검증, 사용자 승인, Result Commit `c970352`와 임시 worktree Rollback/Restore를 병원 웹에서 검증했습니다.
 5. **M5 — 수집·분석·레시피 선택 Core — ✅ 완료**: 새 프로젝트 또는 기존 프로젝트의 실제 상태를 수집하고 부족한 부분과 완료 수준을 분석하여 검증된 제작 레시피 하나와 다음 한 작업을 추천합니다. 자동 크롤러·별도 DB·Dashboard는 만들지 않습니다.
 6. **M6 — 기존 프로젝트 Change Run — ✅ 완료**: `run-fa8b4386`에서 병원 프로젝트 `HERO-01`만 수정하고 영향 범위 검증, 사용자 확인, Result Commit `e2625bb`과 별도 worktree Rollback/Restore를 완료했습니다. 이는 AI 부분 수정 검증이며 직접 시각 편집 기능을 포함하지 않습니다.
-7. **M7 — PDF 도면 스탬프 MVP E2E — ✅ 완료**: M5에서 선택한 레시피로 모바일에서 PDF 선택, 한 페이지 표시, 스탬프 배치·이동·크기 조절, 원본 보존과 새 PDF 내보내기를 구현 완료하고 사용자의 최종 통과(Accept)를 획득했습니다.
+7. **M7 — PDF 도면 스탬프 MVP E2E — ✅ 완료**: M5에서 선택한 레시피로 모바일에서 다중 페이지 PDF 선택·이동, 페이지별 복수 기호 배치·속성·크기 조절, 원본 보존과 새 PDF 내보내기를 구현했습니다. 사용자 확인, Result Commit `3b592c8`과 별도 worktree Rollback/Restore까지 통과했습니다.
 
 각 마일스톤이 PASS하면 V2 Core가 `CURRENT_STATE.md` 갱신안을 생성합니다. 사용자가 승인한 갱신만 Commit/Push하며 Obsidian은 같은 로컬 Wiki를 즉시 표시합니다. Archify 자동 갱신은 현재 구현된 것으로 간주하지 않습니다.
 

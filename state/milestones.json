@@ -56,8 +56,10 @@
   {
     "id": "M7",
     "name": "PDF 도면 스탬프 MVP E2E",
-    "status": "active",
-    "desc": "모바일 PDF 스탬프 local_product의 전체 제작·검증·Commit·Rollback/Restore",
+    "status": "completed",
+    "desc": "run-c0a968f3에서 다중 페이지 PDF 기호 local_product 제작·독립검증·사용자 승인·Result Commit·Rollback/Restore PASS",
+    "verified_at": "2026-08-13",
+    "evidence": "run-c0a968f3 · test_project 3b592c8 · input bb59d680 · output d40efdb",
     "standard_flow": "wiki/V2_STANDARD_USER_FLOW.md"
   }
 ]

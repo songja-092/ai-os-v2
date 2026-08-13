@@ -207,9 +207,14 @@ M7에서는 로그인, Backend, 클라우드 저장, 다중 사용자, 서명 �
 - ✅ 모바일 반응형 뷰포트(390px, 430px) 및 PC(1440px) 가로 넘침 차단 및 시인성(텍스트 15~20% 스케일링) 최적화 완료
 - ✅ 퀵 문자 프리셋 동적 관리(`localStorage` 영구 보존, Rename/Delete 분리), 도면 여백 클릭 시 선택 해제, 스탬프 선택 시 dashed blue bounding box 활성화 시각 표시 검증 완료
 - ✅ 우측 속성 설정 패널 340px 및 상시 노출(선택 유무에 따라 사전 설정으로 자동 분기 변경) 검증 완료
-- ✅ 원본 PDF SHA256 해시 불변: `c5573243ac74e0ad0ea4170e6289e571056f1faf189ea477c8e987442a58d20e` (PASS)
+- ✅ 최초 공식 intake 입력(1페이지) SHA256: `c5573243ac74e0ad0ea4170e6289e571056f1faf189ea477c8e987442a58d20e`
+- ✅ 다중 페이지 최종 검증 입력(2페이지) SHA256: `bb59d68049892ad24f5442f138c4098aacea37ad33ac8644d83ffd05a888927e`
+- ✅ 기호 합성 출력(2페이지) SHA256: `d40efdb91344c6c1a75f19049e39c92c980504ffd6d590871308bde81e699e44`
+- ✅ SHA 차이는 원본 변조가 아니라 1페이지 intake 입력과 별도로 생성한 2페이지 검증 입력 및 새 출력 PDF의 역할 차이에서 발생합니다.
 - ✅ `npx tsc --noEmit` & `npm run lint` & `npm run build` 모두 성공 (종료코드 0)
-- ✅ 사용자의 최종 승인("오케이 통과") 획득 완료
+- ✅ PDF.js Worker가 입력 버퍼를 분리하는 오류를 `App.tsx`의 렌더링용·내보내기용 `ArrayBuffer` 복사로 국소 수정했습니다.
+- ✅ 제품 Result Commit `3b592c8`; 별도 worktree에서 기준 Commit과 Result Commit Build 및 Rollback/Restore PASS
+- ✅ 사용자의 최종 확인 PASS
 
 M7 판정은 `✅ 검증됨`이며, 이에 따라 V2 Core MVP 검증이 공식적으로 통과되었습니다.
 
