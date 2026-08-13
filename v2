@@ -14,6 +14,7 @@ import shutil
 import glob
 import socket
 import re
+import hashlib
 
 # Helper to run shell commands
 def run_cmd(cmd, cwd=None):
@@ -60,6 +61,32 @@ def write_yaml(filepath, data):
         for k, v in data.items():
             v_str = json.dumps(v, ensure_ascii=False)
             f.write(f"{k}: {v_str}\n")
+
+
+def file_sha256(path):
+    digest = hashlib.sha256()
+    with open(path, "rb") as source_file:
+        for chunk in iter(lambda: source_file.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def existing_change_artifacts(project_path):
+    """Reference approved M4 artifacts without copying or modifying them."""
+    feature_dir, spec_path, _ = resolve_feature_artifacts(project_path)
+    candidates = {
+        "spec": spec_path,
+        "plan": os.path.join(project_path, feature_dir, "plan.md") if feature_dir else None,
+        "tasks": os.path.join(project_path, feature_dir, "tasks.md") if feature_dir else None,
+        "design_preview": os.path.join(
+            project_path, "design-preview", "run-05dbfc27", "v2", "index.html"
+        ),
+    }
+    references = {}
+    for name, path in candidates.items():
+        if path and os.path.isfile(path):
+            references[name] = {"path": path, "sha256": file_sha256(path)}
+    return references
 
 def read_milestones(v2_root):
     state_path = os.path.join(v2_root, "state", "milestones.json")
@@ -867,6 +894,10 @@ Maximum result status is researched. Do not claim implemented, verified, or reus
 
 def cmd_create(args):
     project_path = os.path.abspath(args.project)
+    if args.execution_path == "quick" and args.type != "change":
+        print("Error: quick execution is supported only for --type change.", file=sys.stderr)
+        sys.exit(1)
+    is_quick_change = args.type == "change" and args.execution_path == "quick"
 
     # 1. Active Run Check (Limit to 1 active run at a time)
     active_run = get_active_run()
@@ -895,6 +926,21 @@ def cmd_create(args):
         print("Error: Failed to resolve Base Memory Commit (origin/main HEAD).", file=sys.stderr)
         sys.exit(1)
 
+    quick_references = None
+    if is_quick_change:
+        if not args.target_area:
+            print("Error: --target-area is required for a quick Change Run.", file=sys.stderr)
+            sys.exit(1)
+        quick_references = existing_change_artifacts(project_path)
+        required_references = {"spec", "plan", "tasks", "design_preview"}
+        missing_references = sorted(required_references - set(quick_references))
+        if missing_references:
+            print(
+                f"Error: Required existing artifacts are missing: {missing_references}",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
     # 4. Generate unique Run ID (8-char hex UUID)
     run_id = f"run-{uuid.uuid4().hex[:8]}"
 
@@ -908,15 +954,15 @@ def cmd_create(args):
         "run_id": run_id,
         "run_type": args.type,
         "request": args.spec,
-        "stage": "intake",
+        "stage": "change_ready" if is_quick_change else "intake",
         "status": "active",
         "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "git_safety_at_creation": "PASS",
         "requirements_version": 1,
-        "requirements_status": "generating",
+        "requirements_status": "not_applicable" if is_quick_change else "generating",
         "requirements_artifact": None,
         "requirements_checklist": None,
-        "execution_path": "standard",
+        "execution_path": "quick" if is_quick_change else "standard",
         "approval": {"status": "pending", "approved_version": None, "approved_at": None},
         "next_stage_allowed": False,
         "memory": {"official_branch": "main", "official_commit": base_memory_commit_official},
@@ -924,7 +970,44 @@ def cmd_create(args):
         "project": {"path": project_path, "branch": project_branch, "base_commit": base_project_commit},
         "integrations": {"spec_kit": {"execution_mode": "skills", "workflow_run_id": None}},
     }
+    if is_quick_change:
+        run_data.update({
+            "classification_reason": f"단일 라벨 {args.target_area}의 모바일 CSS 부분 수정",
+            "escalated_from": None,
+            "approval": {"status": "not_required_for_preparation", "approved_version": None, "approved_at": None},
+            "existing_artifacts": quick_references,
+            "change": {
+                "original_request": args.spec,
+                "target_area": args.target_area,
+                "base_project_commit": base_project_commit,
+                "allowed_scope": [f"{args.target_area}에 직접 적용되는 CSS"],
+                "forbidden_scope": [
+                    "제목 문구 변경",
+                    "배경·색상·메뉴·버튼 변경",
+                    "다른 화면·기능 변경",
+                    "패키지 설치",
+                    "Spec·Plan·Tasks·Preview 변경",
+                ],
+                "validation": [
+                    "390px 단어 내부 분리 없음",
+                    "430px 회귀 없음",
+                    "1440px 회귀 없음",
+                    "기존 핵심 기능 유지",
+                ],
+                "implementation_status": "not_started",
+                "codex_result": "pending",
+                "user_result": "pending",
+            },
+        })
     write_yaml(run_file, run_data)
+
+    if is_quick_change:
+        print("부분 수정 작업을 준비했습니다.\n")
+        print("수정할 곳: 메인 제목")
+        print("변경할 내용: 모바일 줄바꿈")
+        print("현재 상태: 수정 준비 완료")
+        print("내가 할 일: 없음")
+        return
 
     print("요청을 받았습니다. 요구사항을 정리하고 있습니다...")
 
@@ -1060,6 +1143,20 @@ def cmd_show(args):
         elif run_data.get("failure_reason"):
             print(f"문제: {run_data.get('failure_reason')}")
         print("\n내가 할 일: 진행 / 다른 방식 / 나중에")
+        return
+
+    if run_data.get("run_type") == "change" and run_data.get("execution_path") == "quick":
+        change = run_data.get("change", {})
+        print("부분 수정 작업\n")
+        print("수정할 곳: 메인 제목")
+        print("변경할 내용: 모바일 줄바꿈")
+        status_label = (
+            "수정 준비 완료"
+            if run_data.get("stage") == "change_ready" and change.get("implementation_status") == "not_started"
+            else run_data.get("status", "확인 필요")
+        )
+        print(f"현재 상태: {status_label}")
+        print("내가 할 일: 없음")
         return
 
     project_info = run_data.get("project", {})
@@ -1937,6 +2034,16 @@ def main():
     create_parser.add_argument("--project", required=True, help="Path to the target project directory")
     create_parser.add_argument("--spec", required=True, help="Natural language request/spec description")
     create_parser.add_argument("--type", choices=["feature", "change"], default="feature", help="Type of run")
+    create_parser.add_argument(
+        "--execution-path",
+        choices=["standard", "quick"],
+        default="standard",
+        help="Execution path; quick is currently supported only for an explicit Change Run",
+    )
+    create_parser.add_argument(
+        "--target-area",
+        help="Stable UI area label for an explicit quick Change Run",
+    )
 
     # v2 run show
     show_parser = run_subparsers.add_parser("show", help="Show details of a run")

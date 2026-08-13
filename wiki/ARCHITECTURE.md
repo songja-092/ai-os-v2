@@ -134,8 +134,8 @@ target:
 2. **M2 — Spec과 승인 Gate**: `run-05dbfc27`에서 Spec Kit Skill, Artifact, 승인 전 차단과 승인 후 Plan 생성을 같은 V2 Run으로 검증했습니다.
 3. **M3 — 조건부 Design과 Plan/Tasks — ✅ 완료**: `run-05dbfc27`에서 Option C v2, 공식 Tasks 47개와 5개 최소 실행 묶음 Handoff를 생성했습니다.
 4. **M4 — Feature Run 완성 — ✅ 완료**: Antigravity 구현, Codex 독립 검증, 사용자 승인, Result Commit `c970352`와 임시 worktree Rollback/Restore를 병원 웹에서 검증했습니다.
-5. **M5 — 수집·분석·레시피 선택 Core — 다음 단계**: 새 프로젝트 또는 기존 프로젝트의 실제 상태를 수집하고 부족한 부분과 완료 수준을 분석하여 검증된 제작 레시피 하나와 다음 한 작업을 추천합니다. 자동 크롤러·별도 DB·Dashboard는 만들지 않습니다.
-6. **M6 — 기존 프로젝트 Change Run**: 기존 Result Commit 또는 가져온 바이브코딩 프로젝트의 작은 부족 영역 하나만 수정하고 영향 범위 검증, 사용자 확인, 새 Commit과 Rollback/Restore를 수행합니다.
+5. **M5 — 수집·분석·레시피 선택 Core — ✅ 완료**: 새 프로젝트 또는 기존 프로젝트의 실제 상태를 수집하고 부족한 부분과 완료 수준을 분석하여 검증된 제작 레시피 하나와 다음 한 작업을 추천합니다. 자동 크롤러·별도 DB·Dashboard는 만들지 않습니다.
+6. **M6 — 기존 프로젝트 Change Run — ✅ 완료**: `run-fa8b4386`에서 병원 프로젝트 `HERO-01`만 수정하고 영향 범위 검증, 사용자 확인, Result Commit `e2625bb`과 별도 worktree Rollback/Restore를 완료했습니다. 이는 AI 부분 수정 검증이며 직접 시각 편집 기능을 포함하지 않습니다.
 7. **M7 — PDF 도면 스탬프 MVP E2E**: M5에서 선택한 레시피로 모바일에서 PDF 선택, 한 페이지 표시, 스탬프 배치·이동·크기 조절, 원본 보존과 새 PDF 내보내기를 구현하고 전체 사이클·중단 후 재개·Rollback/Restore를 검증합니다.
 
 각 마일스톤이 PASS하면 V2 Core가 `CURRENT_STATE.md` 갱신안을 생성합니다. 사용자가 승인한 갱신만 Commit/Push하며 Obsidian은 같은 로컬 Wiki를 즉시 표시합니다. Archify 자동 갱신은 현재 구현된 것으로 간주하지 않습니다.
@@ -172,4 +172,4 @@ Kernel, Planner, 별도 Collector 서버, Multi-Agent와 자체 실행 엔진은
 
 M7이 PASS하면 Core는 완료 상태만 표시하고 멈추지 않고 `wiki/POST_MVP_ROADMAP.md`의 최우선 미검증 후보를 읽습니다. 이 자동 연결은 `상태 조회 → 후보 로드 → 수집 → 분석 → 추천 → Preview 준비`까지만 허용하며 구현 Gate를 자동 통과하지 않습니다.
 
-첫 후보는 `web_camera_capture`입니다. `getUserMedia`와 Canvas/ImageCapture를 기준으로 Galaxy 실기기, 권한 거절, 카메라 전환, 회전, 연속 촬영, 압축과 실패 대체 경로를 조사합니다. 실제 구현·설치·제품 변경은 사용자 선택 이후 별도 Run에서 수행합니다.
+첫 UI 후보는 `direct_partial_edit_panel`의 `HERO-01` 소형 파일럿입니다. 그 다음 실제 Run 상태를 읽는 얇은 UI를 검토하며, `web_camera_capture`는 기능 후보로 유지합니다. 실제 구현·설치·제품 변경은 사용자 선택 이후 별도 Run에서 수행합니다.

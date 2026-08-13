@@ -180,6 +180,8 @@ M4 판정은 `✅ 검증됨`이며 다음 단계는 M5입니다.
 
 공식 검증 대상은 병원 프로젝트 `HERO-01`의 390px·430px 모바일 한국어 줄바꿈입니다. 해당 영역만 수정하고 메뉴·예약·완료 흐름을 회귀검증합니다. PDF 기능은 M6에서 구현하지 않습니다.
 
+검증 결과: `run-fa8b4386`에서 Quick Change 분기, `HERO-01` 국소 CSS 수정, 390px·430px 단어 내부 분리 방지, 1440px 회귀 없음, 메뉴·의료진·예약 오류·완료·복귀, Typecheck·Build·Diff, 사용자 `pass`, Result Commit `e2625bb`, 기준/결과 Commit의 별도 worktree Rollback·Restore를 모두 확인했습니다. `partial_change_by_ai: pass`이며 직접 시각 편집 패널은 M6 범위 밖입니다.
+
 ### M7 — PDF 도면 스탬프 MVP E2E
 
 - PDF 도면 스탬프 자연어 요청으로 시작하고 M5에서 선택한 레시피와 실제 사용 도구가 일치합니다.
@@ -199,7 +201,7 @@ M7에서는 로그인, Backend, 클라우드 저장, 다중 사용자, 서명 �
 
 ### POST-MVP 연속 실행
 
-- M7 PASS 후 `wiki/POST_MVP_ROADMAP.md`를 실제로 읽고 첫 미검증 후보 `web_camera_capture`를 선택합니다.
+- M7 PASS 후 `wiki/POST_MVP_ROADMAP.md`를 실제로 읽고 첫 미검증 후보 `direct_partial_edit_panel`을 선택합니다. `web_camera_capture`는 기능 후보로 유지합니다.
 - 기존 레시피·설치 도구·공식 문서·GitHub 사례를 조사하고 구현 가능성·위험·다음 선택지를 기록합니다.
 - 사용자에게 `[진행]`, `[나중에]`, `[다른 후보 보기]`를 제시하지만 구현을 자동 시작하지 않습니다.
 - 외부 설치·기존 제품 변경·실제 데이터·권한·DB·배포·삭제는 Gate 없이 실행되지 않습니다.

@@ -10,7 +10,7 @@ M7 PASS 이후 V2가 사용자의 반복 설명 없이 다음 조사·분석 후
 post_mvp:
   status: ready_after_m7_pass
   roadmap_path: wiki/POST_MVP_ROADMAP.md
-  next_candidate: web_camera_capture
+  next_candidate: direct_partial_edit_panel
   auto_research_allowed: true
   auto_analysis_allowed: true
   auto_implementation_allowed: false
@@ -30,7 +30,36 @@ post_mvp:
 
 GitHub에서 발견하거나 문서로 조사했다는 이유만으로 `verified`로 올리지 않습니다. `reusable_recipe`는 실제 프로젝트·환경 실행, 실패 처리, 사용자 확인, Commit과 Rollback/Restore가 필요합니다.
 
-## 1순위 후보 — Web Camera Capture
+## 1순위 UI 후보 — Direct Partial Edit Panel
+
+```yaml
+id: direct_partial_edit_panel
+status: proposed
+scope: HERO-01 only
+goal: 초보 사용자가 Preview에서 HERO-01을 선택하고 글자 크기·콘텐츠 폭·줄바꿈·배경색을 제한된 값으로 조절한다.
+controls:
+  - 원래대로
+  - 미리보기
+  - 적용
+required_verification:
+  - 390px
+  - 430px
+  - 1440px
+  - horizontal overflow
+  - console errors
+  - new artifact version
+  - rollback
+tool_candidate: Tweakpane
+implementation_approved: false
+```
+
+M6에서 `HERO-01` AI 부분 수정과 복구 기반은 검증했지만 Preview 요소 선택, 슬라이더·색상 선택, 실시간 적용, 설정 저장과 새 Artifact Version은 아직 미검증입니다. Dashboard 전체나 범용 페이지 편집기보다 이 한 영역 파일럿을 먼저 검토합니다.
+
+## 2순위 UI 후보 — 실제 Run 상태를 읽는 얇은 UI
+
+Core의 실제 Run·Gate·검증 결과만 읽어 사용자에게 요청, 현재 단계, Preview와 다음 행동을 보여줍니다. 가짜 진행률이나 별도 상태 저장소를 만들지 않습니다.
+
+## 기능 후보 — Web Camera Capture
 
 ```yaml
 id: web_camera_capture
@@ -59,9 +88,9 @@ implementation_approved: false
 사용자에게는 다음만 제시합니다.
 
 ```text
-다음 추천: 웹 카메라 촬영
-현재 상태: 조사·분석 완료
-추천 목표: Galaxy에서 촬영하고 프로젝트 안에서만 확인하는 Preview
+다음 추천: 직접 부분 수정 패널
+현재 상태: 제안
+추천 목표: HERO-01 하나에서 제한된 값을 직접 조절하고 안전하게 복구하는 Preview
 
 [진행] [나중에] [다른 후보 보기]
 ```

@@ -47,14 +47,16 @@
   {
     "id": "M6",
     "name": "기존 프로젝트 Change Run",
-    "status": "active",
-    "desc": "병원 프로젝트 HERO-01 모바일 줄바꿈 국소 수정·회귀검증·복구",
+    "status": "completed",
+    "desc": "run-fa8b4386에서 HERO-01 AI 부분 수정·회귀검증·사용자 승인·Result Commit·Rollback/Restore PASS",
+    "verified_at": "2026-08-13",
+    "evidence": "run-fa8b4386 · test_project e2625bb · partial_change_by_ai pass",
     "standard_flow": "wiki/V2_STANDARD_USER_FLOW.md"
   },
   {
     "id": "M7",
     "name": "PDF 도면 스탬프 MVP E2E",
-    "status": "pending",
+    "status": "active",
     "desc": "모바일 PDF 스탬프 local_product의 전체 제작·검증·Commit·Rollback/Restore",
     "standard_flow": "wiki/V2_STANDARD_USER_FLOW.md"
   }
