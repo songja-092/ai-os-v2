@@ -132,10 +132,10 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 ## UI와 복구 안전
 
 - 📝 승인됨: 얇은 UI MVP는 [[THIN_UI_MVP_CONTRACT]] · [GitHub 링크](THIN_UI_MVP_CONTRACT.md)의 다섯 계약을 공식 기준으로 사용합니다. UI는 Core 상태의 읽기·명령 전달 계층이며 YAML 직접 수정, 임의 Shell 실행, 상태·Action 추론을 금지합니다.
-- 📝 승인됨: 프로젝트별 Run 선택과 Preview 프로세스를 격리하고, 최초 검증은 Preview 장애가 Core·다른 프로젝트·과거 결과에 전파되지 않는지를 우선 확인합니다. 실제 구현 전 동일 계약을 반영한 정적 이미지 시안 2개를 사용자에게 제시합니다.
+- 📝 승인됨: 프로젝트별 Run 선택과 Preview 프로세스를 격리하고, 최초 검증은 Preview 장애가 Core·다른 프로젝트·과거 결과에 전파되지 않는지를 우선 확인합니다. 기존 이미지 시안 5장은 참고자료로 보존하며 실제 구현 전 [[ui-reference-mix]] · [GitHub 링크](ui-reference-mix.md)를 반영한 모바일 우선 클릭형 Preview A/B를 사용자에게 제시합니다.
 - M1~M4에서는 전용 V2 UI를 구현하지 않고 Spec Kit 상태와 Obsidian의 Run 기록으로 Core를 검증합니다.
 - Dashboard UI는 Core MVP 이후 후보입니다. 먼저 M5~M7에서 수집·분석·레시피 선택, Change Run과 전체 제작 사이클을 실제 상태로 검증합니다.
-- MVP 웹 Preview는 사용자가 승인한 `localhost` 또는 `127.0.0.1` 개발 서버 하나만 지원합니다. Phone·Tablet·Desktop 전환은 MVP 범위에서 제외합니다.
+- Core MVP 당시 웹 Preview는 사용자가 승인한 `localhost` 또는 `127.0.0.1` 개발 서버 하나만 지원했고 Phone·Tablet·Desktop 전환은 제외했습니다. Post-MVP PM1 클릭형 Preview에서는 구현 전 사용성 검증을 위해 390px·430px·PC 기준을 비교하되 임의 외부 주소나 실행 명령은 허용하지 않습니다.
 - Rollback/Restore 검증은 사용자의 현재 작업 폴더를 변경하지 않도록 별도 임시 `git worktree`에서 수행합니다.
 - 마일스톤 진행 중 임시 상태를 Wiki의 확정 사실로 자동 저장하지 않습니다. 실제 PASS 증거가 생기면 V2 Core가 `CURRENT_STATE.md` 갱신안을 만들고, 사용자 승인 후 Commit/Push하여 공식 기억으로 확정합니다.
 - Obsidian은 V2 저장소의 동일한 Wiki 파일을 Vault에서 읽으므로 별도 동기화 프로그램 없이 로컬 변경을 즉시 표시합니다. GitHub와 Archify 반영은 각각 Push와 별도 갱신 검증 후 확정합니다.
@@ -144,20 +144,28 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 
 ## UI·관리자 화면 제작 후보
 
-- 📝 승인됨: `shadcn/ui`, `Storybook`, `Refine`을 조건부 제작 후보로 등록합니다. 세 후보 모두 현재 미설치·미구현·미검증이며 현재 마일스톤 상태를 변경하지 않습니다.
-- `shadcn/ui`는 사용자 디자인 승인 후 Button, Input, Form, Dialog, Calendar 등 승인된 화면에 필요한 부품만 실제 프로젝트 코드로 가져와 조립하는 웹 UI 1순위 후보입니다. 전체 세트를 미리 설치하지 않고 프로젝트 기술 스택과 라이선스가 맞을 때 M3 설계 결과 및 M4 작은 화면에서 검증합니다.
-- `Storybook`은 공용 UI 부품을 완성 웹과 분리해 상태별로 확인하는 작업대 후보입니다. M4 병원 웹에서는 보류하며, 여러 프로젝트가 부품을 재사용하거나 로딩·오류·빈 상태 등 상태 조합 관리가 어려워질 때 재검토합니다.
-- `Refine`은 예약·회원·상품·주문처럼 실제 데이터의 목록·검색·추가·수정·삭제가 필요한 관리자·CRUD 화면 1순위 후보입니다. 일반 사용자 화면 제작 도구로 사용하지 않으며 데이터 저장 방식과 관리자 요구사항이 먼저 승인된 프로젝트에서만 검증합니다.
+- 📝 조건부: `shadcn/ui`는 PM1 클릭형 Preview를 기존 도구로 먼저 검증한 뒤 기본 HTML·CSS만으로 접근성 있는 Button·Dialog·Tabs 구현이 부족하다는 증거가 있을 때 필요한 부품만 검토합니다. 현재 미설치·미구현·미검증입니다.
+- ⏸ 보류: `Storybook`은 여러 프로젝트가 실제 UI 부품을 재사용하거나 로딩·오류·빈 상태 조합 관리가 어려워질 때 재검토합니다.
+- ⏸ 보류: `Refine`은 데이터 저장과 관리자 CRUD 요구가 승인된 후속 프로젝트에서만 재검토하며 PM1~PM4 기본 도구가 아닙니다.
 - 한 번에 하나의 후보만 작은 실제 화면에서 시험하며 기존 방식보다 명확한 효용이 증명될 때만 기본 부품으로 승격합니다. 효용이 없거나 충돌하면 제거하고 도입 전 Git 복구점으로 돌아갑니다.
 - Galaxy Preview가 실제 설치·검증되기 전에는 실제 기기 확인을 이 후보들의 필수 PASS 조건으로 만들지 않습니다.
 
+## Post-MVP PM1~PM4
+
+- 📝 기획 확정: `PM1 얇은 UI → PM2 직접 부분 수정 → PM3 자료 가져오기 → PM4 제작 정확도와 AI 교체 기반` 순서로 진행합니다. `AI OS V2 Core MVP M1~M7`의 완료 기록과 PASS 조건은 변경하지 않습니다.
+- PM1은 프로젝트 홈, Preview 중심 작업실, `ui-state`/`ui-action`, Project Registry, 허용 Action, Preview 장애 격리와 최소 오류 보고서를 제공합니다.
+- PM2는 `HERO-01` 하나의 제한된 직접 조절을 Draft Preview와 Quick Change Run으로 적용하고 Commit·Rollback/Restore를 검증합니다.
+- PM3는 본문·Markdown·PDF·일반 웹뿐 아니라 GitHub 저장소·README·Issue·Release와 Reddit 게시글·댓글, 사용자가 제공한 Threads 자료를 공통 Source Schema로 처리합니다. 개인 의견과 공식 사실을 분리하며 사용자 승인 전 후보를 자동 등록하지 않습니다.
+- PM4는 Intent Packet·Receipt, Acceptance Checks와 AI 역할 Adapter 경계를 일반화합니다. Provider 교체는 제안된 아키텍처 경계이며 아직 구현되지 않았습니다.
+- 각 PM 구현 직전에 현재 설치 Skill, 기존 코드·공식 기능, GitHub OSS와 공식 문서를 조사하고 추가 후보는 최대 2개로 제한합니다. 도구를 발견했다는 이유만으로 설치하지 않습니다.
+
 ## 직접 부분 수정 패널 후보
 
-- 💡 MVP 이후 2순위 UI 후보: `Direct Partial Edit Panel`입니다. 승인된 얇은 UI의 시안 선택과 최소 구현 이후에 검토하며, 별도 승인 전에는 구현하거나 패키지를 설치하지 않습니다.
+- 📝 PM2 채택 방향: `Direct Partial Edit Panel`입니다. PM1 클릭형 Preview 선택과 최소 구현 이후에 검토하며, 별도 승인 전에는 구현하거나 패키지를 설치하지 않습니다.
 - 검증된 기반은 안정적인 영역 라벨 `HERO-01`, M6 AI 부분 수정, 변경 범위 제한, 회귀검증, Commit과 Rollback/Restore입니다. AI 부분 수정과 사용자의 직접 시각 편집을 같은 기능으로 기록하지 않습니다.
 - 첫 파일럿은 `HERO-01` 하나에서 글자 크기, 콘텐츠 폭, 자연스러운 줄바꿈과 배경색만 조절합니다. 버튼은 `원래대로`, `미리보기`, `적용`으로 제한합니다.
 - 직접 조절은 글자·색상·간격·모서리·그림자와 제한된 움직임 설정, AI 수정은 메뉴 구조·섹션 순서·카드 정보 순서·반응형 구조, 새 Change Run은 새 화면·기능·로그인·저장·관리자·결제를 담당합니다.
-- 기술 파일럿 1순위 후보는 `Tweakpane`이며 미설치·미구현·미검증입니다. `AutoAnimate`, `React Grab`, `Agentation`은 조건부 후보이고 `Puck`, Drag & Drop, 자유 Resize와 범용 페이지 편집기는 보류합니다.
+- 기술 파일럿 조건부 후보는 `Tweakpane`이며 기본 HTML Control이 부족하다는 증거가 생기기 전에는 설치하지 않습니다. `AutoAnimate`, `React Grab`, `Agentation`은 현재 보류하고 `Puck` 전체 편집기, Drag & Drop, 자유 Resize와 범용 페이지 편집기는 폐기합니다.
 - 자유 CSS 입력은 금지하고 허용된 CSS 변수 또는 제한 설정값만 사용합니다. 적용 전 Version을 보존하고 390px·430px·1440px, 가로 넘침과 Console을 검증하며 실패 시 원본을 유지합니다.
 
 ## 실제 Galaxy Preview 후보

@@ -165,7 +165,7 @@ target:
 | 구현 최소화 규칙 | Ponytail | 🔨 `main` 설치, 실제 Task 미검증 |
 | 환경별 검증 | 프로젝트별 도구 | 💡 Target Environment에 따라 선택 |
 | Core Workflow | V2 Core Orchestrator | ✅ 단독 Run/Gate/상태 소유 검증 완료 (구조 A) |
-| V2 UI | 없음 | Core MVP 이후 후보 |
+| V2 UI | 없음 | Post-MVP PM1 기획 확정, 클릭형 Preview 미제작 |
 | 자동 AI 호출 | 없음 | MVP 필수 아님, Manual Agent Adapter 사용 |
 
 Kernel, Planner, 별도 Collector 서버, Multi-Agent와 자체 실행 엔진은 현재 아키텍처의 필수 구성요소가 아닙니다. M5의 수집·분석은 기존 파일 검색, 실행 확인과 공식 자료 조사로 검증하며 Dashboard는 검증된 Core 흐름을 나중에 감싸는 인터페이스입니다.
@@ -174,4 +174,6 @@ Kernel, Planner, 별도 Collector 서버, Multi-Agent와 자체 실행 엔진은
 
 M7이 PASS하면 Core는 완료 상태만 표시하고 멈추지 않고 `wiki/POST_MVP_ROADMAP.md`의 최우선 미검증 후보를 읽습니다. 이 자동 연결은 `상태 조회 → 후보 로드 → 수집 → 분석 → 추천 → Preview 준비`까지만 허용하며 구현 Gate를 자동 통과하지 않습니다.
 
-첫 UI는 실제 Run 상태를 읽는 얇은 UI이며 승인된 계약에 따라 정적 이미지 시안 2개를 먼저 비교합니다. `direct_partial_edit_panel`의 `HERO-01` 소형 파일럿은 그 다음 UI 후보이고, `web_camera_capture`는 기능 후보로 유지합니다. 실제 구현·설치·제품 변경은 사용자 선택 이후 별도 Run에서 수행합니다.
+Post-MVP는 사용자 기능을 기준으로 `PM1 얇은 UI → PM2 직접 부분 수정 → PM3 자료 가져오기 → PM4 제작 정확도와 AI 교체 기반` 순서로 확정합니다. PM1은 실제 Run 상태를 읽는 얇은 UI이며 [[THIN_UI_MVP_CONTRACT]]과 [[ui-reference-mix]]를 기준으로 모바일 우선 클릭형 Preview A/B를 먼저 비교합니다. 실제 구현·설치·제품 변경은 사용자 화면 선택 이후 별도 Run에서 수행합니다.
+
+PM1 UI는 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계를 유지하고, PM3 Source Adapter는 실패를 Core·다른 프로젝트와 격리합니다. PM4의 AI 역할 Adapter는 Planner·Implementer·Verifier의 계약을 분리하지만 새로운 Multi-Agent Orchestrator나 Provider 자동 교체를 구현한다는 뜻이 아닙니다.

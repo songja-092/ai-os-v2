@@ -2,149 +2,277 @@
 
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
 
-M7 PASS 이후 V2가 사용자의 반복 설명 없이 다음 조사·분석 후보를 불러오기 위한 공식 로드맵입니다. 이 문서는 자동 구현 권한을 부여하지 않습니다.
-
-## 연속 실행 상태
+`AI OS V2 Core MVP M1~M7`은 완료·동결합니다. Post-MVP는 사용자가 각 단계에서 새로 할 수 있는 기능을 기준으로 `PM1~PM4`를 순서대로 진행합니다. 이 문서는 구현 권한을 부여하지 않으며, 각 PM 구현 직전에 현재 설치 Skill, 기존 코드와 공식 기능, 공식 문서, 유지관리되는 GitHub OSS, 최소 직접 구현 순으로 환경을 다시 조사합니다.
 
 ```yaml
 post_mvp:
-  status: ready_after_m7_pass
-  roadmap_path: wiki/POST_MVP_ROADMAP.md
-  next_candidate: direct_partial_edit_panel
+  planning_status: approved
+  active_milestone: PM1
+  implementation_status: not_started
   auto_research_allowed: true
   auto_analysis_allowed: true
   auto_implementation_allowed: false
   user_approval_required_for_implementation: true
 ```
 
-## 후보 상태 언어
+## 상태 언어
 
-- 💡 `proposed`
-- 🔎 `researched`
-- 🧪 `pilot_ready`
-- 🔨 `implemented`
-- ✅ `verified`
-- 📦 `reusable_recipe`
-- ⏸ `deferred`
-- ❌ `rejected`
-
-GitHub에서 발견하거나 문서로 조사했다는 이유만으로 `verified`로 올리지 않습니다. `reusable_recipe`는 실제 프로젝트·환경 실행, 실패 처리, 사용자 확인, Commit과 Rollback/Restore가 필요합니다.
-
-## 2순위 UI 후보 — Direct Partial Edit Panel
+후보 판정과 구현 상태를 분리합니다.
 
 ```yaml
-id: direct_partial_edit_panel
-status: proposed
-scope: HERO-01 only
-goal: 초보 사용자가 Preview에서 HERO-01을 선택하고 글자 크기·콘텐츠 폭·줄바꿈·배경색을 제한된 값으로 조절한다.
-controls:
-  - 원래대로
-  - 미리보기
-  - 적용
-required_verification:
-  - 390px
-  - 430px
-  - 1440px
-  - horizontal overflow
-  - console errors
-  - new artifact version
-  - rollback
-tool_candidate: Tweakpane
-implementation_approved: false
+decision_status: adopted | conditional | deferred | rejected
+lifecycle_status: proposed | researched | pilot_ready | implemented | verified
 ```
 
-M6에서 `HERO-01` AI 부분 수정과 복구 기반은 검증했지만 Preview 요소 선택, 슬라이더·색상 선택, 실시간 적용, 설정 저장과 새 Artifact Version은 아직 미검증입니다. Dashboard 전체나 범용 페이지 편집기보다 이 한 영역 파일럿을 먼저 검토합니다.
+조사하거나 채택했다는 이유만으로 구현·검증 완료로 올리지 않습니다. 재사용 Recipe는 실제 프로젝트 실행, 실패 처리, 사용자 확인, Result Commit과 Rollback/Restore가 필요합니다.
 
-## 1순위 UI 후보 — 실제 Run 상태를 읽는 얇은 UI
+## PM1 — 얇은 UI
 
-Core의 실제 Run·Gate·검증 결과만 읽어 사용자에게 요청, 현재 단계, Preview와 다음 행동을 보여줍니다. 가짜 진행률이나 별도 상태 저장소를 만들지 않습니다. 다섯 가지 승인 계약은 [[THIN_UI_MVP_CONTRACT]] · [GitHub 링크](THIN_UI_MVP_CONTRACT.md)를 따르며 현재 다음 작업은 정적 이미지 시안 2개 비교입니다.
+### 이번 단계에서 생기는 기능
 
-## 기능 후보 — Web Camera Capture
+사용자는 프로젝트를 선택하고 현재 요청과 상태, 실제 Preview를 확인한 뒤 `통과`, `수정 요청`, `중단` 중 Core가 허용한 행동을 선택할 수 있습니다. 다른 프로젝트로 이동해도 각 Preview와 Run 상태는 독립적으로 유지됩니다.
 
-```yaml
-id: web_camera_capture
-status: researched
-goal: Galaxy에서 후면 카메라로 촬영하고 Preview에서 확인·재촬영·압축하며 휴대폰 앨범에는 자동 저장하지 않는다.
-base_technology:
-  - getUserMedia
-  - Canvas 또는 ImageCapture
-required_verification:
-  - Galaxy 실제 기기
-  - 권한 거절
-  - 전면·후면 전환
-  - 화면 회전
-  - 연속 촬영
-  - 사진 압축
-  - 카메라 실패 대체 경로
-implementation_approved: false
-```
-
-현재 상태는 공식 자료 기반 조사 완료이며 V2 실제 파일럿과 검증 전입니다.
-
-## 편의·품질·운영 후보 — 2026-08-14 조사
-
-아래 항목은 공식 문서·공식 GitHub와 공개 사용 사례를 확인한 `researched` 후보입니다. 등록은 설치·채택·호출·검증 완료를 의미하지 않으며, 현재 1순위 얇은 UI와 2순위 `Direct Partial Edit Panel`의 순서를 바꾸지 않습니다.
-
-### 우선 파일럿 후보
-
-| 후보 | 역할 | 적용 조건 | 상태 |
-| --- | --- | --- | --- |
-| GitHub MCP Server | 저장소·Issue·PR·Actions 읽기/쓰기 | 프로젝트 한정 권한, 쓰기 전 Core 승인 Gate | 🔎 researched |
-| Dependabot | 취약 의존성 경고와 보안 업데이트 PR | GitHub 저장소별 활성화 | 🔎 researched |
-| Gitleaks | Commit 전 Token·비밀번호 등 비밀값 탐지 | 읽기 전용 검사 파일럿 후 차단 여부 결정 | 🔎 researched |
-| Lighthouse | 성능·접근성·SEO·기본 품질 검사 | 기존 Chrome으로 최종 검증·배포 준비 시 실행 | 🔎 researched |
-| ADB reverse + scrcpy | 실제 Galaxy Preview와 PC 제어 | 별도 창 방식의 실기기 파일럿 승인 시 | 🔎 researched |
-
-GitHub 쓰기는 V2가 임의 실행하지 않고 `변경 준비 → 사용자 확인 → 승인된 쓰기` 순서를 따른다. 후보가 실제 도입되기 전에는 현재 `gh` 설치 여부나 GitHub 연결을 V2 기능 검증으로 간주하지 않는다.
-
-### 프로젝트 요구가 생길 때만 검토
-
-| 후보 | 역할 | 적용 조건 | 상태 |
-| --- | --- | --- | --- |
-| axe-core | 자동 접근성 검사 | 공공·상업 웹 또는 접근성 요구가 명확한 프로젝트 | 🔎 researched |
-| MSW | Backend 없이 성공·오류·지연 응답 검증 | 데이터 연동 UI를 Backend보다 먼저 검증할 때 | 🔎 researched |
-| Mockoon | GUI 기반 로컬 Mock API | 비개발자가 가짜 API 상태를 직접 조절해야 할 때만 MSW 대안 | 🔎 researched |
-| Bruno | 로컬·Git 기반 API 요청 검증 | API·인증·Full-stack 프로젝트 | 🔎 researched |
-| mkcert | 로컬 HTTPS | LAN·카메라·PWA에서 HTTPS가 실제로 필요하고 localhost로 해결되지 않을 때 | 🔎 researched |
-| Trivy | Container·의존성·설정·SBOM 검사 | Docker·배포 가능한 프로젝트 | 🔎 researched |
-| Sentry | 배포 후 Runtime 오류 수집 | 외부 전송·개인정보 정책을 승인한 운영 프로젝트 | 🔎 researched |
-
-MSW와 Mockoon은 중복 기본 도구로 함께 설치하지 않는다. 코드·자동검증 연결이 중요하면 MSW, GUI 조작이 중요하면 Mockoon 하나만 작은 프로젝트에서 시험한다.
-
-### V2 Core에 결합하지 않는 개인 편의 후보
-
-- `LocalSend`: PC와 Galaxy 사이의 로컬 파일 전송 후보입니다. V2 Core 기능이 아니라 선택형 개인 도구로만 둡니다.
-- `GitButler`: 시각적 Git 작업 관리 후보지만 V2 Core의 Run·Commit·Rollback 책임과 중복되고 라이선스 검토도 필요하므로 제품 통합 대상에서 제외합니다.
-
-### 현재 보류 또는 과설계 방지
-
-- `Renovate`: Dependabot으로 부족함이 증명되는 다중 저장소·복잡한 업데이트 단계까지 보류합니다.
-- `Uptime Kuma`: 배포된 서비스가 여러 개 생기기 전에는 로컬 Health 표시보다 무겁습니다.
-- 외부 Web Testing·Security Skill 대량 설치: 현재 Codex·Browser·`frontend-testing-debugging`과 중복 여부를 먼저 검증합니다.
-- 모든 프로젝트의 Docker·Dev Container 강제: 프로젝트별 재현성 이득이 설정·자원 부담보다 클 때만 사용합니다.
-
-권장 검증 순서는 `얇은 V2 UI → GitHub MCP 최소 권한 → Gitleaks 읽기 전용 검사 → Lighthouse → Galaxy ADB/scrcpy`입니다. 이후 도구는 실제 프로젝트 요구가 생길 때 하나씩 검증합니다.
-
-## M7 이후 자동 허용 범위
-
-`상태 조회 → 후보 로드 → 기존 레시피·설치 도구 확인 → 공식 문서·GitHub 조사 → 구현 가능성 분석 → 추천 보고서와 Preview 준비안 생성`
-
-사용자에게는 다음만 제시합니다.
+### 화면에서 보이는 흐름
 
 ```text
-다음 추천: 직접 부분 수정 패널
-현재 상태: 제안
-추천 목표: HERO-01 하나에서 제한된 값을 직접 조절하고 안전하게 복구하는 Preview
-
-[진행] [나중에] [다른 후보 보기]
+프로젝트 홈
+→ 현재 상태와 다음 행동 확인
+→ 프로젝트 작업실
+→ 실제 Preview 확인
+→ 통과 / 수정 요청 / 중단
+→ 다른 프로젝트로 전환
 ```
 
-## 사용자 승인 Gate
+### 필수 범위
 
-외부 패키지 설치, 기존 제품 변경, 실제 데이터, 로그인·권한, DB, 개인정보, 결제, 배포, 비밀키, 삭제·마이그레이션과 고객 계정 접근은 사용자 승인 전 실행하지 않습니다.
+- 프로젝트 홈과 프로젝트 작업실
+- `ui-state`, `ui-action`, `allowed_actions`, `state_version`, `action_id`
+- Core가 소유하는 Project Registry와 허용된 고정 실행 명령
+- 프로젝트별 고정 Port와 Preview Process 소유권
+- stale·중복·다른 프로젝트 Action 차단
+- 실제 Preview와 초기화 상태 신호
+- Preview 장애 격리와 최소 오류 보고서
+- 390px·430px·PC Preview
+- 사용자 판정, Result Commit, Rollback/Restore
+- 병원 웹과 PDF 제품의 독립 실행 경로
 
-별도 임시 디렉터리, 새 Preview Version, 가짜 데이터와 원본 불변 조건을 만족하는 가역적 파일럿만 자동 후보가 될 수 있습니다. 자동 재시도는 하지 않으며 실패하면 즉시 중단하고 증거를 보존합니다.
+### 디자인 준비
 
-## 후속 후보 원칙
+프로젝트 홈은 `B — 프로젝트·다음 행동 중심`, 프로젝트 작업실은 `A — Preview 중심`을 기본 조합으로 사용합니다. 요청 영역은 필요할 때 펼치며 기본 비율은 `25:75`, Preview 집중 모드는 `10:90`입니다. 이는 클릭형 Preview 제작 기준이며 최종 구현 화면 승인이 아닙니다.
 
-추가 후보는 한 번에 하나씩 `proposed`로 등록합니다. 별도 학습 모델·Vector DB·Fine-tuning은 만들지 않고, 검증 Run의 성공·실패 이유와 Recipe 상태를 다음 Run의 검색 우선순위로 재사용합니다.
+Reference Mix는 PM1 내부 절차이며 [[ui-reference-mix]] · [GitHub 링크](ui-reference-mix.md)의 여섯 제품에서 각각 1~2개 패턴만 사용합니다. 기존 이미지 시안 5장은 초기 참고자료로 보존하되 공식 UI 승인 결과로 사용하지 않습니다.
+
+### 제외
+
+- Galaxy 실제 연결
+- Source Adapter UI와 직접 부분 수정
+- Plugin 관리와 범용 설정
+- 자유 Dashboard 편집과 기능 Marketplace
+
+### 완료 기준
+
+모바일 우선 클릭형 Preview A/B에서 프로젝트 선택, 실제 Preview, 정상·장애·프로젝트 전환, 사용자 Action을 확인하고 사용자가 `A`, `B` 또는 수정안을 명시적으로 선택합니다. 이후 실제 UI가 Core 계약을 지키고 Result Commit과 Rollback/Restore까지 통과해야 PM1을 완료합니다.
+
+```yaml
+id: thin_ui
+decision_status: adopted
+lifecycle_status: proposed
+```
+
+## PM2 — 직접 부분 수정
+
+### 이번 단계에서 생기는 기능
+
+```text
+Preview에서 HERO-01 선택
+→ 글자 크기·콘텐츠 폭·줄바꿈·배경색 조절
+→ 미리보기
+→ 원래대로 / 적용
+```
+
+### V2가 뒤에서 처리하는 것
+
+- Draft Preview를 제품 원본과 분리
+- 첫 구현은 기본 HTML Control과 CSS 변수 사용
+- 적용 시 Quick Change Run 생성
+- 390px·430px·1440px와 가로 넘침·Console 검증
+- Result Commit과 Rollback/Restore
+
+Tweakpane은 기본 입력 방식이 부족하다는 실제 증거가 생길 때만 조건부 검토합니다. 범용 페이지 편집기나 자유 CSS 입력은 사용하지 않습니다.
+
+```yaml
+id: direct_partial_edit
+decision_status: adopted
+lifecycle_status: proposed
+```
+
+## PM3 — 자료 가져오기
+
+### 이번 단계에서 생기는 기능
+
+```text
+Threads·Reddit·GitHub·웹·문서 자료 제공
+→ 핵심 내용 확인
+→ 공식 자료 교차검증
+→ V2 중복·적합성·라이선스 확인
+→ 채택 / 후보 / 보류 / 폐기
+```
+
+### 필수 지원
+
+- 직접 붙여넣은 본문과 Markdown·Text
+- PDF와 일반 공개 웹페이지
+- GitHub 저장소·README·Issue·Release
+- Reddit 게시글·댓글
+- 사용자가 제공한 Threads 링크·본문·Screenshot
+
+YouTube 공개 자막, Threads 자동 수집과 동적 웹페이지 전용 수집기는 조건부입니다. 공식 문서는 사실확인, GitHub는 코드·Issue·Release·라이선스 검증, Reddit은 사용 경험·오류 사례, Threads는 아이디어 발견, YouTube는 공개 자막 확보 시 내용 분석에 사용합니다. Reddit과 Threads의 개인 의견은 검증된 사실로 취급하지 않습니다.
+
+### V2가 뒤에서 처리하는 것
+
+- 공통 Source Schema, 출처 URL, 수집 시각과 Checksum
+- 실제 접근 범위와 사실·주장·추정·추천 분리
+- 공식 자료 교차검증과 `needs_more_source`
+- 수집 실패의 Core 격리
+- 사용자 승인 전 후보 자동 등록 차단
+
+기존 Browser·PDF·GitHub 도구를 먼저 사용합니다. Trafilatura는 정적 본문 추출 개선이 확인될 때만 조건부이며 Crawl4AI는 동적 페이지 문제가 실제로 확인될 때까지 보류합니다. 로그인 우회, 쿠키 사용과 Threads 무단 대량 Scraping은 금지합니다.
+
+```yaml
+id: source_adapters
+decision_status: adopted
+lifecycle_status: proposed
+```
+
+## PM4 — 제작 정확도와 AI 교체 기반
+
+### 이번 단계에서 생기는 기능
+
+```text
+자연어 요청
+→ V2와 구현 AI의 이해 비교
+→ 일치하면 제작
+→ 오해하면 구현 전에 차단
+→ 정말 모호할 때 질문 하나
+```
+
+### V2가 뒤에서 처리하는 것
+
+- `speckit-analyze`, Intent Packet과 Intent Receipt
+- 핵심 용어, 올바른 예·잘못된 예와 시각 Reference
+- 변경 허용·금지 범위와 Acceptance Checks
+- 불일치 차단, 모호성 질문 하나와 오류 보고서
+- AI 역할 Adapter 계약
+- Provider별 품질·비용·권한·복구 기록
+
+PM1부터 Antigravity 지시서에 간단한 수동 Intent Receipt를 사용하고 PM4에서 공식 Core 기능으로 일반화합니다.
+
+```yaml
+roles:
+  planner:
+    provider: codex
+  implementer:
+    provider: antigravity
+  verifier:
+    provider: codex
+```
+
+이 구조는 Provider 교체 구현 완료를 의미하지 않습니다.
+
+```yaml
+id: ai_role_adapter
+decision_status: adopted_as_architecture_boundary
+lifecycle_status: proposed
+```
+
+## 마일스톤별 도구 조사 원칙
+
+각 PM 구현 직전에 다음 순서로 조사합니다.
+
+```text
+현재 설치 Skill
+→ 기존 코드와 공식 기능
+→ 검증된 GitHub 오픈소스
+→ 공식 문서
+→ 최소 직접 구현
+```
+
+각 단계에서 현재 도구, 비어 있는 역할, 추가 후보 최대 2개, 중복, 라이선스, 설치 필요성과 가장 작은 격리 실험을 보고합니다. 도구를 발견했다는 이유만으로 설치하지 않습니다. Antigravity 환경 감사 기준 현재 추가 Skill은 설치하지 않으며 `code-reviewer`는 필요 발생 시, `diagnosing-bugs`는 반복 디버깅 실패 시에만 재검토합니다.
+
+## 후보 판정
+
+### 채택
+
+- PM1 얇은 UI와 Reference Mix
+- PM2 직접 부분 수정
+- PM3 Source Adapter 공통 구조
+- PM4 Intent 정합성
+- 최소 오류 보고서
+- AI 역할 Adapter 경계
+
+### 조건부
+
+- shadcn/ui
+- Tweakpane
+- Trafilatura
+- YouTube 공개 자막
+- Threads 사용자 공유
+- Reddit 공개 자료
+- GitHub 전용 Adapter
+
+### 보류
+
+- Crawl4AI
+- Paseo
+- OpenClaw
+- Galaxy 실제 연결
+- Package Registry
+- 고객 OS
+- Runtime Plugin
+- Promptfoo
+- GitHub MCP 쓰기
+
+### 폐기 기록
+
+```yaml
+- id: web_chatgpt_dom_automation
+  reason: UI 변경과 로그인 상태에 취약하고 공식 연결이 아님
+  reconsider_when: 공식 API 또는 승인된 Connector가 같은 목적을 제공할 때
+- id: login_cookie_bypass
+  reason: 개인정보·계정·서비스 정책 위험
+  reconsider_when: 공식 인증 API와 사용자 승인 범위가 제공될 때
+- id: threads_bulk_scraping
+  reason: 무단 대량 수집과 서비스 정책 위험
+  reconsider_when: 공식 API와 명확한 사용 권한이 제공될 때
+- id: ui_direct_run_yaml_write
+  reason: Core 상태 소유권과 충돌
+  reconsider_when: 없음
+- id: ui_arbitrary_shell
+  reason: Project Registry와 실행 권한 경계를 우회
+  reconsider_when: 없음
+- id: generic_workflow_engine
+  reason: 현재 V2 단일 Orchestrator와 중복되는 과설계
+  reconsider_when: 검증된 Core로 표현할 수 없는 반복 흐름이 생길 때
+- id: default_rag_vector_db
+  reason: 현재 파일·Run·공식 자료 검색으로 충분
+  reconsider_when: 자료 규모 때문에 검색 품질 저하가 반복 검증될 때
+- id: runtime_plugin_marketplace
+  reason: Package Registry 이전 단계에 불필요한 권한·유지보수 부담
+  reconsider_when: 검증된 Module Registry가 안정화된 뒤
+- id: puck_full_editor
+  reason: PM2의 제한된 부분 수정 범위를 초과
+  reconsider_when: 사용자 요구가 범용 페이지 편집으로 확정될 때
+- id: free_drag_resize_dashboard
+  reason: 얇은 UI의 안정된 Shell과 초보자 흐름을 해침
+  reconsider_when: 고정 레이아웃으로 해결되지 않는 사용성 증거가 생길 때
+```
+
+## 현재 다음 작업
+
+```text
+Reference Mix를 반영한 모바일 우선 클릭형 Preview A/B 제작
+→ 390px·430px·PC 및 정상·장애·프로젝트 전환 검증
+→ 사용자 A / B / 수정 요청
+```
+
+클릭형 Preview에는 기존 Product Design Ideate, frontend-app-builder, Product Design Audit, frontend-testing-debugging과 Browser만 사용하며 새 UI 라이브러리를 설치하지 않습니다.

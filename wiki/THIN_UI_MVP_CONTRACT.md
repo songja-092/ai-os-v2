@@ -1,6 +1,6 @@
 # V2 Thin UI MVP Contract
 
-이 문서는 `AI OS V2 Core MVP` 위에 제작할 얇은 UI의 승인된 설계 계약입니다. UI 코드, 정적 이미지 시안 또는 새 상태 저장소를 구현했다는 의미가 아닙니다.
+이 문서는 `AI OS V2 Core MVP` 위에 제작할 Post-MVP `PM1 — 얇은 UI`의 승인된 설계 계약입니다. UI 코드, 클릭형 Preview 또는 새 상태 저장소를 구현했다는 의미가 아닙니다.
 
 ## 1. Core 경계와 데이터 흐름
 
@@ -87,14 +87,27 @@ Preview 준비 완료는 `health_url` 응답과 제품 초기화 상태 신호�
 - `scrcpy`: 선택 기능
 - 기본 화면에서는 Run ID, Commit SHA, 내부 Gate와 기술 로그를 숨깁니다.
 
+## 클릭형 Preview 디자인 기준
+
+- 프로젝트 홈: `B — 프로젝트·다음 행동 중심`
+- 프로젝트 작업실: `A — Preview 중심`
+- 요청 영역: 필요할 때 펼치는 보조 영역
+- 기본 비율: 요청 `25%` / Preview `75%`
+- Preview 집중: 요청 `10%` / Preview `90%`
+- 모바일 진입: 현재 행동에 따라 `프로젝트`, `미리보기`, `진행` 중 하나
+- Reference Mix는 [[ui-reference-mix]] · [GitHub 링크](ui-reference-mix.md)를 따르며 특정 제품의 화면·브랜드·코드·아이콘을 복제하지 않습니다.
+- 기존 이미지 시안 5장은 초기 참고자료이며 공식 UI 승인 결과가 아닙니다.
+
 ## 현재 상태와 다음 Gate
 
 ```yaml
 thin_ui:
   contract_status: approved
   implementation_status: not_started
-  image_mockup_status: ready_to_start
-  next_action: create_two_static_image_mockups
+  image_mockup_status: reference_only
+  reference_mix_status: researched
+  clickable_preview_status: not_started
+  next_action: create_mobile_first_clickable_previews_a_b
 ```
 
-다음 작업은 같은 계약을 반영한 정적 이미지 시안 2개를 비교하는 것입니다. 사용자 시안 선택 전에는 React UI, Registry 실행 연결, Preview 프로세스 제어, ADB 연결 또는 새 패키지를 구현하지 않습니다.
+다음 작업은 같은 계약과 Reference Mix를 반영한 모바일 우선 클릭형 Preview A/B를 비교하는 것입니다. 사용자는 `A`, `B` 또는 `수정 요청`만 선택합니다. 사용자 선택 전에는 실제 PM1 UI, Registry 실행 연결, Preview 프로세스 제어, ADB 연결 또는 새 패키지를 구현하지 않습니다.
