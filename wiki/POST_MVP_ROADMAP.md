@@ -81,6 +81,50 @@ implementation_approved: false
 
 현재 상태는 공식 자료 기반 조사 완료이며 V2 실제 파일럿과 검증 전입니다.
 
+## 편의·품질·운영 후보 — 2026-08-14 조사
+
+아래 항목은 공식 문서·공식 GitHub와 공개 사용 사례를 확인한 `researched` 후보입니다. 등록은 설치·채택·호출·검증 완료를 의미하지 않으며, 현재 1순위 `Direct Partial Edit Panel`과 2순위 얇은 UI의 순서를 바꾸지 않습니다.
+
+### 우선 파일럿 후보
+
+| 후보 | 역할 | 적용 조건 | 상태 |
+| --- | --- | --- | --- |
+| GitHub MCP Server | 저장소·Issue·PR·Actions 읽기/쓰기 | 프로젝트 한정 권한, 쓰기 전 Core 승인 Gate | 🔎 researched |
+| Dependabot | 취약 의존성 경고와 보안 업데이트 PR | GitHub 저장소별 활성화 | 🔎 researched |
+| Gitleaks | Commit 전 Token·비밀번호 등 비밀값 탐지 | 읽기 전용 검사 파일럿 후 차단 여부 결정 | 🔎 researched |
+| Lighthouse | 성능·접근성·SEO·기본 품질 검사 | 기존 Chrome으로 최종 검증·배포 준비 시 실행 | 🔎 researched |
+| ADB reverse + scrcpy | 실제 Galaxy Preview와 PC 제어 | 별도 창 방식의 실기기 파일럿 승인 시 | 🔎 researched |
+
+GitHub 쓰기는 V2가 임의 실행하지 않고 `변경 준비 → 사용자 확인 → 승인된 쓰기` 순서를 따른다. 후보가 실제 도입되기 전에는 현재 `gh` 설치 여부나 GitHub 연결을 V2 기능 검증으로 간주하지 않는다.
+
+### 프로젝트 요구가 생길 때만 검토
+
+| 후보 | 역할 | 적용 조건 | 상태 |
+| --- | --- | --- | --- |
+| axe-core | 자동 접근성 검사 | 공공·상업 웹 또는 접근성 요구가 명확한 프로젝트 | 🔎 researched |
+| MSW | Backend 없이 성공·오류·지연 응답 검증 | 데이터 연동 UI를 Backend보다 먼저 검증할 때 | 🔎 researched |
+| Mockoon | GUI 기반 로컬 Mock API | 비개발자가 가짜 API 상태를 직접 조절해야 할 때만 MSW 대안 | 🔎 researched |
+| Bruno | 로컬·Git 기반 API 요청 검증 | API·인증·Full-stack 프로젝트 | 🔎 researched |
+| mkcert | 로컬 HTTPS | LAN·카메라·PWA에서 HTTPS가 실제로 필요하고 localhost로 해결되지 않을 때 | 🔎 researched |
+| Trivy | Container·의존성·설정·SBOM 검사 | Docker·배포 가능한 프로젝트 | 🔎 researched |
+| Sentry | 배포 후 Runtime 오류 수집 | 외부 전송·개인정보 정책을 승인한 운영 프로젝트 | 🔎 researched |
+
+MSW와 Mockoon은 중복 기본 도구로 함께 설치하지 않는다. 코드·자동검증 연결이 중요하면 MSW, GUI 조작이 중요하면 Mockoon 하나만 작은 프로젝트에서 시험한다.
+
+### V2 Core에 결합하지 않는 개인 편의 후보
+
+- `LocalSend`: PC와 Galaxy 사이의 로컬 파일 전송 후보입니다. V2 Core 기능이 아니라 선택형 개인 도구로만 둡니다.
+- `GitButler`: 시각적 Git 작업 관리 후보지만 V2 Core의 Run·Commit·Rollback 책임과 중복되고 라이선스 검토도 필요하므로 제품 통합 대상에서 제외합니다.
+
+### 현재 보류 또는 과설계 방지
+
+- `Renovate`: Dependabot으로 부족함이 증명되는 다중 저장소·복잡한 업데이트 단계까지 보류합니다.
+- `Uptime Kuma`: 배포된 서비스가 여러 개 생기기 전에는 로컬 Health 표시보다 무겁습니다.
+- 외부 Web Testing·Security Skill 대량 설치: 현재 Codex·Browser·`frontend-testing-debugging`과 중복 여부를 먼저 검증합니다.
+- 모든 프로젝트의 Docker·Dev Container 강제: 프로젝트별 재현성 이득이 설정·자원 부담보다 클 때만 사용합니다.
+
+권장 검증 순서는 `얇은 V2 UI → GitHub MCP 최소 권한 → Gitleaks 읽기 전용 검사 → Lighthouse → Galaxy ADB/scrcpy`입니다. 이후 도구는 실제 프로젝트 요구가 생길 때 하나씩 검증합니다.
+
 ## M7 이후 자동 허용 범위
 
 `상태 조회 → 후보 로드 → 기존 레시피·설치 도구 확인 → 공식 문서·GitHub 조사 → 구현 가능성 분석 → 추천 보고서와 Preview 준비안 생성`
