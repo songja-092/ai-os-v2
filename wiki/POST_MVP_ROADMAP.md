@@ -30,7 +30,7 @@ post_mvp:
 
 GitHub에서 발견하거나 문서로 조사했다는 이유만으로 `verified`로 올리지 않습니다. `reusable_recipe`는 실제 프로젝트·환경 실행, 실패 처리, 사용자 확인, Commit과 Rollback/Restore가 필요합니다.
 
-## 1순위 UI 후보 — Direct Partial Edit Panel
+## 2순위 UI 후보 — Direct Partial Edit Panel
 
 ```yaml
 id: direct_partial_edit_panel
@@ -55,9 +55,9 @@ implementation_approved: false
 
 M6에서 `HERO-01` AI 부분 수정과 복구 기반은 검증했지만 Preview 요소 선택, 슬라이더·색상 선택, 실시간 적용, 설정 저장과 새 Artifact Version은 아직 미검증입니다. Dashboard 전체나 범용 페이지 편집기보다 이 한 영역 파일럿을 먼저 검토합니다.
 
-## 2순위 UI 후보 — 실제 Run 상태를 읽는 얇은 UI
+## 1순위 UI 후보 — 실제 Run 상태를 읽는 얇은 UI
 
-Core의 실제 Run·Gate·검증 결과만 읽어 사용자에게 요청, 현재 단계, Preview와 다음 행동을 보여줍니다. 가짜 진행률이나 별도 상태 저장소를 만들지 않습니다.
+Core의 실제 Run·Gate·검증 결과만 읽어 사용자에게 요청, 현재 단계, Preview와 다음 행동을 보여줍니다. 가짜 진행률이나 별도 상태 저장소를 만들지 않습니다. 다섯 가지 승인 계약은 [[THIN_UI_MVP_CONTRACT]] · [GitHub 링크](THIN_UI_MVP_CONTRACT.md)를 따르며 현재 다음 작업은 정적 이미지 시안 2개 비교입니다.
 
 ## 기능 후보 — Web Camera Capture
 
@@ -83,7 +83,7 @@ implementation_approved: false
 
 ## 편의·품질·운영 후보 — 2026-08-14 조사
 
-아래 항목은 공식 문서·공식 GitHub와 공개 사용 사례를 확인한 `researched` 후보입니다. 등록은 설치·채택·호출·검증 완료를 의미하지 않으며, 현재 1순위 `Direct Partial Edit Panel`과 2순위 얇은 UI의 순서를 바꾸지 않습니다.
+아래 항목은 공식 문서·공식 GitHub와 공개 사용 사례를 확인한 `researched` 후보입니다. 등록은 설치·채택·호출·검증 완료를 의미하지 않으며, 현재 1순위 얇은 UI와 2순위 `Direct Partial Edit Panel`의 순서를 바꾸지 않습니다.
 
 ### 우선 파일럿 후보
 

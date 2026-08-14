@@ -74,6 +74,8 @@ Codex는 내부 설정, Core, Run, Gate, Git, Skill 연결과 기술 검증을 �
 
 Dashboard를 구현할 때는 M1~M7에서 검증된 실제 Run 상태만 읽습니다. Dashboard는 현재 Core MVP의 필수 마일스톤이 아닙니다.
 
+얇은 UI의 구현 경계, Run 표시 우선순위, Project Registry, 허용 Action과 장애 격리 기준은 [[THIN_UI_MVP_CONTRACT]] · [GitHub 링크](THIN_UI_MVP_CONTRACT.md)를 단일 기준으로 사용합니다.
+
 ```text
 ┌─────────────────────────┬──────────────────────────────────┐
 │ 프로젝트 / Run          │                                  │
@@ -172,4 +174,4 @@ Kernel, Planner, 별도 Collector 서버, Multi-Agent와 자체 실행 엔진은
 
 M7이 PASS하면 Core는 완료 상태만 표시하고 멈추지 않고 `wiki/POST_MVP_ROADMAP.md`의 최우선 미검증 후보를 읽습니다. 이 자동 연결은 `상태 조회 → 후보 로드 → 수집 → 분석 → 추천 → Preview 준비`까지만 허용하며 구현 Gate를 자동 통과하지 않습니다.
 
-첫 UI 후보는 `direct_partial_edit_panel`의 `HERO-01` 소형 파일럿입니다. 그 다음 실제 Run 상태를 읽는 얇은 UI를 검토하며, `web_camera_capture`는 기능 후보로 유지합니다. 실제 구현·설치·제품 변경은 사용자 선택 이후 별도 Run에서 수행합니다.
+첫 UI는 실제 Run 상태를 읽는 얇은 UI이며 승인된 계약에 따라 정적 이미지 시안 2개를 먼저 비교합니다. `direct_partial_edit_panel`의 `HERO-01` 소형 파일럿은 그 다음 UI 후보이고, `web_camera_capture`는 기능 후보로 유지합니다. 실제 구현·설치·제품 변경은 사용자 선택 이후 별도 Run에서 수행합니다.
