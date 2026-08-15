@@ -41,7 +41,7 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 
 ## 다음 단계
 
-- Post-MVP 공식 순서는 `PM1 얇은 UI → PM2 직접 부분 수정 → PM3 자료 가져오기 → PM4 제작 정확도와 AI 교체 기반`입니다. 후보 판정과 구현 상태를 분리하며 현재 PM1~PM4는 기획 확정, 구현 전 상태입니다.
+- Post-MVP 공식 순서는 `PM1 얇은 UI → PM2 직접 부분 수정 → PM3 조사·자료 수집·병목 진단 → PM4 AI 의도 정합성`입니다. 후보 판정과 구현 상태를 분리하며 현재 PM1~PM4는 기획 확정, 구현 전 상태입니다. PM3 첫 검증은 새 프로젝트 조사 1건과 기존 프로젝트 병목 진단 1건으로 제한하고 PM4는 Intent 불일치 차단만 구현합니다.
 - PM1은 승인된 계약에 따라 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계를 사용합니다. 다음 한 작업은 [[ui-reference-mix]] · [GitHub 링크](ui-reference-mix.md)를 반영한 모바일 우선 클릭형 Preview A/B 제작입니다. 사용자가 `A`, `B` 또는 수정안을 선택하기 전에는 실제 PM1 UI를 구현하지 않습니다.
 - M5의 수집·분석·레시피 선택 Core와 M6의 Quick Change Run·AI 부분 수정·회귀·복구 흐름, 그리고 M7 모바일 PDF 도면 스탬프 `local_product` E2E 구현 및 사용자 검증을 완료했습니다.
 - 사용자에게는 `원하는 것을 말하기 → 추천 결과 또는 시안 고르기 → 실제 결과를 확인하고 완료 또는 수정 말하기`만 보이며, 기본 행동은 `[추천대로 진행]`과 `[직접 선택]`으로 단순화합니다.
@@ -50,4 +50,4 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 - Supabase의 Auth·Postgres·RLS·Migration·검증·배포 흐름은 병원 파일럿에 추가하지 않고, 데이터 저장이 승인된 후속 프로젝트의 조건부 Full-stack 레시피 후보로 둡니다.
 - M5의 공식 분석 요청은 `PDF 도면 위에 스탬프를 배치·이동·크기 조절하고 원본을 보존한 채 새 PDF로 저장`이며, 구현이나 패키지 설치 없이 최대 두 개의 현실적인 레시피와 다음 작업 하나만 제시합니다.
 - M7은 M5에서 선택한 레시피로 모바일 PDF 도면 스탬프 `local_product`를 E2E 검증 및 승인 받았습니다.
-- Core MVP 이후 첫 단계는 PM1 얇은 UI이며 프로젝트 홈은 `B — 프로젝트·다음 행동 중심`, 작업실은 `A — Preview 중심`을 클릭형 Preview 기준으로 사용합니다. PM2는 `HERO-01` 직접 부분 수정, PM3는 Reddit·GitHub·Threads·웹·문서 Source Adapter, PM4는 Intent 정합성과 AI 역할 Adapter 경계를 검증합니다.
+- Core MVP 이후 첫 단계는 PM1 얇은 UI이며 프로젝트 홈은 `B — 프로젝트·다음 행동 중심`, 작업실은 `A — Preview 중심`을 클릭형 Preview 기준으로 사용합니다. PM2는 `HERO-01` 직접 부분 수정, PM3는 새 프로젝트 조사와 기존 프로젝트 병목 진단, PM4는 Intent 정합성과 AI 역할 Adapter 경계만 검증합니다. 다른 세션은 [[PM1_HANDOFF]] · [GitHub 링크](PM1_HANDOFF.md)에서 이어갑니다.

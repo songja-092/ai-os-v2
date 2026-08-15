@@ -174,6 +174,6 @@ Kernel, Planner, 별도 Collector 서버, Multi-Agent와 자체 실행 엔진은
 
 M7이 PASS하면 Core는 완료 상태만 표시하고 멈추지 않고 `wiki/POST_MVP_ROADMAP.md`의 최우선 미검증 후보를 읽습니다. 이 자동 연결은 `상태 조회 → 후보 로드 → 수집 → 분석 → 추천 → Preview 준비`까지만 허용하며 구현 Gate를 자동 통과하지 않습니다.
 
-Post-MVP는 사용자 기능을 기준으로 `PM1 얇은 UI → PM2 직접 부분 수정 → PM3 자료 가져오기 → PM4 제작 정확도와 AI 교체 기반` 순서로 확정합니다. PM1은 실제 Run 상태를 읽는 얇은 UI이며 [[THIN_UI_MVP_CONTRACT]]과 [[ui-reference-mix]]를 기준으로 모바일 우선 클릭형 Preview A/B를 먼저 비교합니다. 실제 구현·설치·제품 변경은 사용자 화면 선택 이후 별도 Run에서 수행합니다.
+Post-MVP는 사용자 기능을 기준으로 `PM1 얇은 UI → PM2 직접 부분 수정 → PM3 조사·자료 수집·병목 진단 → PM4 AI 의도 정합성` 순서로 확정합니다. PM1은 실제 Run 상태를 읽는 얇은 UI이며 [[THIN_UI_MVP_CONTRACT]]과 [[ui-reference-mix]]를 기준으로 모바일 우선 클릭형 Preview A/B를 먼저 비교합니다. 실제 구현·설치·제품 변경은 사용자 화면 선택 이후 별도 Run에서 수행합니다.
 
-PM1 UI는 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계를 유지하고, PM3 Source Adapter는 실패를 Core·다른 프로젝트와 격리합니다. PM4의 AI 역할 Adapter는 Planner·Implementer·Verifier의 계약을 분리하지만 새로운 Multi-Agent Orchestrator나 Provider 자동 교체를 구현한다는 뜻이 아닙니다.
+PM1 UI는 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계를 유지합니다. PM3 Source Adapter는 새 프로젝트 조사와 기존 프로젝트 병목 진단을 같은 수집 구조로 처리하고 실패를 Core·다른 프로젝트와 격리합니다. PM4는 Planner·Implementer·Verifier의 Intent 정합성 계약을 분리하지만 새로운 Multi-Agent Orchestrator나 Provider 자동 교체를 구현하지 않습니다.

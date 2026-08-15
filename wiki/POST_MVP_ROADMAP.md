@@ -106,16 +106,16 @@ decision_status: adopted
 lifecycle_status: proposed
 ```
 
-## PM3 — 자료 가져오기
+## PM3 — 조사·자료 수집·병목 진단
 
 ### 이번 단계에서 생기는 기능
 
 ```text
-Threads·Reddit·GitHub·웹·문서 자료 제공
-→ 핵심 내용 확인
-→ 공식 자료 교차검증
-→ V2 중복·적합성·라이선스 확인
-→ 채택 / 후보 / 보류 / 폐기
+새 프로젝트 또는 기존 프로젝트 요청
+→ 필요한 자료와 현재 증거 수집
+→ 공식 자료·GitHub·Reddit 선택 조사
+→ 최소 제작 Recipe 또는 가장 큰 병목 하나 제시
+→ 승인 후 Preview 또는 Change Run
 ```
 
 ### 필수 지원
@@ -126,6 +126,15 @@ Threads·Reddit·GitHub·웹·문서 자료 제공
 - Reddit 게시글·댓글
 - 사용자가 제공한 Threads 링크·본문·Screenshot
 
+### 검증 사례 제한
+
+PM3는 공통 수집 구조 하나를 사용하되 첫 검증을 다음 두 사례로 제한합니다.
+
+1. 새 프로젝트 조사 1건: 업종·사용자·업무·필요 화면과 기능을 조사해 최소 MVP를 추천합니다.
+2. 기존 프로젝트 병목 진단 1건: 프로젝트 상태·허용 로그·Build·Browser·Run 이력을 읽기 전용으로 확인해 가장 영향이 큰 병목 하나와 해결책 최대 2개를 제시합니다.
+
+병목 후보는 화면 성능, Build·Test 시간, 반복 오류, AI 의도 오해, Handoff·승인 대기, 중복 Run·작업, Docker·서버·Port, 복잡한 사용자 흐름, 불필요한 패키지·코드, 모바일 조작, Git·배포·복구입니다. 증거가 없으면 원인을 확정하지 않고 `unverified`로 표시합니다.
+
 YouTube 공개 자막, Threads 자동 수집과 동적 웹페이지 전용 수집기는 조건부입니다. 공식 문서는 사실확인, GitHub는 코드·Issue·Release·라이선스 검증, Reddit은 사용 경험·오류 사례, Threads는 아이디어 발견, YouTube는 공개 자막 확보 시 내용 분석에 사용합니다. Reddit과 Threads의 개인 의견은 검증된 사실로 취급하지 않습니다.
 
 ### V2가 뒤에서 처리하는 것
@@ -135,8 +144,10 @@ YouTube 공개 자막, Threads 자동 수집과 동적 웹페이지 전용 수�
 - 공식 자료 교차검증과 `needs_more_source`
 - 수집 실패의 Core 격리
 - 사용자 승인 전 후보 자동 등록 차단
+- 조사만으로 제품 코드·설정·패키지 변경 금지
+- 승인 후에만 Quick 또는 Standard Change Run 연결
 
-기존 Browser·PDF·GitHub 도구를 먼저 사용합니다. Trafilatura는 정적 본문 추출 개선이 확인될 때만 조건부이며 Crawl4AI는 동적 페이지 문제가 실제로 확인될 때까지 보류합니다. 로그인 우회, 쿠키 사용과 Threads 무단 대량 Scraping은 금지합니다.
+기존 Browser·PDF·GitHub 도구를 먼저 사용합니다. 안전한 읽기·측정은 백그라운드에서 수행할 수 있지만 설치·삭제·외부 전송·운영 변경은 사용자 승인이 필요합니다. Trafilatura는 정적 본문 추출 개선이 확인될 때만 조건부이며 Crawl4AI는 동적 페이지 문제가 실제로 확인될 때까지 보류합니다. 로그인 우회, 쿠키 사용과 Threads 무단 대량 Scraping은 금지합니다. 초기에는 동시 조사 작업을 하나만 허용하며 Queue·Worker·DB를 만들지 않습니다.
 
 ```yaml
 id: source_adapters
@@ -144,7 +155,7 @@ decision_status: adopted
 lifecycle_status: proposed
 ```
 
-## PM4 — 제작 정확도와 AI 교체 기반
+## PM4 — AI 의도 정합성
 
 ### 이번 단계에서 생기는 기능
 
@@ -162,8 +173,7 @@ lifecycle_status: proposed
 - 핵심 용어, 올바른 예·잘못된 예와 시각 Reference
 - 변경 허용·금지 범위와 Acceptance Checks
 - 불일치 차단, 모호성 질문 하나와 오류 보고서
-- AI 역할 Adapter 계약
-- Provider별 품질·비용·권한·복구 기록
+- AI 역할 Adapter 계약 경계
 
 PM1부터 Antigravity 지시서에 간단한 수동 Intent Receipt를 사용하고 PM4에서 공식 Core 기능으로 일반화합니다.
 
@@ -177,7 +187,7 @@ roles:
     provider: codex
 ```
 
-이 구조는 Provider 교체 구현 완료를 의미하지 않습니다.
+이 구조는 Provider 교체 구현 완료를 의미하지 않습니다. PM4에서는 여러 AI 자동 선택, Provider Marketplace, 비용 자동 최적화, 자동 Fallback, Paseo·OpenClaw 연결과 사용자의 AI 선택 화면을 구현하지 않습니다. 실제 Provider 교체 시험은 필요가 확인된 뒤 별도 후보로 진행합니다.
 
 ```yaml
 id: ai_role_adapter

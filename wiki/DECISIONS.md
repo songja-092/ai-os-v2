@@ -152,11 +152,11 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 
 ## Post-MVP PM1~PM4
 
-- 📝 기획 확정: `PM1 얇은 UI → PM2 직접 부분 수정 → PM3 자료 가져오기 → PM4 제작 정확도와 AI 교체 기반` 순서로 진행합니다. `AI OS V2 Core MVP M1~M7`의 완료 기록과 PASS 조건은 변경하지 않습니다.
+- 📝 기획 확정: `PM1 얇은 UI → PM2 직접 부분 수정 → PM3 조사·자료 수집·병목 진단 → PM4 AI 의도 정합성` 순서로 진행합니다. `AI OS V2 Core MVP M1~M7`의 완료 기록과 PASS 조건은 변경하지 않습니다.
 - PM1은 프로젝트 홈, Preview 중심 작업실, `ui-state`/`ui-action`, Project Registry, 허용 Action, Preview 장애 격리와 최소 오류 보고서를 제공합니다.
 - PM2는 `HERO-01` 하나의 제한된 직접 조절을 Draft Preview와 Quick Change Run으로 적용하고 Commit·Rollback/Restore를 검증합니다.
-- PM3는 본문·Markdown·PDF·일반 웹뿐 아니라 GitHub 저장소·README·Issue·Release와 Reddit 게시글·댓글, 사용자가 제공한 Threads 자료를 공통 Source Schema로 처리합니다. 개인 의견과 공식 사실을 분리하며 사용자 승인 전 후보를 자동 등록하지 않습니다.
-- PM4는 Intent Packet·Receipt, Acceptance Checks와 AI 역할 Adapter 경계를 일반화합니다. Provider 교체는 제안된 아키텍처 경계이며 아직 구현되지 않았습니다.
+- PM3는 본문·Markdown·PDF·일반 웹뿐 아니라 GitHub 저장소·README·Issue·Release와 Reddit 게시글·댓글, 사용자가 제공한 Threads 자료를 공통 Source Schema로 처리합니다. 첫 검증은 새 프로젝트 조사 1건과 기존 프로젝트 병목 진단 1건으로 제한하고, 증거가 없는 병목은 `unverified`로 표시하며 승인 전 제품을 변경하지 않습니다.
+- PM4는 Intent Packet·Receipt와 Acceptance Checks의 불일치 차단만 Core 기능으로 일반화합니다. AI 역할 Adapter는 설계 경계이며 Provider 자동 교체·Marketplace·Fallback은 구현하지 않습니다.
 - 각 PM 구현 직전에 현재 설치 Skill, 기존 코드·공식 기능, GitHub OSS와 공식 문서를 조사하고 추가 후보는 최대 2개로 제한합니다. 도구를 발견했다는 이유만으로 설치하지 않습니다.
 
 ## 직접 부분 수정 패널 후보
