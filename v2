@@ -15,6 +15,7 @@ import glob
 import socket
 import re
 import hashlib
+import struct
 
 # Helper to run shell commands
 def run_cmd(cmd, cwd=None):
@@ -69,6 +70,66 @@ def file_sha256(path):
         for chunk in iter(lambda: source_file.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def inspect_design_image(path):
+    """Validate a passive raster design input without decoding or executing it."""
+    if not os.path.isfile(path):
+        raise ValueError(f"Design image does not exist: {path}")
+    if os.path.islink(path):
+        raise ValueError(f"Symbolic-link design inputs are not allowed: {path}")
+    size = os.path.getsize(path)
+    if size <= 0:
+        raise ValueError(f"Design image is empty: {path}")
+    with open(path, "rb") as image_file:
+        payload = image_file.read()
+
+    mime = None
+    width = height = None
+    extension = None
+    if payload.startswith(b"\x89PNG\r\n\x1a\n") and len(payload) >= 24:
+        mime, extension = "image/png", ".png"
+        width, height = struct.unpack(">II", payload[16:24])
+    elif payload.startswith(b"\xff\xd8"):
+        mime, extension = "image/jpeg", ".jpg"
+        offset = 2
+        while offset + 9 < len(payload):
+            if payload[offset] != 0xFF:
+                offset += 1
+                continue
+            marker = payload[offset + 1]
+            offset += 2
+            if marker in {0xD8, 0xD9}:
+                continue
+            if offset + 2 > len(payload):
+                break
+            segment_length = struct.unpack(">H", payload[offset:offset + 2])[0]
+            if marker in {0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF}:
+                if offset + 7 > len(payload):
+                    break
+                height, width = struct.unpack(">HH", payload[offset + 3:offset + 7])
+                break
+            if segment_length < 2:
+                break
+            offset += segment_length
+    elif payload.startswith(b"RIFF") and payload[8:12] == b"WEBP" and len(payload) >= 30:
+        mime, extension = "image/webp", ".webp"
+        chunk = payload[12:16]
+        if chunk == b"VP8X":
+            width = 1 + int.from_bytes(payload[24:27], "little")
+            height = 1 + int.from_bytes(payload[27:30], "little")
+
+    if not mime or not width or not height or width <= 0 or height <= 0:
+        raise ValueError(f"Unsupported or malformed design image: {path}")
+    return {
+        "source_path": os.path.abspath(path),
+        "sha256": file_sha256(path),
+        "mime": mime,
+        "width": width,
+        "height": height,
+        "bytes": size,
+        "extension": extension,
+    }
 
 
 def existing_change_artifacts(project_path):
@@ -1807,12 +1868,798 @@ def cmd_design_show(args):
         sys.exit(1)
     run_data = read_yaml(run_file)
     design = run_data.get("design")
-    if not design:
+    exploration = run_data.get("design_exploration")
+    draft = run_data.get("design_draft")
+    direction = run_data.get("design_direction")
+    visual_targets = run_data.get("visual_targets")
+    fidelity = run_data.get("fidelity")
+    if not any((design, exploration, draft, direction, visual_targets, fidelity)):
         print("Design: not_started")
         return
-    print(json.dumps(design, ensure_ascii=False, indent=2))
+    print(json.dumps({
+        "design": design,
+        "design_exploration": exploration,
+        "design_draft": draft,
+        "design_direction": direction,
+        "visual_targets": visual_targets,
+        "fidelity": fidelity,
+        "implementation_gate": run_data.get("implementation_gate"),
+    }, ensure_ascii=False, indent=2))
     print(f"Tasks Gate: {run_data.get('tasks_gate', 'unknown')}")
     print(f"M4 Handoff Gate: {run_data.get('m4_handoff_gate', 'unknown')}")
+
+
+def parse_design_import_images(values):
+    images = {}
+    for value in values:
+        if "=" not in value:
+            raise ValueError("Each --image must use OPTION=/absolute/path format.")
+        option, path = value.split("=", 1)
+        option = option.strip().upper()
+        if not re.fullmatch(r"[A-Z][A-Z0-9-]{0,31}", option):
+            raise ValueError(f"Invalid design option name: {option}")
+        if option in images:
+            raise ValueError(f"Duplicate design option: {option}")
+        images[option] = inspect_design_image(os.path.abspath(path))
+    if not images:
+        raise ValueError("At least one --image is required.")
+    return images
+
+
+def parse_design_references(values):
+    references = []
+    required = {"name", "url", "referenced_pattern", "applied_section_ids"}
+    for raw in values or []:
+        try:
+            reference = json.loads(raw)
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"Invalid --reference-json value: {exc}") from exc
+        if not isinstance(reference, dict) or not required.issubset(reference):
+            raise ValueError(f"Reference requires fields: {sorted(required)}")
+        if not isinstance(reference["applied_section_ids"], list) or not reference["applied_section_ids"]:
+            raise ValueError("Reference applied_section_ids must be a non-empty list.")
+        reference["registration_status"] = "not_registered"
+        reference["input_only"] = True
+        references.append(reference)
+    return references
+
+
+def validate_design_identifier(value, label="Design identifier"):
+    normalized = (value or "").strip().upper()
+    if not normalized or len(normalized) > 64:
+        raise ValueError(f"{label} must contain 1-64 characters.")
+    if not re.fullmatch(r"[A-Z0-9]+(?:[+_-][A-Z0-9]+)*", normalized):
+        raise ValueError(f"Invalid {label.lower()}: {value}")
+    return normalized
+
+
+def require_regular_file(path, label):
+    absolute = os.path.abspath(path)
+    if not os.path.isfile(absolute) or os.path.islink(absolute) or os.path.getsize(absolute) <= 0:
+        raise ValueError(f"{label} must be an existing non-empty regular file: {absolute}")
+    return absolute
+
+
+def require_path_within(path, roots, label):
+    resolved = os.path.realpath(path)
+    allowed = [os.path.realpath(root) for root in roots if root]
+    if not any(resolved == root or resolved.startswith(root + os.sep) for root in allowed):
+        raise ValueError(f"{label} is outside the allowed roots: {resolved}")
+    return resolved
+
+
+def load_json_object(path, label):
+    path = require_regular_file(path, label)
+    with open(path, "r", encoding="utf-8") as handle:
+        value = json.load(handle)
+    if not isinstance(value, dict):
+        raise ValueError(f"{label} must contain one JSON object.")
+    return path, value
+
+
+def cmd_design_direction_select(args):
+    run_file = get_run_file(args.run_id)
+    if not os.path.isfile(run_file):
+        print(f"Error: Run '{args.run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+    try:
+        direction_id = validate_design_identifier(args.direction_id, "Direction ID")
+        run_data = read_yaml(run_file)
+        if run_data.get("status") in {"failed", "rejected", "cancelled"}:
+            raise ValueError("Run state blocks direction selection.")
+        run_data["design_direction"] = {
+            "id": direction_id,
+            "display_name": args.display_name or direction_id,
+            "status": "selected_direction_ready_for_visual_target",
+            "selected_by": args.selected_by,
+            "selected_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "final_visual_approval": False,
+            "implementation_allowed": False,
+        }
+        run_data["implementation_gate"] = "blocked_visual_target_required"
+        write_yaml(run_file, run_data)
+        print(f"Selected design direction: {direction_id}")
+        print("Final visual approval: false")
+    except Exception as exc:
+        print(f"Error: Direction selection failed: {exc}", file=sys.stderr)
+        sys.exit(1)
+
+
+def visual_target_manifest_path(run_data, target_id):
+    project_path = run_data.get("project", {}).get("path")
+    return os.path.join(project_path, "design-artifacts", run_data["run_id"], "visual-targets", target_id, "manifest.json")
+
+
+def validate_visual_target_manifest(manifest, run_data, manifest_path):
+    required = {
+        "schema_version", "id", "run_id", "direction_id", "screen_id", "viewport",
+        "artifact_path", "sha256", "mime_type", "width", "height", "origin",
+        "generated_inside_run", "generation_tool", "prompt_path", "prompt_sha256",
+        "source_reference_ids", "references_manifest_path", "tool_execution_evidence_path",
+        "status", "created_at",
+    }
+    missing = required - set(manifest)
+    if missing:
+        raise ValueError(f"Visual Target manifest missing fields: {sorted(missing)}")
+    if manifest["run_id"] != run_data.get("run_id"):
+        raise ValueError("Visual Target Run mismatch.")
+    if manifest["direction_id"] != run_data.get("design_direction", {}).get("id"):
+        raise ValueError("Visual Target direction mismatch.")
+    if manifest["origin"] != "generated_inside_run" or manifest["generated_inside_run"] is not True:
+        raise ValueError("Visual Target origin truth is invalid.")
+    project_path = run_data.get("project", {}).get("path")
+    artifact_path = require_path_within(manifest["artifact_path"], [project_path], "Visual Target")
+    inspected = inspect_design_image(artifact_path)
+    if inspected["sha256"] != manifest["sha256"] or inspected["mime"] != manifest["mime_type"]:
+        raise ValueError("Visual Target image identity mismatch.")
+    if inspected["width"] != manifest["width"] or inspected["height"] != manifest["height"]:
+        raise ValueError("Visual Target dimensions mismatch.")
+    prompt_path = require_path_within(manifest["prompt_path"], [project_path], "Prompt")
+    if file_sha256(prompt_path) != manifest["prompt_sha256"]:
+        raise ValueError("Prompt checksum mismatch.")
+    references_path, references = load_json_object(manifest["references_manifest_path"], "Reference Manifest")
+    require_path_within(references_path, [project_path], "Reference Manifest")
+    reference_ids = references.get("source_reference_ids")
+    if not isinstance(reference_ids, list) or not reference_ids or reference_ids != manifest["source_reference_ids"]:
+        raise ValueError("Visual Target requires matching source Reference IDs.")
+    evidence_path, evidence = load_json_object(manifest["tool_execution_evidence_path"], "Tool Evidence")
+    require_path_within(evidence_path, [project_path], "Tool Evidence")
+    if not evidence.get("generation_tool"):
+        raise ValueError("Tool Evidence requires generation_tool.")
+    if evidence["generation_tool"] != manifest["generation_tool"]:
+        raise ValueError("Generation tool evidence mismatch.")
+    return True
+
+
+def cmd_visual_target_register(args):
+    run_file = get_run_file(args.run_id)
+    if not os.path.isfile(run_file):
+        print(f"Error: Run '{args.run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+    run_data = read_yaml(run_file)
+    lock_path = os.path.join(os.path.dirname(run_file), "visual-target.lock")
+    lock_acquired = False
+    temp_dir = None
+    try:
+        target_id = validate_design_identifier(args.visual_target_id, "Visual Target ID")
+        direction_id = validate_design_identifier(args.direction_id, "Direction ID")
+        screen_id = validate_design_identifier(args.screen_id, "Screen ID")
+        if run_data.get("design_direction", {}).get("id") != direction_id:
+            raise ValueError("Select the matching design direction before registration.")
+        project_path = os.path.realpath(run_data.get("project", {}).get("path") or "")
+        source_path = require_path_within(require_regular_file(args.file, "Visual Target"), [project_path], "Visual Target")
+        prompt_path = require_path_within(require_regular_file(args.prompt_path, "Prompt"), [project_path], "Prompt")
+        references_path, references = load_json_object(args.references_path, "Reference Manifest")
+        references_path = require_path_within(references_path, [project_path], "Reference Manifest")
+        evidence_path, evidence = load_json_object(args.tool_evidence, "Tool Evidence")
+        evidence_path = require_path_within(evidence_path, [project_path], "Tool Evidence")
+        source_reference_ids = references.get("source_reference_ids")
+        if not isinstance(source_reference_ids, list) or not source_reference_ids:
+            raise ValueError("Reference Manifest requires at least one source_reference_id.")
+        generation_tool = evidence.get("generation_tool")
+        if not generation_tool:
+            raise ValueError("Tool Evidence requires generation_tool.")
+        target_dir = os.path.dirname(visual_target_manifest_path(run_data, target_id))
+        if os.path.exists(target_dir):
+            raise FileExistsError(f"Visual Target ID already exists: {target_id}")
+        lock_fd = os.open(lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        lock_acquired = True
+        os.write(lock_fd, str(os.getpid()).encode("ascii"))
+        os.close(lock_fd)
+        os.makedirs(os.path.dirname(target_dir), exist_ok=True)
+        temp_dir = tempfile.mkdtemp(prefix=f".{target_id.lower()}-", dir=os.path.dirname(target_dir))
+        inspected = inspect_design_image(source_path)
+        copied_path = os.path.join(temp_dir, "visual-target" + inspected["extension"])
+        shutil.copyfile(source_path, copied_path)
+        copied = inspect_design_image(copied_path)
+        if copied["sha256"] != inspected["sha256"]:
+            raise RuntimeError("Visual Target copy verification failed.")
+        manifest = {
+            "schema_version": 1,
+            "id": target_id,
+            "run_id": args.run_id,
+            "direction_id": direction_id,
+            "screen_id": screen_id,
+            "viewport": args.viewport,
+            "artifact_path": copied_path.replace(temp_dir, target_dir, 1),
+            "sha256": copied["sha256"],
+            "mime_type": copied["mime"],
+            "width": copied["width"],
+            "height": copied["height"],
+            "origin": "generated_inside_run",
+            "generated_inside_run": True,
+            "generation_tool": generation_tool,
+            "prompt_path": prompt_path,
+            "prompt_sha256": file_sha256(prompt_path),
+            "source_reference_ids": source_reference_ids,
+            "references_manifest_path": references_path,
+            "tool_execution_evidence_path": evidence_path,
+            "status": "awaiting_user_review",
+            "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        }
+        with open(os.path.join(temp_dir, "manifest.json"), "w", encoding="utf-8") as handle:
+            json.dump(manifest, handle, ensure_ascii=False, indent=2)
+            handle.write("\n")
+        os.rename(temp_dir, target_dir)
+        temp_dir = None
+        validate_visual_target_manifest(manifest, run_data, os.path.join(target_dir, "manifest.json"))
+        targets = run_data.get("visual_targets", {"status": "awaiting_user_review", "items": []})
+        targets.setdefault("items", []).append({"id": target_id, "manifest_path": os.path.join(target_dir, "manifest.json"), "status": "awaiting_user_review"})
+        targets["status"] = "awaiting_user_review"
+        run_data["visual_targets"] = targets
+        run_data["implementation_gate"] = "blocked_user_visual_approval_required"
+        write_yaml(run_file, run_data)
+        print(f"Visual Target registered: {target_id}")
+        print("Status: awaiting_user_review")
+    except Exception as exc:
+        if temp_dir and os.path.isdir(temp_dir):
+            shutil.rmtree(temp_dir)
+        print(f"Error: Visual Target registration failed: {exc}", file=sys.stderr)
+        sys.exit(1)
+    finally:
+        if lock_acquired and os.path.exists(lock_path):
+            os.unlink(lock_path)
+
+
+def find_visual_target(run_data, target_id):
+    target_id = validate_design_identifier(target_id, "Visual Target ID")
+    for item in run_data.get("visual_targets", {}).get("items", []):
+        if item.get("id") == target_id:
+            return item
+    raise ValueError(f"Visual Target not registered: {target_id}")
+
+
+def cmd_visual_target_verify(args):
+    try:
+        run_data = read_yaml(get_run_file(args.run_id))
+        item = find_visual_target(run_data, args.visual_target_id)
+        manifest_path, manifest = load_json_object(item["manifest_path"], "Visual Target Manifest")
+        validate_visual_target_manifest(manifest, run_data, manifest_path)
+        print(f"Visual Target verification PASS: {manifest['id']}")
+    except Exception as exc:
+        print(f"Error: Visual Target verification failed: {exc}", file=sys.stderr)
+        sys.exit(1)
+
+
+def cmd_visual_target_status(args):
+    run_data = read_yaml(get_run_file(args.run_id))
+    print(json.dumps({
+        "design_direction": run_data.get("design_direction"),
+        "visual_targets": run_data.get("visual_targets"),
+        "implementation_gate": run_data.get("implementation_gate"),
+    }, ensure_ascii=False, indent=2))
+
+
+def cmd_visual_target_approve(args):
+    run_file = get_run_file(args.run_id)
+    run_data = read_yaml(run_file)
+    try:
+        item = find_visual_target(run_data, args.visual_target_id)
+        manifest_path, manifest = load_json_object(item["manifest_path"], "Visual Target Manifest")
+        validate_visual_target_manifest(manifest, run_data, manifest_path)
+        manifest["status"] = "user_approved"
+        manifest["approved_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        with open(manifest_path, "w", encoding="utf-8") as handle:
+            json.dump(manifest, handle, ensure_ascii=False, indent=2)
+            handle.write("\n")
+        item["status"] = "user_approved"
+        run_data["visual_targets"]["status"] = "user_approved"
+        run_data["implementation_gate"] = "ready_for_image_to_code"
+        write_yaml(run_file, run_data)
+        print(f"Visual Target approved: {manifest['id']}")
+    except Exception as exc:
+        print(f"Error: Visual Target approval failed: {exc}", file=sys.stderr)
+        sys.exit(1)
+
+
+def cmd_fidelity_record(args):
+    run_file = get_run_file(args.run_id)
+    run_data = read_yaml(run_file)
+    try:
+        item = find_visual_target(run_data, args.visual_target_id)
+        if item.get("status") != "user_approved":
+            raise ValueError("Visual Target user approval is required before fidelity recording.")
+        ledger_path, ledger = load_json_object(args.ledger, "Fidelity Ledger")
+        project_path = run_data.get("project", {}).get("path")
+        ledger_path = require_path_within(ledger_path, [project_path], "Fidelity Ledger")
+        if ledger.get("visual_target_id") != item["id"] or ledger.get("status") not in {"pass", "fail", "blocked"}:
+            raise ValueError("Fidelity Ledger identity or status is invalid.")
+        run_data["fidelity"] = {
+            "visual_target_id": item["id"],
+            "ledger_path": ledger_path,
+            "status": ledger["status"],
+        }
+        run_data["implementation_gate"] = "ready_code_source_promotion" if ledger["status"] == "pass" else "blocked_fidelity_pass_required"
+        write_yaml(run_file, run_data)
+        print(f"Fidelity recorded: {ledger['status']}")
+    except Exception as exc:
+        print(f"Error: Fidelity recording failed: {exc}", file=sys.stderr)
+        sys.exit(1)
+
+
+def cmd_fidelity_promote(args):
+    run_file = get_run_file(args.run_id)
+    run_data = read_yaml(run_file)
+    try:
+        fidelity = run_data.get("fidelity", {})
+        if fidelity.get("status") != "pass":
+            raise ValueError("Fidelity PASS is required before code source promotion.")
+        source_path = require_path_within(require_regular_file(args.code_path, "Code source"), [run_data.get("project", {}).get("path")], "Code source")
+        run_data["design_source_of_truth"] = {
+            "type": "code",
+            "artifact_path": source_path,
+            "sha256": file_sha256(source_path),
+            "visual_target_id": fidelity.get("visual_target_id"),
+            "promoted_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        }
+        run_data["implementation_gate"] = "design_source_of_truth_established"
+        write_yaml(run_file, run_data)
+        print("Code promoted as design Source of Truth.")
+    except Exception as exc:
+        print(f"Error: Code source promotion failed: {exc}", file=sys.stderr)
+        sys.exit(1)
+
+
+def cmd_design_import(args):
+    run_file = get_run_file(args.run_id)
+    if not os.path.isfile(run_file):
+        print(f"Error: Run '{args.run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+    run_data = read_yaml(run_file)
+    if run_data.get("is_legacy") or run_data.get("status") in {"failed", "rejected", "cancelled"}:
+        print("Error: Run state blocks design import.", file=sys.stderr)
+        sys.exit(1)
+
+    project_path = run_data.get("project", {}).get("path")
+    if not project_path or not os.path.isdir(project_path):
+        print("Error: Run project path is unavailable.", file=sys.stderr)
+        sys.exit(1)
+
+    lock_path = os.path.join(os.path.dirname(run_file), "design-import.lock")
+    temp_dir = None
+    lock_acquired = False
+    try:
+        lock_fd = os.open(lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        lock_acquired = True
+        os.write(lock_fd, str(os.getpid()).encode("ascii"))
+        os.close(lock_fd)
+
+        images = parse_design_import_images(args.image)
+        references = parse_design_references(args.reference_json)
+        selection = args.selection.strip().upper()
+        mix_components = [value.strip().upper() for value in (args.mix_component or [])]
+        if re.fullmatch(r"MIX-[A-Z0-9-]+", selection):
+            if len(mix_components) < 2 or any(component not in images for component in mix_components):
+                raise ValueError("A MIX selection requires at least two imported --mix-component options.")
+        elif selection not in images:
+            raise ValueError("Selection must be an imported option or a MIX-* identifier.")
+
+        exploration = run_data.get("design_exploration", {})
+        version = int(exploration.get("version") or 0) + 1
+        artifact_dir = os.path.join(project_path, "design-artifacts", args.run_id, f"v{version}")
+        if os.path.exists(artifact_dir):
+            raise FileExistsError(f"Version Artifact already exists: {artifact_dir}")
+        artifact_parent = os.path.dirname(artifact_dir)
+        os.makedirs(artifact_parent, exist_ok=True)
+        temp_dir = tempfile.mkdtemp(prefix=f".v{version}-import-", dir=artifact_parent)
+
+        imported = {}
+        original_evidence = {}
+        for option, metadata in images.items():
+            original_evidence[option] = {
+                "sha256": metadata["sha256"],
+                "bytes": metadata["bytes"],
+            }
+            target_name = f"direction-{option.lower()}{metadata['extension']}"
+            target_path = os.path.join(temp_dir, target_name)
+            shutil.copyfile(metadata["source_path"], target_path)
+            copied = inspect_design_image(target_path)
+            if copied["sha256"] != metadata["sha256"] or copied["bytes"] != metadata["bytes"]:
+                raise RuntimeError(f"Imported image verification failed for option {option}.")
+            imported[option] = {
+                "path": target_name,
+                "sha256": copied["sha256"],
+                "mime": copied["mime"],
+                "width": copied["width"],
+                "height": copied["height"],
+                "bytes": copied["bytes"],
+                "source_path": metadata["source_path"],
+                "origin": "imported_external_visual_exploration",
+                "generated_inside_run": False,
+            }
+
+        for option, metadata in images.items():
+            current = inspect_design_image(metadata["source_path"])
+            if current["sha256"] != original_evidence[option]["sha256"] or current["bytes"] != original_evidence[option]["bytes"]:
+                raise RuntimeError(f"Original design image changed during import: {option}")
+
+        manifest = {
+            "schema_version": 1,
+            "run_id": args.run_id,
+            "artifact_version": version,
+            "artifact_type": "imported_external_visual_exploration",
+            "source": {
+                "generated_by": args.generated_by,
+                "generation_tool": args.generation_tool,
+                "source_run_id": args.source_run_id,
+                "generated_inside_run": False,
+                "prompt_path": os.path.abspath(args.prompt_path) if args.prompt_path else None,
+            },
+            "images": imported,
+            "references": references,
+            "selection": {
+                "id": selection,
+                "type": "mixed" if selection.startswith("MIX-") else "single",
+                "components": mix_components if selection.startswith("MIX-") else [selection],
+                "approved_by": "user",
+                "approved_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            },
+            "reference_library_registration": "prohibited_without_separate_user_approval",
+            "design_draft": {"status": "ready_to_create", "next_version": 1},
+            "imported_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        }
+        manifest_path = os.path.join(temp_dir, "manifest.json")
+        with open(manifest_path, "w", encoding="utf-8") as manifest_file:
+            json.dump(manifest, manifest_file, ensure_ascii=False, indent=2)
+            manifest_file.write("\n")
+        os.rename(temp_dir, artifact_dir)
+        temp_dir = None
+
+        run_data["design_exploration"] = {
+            "version": version,
+            "status": "selected_direction_ready_for_design_draft",
+            "artifact_type": "imported_external_visual_exploration",
+            "artifact_path": artifact_dir,
+            "manifest_path": os.path.join(artifact_dir, "manifest.json"),
+            "generated_inside_run": False,
+            "selected_direction": selection,
+            "selected_components": mix_components if selection.startswith("MIX-") else [selection],
+            "user_result": "approved_visual_direction",
+            "reference_count": len(references),
+            "reference_library_registered": False,
+            "design_draft": {"status": "ready_to_create", "next_version": 1},
+        }
+        write_yaml(run_file, run_data)
+        print(f"Imported design exploration v{version} for {args.run_id}")
+        print(f"Artifact: {artifact_dir}")
+        print(f"Selected direction: {selection}")
+        print("Design Draft v1: ready_to_create")
+    except Exception as exc:
+        if temp_dir and os.path.isdir(temp_dir):
+            shutil.rmtree(temp_dir)
+        print(f"Error: Design import failed: {exc}", file=sys.stderr)
+        sys.exit(1)
+    finally:
+        if lock_acquired and os.path.exists(lock_path):
+            os.unlink(lock_path)
+
+
+def mix1_section_blueprint():
+    return {
+        "HOME-NAV": {
+            "name": "프로젝트 홈 Navigation",
+            "screen_id": "HOME",
+            "source_reference_ids": ["user-project-dashboard", "linear-projects"],
+            "editable_properties": ["density", "label_visibility", "mobile_position"],
+            "locked_properties": ["project_identity", "core_navigation_targets"],
+            "order": 1,
+            "mobile_behavior": "top_bar_with_project_switcher",
+            "status": "edit_draft",
+        },
+        "HOME-PROJECTS": {
+            "name": "프로젝트 검색·목록",
+            "screen_id": "HOME",
+            "source_reference_ids": ["user-project-dashboard", "linear-projects", "home-assistant"],
+            "editable_properties": ["list_density", "card_surface", "spacing", "one_or_two_column"],
+            "locked_properties": ["actual_project_state", "result_run_separation"],
+            "order": 2,
+            "mobile_behavior": "single_column_search_first",
+            "status": "edit_draft",
+        },
+        "HOME-NEXT-ACTION": {
+            "name": "현재 상태와 다음 행동",
+            "screen_id": "HOME",
+            "source_reference_ids": ["home-assistant", "safetyculture"],
+            "editable_properties": ["emphasis", "spacing", "surface", "copy_length"],
+            "locked_properties": ["allowed_actions", "actual_core_state"],
+            "order": 3,
+            "mobile_behavior": "one_primary_action_after_project_state",
+            "status": "edit_draft",
+        },
+        "WORKSPACE-NAV": {
+            "name": "작업실 Navigation",
+            "screen_id": "WORKSPACE",
+            "source_reference_ids": ["user-v2-workspace", "linear-projects"],
+            "editable_properties": ["collapsed", "density", "label_visibility"],
+            "locked_properties": ["project_boundary", "history_and_settings_targets"],
+            "order": 1,
+            "mobile_behavior": "bottom_tabs_project_request_preview",
+            "status": "edit_draft",
+        },
+        "WORKSPACE-REQUEST": {
+            "name": "사용자 요청",
+            "screen_id": "WORKSPACE",
+            "source_reference_ids": ["user-v2-workspace", "github-copilot"],
+            "editable_properties": ["panel_ratio", "collapsed", "surface", "spacing"],
+            "locked_properties": ["original_user_request", "request_history_integrity"],
+            "order": 2,
+            "mobile_behavior": "separate_request_tab_collapsible",
+            "status": "edit_draft",
+        },
+        "WORKSPACE-STATUS": {
+            "name": "현재 상태와 다음 행동",
+            "screen_id": "WORKSPACE",
+            "source_reference_ids": ["home-assistant", "safetyculture"],
+            "editable_properties": ["status_emphasis", "spacing", "progressive_disclosure"],
+            "locked_properties": ["actual_core_state", "normal_and_diagnostic_run_separation"],
+            "order": 3,
+            "mobile_behavior": "compact_status_above_actions",
+            "status": "edit_draft",
+        },
+        "WORKSPACE-PREVIEW": {
+            "name": "실제 Preview",
+            "screen_id": "WORKSPACE",
+            "source_reference_ids": ["user-v2-workspace", "github-copilot"],
+            "editable_properties": ["preview_ratio", "viewport_mode", "focus_mode", "surrounding_background"],
+            "locked_properties": ["preview_failure_isolation", "registered_preview_source", "strict_project_boundary"],
+            "order": 4,
+            "mobile_behavior": "default_preview_tab_full_width",
+            "status": "edit_draft",
+        },
+        "WORKSPACE-ACTIONS": {
+            "name": "통과·수정 요청·중단",
+            "screen_id": "WORKSPACE",
+            "source_reference_ids": ["user-v2-workspace", "safetyculture"],
+            "editable_properties": ["placement", "spacing", "button_surface"],
+            "locked_properties": ["allowed_actions", "approval_gate", "core_action_result"],
+            "order": 5,
+            "mobile_behavior": "sticky_bottom_decision_sheet",
+            "status": "edit_draft",
+        },
+        "WORKSPACE-DETAILS": {
+            "name": "자세히",
+            "screen_id": "WORKSPACE",
+            "source_reference_ids": ["linear-projects"],
+            "editable_properties": ["disclosure_style", "grouping", "density"],
+            "locked_properties": ["run_id", "commit_sha", "logs", "tool_identity", "technical_truth"],
+            "order": 6,
+            "mobile_behavior": "closed_by_default_bottom_sheet",
+            "status": "edit_draft",
+        },
+    }
+
+
+def validate_design_draft(draft):
+    required_top = {
+        "design_version", "selected_direction", "status", "review_status", "screens",
+        "sections", "source_references", "allowed_modifications", "locked_global_properties",
+    }
+    missing = required_top - set(draft)
+    if missing:
+        raise ValueError(f"Design Draft missing fields: {sorted(missing)}")
+    if draft["selected_direction"] != "MIX-1" or draft["status"] != "edit_draft":
+        raise ValueError("Design Draft must preserve MIX-1 in edit_draft state.")
+    screen_ids = {screen["id"] for screen in draft["screens"]}
+    if screen_ids != {"HOME", "WORKSPACE"}:
+        raise ValueError("Design Draft requires HOME and WORKSPACE screens.")
+    section_ids = set(draft["sections"])
+    required_sections = {
+        "HOME-NAV", "HOME-PROJECTS", "HOME-NEXT-ACTION", "WORKSPACE-NAV",
+        "WORKSPACE-REQUEST", "WORKSPACE-STATUS", "WORKSPACE-PREVIEW",
+        "WORKSPACE-ACTIONS", "WORKSPACE-DETAILS",
+    }
+    if section_ids != required_sections:
+        raise ValueError("Design Draft section IDs are incomplete or unexpected.")
+    for screen in draft["screens"]:
+        order = screen.get("layout_order", [])
+        if len(order) != len(set(order)) or any(section_id not in section_ids for section_id in order):
+            raise ValueError(f"Invalid layout_order for screen {screen.get('id')}.")
+    for section_id, section in draft["sections"].items():
+        for field in ("name", "screen_id", "source_reference_ids", "editable_properties", "locked_properties", "order", "mobile_behavior", "status"):
+            if field not in section:
+                raise ValueError(f"Section {section_id} missing {field}.")
+    for reference in draft["source_references"]:
+        if reference.get("registered_in_reference_library") is not False:
+            raise ValueError("Imported references must not be auto-registered.")
+        if any(section_id not in section_ids for section_id in reference.get("applied_section_ids", [])):
+            raise ValueError(f"Reference points to an unknown section: {reference.get('id')}")
+    return True
+
+
+def cmd_design_draft_create(args):
+    run_file = get_run_file(args.run_id)
+    if not os.path.isfile(run_file):
+        print(f"Error: Run '{args.run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+    run_data = read_yaml(run_file)
+    exploration = run_data.get("design_exploration", {})
+    if (
+        exploration.get("status") != "selected_direction_ready_for_design_draft"
+        or exploration.get("selected_direction") != "MIX-1"
+        or exploration.get("artifact_type") != "imported_external_visual_exploration"
+        or exploration.get("generated_inside_run") is not False
+    ):
+        print("Error: A verified imported MIX-1 exploration is required.", file=sys.stderr)
+        sys.exit(1)
+    manifest_path = exploration.get("manifest_path")
+    if not manifest_path or not os.path.isfile(manifest_path):
+        print("Error: Imported design Manifest is unavailable.", file=sys.stderr)
+        sys.exit(1)
+
+    lock_path = os.path.join(os.path.dirname(run_file), "design-draft.lock")
+    temp_dir = None
+    lock_acquired = False
+    try:
+        lock_fd = os.open(lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        lock_acquired = True
+        os.write(lock_fd, str(os.getpid()).encode("ascii"))
+        os.close(lock_fd)
+        with open(manifest_path, "r", encoding="utf-8") as manifest_file:
+            manifest = json.load(manifest_file)
+        if manifest.get("selection", {}).get("id") != "MIX-1":
+            raise ValueError("Imported Manifest selection is not MIX-1.")
+        for option, image in manifest.get("images", {}).items():
+            if image.get("generated_inside_run") is not False or image.get("origin") != "imported_external_visual_exploration":
+                raise ValueError(f"Imported origin truth was changed for option {option}.")
+            image_path = os.path.join(os.path.dirname(manifest_path), image["path"])
+            inspected = inspect_design_image(image_path)
+            if inspected["sha256"] != image.get("sha256"):
+                raise ValueError(f"Imported option hash mismatch: {option}")
+
+        project_path = run_data.get("project", {}).get("path")
+        version = 1
+        draft_dir = os.path.join(project_path, "design-drafts", args.run_id, f"v{version}")
+        if os.path.exists(draft_dir):
+            raise FileExistsError(f"Design Draft Version already exists: {draft_dir}")
+        os.makedirs(os.path.dirname(draft_dir), exist_ok=True)
+        temp_dir = tempfile.mkdtemp(prefix=f".v{version}-draft-", dir=os.path.dirname(draft_dir))
+
+        sections = mix1_section_blueprint()
+        reference_ids = {
+            "사용자 제공 AI Studio 프로젝트 목록": "user-project-dashboard",
+            "사용자 제공 V2 3단 작업실": "user-v2-workspace",
+            "Linear Projects": "linear-projects",
+            "GitHub Copilot": "github-copilot",
+            "Home Assistant Dashboards": "home-assistant",
+            "SafetyCulture iAuditor": "safetyculture",
+        }
+        exclusions = {
+            "user-project-dashboard": ["AI Studio 브랜드", "주황색 스타일", "기술정보 전체 노출", "화면 직접 복제"],
+            "user-v2-workspace": ["정확한 브랜드 표현", "PDF 제품 화면 직접 복제", "고정 패널 치수"],
+            "linear-projects": ["Linear 브랜드", "Dark Theme", "Issue·Cycle 기능"],
+            "github-copilot": ["GitHub 브랜드", "Code Editor", "Repository 전용 제어"],
+            "home-assistant": ["Smart Home 장치 Grid", "자유 Dashboard 편집", "Home Assistant 브랜드"],
+            "safetyculture": ["SafetyCulture 브랜드", "Marketing Hero", "검사·조직 관리 기능"],
+        }
+        imported_section_mapping = {
+            "PROJECT-SEARCH": "HOME-PROJECTS",
+            "PROJECT-GRID": "HOME-PROJECTS",
+            "PROJECT-NAV": "HOME-NAV",
+            "DASH-NEXT-ACTION": "HOME-NEXT-ACTION",
+            "DASH-ACTIVE-PROJECTS": "HOME-PROJECTS",
+        }
+        source_references = []
+        for reference in manifest.get("references", []):
+            reference_id = reference_ids.get(reference.get("name"))
+            if not reference_id:
+                raise ValueError(f"MIX-1 Reference has no stable ID: {reference.get('name')}")
+            applied_sections = []
+            for imported_id in reference.get("applied_section_ids", []):
+                stable_id = imported_section_mapping.get(imported_id, imported_id)
+                if stable_id not in applied_sections:
+                    applied_sections.append(stable_id)
+            source_references.append({
+                "id": reference_id,
+                "name": reference.get("name"),
+                "external_import": True,
+                "source_file": reference.get("screenshot_path"),
+                "source_url": reference.get("url"),
+                "referenced_pattern": reference.get("referenced_pattern"),
+                "applied_section_ids": applied_sections,
+                "do_not_copy": exclusions[reference_id],
+                "captured_at": reference.get("captured_at"),
+                "usage_note": reference.get("usage_note"),
+                "registered_in_reference_library": False,
+            })
+
+        draft = {
+            "schema_version": 1,
+            "design_version": version,
+            "selected_direction": "MIX-1",
+            "status": "edit_draft",
+            "review_status": "awaiting_user_review",
+            "ui_implementation": "not_started",
+            "source_exploration": {
+                "version": exploration.get("version"),
+                "artifact_type": "imported_external_visual_exploration",
+                "manifest_path": manifest_path,
+                "generated_inside_run": False,
+                "prompt_evidence": manifest.get("source", {}).get("prompt_path"),
+                "missing_prompt_not_reconstructed": manifest.get("source", {}).get("prompt_path") is None,
+            },
+            "screens": [
+                {
+                    "id": "HOME",
+                    "name": "프로젝트 홈",
+                    "layout_order": ["HOME-NAV", "HOME-PROJECTS", "HOME-NEXT-ACTION"],
+                    "mobile_layout_order": ["HOME-NAV", "HOME-PROJECTS", "HOME-NEXT-ACTION"],
+                },
+                {
+                    "id": "WORKSPACE",
+                    "name": "프로젝트 작업실",
+                    "layout_order": ["WORKSPACE-NAV", "WORKSPACE-REQUEST", "WORKSPACE-STATUS", "WORKSPACE-PREVIEW", "WORKSPACE-ACTIONS", "WORKSPACE-DETAILS"],
+                    "mobile_layout_order": ["WORKSPACE-NAV", "WORKSPACE-PREVIEW", "WORKSPACE-STATUS", "WORKSPACE-ACTIONS", "WORKSPACE-REQUEST", "WORKSPACE-DETAILS"],
+                    "preview_ratios": ["25:75", "10:90"],
+                },
+            ],
+            "sections": sections,
+            "source_references": source_references,
+            "allowed_modifications": [
+                "section_scoped_natural_language_edit", "section_move_up", "section_move_down",
+                "request_panel_collapse", "preview_ratio_selection", "mobile_layout_order",
+                "copy_to_new_design_version", "apply_draft", "discard_draft", "restore_previous_version",
+            ],
+            "locked_global_properties": [
+                "core_state_ownership", "allowed_actions", "preview_failure_isolation", "approval_gate",
+                "external_reference_originals", "original_user_request", "result_and_diagnostic_run_separation",
+            ],
+            "implementation_artifact_separate": True,
+            "reference_library_registration": "prohibited_without_separate_user_approval",
+            "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        }
+        validate_design_draft(draft)
+        draft_path = os.path.join(temp_dir, "design-draft.json")
+        with open(draft_path, "w", encoding="utf-8") as draft_file:
+            json.dump(draft, draft_file, ensure_ascii=False, indent=2)
+            draft_file.write("\n")
+        os.rename(temp_dir, draft_dir)
+        temp_dir = None
+
+        run_data["stage"] = "design_draft"
+        run_data["design_draft"] = {
+            "version": version,
+            "status": "awaiting_user_review",
+            "selected_direction": "MIX-1",
+            "artifact_path": draft_dir,
+            "draft_path": os.path.join(draft_dir, "design-draft.json"),
+            "source_exploration_version": exploration.get("version"),
+            "user_result": "pending",
+            "ui_implementation": "not_started",
+        }
+        run_data["implementation_gate"] = "blocked_design_draft_approval_required"
+        write_yaml(run_file, run_data)
+        print(f"MIX-1 Design Draft v{version} created for {args.run_id}")
+        print(f"Draft: {os.path.join(draft_dir, 'design-draft.json')}")
+        print("Status: awaiting_user_review")
+        print("UI implementation: not_started")
+    except Exception as exc:
+        if temp_dir and os.path.isdir(temp_dir):
+            shutil.rmtree(temp_dir)
+        print(f"Error: Design Draft creation failed: {exc}", file=sys.stderr)
+        sys.exit(1)
+    finally:
+        if lock_acquired and os.path.exists(lock_path):
+            os.unlink(lock_path)
 
 
 def cmd_design_detail(args):
@@ -2090,6 +2937,18 @@ def main():
     design_subparsers = design_parser.add_subparsers(dest="design_command", required=True)
     design_generate_parser = design_subparsers.add_parser("generate", help="Generate a versioned A/B Preview")
     design_generate_parser.add_argument("run_id", help="The existing Run ID")
+    design_import_parser = design_subparsers.add_parser("import", help="Import passive external design images into a Versioned Run Artifact")
+    design_import_parser.add_argument("run_id", help="The existing Run ID")
+    design_import_parser.add_argument("--image", action="append", required=True, help="OPTION=/absolute/path; repeat for each visual option")
+    design_import_parser.add_argument("--selection", required=True, help="Imported option name or MIX-* selection identifier")
+    design_import_parser.add_argument("--mix-component", action="append", default=[], help="Imported option included in a MIX selection")
+    design_import_parser.add_argument("--reference-json", action="append", default=[], help="Reference metadata JSON; recorded as input only")
+    design_import_parser.add_argument("--generated-by", default="unknown", help="Recorded generation actor")
+    design_import_parser.add_argument("--generation-tool", default="unknown", help="Recorded generation tool")
+    design_import_parser.add_argument("--source-run-id", default=None, help="Source Run when the visual was generated elsewhere")
+    design_import_parser.add_argument("--prompt-path", default=None, help="Optional preserved prompt evidence path")
+    design_draft_parser = design_subparsers.add_parser("draft-create", help="Create the structured MIX-1 Design Draft from an imported visual exploration")
+    design_draft_parser.add_argument("run_id", help="The existing Run ID")
     design_show_parser = design_subparsers.add_parser("show", help="Show the design state for a Run")
     design_show_parser.add_argument("run_id", help="The existing Run ID")
     design_detail_parser = design_subparsers.add_parser("detail", help="Generate the mobile-first C v2 detail")
@@ -2103,6 +2962,44 @@ def main():
         default="mobile",
         help="Primary design and review viewport (default: mobile)",
     )
+    design_direction_parser = design_subparsers.add_parser("direction", help="Select a design direction without approving a final visual")
+    design_direction_subparsers = design_direction_parser.add_subparsers(dest="direction_command", required=True)
+    design_direction_select_parser = design_direction_subparsers.add_parser("select", help="Select a validated design direction")
+    design_direction_select_parser.add_argument("--run-id", required=True)
+    design_direction_select_parser.add_argument("--direction-id", required=True)
+    design_direction_select_parser.add_argument("--display-name")
+    design_direction_select_parser.add_argument("--selected-by", default="user")
+
+    visual_target_parser = design_subparsers.add_parser("visual-target", help="Register and verify generated Visual Targets")
+    visual_target_subparsers = visual_target_parser.add_subparsers(dest="visual_target_command", required=True)
+    visual_register = visual_target_subparsers.add_parser("register")
+    visual_register.add_argument("--run-id", required=True)
+    visual_register.add_argument("--visual-target-id", required=True)
+    visual_register.add_argument("--direction-id", required=True)
+    visual_register.add_argument("--screen-id", required=True)
+    visual_register.add_argument("--viewport", required=True)
+    visual_register.add_argument("--file", required=True)
+    visual_register.add_argument("--prompt-path", required=True)
+    visual_register.add_argument("--references-path", required=True)
+    visual_register.add_argument("--tool-evidence", required=True)
+    visual_verify = visual_target_subparsers.add_parser("verify")
+    visual_verify.add_argument("--run-id", required=True)
+    visual_verify.add_argument("--visual-target-id", required=True)
+    visual_status = visual_target_subparsers.add_parser("status")
+    visual_status.add_argument("--run-id", required=True)
+    visual_approve = visual_target_subparsers.add_parser("approve")
+    visual_approve.add_argument("--run-id", required=True)
+    visual_approve.add_argument("--visual-target-id", required=True)
+
+    fidelity_parser = design_subparsers.add_parser("fidelity", help="Record fidelity and promote a verified code source")
+    fidelity_subparsers = fidelity_parser.add_subparsers(dest="fidelity_command", required=True)
+    fidelity_record = fidelity_subparsers.add_parser("record")
+    fidelity_record.add_argument("--run-id", required=True)
+    fidelity_record.add_argument("--visual-target-id", required=True)
+    fidelity_record.add_argument("--ledger", required=True)
+    fidelity_promote = fidelity_subparsers.add_parser("promote")
+    fidelity_promote.add_argument("--run-id", required=True)
+    fidelity_promote.add_argument("--code-path", required=True)
 
     # v2 dashboard
     dashboard_parser = subparsers.add_parser("dashboard", help="Start dashboard local web server")
@@ -2139,12 +3036,32 @@ def main():
     elif args.command == "design":
         if args.design_command == "generate":
             cmd_design_generate(args)
+        elif args.design_command == "import":
+            cmd_design_import(args)
+        elif args.design_command == "draft-create":
+            cmd_design_draft_create(args)
         elif args.design_command == "detail":
             cmd_design_detail(args)
         elif args.design_command == "show":
             cmd_design_show(args)
         elif args.design_command == "select":
             cmd_design_select(args)
+        elif args.design_command == "direction" and args.direction_command == "select":
+            cmd_design_direction_select(args)
+        elif args.design_command == "visual-target":
+            if args.visual_target_command == "register":
+                cmd_visual_target_register(args)
+            elif args.visual_target_command == "verify":
+                cmd_visual_target_verify(args)
+            elif args.visual_target_command == "status":
+                cmd_visual_target_status(args)
+            elif args.visual_target_command == "approve":
+                cmd_visual_target_approve(args)
+        elif args.design_command == "fidelity":
+            if args.fidelity_command == "record":
+                cmd_fidelity_record(args)
+            elif args.fidelity_command == "promote":
+                cmd_fidelity_promote(args)
     elif args.command == "dashboard":
         cmd_dashboard(args)
 
