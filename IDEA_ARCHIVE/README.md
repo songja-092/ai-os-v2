@@ -13,3 +13,6 @@
 ## 보관 목록
 
 - [[personal-os-parent-child-board/IDEA]] — 직업별 Personal OS와 부모·자식 보드판
+- [[ai-coding-openclaw-oci-review/RESEARCH]] — AI 코딩 엔지니어링·OpenClaw·OCI 자동화 검토
+- [[interior-tool-community-ecosystem/STRATEGY]] — 인테리어 무료 도구·커뮤니티·전문가·자재 생태계 장기 전략
+- [[interior-tool-community-ecosystem/HANDOFF]] — PM 완료 후 사업 Feature 설계를 이어갈 세션 인수인계
