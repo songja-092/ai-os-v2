@@ -1,292 +1,68 @@
 # Post-MVP Roadmap
 
-표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
+현재 공식 Post-MVP 설계 원본은 [[POST_MVP_FINAL_DESIGN]] · [GitHub 링크](POST_MVP_FINAL_DESIGN.md)입니다.
 
-`AI OS V2 Core MVP M1~M7`은 완료·동결합니다. Post-MVP는 사용자가 각 단계에서 새로 할 수 있는 기능을 기준으로 `PM1~PM4`를 순서대로 진행합니다. 이 문서는 구현 권한을 부여하지 않으며, 각 PM 구현 직전에 현재 설치 Skill, 기존 코드와 공식 기능, 공식 문서, 유지관리되는 GitHub OSS, 최소 직접 구현 순으로 환경을 다시 조사합니다.
+`AI OS V2 Core MVP M1~M7`은 완료·동결하며 Post-MVP 설계는 완료됐습니다.
 
 ```yaml
 post_mvp:
-  planning_status: approved
-  active_milestone: PM1
-  implementation_status: not_started
-  auto_research_allowed: true
-  auto_analysis_allowed: true
-  auto_implementation_allowed: false
+  planning_status: completed
+  official_structure: PM0_to_PM7
+  implementation_gate: PM0
+  pm1_design_preview_allowed_before_pm0: true
+  pm1_product_implementation_allowed: false
   user_approval_required_for_implementation: true
 ```
 
-## 상태 언어
+## 공식 순서
 
-후보 판정과 구현 상태를 분리합니다.
+1. `PM0 — 운영환경 준비`
+2. `PM1 — 대시보드·프로젝트 작업실`
+3. `PM2 — 로컬 프로젝트 관리`
+4. `PM3 — 자료·디자인 Reference 수집`
+5. `PM4 — 사용자 의도 확인`
+6. `PM5 — 디자인 다양성 생성·비교`
+7. `PM6 — 최신 디자인·모션·부분 수정`
+8. `PM7 — 전체 통합·최종 검증·결과 전달`
 
-```yaml
-decision_status: adopted | conditional | deferred | rejected
-lifecycle_status: proposed | researched | pilot_ready | implemented | verified
-```
-
-조사하거나 채택했다는 이유만으로 구현·검증 완료로 올리지 않습니다. 재사용 Recipe는 실제 프로젝트 실행, 실패 처리, 사용자 확인, Result Commit과 Rollback/Restore가 필요합니다.
-
-## PM1 — 최소 조립식 기반 + 얇은 UI
-
-### 이번 단계에서 생기는 기능
-
-사용자는 프로젝트를 선택하고 현재 요청과 상태, 실제 Preview를 확인한 뒤 `통과`, `수정 요청`, `중단` 중 Core가 허용한 행동을 선택할 수 있습니다. 다른 프로젝트로 이동해도 각 Preview와 Run 상태는 독립적으로 유지됩니다.
-
-### 화면에서 보이는 흐름
-
-```text
-프로젝트 홈
-→ 현재 상태와 다음 행동 확인
-→ 프로젝트 작업실
-→ 실제 Preview 확인
-→ 통과 / 수정 요청 / 중단
-→ 다른 프로젝트로 전환
-```
-
-### 필수 범위
-
-- 프로젝트 홈과 프로젝트 작업실
-- `ui-state`, `ui-action`, `allowed_actions`, `state_version`, `action_id`
-- Core가 소유하는 Project Registry와 허용된 고정 실행 명령
-- 정적 허용 목록 방식의 Capability/Module Registry
-- `project_home`, `workspace_preview`, `workspace_tools`, `background_capability` 고정 Slot
-- Module health·enabled·fallback과 실패 격리
-- Versioned Design Recipe와 Project·Feature Adapter 경계
-- 프로젝트별 고정 Port와 Preview Process 소유권
-- stale·중복·다른 프로젝트 Action 차단
-- 실제 Preview와 초기화 상태 신호
-- Preview 장애 격리와 최소 오류 보고서
-- 390px·430px·PC Preview
-- 사용자 판정, Result Commit, Rollback/Restore
-- 병원 웹과 PDF 제품의 독립 실행 경로
-
-### 디자인 준비
-
-공식 디자인 방식은 `Hybrid H`입니다. Reference Mix와 A/B/C 탐색으로 방향을 선택·혼합한 뒤 화면·핵심 상태별 단일 `visual_target`을 사용자에게 승인받고 Image-to-Code와 동일 Viewport Fidelity 검증을 수행합니다. Fidelity PASS 이후부터 코드가 공식 디자인 원본입니다. `design-draft.json`만으로 구현을 시작하지 않습니다.
-
-Reference Mix는 PM1 내부 절차이며 [[ui-reference-mix]] · [GitHub 링크](ui-reference-mix.md)의 여섯 제품에서 각각 1~2개 패턴만 사용합니다. 기존 이미지 시안 5장은 초기 참고자료로 보존하되 공식 UI 승인 결과로 사용하지 않습니다.
-
-### 제외
-
-- Galaxy 실제 연결
-- Source Adapter UI와 직접 부분 수정
-- Plugin 관리와 범용 설정
-- 자유 Dashboard 편집과 기능 Marketplace
-
-### 완료 기준
-
-조립식 기반의 Registry·Slot·Module 실패 격리, 승인된 visual target의 Fidelity, 프로젝트 선택·실제 Preview·장애·전환·사용자 Action을 검증합니다. 이후 실제 UI가 Core 계약을 지키고 Result Commit과 Rollback/Restore까지 통과해야 PM1을 완료합니다.
-
-```yaml
-id: thin_ui
-decision_status: adopted
-lifecycle_status: proposed
-```
-
-## PM2 — 직접 부분 수정
-
-### 이번 단계에서 생기는 기능
-
-```text
-Preview에서 HERO-01 선택
-→ 글자 크기·콘텐츠 폭·줄바꿈·배경색 조절
-→ 미리보기
-→ 원래대로 / 적용
-```
-
-### V2가 뒤에서 처리하는 것
-
-- Draft Preview를 제품 원본과 분리
-- 첫 구현은 기본 HTML Control과 CSS 변수 사용
-- 적용 시 Quick Change Run 생성
-- 390px·430px·1440px와 가로 넘침·Console 검증
-- Result Commit과 Rollback/Restore
-
-Tweakpane은 기본 입력 방식이 부족하다는 실제 증거가 생길 때만 조건부 검토합니다. 범용 페이지 편집기나 자유 CSS 입력은 사용하지 않습니다.
-
-```yaml
-id: direct_partial_edit
-decision_status: adopted
-lifecycle_status: proposed
-```
-
-## PM3 — 조사·자료 수집·병목 진단
-
-### 이번 단계에서 생기는 기능
-
-```text
-새 프로젝트 또는 기존 프로젝트 요청
-→ 필요한 자료와 현재 증거 수집
-→ 공식 자료·GitHub·Reddit 선택 조사
-→ 최소 제작 Recipe 또는 가장 큰 병목 하나 제시
-→ 승인 후 Preview 또는 Change Run
-```
-
-### 필수 지원
-
-- 직접 붙여넣은 본문과 Markdown·Text
-- PDF와 일반 공개 웹페이지
-- GitHub 저장소·README·Issue·Release
-- Reddit 게시글·댓글
-- 사용자가 제공한 Threads 링크·본문·Screenshot
-
-### 검증 사례 제한
-
-PM3는 공통 수집 구조 하나를 사용하되 첫 검증을 다음 두 사례로 제한합니다.
-
-1. 새 프로젝트 조사 1건: 업종·사용자·업무·필요 화면과 기능을 조사해 최소 MVP를 추천합니다.
-2. 기존 프로젝트 병목 진단 1건: 프로젝트 상태·허용 로그·Build·Browser·Run 이력을 읽기 전용으로 확인해 가장 영향이 큰 병목 하나와 해결책 최대 2개를 제시합니다.
-
-병목 후보는 화면 성능, Build·Test 시간, 반복 오류, AI 의도 오해, Handoff·승인 대기, 중복 Run·작업, Docker·서버·Port, 복잡한 사용자 흐름, 불필요한 패키지·코드, 모바일 조작, Git·배포·복구입니다. 증거가 없으면 원인을 확정하지 않고 `unverified`로 표시합니다.
-
-YouTube 공개 자막, Threads 자동 수집과 동적 웹페이지 전용 수집기는 조건부입니다. 공식 문서는 사실확인, GitHub는 코드·Issue·Release·라이선스 검증, Reddit은 사용 경험·오류 사례, Threads는 아이디어 발견, YouTube는 공개 자막 확보 시 내용 분석에 사용합니다. Reddit과 Threads의 개인 의견은 검증된 사실로 취급하지 않습니다.
-
-### V2가 뒤에서 처리하는 것
-
-- 공통 Source Schema, 출처 URL, 수집 시각과 Checksum
-- 실제 접근 범위와 사실·주장·추정·추천 분리
-- 공식 자료 교차검증과 `needs_more_source`
-- 수집 실패의 Core 격리
-- 사용자 승인 전 후보 자동 등록 차단
-- 조사만으로 제품 코드·설정·패키지 변경 금지
-- 승인 후에만 Quick 또는 Standard Change Run 연결
-
-기존 Browser·PDF·GitHub 도구를 먼저 사용합니다. 안전한 읽기·측정은 백그라운드에서 수행할 수 있지만 설치·삭제·외부 전송·운영 변경은 사용자 승인이 필요합니다. Trafilatura는 정적 본문 추출 개선이 확인될 때만 조건부이며 Crawl4AI는 동적 페이지 문제가 실제로 확인될 때까지 보류합니다. 로그인 우회, 쿠키 사용과 Threads 무단 대량 Scraping은 금지합니다. 초기에는 동시 조사 작업을 하나만 허용하며 Queue·Worker·DB를 만들지 않습니다.
-
-```yaml
-id: source_adapters
-decision_status: adopted
-lifecycle_status: proposed
-```
-
-## PM4 — AI 의도 정합성
-
-### 이번 단계에서 생기는 기능
-
-```text
-자연어 요청
-→ V2와 구현 AI의 이해 비교
-→ 일치하면 제작
-→ 오해하면 구현 전에 차단
-→ 정말 모호할 때 질문 하나
-```
-
-### V2가 뒤에서 처리하는 것
-
-- `speckit-analyze`, Intent Packet과 Intent Receipt
-- 핵심 용어, 올바른 예·잘못된 예와 시각 Reference
-- 변경 허용·금지 범위와 Acceptance Checks
-- 불일치 차단, 모호성 질문 하나와 오류 보고서
-- AI 역할 Adapter 계약 경계
-
-PM1부터 Antigravity 지시서에 간단한 수동 Intent Receipt를 사용하고 PM4에서 공식 Core 기능으로 일반화합니다.
-
-```yaml
-roles:
-  planner:
-    provider: codex
-  implementer:
-    provider: antigravity
-  verifier:
-    provider: codex
-```
-
-이 구조는 Provider 교체 구현 완료를 의미하지 않습니다. PM4에서는 여러 AI 자동 선택, Provider Marketplace, 비용 자동 최적화, 자동 Fallback, Paseo·OpenClaw 연결과 사용자의 AI 선택 화면을 구현하지 않습니다. 실제 Provider 교체 시험은 필요가 확인된 뒤 별도 후보로 진행합니다.
-
-```yaml
-id: ai_role_adapter
-decision_status: adopted_as_architecture_boundary
-lifecycle_status: proposed
-```
-
-## 마일스톤별 도구 조사 원칙
-
-각 PM 구현 직전에 다음 순서로 조사합니다.
-
-```text
-현재 설치 Skill
-→ 기존 코드와 공식 기능
-→ 검증된 GitHub 오픈소스
-→ 공식 문서
-→ 최소 직접 구현
-```
-
-각 단계에서 현재 도구, 비어 있는 역할, 추가 후보 최대 2개, 중복, 라이선스, 설치 필요성과 가장 작은 격리 실험을 보고합니다. 도구를 발견했다는 이유만으로 설치하지 않습니다. Antigravity 환경 감사 기준 현재 추가 Skill은 설치하지 않으며 `code-reviewer`는 필요 발생 시, `diagnosing-bugs`는 반복 디버깅 실패 시에만 재검토합니다.
-
-## 후보 판정
-
-### 채택
-
-- PM1 최소 조립식 기반·얇은 UI와 Hybrid H
-- PM2 직접 부분 수정
-- PM3 Source Adapter 공통 구조
-- PM4 Intent 정합성
-- 최소 오류 보고서
-- AI 역할 Adapter 경계
-
-### 조건부
-
-- shadcn/ui
-- Tweakpane
-- Trafilatura
-- YouTube 공개 자막
-- Threads 사용자 공유
-- Reddit 공개 자료
-- GitHub 전용 Adapter
-
-### 보류
-
-- Crawl4AI
-- Paseo
-- OpenClaw
-- Galaxy 실제 연결
-- Package Registry
-- 고객 OS
-- Runtime Plugin
-- Promptfoo
-- GitHub MCP 쓰기
-
-### 폐기 기록
-
-```yaml
-- id: web_chatgpt_dom_automation
-  reason: UI 변경과 로그인 상태에 취약하고 공식 연결이 아님
-  reconsider_when: 공식 API 또는 승인된 Connector가 같은 목적을 제공할 때
-- id: login_cookie_bypass
-  reason: 개인정보·계정·서비스 정책 위험
-  reconsider_when: 공식 인증 API와 사용자 승인 범위가 제공될 때
-- id: threads_bulk_scraping
-  reason: 무단 대량 수집과 서비스 정책 위험
-  reconsider_when: 공식 API와 명확한 사용 권한이 제공될 때
-- id: ui_direct_run_yaml_write
-  reason: Core 상태 소유권과 충돌
-  reconsider_when: 없음
-- id: ui_arbitrary_shell
-  reason: Project Registry와 실행 권한 경계를 우회
-  reconsider_when: 없음
-- id: generic_workflow_engine
-  reason: 현재 V2 단일 Orchestrator와 중복되는 과설계
-  reconsider_when: 검증된 Core로 표현할 수 없는 반복 흐름이 생길 때
-- id: default_rag_vector_db
-  reason: 현재 파일·Run·공식 자료 검색으로 충분
-  reconsider_when: 자료 규모 때문에 검색 품질 저하가 반복 검증될 때
-- id: runtime_plugin_marketplace
-  reason: Package Registry 이전 단계에 불필요한 권한·유지보수 부담
-  reconsider_when: 검증된 Module Registry가 안정화된 뒤
-- id: puck_full_editor
-  reason: PM2의 제한된 부분 수정 범위를 초과
-  reconsider_when: 사용자 요구가 범용 페이지 편집으로 확정될 때
-- id: free_drag_resize_dashboard
-  reason: 얇은 UI의 안정된 Shell과 초보자 흐름을 해침
-  reconsider_when: 고정 레이아웃으로 해결되지 않는 사용성 증거가 생길 때
-```
+목적·기능·제외 범위·PASS·의존성·오류·복구 계약은 이 문서에 중복 기록하지 않고 [[POST_MVP_FINAL_DESIGN]]을 따릅니다.
 
 ## 현재 다음 작업
 
 ```text
-MIX-1 화면·핵심 상태별 visual_target 생성
-→ 사용자 시각 승인
-→ Image-to-Code와 1440×950·430px·390px Fidelity 검증
+PM0 전용 Worktree
+→ 남은 운영 Blocker 확인
+→ Preflight 재실행
+→ 사용자 확인
+→ PM0 PASS와 독립 Result Commit
+→ PM1 제품 구현 Gate 개방
 ```
 
-기존 Product Design Ideate, Product Design Image-to-Code, frontend-app-builder, Product Design Audit, frontend-testing-debugging과 Browser를 우선 사용하며 새 UI 라이브러리를 설치하지 않습니다.
+PM0 PASS 전에도 PM1 Concept Sample과 Visual Target 후보 설계는 가능하지만 실제 제품 UI·Core 연결 구현은 금지합니다.
+
+## PM 완료 저장 규칙
+
+각 PM은 다음 조건 이후 별도 Result Commit 하나로 완료합니다.
+
+- PM PASS 기준 완료
+- Codex 검증 PASS
+- 사용자 결과 PASS
+- 허용 경로만 포함
+- Rollback·Restore 증거
+- Wiki·CURRENT_STATE 갱신
+
+사용자 Dirty 변경, 실패·진단 Run, Cache·Temp와 다음 PM 작업은 완료 Commit에서 제외합니다.
+
+## PM3 디자인 Reference Workflow
+
+새 PM이나 항상 실행되는 Agent를 만들지 않습니다. PM3 안에서 요청 시 다음 제한형 Workflow를 실행합니다.
+
+```text
+Collector
+→ Analyzer
+→ 사용자 Curator
+→ Versioned Reference Collection
+→ PM5 Reference Mix
+```
+
+자동 채택, 무단 대량 Scraping, Queue·Worker·별도 DB는 현재 범위에서 제외합니다.

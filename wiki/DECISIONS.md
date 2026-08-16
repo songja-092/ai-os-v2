@@ -152,7 +152,16 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - 한 번에 하나의 후보만 작은 실제 화면에서 시험하며 기존 방식보다 명확한 효용이 증명될 때만 기본 부품으로 승격합니다. 효용이 없거나 충돌하면 제거하고 도입 전 Git 복구점으로 돌아갑니다.
 - Galaxy Preview가 실제 설치·검증되기 전에는 실제 기기 확인을 이 후보들의 필수 PASS 조건으로 만들지 않습니다.
 
-## Post-MVP PM1~PM4
+## Post-MVP PM0~PM7 — 최신 확정 기준
+
+- ✅ 설계 완료: 공식 Post-MVP 구조는 `PM0 운영환경 준비 → PM1 대시보드·프로젝트 작업실 → PM2 로컬 프로젝트 관리 → PM3 자료·디자인 Reference 수집 → PM4 사용자 의도 확인 → PM5 디자인 다양성 생성·비교 → PM6 최신 디자인·모션·부분 수정 → PM7 전체 통합·최종 검증·결과 전달`입니다.
+- 이전 PM1~PM4 번호 체계는 설계 역사로 보존하지만 최신 구현 순서로 사용하지 않습니다.
+- PM3 디자인 Reference 수집은 항상 실행되는 Agent가 아니라 요청 시 한 건씩 실행되는 `Collector → Analyzer → 사용자 Curator` Workflow입니다. 자동 채택·대량 Scraping·별도 Queue·Worker·DB는 제외합니다.
+- PM5는 PM3 Reference를 사용해 구조적으로 다른 디자인 후보를 생성하며 색상만 다른 후보는 다양성 PASS로 인정하지 않습니다.
+- 각 PM은 검증 PASS·사용자 PASS·복구 증거 뒤 별도 Result Commit 하나로 완료하고 다음 PM 변경과 사용자 Dirty 파일을 섞지 않습니다.
+- 상세 목적·기능·제외·PASS·의존성은 [[POST_MVP_FINAL_DESIGN]]을 단일 최신 기준으로 사용합니다.
+
+## Post-MVP PM1~PM4 — 이전 설계 기록
 
 - 📝 기획 확정: `PM1 최소 조립식 기반 + 얇은 UI → PM2 직접 부분 수정 → PM3 조사·자료 수집·병목 진단 → PM4 AI 의도 정합성` 순서로 진행합니다. `AI OS V2 Core MVP M1~M7`의 완료 기록과 PASS 조건은 변경하지 않습니다.
 - PM1은 정적 Project·Module Registry와 고정 UI Slot의 최소 조립식 기반, 프로젝트 홈, Preview 중심 작업실, `ui-state`/`ui-action`, 허용 Action, Preview 장애 격리와 최소 오류 보고서를 제공합니다.

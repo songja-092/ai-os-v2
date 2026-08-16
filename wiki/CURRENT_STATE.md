@@ -2,7 +2,7 @@
 
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
 
-현재 `M7 — PDF 도면 스탬프 MVP E2E`까지 구현·독립 검증·사용자 승인·Result Commit·Rollback/Restore가 완료됐습니다. M7 공식 Run은 `run-c0a968f3`, 제품 Result Commit은 `3b592c8`입니다. 최초 intake 입력은 1페이지 PDF(`c5573243…`)이며, 다중 페이지 확정 범위의 최종 검증에는 별도의 2페이지 입력(`bb59d680…`)과 기호가 합성된 출력(`d40efdb…`)을 사용했습니다. 최초 입력이 바뀐 것이 아니라 검증 범위가 확장되어 별도 Artifact가 추가된 것입니다. 이로써 `AI OS V2 Core MVP M1~M7`은 검증 완료·동결 상태입니다. 현재 활성 단계는 `PM1 — 최소 조립식 기반 + 얇은 UI`이며 공식 디자인 방식은 `Hybrid H`입니다. `run-ef4986d7`에서 MIX-1 방향과 구조 Draft는 보존됐지만 클릭형 Preview v1은 `rejected_visual_fidelity`이며 구현 입력으로 사용할 수 없습니다. PM1 실제 구현은 시작하지 않았습니다.
+현재 `M7 — PDF 도면 스탬프 MVP E2E`까지 구현·독립 검증·사용자 승인·Result Commit·Rollback/Restore가 완료됐습니다. M7 공식 Run은 `run-c0a968f3`, 제품 Result Commit은 `3b592c8`입니다. 이로써 `AI OS V2 Core MVP M1~M7`은 검증 완료·동결 상태입니다. Post-MVP `PM0~PM7` 설계는 [[POST_MVP_FINAL_DESIGN]]에서 완료됐습니다. 현재 구현 Gate는 `PM0 — 운영환경 준비`이며, PM0 PASS 전에도 PM1 Concept Sample·설계 Preview는 가능하지만 PM1 제품 UI와 Core 연결 구현은 금지합니다. `run-ef4986d7`의 기존 Preview v1은 `rejected_visual_fidelity`로 보존하며 구현 입력으로 사용하지 않습니다.
 
 M2 공식 검증 Run은 `run-05dbfc27`입니다. `execution_mode: skills`, `workflow_run_id: null`인 동일 Run에서 Specify, 승인 전 Plan 차단, Spec 본문 수정과 Version 증가, 승인, Plan Artifact 생성과 새 프로세스 재조회를 확인했습니다.
 
@@ -41,8 +41,11 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 
 ## 다음 단계
 
-- Post-MVP 공식 순서는 `PM1 최소 조립식 기반 + 얇은 UI → PM2 직접 부분 수정 → PM3 조사·자료 수집·병목 진단 → PM4 AI 의도 정합성`입니다. 후보 판정과 구현 상태를 분리하며 현재 PM1~PM4는 기획 확정, 구현 전 상태입니다. PM3 첫 검증은 새 프로젝트 조사 1건과 기존 프로젝트 병목 진단 1건으로 제한하고 PM4는 Intent 불일치 차단만 구현합니다.
-- PM1은 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계와 정적 Project·Module Registry, 고정 UI Slot, Design Recipe를 사용합니다. 다음 한 작업은 MIX-1의 화면·핵심 상태별 `visual_target`을 만들고 사용자 시각 승인을 받는 것입니다. Fidelity PASS 전에는 실제 PM1 UI를 구현하지 않습니다.
+- Post-MVP 공식 순서는 `PM0 운영환경 준비 → PM1 대시보드·프로젝트 작업실 → PM2 로컬 프로젝트 관리 → PM3 자료·디자인 Reference 수집 → PM4 사용자 의도 확인 → PM5 디자인 다양성 생성·비교 → PM6 최신 디자인·모션·부분 수정 → PM7 전체 통합·최종 검증·결과 전달`입니다.
+- 설계 상태는 `completed`, 실제 구현 상태는 PM0 Gate 진행 전입니다. 다음 한 작업은 PM0 전용 Worktree에서 남은 운영 Blocker를 확인하고 Preflight를 재실행하는 것입니다.
+- PM1은 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계를 유지하는 얇은 UI입니다. 사용자 승인 Visual Target과 Fidelity PASS 전에는 제품 UI 구현을 시작하지 않습니다.
+- PM3의 디자인 Reference 수집은 요청 시 실행되는 제한형 `Collector → Analyzer → 사용자 Curator` Workflow이며, 실제 디자인 후보 생성은 PM5가 담당합니다.
+- 각 PM은 PM PASS·Codex 검증·사용자 PASS·Rollback/Restore 이후 별도 Result Commit 하나로 완료합니다.
 - M5의 수집·분석·레시피 선택 Core와 M6의 Quick Change Run·AI 부분 수정·회귀·복구 흐름, 그리고 M7 모바일 PDF 도면 스탬프 `local_product` E2E 구현 및 사용자 검증을 완료했습니다.
 - 사용자에게는 `원하는 것을 말하기 → 추천 결과 또는 시안 고르기 → 실제 결과를 확인하고 완료 또는 수정 말하기`만 보이며, 기본 행동은 `[추천대로 진행]`과 `[직접 선택]`으로 단순화합니다.
 - 자동 인터넷 크롤러, 별도 수집 서버·DB, 학습기, Dashboard UI와 Multi-Agent는 M5 범위에 포함하지 않습니다.
@@ -50,4 +53,4 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 - Supabase의 Auth·Postgres·RLS·Migration·검증·배포 흐름은 병원 파일럿에 추가하지 않고, 데이터 저장이 승인된 후속 프로젝트의 조건부 Full-stack 레시피 후보로 둡니다.
 - M5의 공식 분석 요청은 `PDF 도면 위에 스탬프를 배치·이동·크기 조절하고 원본을 보존한 채 새 PDF로 저장`이며, 구현이나 패키지 설치 없이 최대 두 개의 현실적인 레시피와 다음 작업 하나만 제시합니다.
 - M7은 M5에서 선택한 레시피로 모바일 PDF 도면 스탬프 `local_product`를 E2E 검증 및 승인 받았습니다.
-- Core MVP 이후 첫 단계는 PM1 최소 조립식 기반과 얇은 UI입니다. 디자인은 Hybrid H를 따르며 PM2는 `HERO-01` 직접 부분 수정, PM3는 새 프로젝트 조사와 기존 프로젝트 병목 진단, PM4는 Intent 정합성과 AI 역할 Adapter 경계만 검증합니다. 다른 세션은 [[PM1_HANDOFF]] · [GitHub 링크](PM1_HANDOFF.md)에서 이어갑니다.
+- 다른 세션은 [[GPT_SESSION_CHANGE_CONTINUATION_HANDOFF]]와 [[POST_MVP_FINAL_DESIGN]]에서 이어갑니다. 과거 [[PM1_HANDOFF]]의 PM1~PM4 번호 체계는 역사적 기준이며 현재 PM0~PM7을 덮어쓰지 않습니다.

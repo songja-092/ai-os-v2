@@ -1,5 +1,7 @@
 # Verification
 
+> Post-MVP 최신 PM0~PM7 PASS 기준은 [[POST_MVP_FINAL_DESIGN]]을 사용합니다. 아래 PM1~PM4 연속 실행 문구는 이전 설계 기록이며 최신 Roadmap을 덮어쓰지 않습니다.
+
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다. Gate와 완료 판정은 이 표준을 기준으로 검증합니다.
 
 ## Required checks

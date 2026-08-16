@@ -1,5 +1,7 @@
 # PM1 Thin UI Handoff
 
+> 역사적 문서: 이 문서의 PM1~PM4 번호 체계는 [[POST_MVP_FINAL_DESIGN]]의 PM0~PM7 구조로 대체됐습니다. PM1 Thin UI 기술 계약은 참고할 수 있지만 현재 단계·다음 PM·전체 Roadmap 판정에는 사용하지 않습니다. 새 세션은 [[GPT_SESSION_CHANGE_CONTINUATION_HANDOFF]]에서 시작합니다.
+
 작성일: 2026-08-15
 목적: 새 Codex 세션이 과거 대화를 다시 읽지 않고 Post-MVP PM1부터 안전하게 이어가기 위한 공식 인수인계입니다.
 

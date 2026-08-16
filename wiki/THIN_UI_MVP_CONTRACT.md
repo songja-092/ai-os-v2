@@ -1,5 +1,7 @@
 # V2 Thin UI MVP Contract
 
+> 현재 PM0~PM7 구조에서 이 계약은 `PM1 — 대시보드·프로젝트 작업실`의 Thin UI 기술 경계로 계속 유효합니다. 전체 순서와 PASS 기준의 최신 원본은 [[POST_MVP_FINAL_DESIGN]]입니다.
+
 이 문서는 `AI OS V2 Core MVP` 위에 제작할 Post-MVP `PM1 — 최소 조립식 기반 + 얇은 UI`의 승인된 설계 계약입니다. UI·Registry 코드 또는 새 상태 저장소를 구현했다는 의미가 아닙니다.
 
 ## 1. Core 경계와 데이터 흐름
