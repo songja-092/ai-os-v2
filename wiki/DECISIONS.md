@@ -132,7 +132,9 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 ## UI와 복구 안전
 
 - 📝 승인됨: 얇은 UI MVP는 [[THIN_UI_MVP_CONTRACT]] · [GitHub 링크](THIN_UI_MVP_CONTRACT.md)의 다섯 계약을 공식 기준으로 사용합니다. UI는 Core 상태의 읽기·명령 전달 계층이며 YAML 직접 수정, 임의 Shell 실행, 상태·Action 추론을 금지합니다.
-- 📝 승인됨: 프로젝트별 Run 선택과 Preview 프로세스를 격리하고, 최초 검증은 Preview 장애가 Core·다른 프로젝트·과거 결과에 전파되지 않는지를 우선 확인합니다. 기존 이미지 시안 5장은 참고자료로 보존하며 실제 구현 전 [[ui-reference-mix]] · [GitHub 링크](ui-reference-mix.md)를 반영한 모바일 우선 클릭형 Preview A/B를 사용자에게 제시합니다.
+- 📝 승인됨: PM1은 `최소 조립식 기반 + 얇은 UI`입니다. Project Registry와 Capability/Module Registry는 Core가 검증하는 정적 허용 목록이며 Marketplace나 외부 코드 Runtime이 아닙니다. 고정 Slot은 `project_home`, `workspace_preview`, `workspace_tools`, `background_capability`이며 Module 실패는 Core·다른 프로젝트와 격리합니다.
+- 📝 승인됨: PM1 공식 디자인 방식은 Hybrid H입니다. A/B/C 탐색과 MIX-1 선택 뒤 화면·핵심 상태별 `visual_target`을 승인받고 Image-to-Code와 동일 Viewport Fidelity를 거칩니다. Fidelity PASS 이후 코드만 디자인 원본으로 승격합니다.
+- 📝 판정됨: `run-ef4986d7`의 클릭형 Preview v1은 상호작용·반응형 구조 증거로 보존하지만 `rejected_visual_fidelity`이며 디자인 승인·구현 입력·Reference 등록에 사용할 수 없습니다.
 - M1~M4에서는 전용 V2 UI를 구현하지 않고 Spec Kit 상태와 Obsidian의 Run 기록으로 Core를 검증합니다.
 - Dashboard UI는 Core MVP 이후 후보입니다. 먼저 M5~M7에서 수집·분석·레시피 선택, Change Run과 전체 제작 사이클을 실제 상태로 검증합니다.
 - Core MVP 당시 웹 Preview는 사용자가 승인한 `localhost` 또는 `127.0.0.1` 개발 서버 하나만 지원했고 Phone·Tablet·Desktop 전환은 제외했습니다. Post-MVP PM1 클릭형 Preview에서는 구현 전 사용성 검증을 위해 390px·430px·PC 기준을 비교하되 임의 외부 주소나 실행 명령은 허용하지 않습니다.
@@ -152,8 +154,8 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 
 ## Post-MVP PM1~PM4
 
-- 📝 기획 확정: `PM1 얇은 UI → PM2 직접 부분 수정 → PM3 조사·자료 수집·병목 진단 → PM4 AI 의도 정합성` 순서로 진행합니다. `AI OS V2 Core MVP M1~M7`의 완료 기록과 PASS 조건은 변경하지 않습니다.
-- PM1은 프로젝트 홈, Preview 중심 작업실, `ui-state`/`ui-action`, Project Registry, 허용 Action, Preview 장애 격리와 최소 오류 보고서를 제공합니다.
+- 📝 기획 확정: `PM1 최소 조립식 기반 + 얇은 UI → PM2 직접 부분 수정 → PM3 조사·자료 수집·병목 진단 → PM4 AI 의도 정합성` 순서로 진행합니다. `AI OS V2 Core MVP M1~M7`의 완료 기록과 PASS 조건은 변경하지 않습니다.
+- PM1은 정적 Project·Module Registry와 고정 UI Slot의 최소 조립식 기반, 프로젝트 홈, Preview 중심 작업실, `ui-state`/`ui-action`, 허용 Action, Preview 장애 격리와 최소 오류 보고서를 제공합니다.
 - PM2는 `HERO-01` 하나의 제한된 직접 조절을 Draft Preview와 Quick Change Run으로 적용하고 Commit·Rollback/Restore를 검증합니다.
 - PM3는 본문·Markdown·PDF·일반 웹뿐 아니라 GitHub 저장소·README·Issue·Release와 Reddit 게시글·댓글, 사용자가 제공한 Threads 자료를 공통 Source Schema로 처리합니다. 첫 검증은 새 프로젝트 조사 1건과 기존 프로젝트 병목 진단 1건으로 제한하고, 증거가 없는 병목은 `unverified`로 표시하며 승인 전 제품을 변경하지 않습니다.
 - PM4는 Intent Packet·Receipt와 Acceptance Checks의 불일치 차단만 Core 기능으로 일반화합니다. AI 역할 Adapter는 설계 경계이며 Provider 자동 교체·Marketplace·Fallback은 구현하지 않습니다.

@@ -1,6 +1,6 @@
 # V2 Thin UI MVP Contract
 
-이 문서는 `AI OS V2 Core MVP` 위에 제작할 Post-MVP `PM1 — 얇은 UI`의 승인된 설계 계약입니다. UI 코드, 클릭형 Preview 또는 새 상태 저장소를 구현했다는 의미가 아닙니다.
+이 문서는 `AI OS V2 Core MVP` 위에 제작할 Post-MVP `PM1 — 최소 조립식 기반 + 얇은 UI`의 승인된 설계 계약입니다. UI·Registry 코드 또는 새 상태 저장소를 구현했다는 의미가 아닙니다.
 
 ## 1. Core 경계와 데이터 흐름
 
@@ -41,6 +41,16 @@ strict_port: true
 - 프로젝트 추가와 변경은 Registry 검증을 통과해야 합니다.
 - 프로젝트별 고정 Port와 `strict_port: true`를 사용하며 충돌 시 다른 Port로 자동 변경하지 않습니다.
 - 프로젝트마다 Preview 프로세스 하나만 허용하고 프로젝트 전환 시 이전 iframe을 제거합니다.
+
+## 3-1. 최소 조립식 기반
+
+PM1은 고정 V2 Core 위에 `UI Shell`, `Project Registry`, 정적 `Capability/Module Registry`, 고정 UI Slot, Design Recipe와 Project·Feature Adapter 경계를 둡니다.
+
+- Module Registry는 검증된 Manifest만 읽는 정적 허용 목록이며 Marketplace나 외부 코드 Runtime이 아닙니다.
+- 최소 Slot은 `project_home`, `workspace_preview`, `workspace_tools`, `background_capability`입니다.
+- Module은 Run·Gate·Artifact·권한·Action을 직접 수정할 수 없습니다.
+- Module의 `health`, `enabled`, `fallback` 상태는 해당 Module에만 영향을 주며 Core와 다른 프로젝트로 실패를 전파하지 않습니다.
+- Design Recipe는 Design Token, 화면·Section ID, 순서, 컴포넌트, Reference, 모바일 동작과 Version을 Core 상태에서 분리합니다.
 
 ## 4. Core가 허용한 Action만 표시
 
@@ -87,16 +97,21 @@ Preview 준비 완료는 `health_url` 응답과 제품 초기화 상태 신호�
 - `scrcpy`: 선택 기능
 - 기본 화면에서는 Run ID, Commit SHA, 내부 Gate와 기술 로그를 숨깁니다.
 
-## 클릭형 Preview 디자인 기준
+## 공식 디자인 방식 — Hybrid H
 
-- 프로젝트 홈: `B — 프로젝트·다음 행동 중심`
-- 프로젝트 작업실: `A — Preview 중심`
-- 요청 영역: 필요할 때 펼치는 보조 영역
-- 기본 비율: 요청 `25%` / Preview `75%`
-- Preview 집중: 요청 `10%` / Preview `90%`
-- 모바일 진입: 현재 행동에 따라 `프로젝트`, `미리보기`, `진행` 중 하나
-- Reference Mix는 [[ui-reference-mix]] · [GitHub 링크](ui-reference-mix.md)를 따르며 특정 제품의 화면·브랜드·코드·아이콘을 복제하지 않습니다.
-- 기존 이미지 시안 5장은 초기 참고자료이며 공식 UI 승인 결과가 아닙니다.
+```text
+Reference Mix → Design DNA 이미지 탐색 → A/B/C 비교 → 선택·혼합
+→ 화면·핵심 상태별 visual_target → 사용자 시각 승인 → Image-to-Code
+→ 동일 Viewport Fidelity 비교·수정 → Fidelity PASS → 코드가 디자인 원본
+```
+
+- `design-draft.json`은 구조 계약이며 시각 원본을 대신하지 않습니다.
+- 승인된 `visual_target`을 Image-to-Code에 직접 입력합니다.
+- 화면 전체를 한 이미지에 강제하지 않고 화면·핵심 상태별 `visual_target`을 허용합니다.
+- 기준 Viewport는 `1440×950`, `430px`, `390px`입니다.
+- Fidelity는 레이아웃, 정보 우선순위, 타이포그래피, 색상·배경, 표면·테두리, 간격·밀도, 모바일 흐름과 Preview 비중을 확인합니다.
+- Fidelity PASS 이후에만 코드가 공식 `design_source_of_truth`가 됩니다.
+- 이후 변경은 Section ID·Design Token·컴포넌트 단위로 수행하며 큰 방향 변경만 이미지 탐색부터 다시 시작합니다.
 
 ## 현재 상태와 다음 Gate
 
@@ -104,10 +119,12 @@ Preview 준비 완료는 `health_url` 응답과 제품 초기화 상태 신호�
 thin_ui:
   contract_status: approved
   implementation_status: not_started
-  image_mockup_status: reference_only
+  selected_direction: MIX-1
   reference_mix_status: researched
-  clickable_preview_status: not_started
-  next_action: create_mobile_first_clickable_previews_a_b
+  clickable_preview_status: rejected_visual_fidelity
+  current_preview_usage: rejected_design_evidence
+  implementation_input: prohibited
+  next_action: create_and_review_visual_targets
 ```
 
-다음 작업은 같은 계약과 Reference Mix를 반영한 모바일 우선 클릭형 Preview A/B를 비교하는 것입니다. 사용자는 `A`, `B` 또는 `수정 요청`만 선택합니다. 사용자 선택 전에는 실제 PM1 UI, Registry 실행 연결, Preview 프로세스 제어, ADB 연결 또는 새 패키지를 구현하지 않습니다.
+기존 클릭형 Preview는 상호작용·반응형 구조 증거로 보존하지만 시각 충실도 실패로 구현 입력에 사용할 수 없습니다. 다음 작업은 MIX-1의 화면·핵심 상태별 `visual_target`을 만들고 사용자 시각 승인을 받는 것입니다.

@@ -225,3 +225,17 @@ M7 판정은 `✅ 검증됨`이며, 이에 따라 V2 Core MVP 검증이 공식�
 - 사용자에게 `[진행]`, `[나중에]`, `[다른 후보 보기]`를 제시하지만 구현을 자동 시작하지 않습니다.
 - 외부 설치·기존 제품 변경·실제 데이터·권한·DB·배포·삭제는 Gate 없이 실행되지 않습니다.
 - 후보가 실제 환경 검증, 사용자 확인, Commit과 Rollback/Restore를 통과하기 전에는 `verified` 또는 `reusable_recipe`가 될 수 없습니다.
+
+### PM1 최소 조립식 기반·Hybrid H Gate
+
+- [ ] 병원 웹과 PDF 프로젝트가 정적 Project Registry로 각각 열림
+- [ ] PDF Module 비활성화 후에도 Core와 병원 웹이 정상 동작함
+- [ ] 잘못된 Module Manifest가 해당 Module에만 격리됨
+- [ ] Module 복구 후 기존 Artifact를 재사용할 수 있음
+- [ ] 새 프로젝트 등록과 Design Recipe 교체가 Run·Gate·Rollback 경계를 우회하지 않음
+- [ ] 화면·핵심 상태별 승인 `visual_target`과 SHA256이 존재함
+- [ ] Image-to-Code 입력과 도구 실행 증거가 존재함
+- [ ] `1440×950`, `430px`, `390px` 동일 Viewport Fidelity가 PASS함
+- [ ] Fidelity PASS 이후에만 코드가 `design_source_of_truth`로 승격됨
+
+`run-ef4986d7` Preview v1은 기능적 상호작용과 반응형 구조는 통과했지만 시각 충실도는 실패했습니다. Artifact는 `rejected_visual_fidelity` 증거로 보존하며 PM1 구현 입력으로 사용할 수 없습니다.

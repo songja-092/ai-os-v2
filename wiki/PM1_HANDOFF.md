@@ -10,9 +10,11 @@ repository: https://github.com/songja-092/ai-os-v2
 official_branch: main
 core_mvp: M1-M7 completed_and_frozen
 post_mvp_planning: PM1-PM4 approved
-active_milestone: PM1
+active_milestone: PM1_minimum_modular_foundation_and_thin_ui
 pm1_implementation: not_started
-pm1_clickable_preview: not_started
+selected_direction: MIX-1
+design_method: Hybrid_H
+pm1_clickable_preview: rejected_visual_fidelity
 ```
 
 제품 저장소 `/home/user/바탕화면/test_project`의 완료 기준점은 병원 웹 `c970352`, M6 부분 수정 `e2625bb`, M7 PDF 제품 `3b592c8`입니다. 제품 저장소와 V2 저장소를 하나의 Commit처럼 처리하지 않습니다.
@@ -30,7 +32,7 @@ pm1_clickable_preview: not_started
 
 ## 3. Post-MVP 공식 순서
 
-### PM1 — 얇은 UI
+### PM1 — 최소 조립식 기반 + 얇은 UI
 
 사용자가 프로젝트를 선택하고 현재 요청·상태와 실제 Preview를 확인한 뒤 `통과`, `수정 요청`, `중단`을 선택하고 다른 프로젝트로 전환합니다.
 
@@ -59,20 +61,22 @@ UI → ui-action → V2 Core
 - Action에는 `state_version`과 `action_id`를 사용해 stale·중복·다른 프로젝트 요청을 차단합니다.
 - 프로젝트는 Core Project Registry의 고정 경로·Port·시작 명령만 사용합니다.
 - Preview 장애가 Core, 다른 프로젝트와 과거 결과에 전파되면 안 됩니다.
+- Project Registry와 Module Registry는 정적 허용 목록으로 제한합니다.
+- Module은 `project_home`, `workspace_preview`, `workspace_tools`, `background_capability` 고정 Slot만 사용합니다.
+- Module은 Run·Gate·Artifact와 Action 허용 여부를 직접 변경하지 않습니다.
 
-## 5. PM1 클릭형 Preview 기준
+## 5. PM1 Hybrid H 디자인 기준
 
-공식 조합은 다음입니다.
+공식 방향은 MIX-1이며 다음 절차를 사용합니다.
 
 ```text
-프로젝트 홈: B — 프로젝트·다음 행동 중심
-프로젝트 작업실: A — Preview 중심
-요청 영역: 필요할 때 펼침
-기본 비율: 25:75
-Preview 집중: 10:90
+Reference Mix → A/B/C → MIX-1
+→ 화면·핵심 상태별 visual_target → 사용자 시각 승인
+→ Image-to-Code → 동일 Viewport Fidelity PASS
+→ 코드가 디자인 원본
 ```
 
-모바일 우선 순서는 `390px → 430px → PC`입니다. 모바일은 `[프로젝트] [미리보기] [진행]` 세 화면으로 제한합니다. 기존 이미지 시안 5장은 참고자료일 뿐 공식 승인 UI가 아닙니다.
+검증 Viewport는 `1440×950`, `430px`, `390px`입니다. `design-draft.json`은 구조 계약이며 visual target을 대신하지 않습니다. 기존 Preview v1은 `rejected_visual_fidelity`로 보존하고 구현 입력으로 사용하지 않습니다.
 
 Reference Mix는 Linear, Figma Prototype, ChatGPT Canvas, Home Assistant, SafetyCulture와 Shopify POS의 패턴을 각각 1~2개만 사용합니다. 브랜드·색상·이미지·아이콘·소스 코드를 복제하지 않습니다.
 
@@ -91,13 +95,12 @@ Reference Mix는 Linear, Figma Prototype, ChatGPT Canvas, Home Assistant, Safety
 ## 7. 다음 작업 하나
 
 ```text
-Reference Mix 기반 모바일 우선 클릭형 Preview A/B 제작
-→ 390px·430px·PC 검증
-→ 정상·Preview 장애·프로젝트 전환 검증
-→ 사용자 A / B / 수정 요청 대기
+MIX-1 화면·핵심 상태별 visual_target 생성
+→ 사용자 시각 승인
+→ Image-to-Code 및 동일 Viewport Fidelity 검증
 ```
 
-사용자 선택 전 실제 PM1 제품 UI, Core API, Registry 프로세스 제어를 구현하지 않습니다.
+visual target 승인과 Fidelity PASS 전에는 실제 PM1 제품 UI, Core API 또는 Registry 프로세스 제어를 구현하지 않습니다.
 
 ## 8. 사용할 기존 도구
 

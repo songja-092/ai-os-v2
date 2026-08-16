@@ -26,7 +26,7 @@ lifecycle_status: proposed | researched | pilot_ready | implemented | verified
 
 조사하거나 채택했다는 이유만으로 구현·검증 완료로 올리지 않습니다. 재사용 Recipe는 실제 프로젝트 실행, 실패 처리, 사용자 확인, Result Commit과 Rollback/Restore가 필요합니다.
 
-## PM1 — 얇은 UI
+## PM1 — 최소 조립식 기반 + 얇은 UI
 
 ### 이번 단계에서 생기는 기능
 
@@ -48,6 +48,10 @@ lifecycle_status: proposed | researched | pilot_ready | implemented | verified
 - 프로젝트 홈과 프로젝트 작업실
 - `ui-state`, `ui-action`, `allowed_actions`, `state_version`, `action_id`
 - Core가 소유하는 Project Registry와 허용된 고정 실행 명령
+- 정적 허용 목록 방식의 Capability/Module Registry
+- `project_home`, `workspace_preview`, `workspace_tools`, `background_capability` 고정 Slot
+- Module health·enabled·fallback과 실패 격리
+- Versioned Design Recipe와 Project·Feature Adapter 경계
 - 프로젝트별 고정 Port와 Preview Process 소유권
 - stale·중복·다른 프로젝트 Action 차단
 - 실제 Preview와 초기화 상태 신호
@@ -58,7 +62,7 @@ lifecycle_status: proposed | researched | pilot_ready | implemented | verified
 
 ### 디자인 준비
 
-프로젝트 홈은 `B — 프로젝트·다음 행동 중심`, 프로젝트 작업실은 `A — Preview 중심`을 기본 조합으로 사용합니다. 요청 영역은 필요할 때 펼치며 기본 비율은 `25:75`, Preview 집중 모드는 `10:90`입니다. 이는 클릭형 Preview 제작 기준이며 최종 구현 화면 승인이 아닙니다.
+공식 디자인 방식은 `Hybrid H`입니다. Reference Mix와 A/B/C 탐색으로 방향을 선택·혼합한 뒤 화면·핵심 상태별 단일 `visual_target`을 사용자에게 승인받고 Image-to-Code와 동일 Viewport Fidelity 검증을 수행합니다. Fidelity PASS 이후부터 코드가 공식 디자인 원본입니다. `design-draft.json`만으로 구현을 시작하지 않습니다.
 
 Reference Mix는 PM1 내부 절차이며 [[ui-reference-mix]] · [GitHub 링크](ui-reference-mix.md)의 여섯 제품에서 각각 1~2개 패턴만 사용합니다. 기존 이미지 시안 5장은 초기 참고자료로 보존하되 공식 UI 승인 결과로 사용하지 않습니다.
 
@@ -71,7 +75,7 @@ Reference Mix는 PM1 내부 절차이며 [[ui-reference-mix]] · [GitHub 링크]
 
 ### 완료 기준
 
-모바일 우선 클릭형 Preview A/B에서 프로젝트 선택, 실제 Preview, 정상·장애·프로젝트 전환, 사용자 Action을 확인하고 사용자가 `A`, `B` 또는 수정안을 명시적으로 선택합니다. 이후 실제 UI가 Core 계약을 지키고 Result Commit과 Rollback/Restore까지 통과해야 PM1을 완료합니다.
+조립식 기반의 Registry·Slot·Module 실패 격리, 승인된 visual target의 Fidelity, 프로젝트 선택·실제 Preview·장애·전환·사용자 Action을 검증합니다. 이후 실제 UI가 Core 계약을 지키고 Result Commit과 Rollback/Restore까지 통과해야 PM1을 완료합니다.
 
 ```yaml
 id: thin_ui
@@ -213,7 +217,7 @@ lifecycle_status: proposed
 
 ### 채택
 
-- PM1 얇은 UI와 Reference Mix
+- PM1 최소 조립식 기반·얇은 UI와 Hybrid H
 - PM2 직접 부분 수정
 - PM3 Source Adapter 공통 구조
 - PM4 Intent 정합성
@@ -280,9 +284,9 @@ lifecycle_status: proposed
 ## 현재 다음 작업
 
 ```text
-Reference Mix를 반영한 모바일 우선 클릭형 Preview A/B 제작
-→ 390px·430px·PC 및 정상·장애·프로젝트 전환 검증
-→ 사용자 A / B / 수정 요청
+MIX-1 화면·핵심 상태별 visual_target 생성
+→ 사용자 시각 승인
+→ Image-to-Code와 1440×950·430px·390px Fidelity 검증
 ```
 
-클릭형 Preview에는 기존 Product Design Ideate, frontend-app-builder, Product Design Audit, frontend-testing-debugging과 Browser만 사용하며 새 UI 라이브러리를 설치하지 않습니다.
+기존 Product Design Ideate, Product Design Image-to-Code, frontend-app-builder, Product Design Audit, frontend-testing-debugging과 Browser를 우선 사용하며 새 UI 라이브러리를 설치하지 않습니다.

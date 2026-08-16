@@ -1,0 +1,25 @@
+run_id: "run-ef4986d7"
+run_type: "feature"
+request: "PM1_DESIGN_PREVIEW_AB — AI OS V2 PM1 화면 구조와 톤앤매너 선택을 위한 하나의 클릭형 A/B 디자인 프로토타입을 순수 HTML, CSS, JavaScript로 준비한다. A는 Preview 우선 작업실, B는 프로젝트·다음 행동 우선 홈이며 실제 제품 구현이나 Core 연결은 하지 않는다."
+stage: "design_preview"
+status: "active"
+created_at: "2026-08-16T03:05:14Z"
+git_safety_at_creation: "PASS"
+requirements_version: 1
+requirements_status: "approved"
+requirements_artifact: "/home/user/바탕화면/V2_UI/pm1-clickable-preview/specs/001-pm1-design-preview/spec.md"
+requirements_checklist: "/home/user/바탕화면/V2_UI/pm1-clickable-preview/specs/001-pm1-design-preview/checklists/requirements.md"
+execution_path: "standard"
+approval: {"status": "approved", "approved_version": 1, "approved_at": "2026-08-16T03:10:08Z"}
+next_stage_allowed: true
+memory: {"official_branch": "main", "official_commit": "da33544fac365e6915aad73ec533124d12309803"}
+v2_workspace: {"branch": "antigravity/v2-m1-run-core", "head": "da33544fac365e6915aad73ec533124d12309803"}
+project: {"path": "/home/user/바탕화면/V2_UI/pm1-clickable-preview", "branch": "main", "base_commit": "f4670f10d949edfd560d43dd69c4bb624da321f4"}
+integrations: {"spec_kit": {"execution_mode": "skills", "workflow_run_id": null}}
+is_legacy: false
+planning_artifact: "/home/user/바탕화면/V2_UI/pm1-clickable-preview/specs/001-pm1-design-preview/plan.md"
+design_exploration: {"version": 1, "status": "selected_direction_ready_for_design_draft", "artifact_type": "imported_external_visual_exploration", "artifact_path": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-artifacts/run-ef4986d7/v1", "manifest_path": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-artifacts/run-ef4986d7/v1/manifest.json", "generated_inside_run": false, "selected_direction": "MIX-1", "selected_components": ["A", "B", "C"], "user_result": "approved_visual_direction", "reference_count": 6, "reference_library_registered": false, "design_draft": {"status": "ready_to_create", "next_version": 1}}
+design_draft: {"version": 1, "status": "structure_preserved_visual_target_required", "selected_direction": "MIX-1", "artifact_path": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-drafts/run-ef4986d7/v1", "draft_path": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-drafts/run-ef4986d7/v1/design-draft.json", "source_exploration_version": 1, "user_result": "approved_structure_only", "ui_implementation": "not_started"}
+design_preview: {"version": 1, "status": "rejected_visual_fidelity", "artifact_path": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-previews/run-ef4986d7/v1", "preview_url": "http://127.0.0.1:8200/design-previews/run-ef4986d7/v1/", "source_draft_version": 1, "section_id_count": 9, "reference_count": 6, "builder_evidence": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-previews/run-ef4986d7/v1/evidence/builder-invocation.json", "testing_evidence": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-previews/run-ef4986d7/v1/evidence/verification.json", "audit_evidence": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-previews/run-ef4986d7/v1/evidence/product-design-audit.md", "functional_interaction": "pass", "responsive_structure": "pass", "visual_fidelity": "fail", "design_quality": "not_approved", "implementation_input": "prohibited", "artifact_status": "rejected_design_evidence", "user_result": "rejected_visual_fidelity", "ui_implementation": "not_started"}
+design_standard: {"method": "Hybrid_H", "selected_direction": "MIX-1", "visual_target_scope": "screen_and_key_state", "visual_target_status": "required", "design_source_of_truth": "not_established", "baseline_viewports": ["1440x950", "430px", "390px"]}
+implementation_gate: "blocked_visual_target_and_fidelity_required"
