@@ -2,7 +2,7 @@
 
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
 
-현재 `M7 — PDF 도면 스탬프 MVP E2E`까지 구현·독립 검증·사용자 승인·Result Commit·Rollback/Restore가 완료됐습니다. M7 공식 Run은 `run-c0a968f3`, 제품 Result Commit은 `3b592c8`입니다. 이로써 `AI OS V2 Core MVP M1~M7`은 검증 완료·동결 상태입니다. Post-MVP 설계는 [[POST_MVP_PM0_PM6_BASELINE]]의 `PM0~PM6`으로 완료됐으며 완료 범위와 미구현 항목은 [[POST_MVP_DESIGN_COMPLETION_REPORT]]에 기록합니다. 현재 구현 Gate는 `PM0 — 운영환경 준비`이며 PM0 PASS 전에는 실제 Post-MVP 구현을 시작하지 않습니다. `run-ef4986d7`의 기존 Preview v1은 `rejected_visual_fidelity`로 보존하며 구현 입력으로 사용하지 않습니다.
+현재 `M7 — PDF 도면 스탬프 MVP E2E`까지 구현·독립 검증·사용자 승인·Result Commit·Rollback/Restore가 완료됐습니다. M7 공식 Run은 `run-c0a968f3`, 제품 Result Commit은 `3b592c8`입니다. 이로써 `AI OS V2 Core MVP M1~M7`은 검증 완료·동결 상태입니다. Post-MVP 설계는 [[POST_MVP_PM0_PM6_BASELINE]]의 `PM0~PM6`으로 완료됐으며 완료 범위와 미구현 항목은 [[POST_MVP_DESIGN_COMPLETION_REPORT]]에 기록합니다. `PM0 — 운영환경 준비`는 기술 Preflight와 격리 재현을 통과했고, 사용자가 외부 Backup·표본 Restore만 후속으로 유예한 조건으로 PASS했습니다. 현재 활성 단계는 `PM1 — 디자인 탐색·채택 방식 시험`이며 어느 채택 방식도 아직 V2 기본 방식으로 확정되지 않았습니다. `run-ef4986d7`의 기존 Preview v1은 `rejected_visual_fidelity`로 보존하며 구현 입력으로 사용하지 않습니다.
 
 M2 공식 검증 Run은 `run-05dbfc27`입니다. `execution_mode: skills`, `workflow_run_id: null`인 동일 Run에서 Specify, 승인 전 Plan 차단, Spec 본문 수정과 Version 증가, 승인, Plan Artifact 생성과 새 프로세스 재조회를 확인했습니다.
 
@@ -42,7 +42,7 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 ## 다음 단계
 
 - Post-MVP 공식 순서는 `PM0 운영환경 준비 → PM1 디자인 탐색·채택 → PM2 조립식 V2 보드 → PM3 부분 수정 → PM4 자료 조사 → PM5 사용자 의도 정합성 → PM6 전체 통합·최종 검증`입니다.
-- 설계 상태는 `completed`, 실제 구현 상태는 PM0 Gate 진행 전입니다. 다음 한 작업은 PM0 전용 Worktree에서 남은 운영 Blocker를 확인하고 Preflight를 재실행하는 것입니다.
+- 설계 상태는 `completed`, PM0 상태는 `pass_with_user_deferred_backup`, 현재 활성 단계는 PM1입니다. 다음 한 작업은 [[PM1_REFERENCE_BRIEF]]를 기준으로 Reference 10개 이상을 조사하고 출처·라이선스·접근·구현 가능성을 기록하는 것입니다.
 - PM1은 검증된 외부 구조·현재안·필요 시 AI 보완안을 같은 V2 데이터로 비교하고 Visual Target을 승인하는 디자인 품질 Gate입니다.
 - PM2는 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계와 Slot·Module을 실제 구현하는 조립 기능 Gate입니다.
 - 디자인 Reference 수집은 PM1, 일반 자료·병목 조사는 PM4에서 요청 시 제한형 Workflow로 수행합니다.
@@ -58,6 +58,7 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 - 실제 휴대폰 연결은 고객 결과물 검증을 위한 선택형 Adapter입니다. USB + `adb reverse`를 기본 후보로 하고 실패 시 390·430 Browser Preview로 전환하며 Cloud Sync·개인 파일 동기화·무선 외부 공개는 포함하지 않습니다.
 - 자동 인터넷 크롤러, 별도 수집 서버·DB, 학습기, Dashboard UI와 Multi-Agent는 M5 범위에 포함하지 않습니다.
 - 디자인 레시피는 현재 설치된 Product Design·frontend-app-builder·UI UX Pro Max를 우선 재사용합니다. Taste와 Google Stitch Skills는 미설치 후보이며 실제 작은 검증 전에는 채택 또는 검증됨으로 기록하지 않습니다.
+- Google Drive는 외부 Backup 후보이지만 사용자가 이번 PM1 시험에서는 Backup·Restore 검증을 유예했습니다. NotebookLM은 PM1·PM4의 수동 출처 비교 보조, Google Stitch는 PM1의 선택형 생성 후보, Lighthouse·PageSpeed Insights는 PM2 이후 고객 결과물 검증 도구로만 평가하며 Core 필수 의존성으로 연결하지 않습니다.
 - Supabase의 Auth·Postgres·RLS·Migration·검증·배포 흐름은 병원 파일럿에 추가하지 않고, 데이터 저장이 승인된 후속 프로젝트의 조건부 Full-stack 레시피 후보로 둡니다.
 - M5의 공식 분석 요청은 `PDF 도면 위에 스탬프를 배치·이동·크기 조절하고 원본을 보존한 채 새 PDF로 저장`이며, 구현이나 패키지 설치 없이 최대 두 개의 현실적인 레시피와 다음 작업 하나만 제시합니다.
 - M7은 M5에서 선택한 레시피로 모바일 PDF 도면 스탬프 `local_product`를 E2E 검증 및 승인 받았습니다.
