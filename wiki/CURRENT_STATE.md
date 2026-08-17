@@ -34,10 +34,10 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 
 ## 공식 기억 상태
 
-- 현재 기준 원격 `origin/main`은 `72db6dc2fa5cde72c78cfd66184d13cc57ffc5aa`입니다.
-- V2 Run의 공식 기억은 `memory.official_commit`, 로컬 구현 기준은 `v2_workspace.head`로 분리해 기록합니다.
-- 제작 프로젝트의 M3 기준점은 `2554340`, M4 Result Commit은 `c970352`, M6 Result Commit은 `e2625bb`, M7 Result Commit은 `3b592c8`이며 Push되지 않았습니다.
-- 이 Wiki 갱신도 로컬 기준점 Commit으로 저장하고 Push는 별도 승인 전까지 수행하지 않습니다.
+- PM0~PM6 기준을 GitHub에 게시한 Commit은 `f1d6aa9498ab119d8752bca9565aa15cc59370a4`이며, 2026-08-17 정합성 확인 당시 원격 `origin/main` HEAD와 작업 브랜치 HEAD가 이 Commit으로 일치했습니다.
+- 과거 Run의 `memory.official_commit`과 `v2_workspace.head`는 해당 Run이 생성·검증된 시점의 Base Memory와 작업 기준점입니다. 예를 들어 `72db6dc2fa5cde72c78cfd66184d13cc57ffc5aa`는 일부 M6·M7 Run의 역사적 기준이며 현재 원격 HEAD를 뜻하지 않습니다.
+- 제작 프로젝트의 M3 기준점 `2554340`, M4 Result Commit `c970352`, M6 Result Commit `e2625bb`, M7 Result Commit `3b592c8`은 각 제품 저장소의 검증 증거입니다. AI OS V2 Core 저장소의 `origin/main`과는 별도 Commit 계보입니다.
+- 원격 최신 HEAD는 세션 시작 시 `git fetch origin` 후 재확인하며, 과거 Run의 기억 값을 현재 HEAD로 덮어쓰지 않습니다.
 
 ## 다음 단계
 
