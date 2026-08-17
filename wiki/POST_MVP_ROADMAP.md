@@ -7,7 +7,7 @@
 ```yaml
 post_mvp:
   planning_status: completed
-  official_structure: PM0_to_PM7
+  official_structure: PM0_to_PM6
   implementation_gate: PM0
   pm1_design_preview_allowed_before_pm0: true
   pm1_product_implementation_allowed: false
@@ -15,6 +15,18 @@ post_mvp:
 ```
 
 ## 공식 순서
+
+> 최신 공식 순서와 PASS 기준은 [[POST_MVP_PM0_PM6_BASELINE]]을 사용합니다. 아래의 이전 PM0~PM7 상세는 역사적 기능 기록으로 보존합니다.
+
+1. `PM0 — 운영환경 준비`
+2. `PM1 — 디자인 탐색·채택`
+3. `PM2 — 조립식 V2 보드`
+4. `PM3 — 부분 수정`
+5. `PM4 — 자료 조사`
+6. `PM5 — 사용자 의도 정합성`
+7. `PM6 — 전체 통합·최종 검증`
+
+## 이전 PM0~PM7 순서
 
 1. `PM0 — 운영환경 준비`
 2. `PM1 — 대시보드·프로젝트 작업실`
