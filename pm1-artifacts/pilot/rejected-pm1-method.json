@@ -1,0 +1,26 @@
+{
+  "artifact_version": "1.0",
+  "artifact_type": "pm1_method_verdict",
+  "verdict": "rejected_pm1_method",
+  "preserve": true,
+  "product_applied": false,
+  "core_applied": false,
+  "registry_changed": false,
+  "reason": "Wireframe-centered references and the resulting pilot preview were judged visually worse than the preserved V2 UI baseline.",
+  "failed_properties": [
+    "actual_visual_reference_fidelity",
+    "same_screen_type_relevance",
+    "whole_or_region_selection",
+    "selected_property_control",
+    "reference_to_preview_comparison",
+    "user_visual_satisfaction"
+  ],
+  "preserved_inputs": [
+    "pm1-artifacts/reference-board/manifest.json",
+    "pm1-artifacts/reference-board/selection.json",
+    "pm1-artifacts/pilot/preview-workspace.recipe.json",
+    "reference-board.html",
+    "pilot-preview.html"
+  ],
+  "replacement_method": "single_visual_target_with_ui_ux_pro_guard"
+}

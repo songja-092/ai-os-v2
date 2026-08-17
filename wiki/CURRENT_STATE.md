@@ -42,8 +42,10 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 ## 다음 단계
 
 - Post-MVP 공식 순서는 `PM0 운영환경 준비 → PM1 디자인 탐색·채택 → PM2 조립식 V2 보드 → PM3 부분 수정 → PM4 자료 조사 → PM5 사용자 의도 정합성 → PM6 전체 통합·최종 검증`입니다.
-- 설계 상태는 `completed`, PM0 상태는 `pass_with_user_deferred_backup`, 현재 활성 단계는 PM1입니다. 다음 한 작업은 [[PM1_REFERENCE_BRIEF]]를 기준으로 Reference 10개 이상을 조사하고 출처·라이선스·접근·구현 가능성을 기록하는 것입니다.
-- PM1은 검증된 외부 구조·현재안·필요 시 AI 보완안을 같은 V2 데이터로 비교하고 Visual Target을 승인하는 디자인 품질 Gate입니다.
+- 설계 상태는 `completed`, PM0 상태는 `pass_with_user_deferred_backup`, 현재 활성 단계는 PM1입니다. 정적 Reference Board, 이를 이용한 `큰 미리보기 작업실` Pilot, 실제 화면 5개의 구역·속성을 선택하는 Visual Companion, Google Stitch 생성 결과는 사용자가 기존 UI UX Pro 중심 방식보다 느리거나 결과가 낮다고 판정했습니다. 이 결과들은 `rejected_and_preserved` 증거이며 제품·Registry·PM2에 적용되지 않았습니다. Visual Companion용 Route·API는 현재 PM1 작업 브랜치의 미커밋 격리 Pilot에만 존재하므로 Core 공식 기능으로 간주하지 않습니다.
+- PM1 우선 검증 후보는 `쉬운 요청 → 필요한 Reference만 내부 조사 → UI UX Pro 규칙·품질 검사 → 실제 V2 데이터 Visual Target 하나 → 부분 수정 → 승인 또는 거절 → 거절 시 대안 하나`입니다. 이는 사용자 비교에서 다시 선택된 후보이며 아직 최종 기본 방식이나 PM1 PASS가 아닙니다.
+- Reference는 출처·라이선스·사용 Section을 남기는 내부 보조 근거로 유지하고, 전체 목록·구역 선택·속성 선택은 사용자가 요청할 때만 제공하는 선택 기능으로 내립니다. `UI Remix` 연구 근거는 보존하지만 V2 기본 Workflow로 강제하지 않습니다.
+- 반복 ImageGen A/B/C와 후보별 Code Preview는 기본 흐름에서 제외합니다. Visual Target과 수정 전후는 동일 Viewport·V2 데이터·화면 상태·Theme·확대 비율·Motion 시점에서 확인합니다.
 - PM2는 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계와 Slot·Module을 실제 구현하는 조립 기능 Gate입니다.
 - 디자인 Reference 수집은 PM1, 일반 자료·병목 조사는 PM4에서 요청 시 제한형 Workflow로 수행합니다.
 - PM1~PM3의 Reference Brief·Reference-first 채택, Versioned Design Recipe·반응형 Override, Module Manifest·Slot Renderer와 제거 가능한 Puck Adapter 경계 설계는 완료됐습니다. 실제 구현과 Puck 설치는 시작하지 않았습니다.
@@ -51,13 +53,13 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 - V2 운영 UI는 PC 전용이며, 390px·430px은 고객 결과물 하나의 모바일 규칙을 회귀검증하는 Viewport입니다.
 - 각 PM은 PM PASS·Codex 검증·사용자 PASS·Rollback/Restore 이후 별도 Result Commit 하나로 완료합니다.
 - M5의 수집·분석·레시피 선택 Core와 M6의 Quick Change Run·AI 부분 수정·회귀·복구 흐름, 그리고 M7 모바일 PDF 도면 스탬프 `local_product` E2E 구현 및 사용자 검증을 완료했습니다.
-- 사용자에게는 `화면 종류 선택 → 느낌·Reference 선택 → 실제 결과 확인 → 적용·수정·다른 방식·중단 선택`만 보이며 마우스와 간단한 버튼을 우선합니다. 자연어는 선택지로 해결되지 않을 때만 보조로 사용합니다.
-- PM1은 확정 사용 방식이 아니라 `추천형`, `Reference 가져오기`, `직접 조립형`의 편의성을 비교하는 시험입니다. 사용자 편의성 PASS 전에는 어느 방식도 V2 기본 Workflow로 승격하지 않습니다.
+- 사용자에게는 `원하는 화면 요청 → 실제 결과 확인 → 진행·부분 수정·다른 방향·현재안 유지·중단·복구`만 기본으로 보입니다. 요청은 쉬운 말로 받고 결과 확인과 행동은 실제 Preview·마우스·간단한 버튼을 우선합니다.
+- PM1은 `single_visual_target_with_ui_ux_pro_guard`를 우선 후보로 검증합니다. 사용자가 이 방식이 실패 Pilot보다 빠르고 편하며 결과 품질이 좋다고 승인하기 전에는 V2 기본 Workflow로 승격하지 않습니다.
 - PM1의 직접 조립은 구조 Draft·격리 Preview이며 실제 Module 장착과 상태 저장은 PM2 범위입니다. PM5가 구현되기 전 PM1~PM4에서는 수동 Intent Receipt·Scope Lock을 선행 Gate로 사용합니다.
 - PM3은 Card Drag & Drop, 위·아래 이동, 허용 Slot 이동, 제한된 크기·여백·글자 조절, Manifest 경계 안의 복제와 Draft 제거, Undo·Redo와 Core Version Restore를 포함합니다.
 - 실제 휴대폰 연결은 고객 결과물 검증을 위한 선택형 Adapter입니다. USB + `adb reverse`를 기본 후보로 하고 실패 시 390·430 Browser Preview로 전환하며 Cloud Sync·개인 파일 동기화·무선 외부 공개는 포함하지 않습니다.
 - 자동 인터넷 크롤러, 별도 수집 서버·DB, 학습기, Dashboard UI와 Multi-Agent는 M5 범위에 포함하지 않습니다.
-- 디자인 레시피는 현재 설치된 Product Design·frontend-app-builder·UI UX Pro Max를 우선 재사용합니다. Taste와 Google Stitch Skills는 미설치 후보이며 실제 작은 검증 전에는 채택 또는 검증됨으로 기록하지 않습니다.
+- 디자인 레시피는 현재 설치된 Product Design·frontend-app-builder·UI UX Pro Max를 우선 재사용합니다. UI UX Pro Max는 규칙 제안·품질 검사만 담당하며 최종 디자인을 결정하지 않습니다. Taste는 미검증 후보이고 Google Stitch는 이번 사용자 비교에서 기본 방식으로 거절됐으므로 새 증거와 별도 승인 전 재도입하지 않습니다.
 - Google Drive는 외부 Backup 후보이지만 사용자가 이번 PM1 시험에서는 Backup·Restore 검증을 유예했습니다. NotebookLM은 PM1·PM4의 수동 출처 비교 보조, Google Stitch는 PM1의 선택형 생성 후보, Lighthouse·PageSpeed Insights는 PM2 이후 고객 결과물 검증 도구로만 평가하며 Core 필수 의존성으로 연결하지 않습니다.
 - Supabase의 Auth·Postgres·RLS·Migration·검증·배포 흐름은 병원 파일럿에 추가하지 않고, 데이터 저장이 승인된 후속 프로젝트의 조건부 Full-stack 레시피 후보로 둡니다.
 - M5의 공식 분석 요청은 `PDF 도면 위에 스탬프를 배치·이동·크기 조절하고 원본을 보존한 채 새 PDF로 저장`이며, 구현이나 패키지 설치 없이 최대 두 개의 현실적인 레시피와 다음 작업 하나만 제시합니다.

@@ -8,7 +8,7 @@ import json
 import difflib
 import shlex
 from datetime import datetime, timezone
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 import tempfile
 import shutil
 import glob
@@ -2798,6 +2798,41 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         v2_root = os.path.dirname(os.path.abspath(__file__))
 
+        if self.path == "/api/visual-companion":
+            try:
+                manifest = load_visual_companion_manifest(v2_root)
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"Visual Companion unavailable: {exc}"})
+                return
+            self.send_json(200, manifest)
+            return
+
+        if self.path.startswith("/reference-images/"):
+            public_name = self.path.removeprefix("/reference-images/")
+            try:
+                image_path, content_type = resolve_visual_companion_image(v2_root, public_name)
+                with open(image_path, "rb") as image_file:
+                    body = image_file.read()
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(404, {"error": f"Reference image unavailable: {exc}"})
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", content_type)
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        if self.path == "/api/reference-board":
+            try:
+                manifest = load_reference_board_manifest(v2_root)
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"Reference Board unavailable: {exc}"})
+                return
+            self.send_json(200, manifest)
+            return
+
         # REST API: Fetch all Runs
         if self.path == "/api/runs":
             runs_dir = os.path.join(v2_root, "runs")
@@ -2835,8 +2870,13 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
             return
 
         # Serve static html page
-        if self.path == "/" or self.path == "/index.html":
-            html_path = os.path.join(v2_root, "dashboard.html")
+        if self.path in {"/", "/index.html", "/reference-board", "/pilot-preview", "/visual-companion"}:
+            html_name = {
+                "/reference-board": "reference-board.html",
+                "/pilot-preview": "pilot-preview.html",
+                "/visual-companion": "visual-companion.html",
+            }.get(self.path, "dashboard.html")
+            html_path = os.path.join(v2_root, html_name)
             if os.path.exists(html_path):
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html; charset=utf-8")
@@ -2848,10 +2888,216 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
         self.send_response(404)
         self.end_headers()
 
+    def send_json(self, status, payload):
+        body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def do_POST(self):
+        v2_root = os.path.dirname(os.path.abspath(__file__))
+        if self.path not in {"/api/reference-board/selection", "/api/visual-companion/selection"}:
+            self.send_json(404, {"error": "Not found"})
+            return
+        try:
+            content_length = int(self.headers.get("Content-Length", "0"))
+            if content_length <= 0 or content_length > 8192:
+                raise ValueError("Invalid request size.")
+            payload = json.loads(self.rfile.read(content_length).decode("utf-8"))
+            if self.path == "/api/visual-companion/selection":
+                artifact = save_visual_companion_selection(v2_root, payload)
+            else:
+                artifact = save_reference_board_selection(v2_root, payload)
+        except (ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+            self.send_json(400, {"error": str(exc)})
+            return
+        self.send_json(200, {"message": "선택을 Draft로 저장했습니다. 아직 제품에는 적용되지 않았습니다.", "artifact": artifact})
+
+
+def load_visual_companion_manifest(v2_root):
+    manifest_path = os.path.join(v2_root, "pm1-artifacts", "visual-companion", "manifest.json")
+    with open(manifest_path, "r", encoding="utf-8") as manifest_file:
+        manifest = json.load(manifest_file)
+    required = {"schema_version", "board_id", "screen_type", "max_visible_references", "comparison_context", "references"}
+    if not required.issubset(manifest):
+        raise ValueError("Visual Companion manifest is incomplete.")
+    references = manifest["references"]
+    if not isinstance(references, list) or not 1 <= len(references) <= 5:
+        raise ValueError("Visual Companion must show between one and five references.")
+    if manifest["max_visible_references"] != 5:
+        raise ValueError("Visual Companion display limit must remain five.")
+    required_reference_fields = {
+        "reference_id", "name", "source_url", "image_path", "sha256", "access_checked_at",
+        "license_status", "reference_type", "screen_type", "summary", "do_not_copy", "regions"
+    }
+    required_region_fields = {"region_label", "normalized_bounds", "target_section_id"}
+    for reference in references:
+        if not isinstance(reference, dict) or not required_reference_fields.issubset(reference):
+            raise ValueError("A Visual Companion reference is incomplete.")
+        if reference["screen_type"] != manifest["screen_type"]:
+            raise ValueError("References from different screen types cannot be mixed.")
+        if not reference["regions"]:
+            raise ValueError("A Visual Companion reference has no selectable region.")
+        for region in reference["regions"]:
+            if not isinstance(region, dict) or not required_region_fields.issubset(region):
+                raise ValueError("A selectable region is incomplete.")
+            bounds = region["normalized_bounds"]
+            if not isinstance(bounds, dict) or set(bounds) != {"x", "y", "width", "height"}:
+                raise ValueError("Normalized region bounds are invalid.")
+            values = [bounds[key] for key in ("x", "y", "width", "height")]
+            if not all(isinstance(value, (int, float)) for value in values):
+                raise ValueError("Normalized region bounds must be numeric.")
+            if bounds["x"] < 0 or bounds["y"] < 0 or bounds["width"] <= 0 or bounds["height"] <= 0:
+                raise ValueError("Normalized region bounds are outside the image.")
+            if bounds["x"] + bounds["width"] > 1.001 or bounds["y"] + bounds["height"] > 1.001:
+                raise ValueError("Normalized region bounds exceed the image.")
+    return manifest
+
+
+def resolve_visual_companion_image(v2_root, public_name):
+    manifest = load_visual_companion_manifest(v2_root)
+    if not re.fullmatch(r"[A-Za-z0-9._-]+", public_name):
+        raise ValueError("Invalid reference image name.")
+    reference = next((item for item in manifest["references"] if item["image_path"] == public_name), None)
+    if not reference:
+        raise ValueError("Reference image is not registered.")
+    if public_name == "current-v2-workspace.png":
+        image_path = "/home/user/바탕화면/v2_ui_images/프로젝트 작업실 PC Visual Target.png"
+    else:
+        image_path = os.path.join("/home/user/바탕화면/v2_ui_images/pm1-reference-workspaces", public_name)
+    image = inspect_design_image(image_path)
+    if image["sha256"] != reference["sha256"]:
+        raise ValueError("Reference image checksum mismatch.")
+    return image_path, image["mime"]
+
+
+def save_visual_companion_selection(v2_root, payload):
+    manifest = load_visual_companion_manifest(v2_root)
+    reference = next((item for item in manifest["references"] if item["reference_id"] == payload.get("reference_id")), None)
+    if not reference:
+        raise ValueError("Select one validated visual reference.")
+    allowed_properties = {"layout", "spacing", "color", "typography", "content", "branding", "motion"}
+    selected_properties = payload.get("selected_properties")
+    apply = payload.get("apply")
+    regions = payload.get("regions")
+    if not isinstance(selected_properties, list) or not selected_properties or not set(selected_properties).issubset(allowed_properties):
+        raise ValueError("Select at least one supported property.")
+    if not isinstance(apply, dict) or set(apply) != allowed_properties or not all(isinstance(value, bool) for value in apply.values()):
+        raise ValueError("The apply lock is incomplete.")
+    if apply["content"] or apply["branding"]:
+        raise ValueError("Content and branding remain locked in PM1.")
+    if {key for key, value in apply.items() if value} != set(selected_properties):
+        raise ValueError("Selected properties and apply locks do not match.")
+    allowed_regions = {item["region_label"]: item for item in reference["regions"]}
+    if not isinstance(regions, list) or not regions:
+        raise ValueError("Select at least one reference region.")
+    region_labels = [item.get("region_label") for item in regions if isinstance(item, dict)]
+    if len(region_labels) != len(set(region_labels)) or not set(region_labels).issubset(allowed_regions):
+        raise ValueError("A selected region is invalid.")
+    canonical_regions = [allowed_regions[label] for label in region_labels]
+    if payload.get("comparison_context") != manifest["comparison_context"]:
+        raise ValueError("Reference comparison context changed.")
+    artifact = {
+        "schema_version": "1.0",
+        "board_id": manifest["board_id"],
+        "reference_id": reference["reference_id"],
+        "selection": canonical_regions,
+        "selected_properties": selected_properties,
+        "apply": apply,
+        "comparison_context": manifest["comparison_context"],
+        "status": "draft_not_applied",
+        "selected_by": "user",
+        "selected_at": datetime.now(timezone.utc).isoformat(),
+        "product_changed": False,
+        "core_state_changed": False,
+    }
+    artifact_dir = os.path.join(v2_root, "pm1-artifacts", "visual-companion")
+    os.makedirs(artifact_dir, exist_ok=True)
+    target = os.path.join(artifact_dir, "selection.json")
+    fd, temp_path = tempfile.mkstemp(prefix=".selection-", suffix=".json", dir=artifact_dir)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as temp_file:
+            json.dump(artifact, temp_file, ensure_ascii=False, indent=2)
+            temp_file.write("\n")
+        os.replace(temp_path, target)
+    finally:
+        if os.path.exists(temp_path):
+            os.unlink(temp_path)
+    return os.path.relpath(target, v2_root)
+
+
+def load_reference_board_manifest(v2_root):
+    manifest_path = os.path.join(v2_root, "pm1-artifacts", "reference-board", "manifest.json")
+    with open(manifest_path, "r", encoding="utf-8") as manifest_file:
+        manifest = json.load(manifest_file)
+    required = {"schema_version", "board_id", "current_design_id", "recommendations", "references"}
+    if not required.issubset(manifest):
+        raise ValueError("Reference Board manifest is incomplete.")
+    references = manifest["references"]
+    recommendations = manifest["recommendations"]
+    if not isinstance(references, list) or len(references) < 10:
+        raise ValueError("Reference Board requires at least 10 references.")
+    if not isinstance(recommendations, list) or len(recommendations) != 3:
+        raise ValueError("Reference Board requires exactly 3 recommendations.")
+    reference_ids = {item.get("id") for item in references if isinstance(item, dict)}
+    required_reference_fields = {"id", "name", "url", "reference_type", "license_status", "section_id", "dependencies", "responsive", "motion_level", "do_not_copy", "current_design"}
+    for reference in references:
+        if not isinstance(reference, dict) or not required_reference_fields.issubset(reference):
+            raise ValueError("A Reference entry is incomplete.")
+    if manifest["current_design_id"] not in reference_ids:
+        raise ValueError("Current design baseline is missing.")
+    for recommendation in recommendations:
+        if not set(recommendation.get("reference_ids", [])).issubset(reference_ids):
+            raise ValueError("A recommendation points to an unknown Reference.")
+    return manifest
+
+
+def save_reference_board_selection(v2_root, payload):
+    manifest = load_reference_board_manifest(v2_root)
+    allowed_choices = {"whole_structure", "selected_parts", "keep_current"}
+    allowed_motion = {"없음", "절제", "표현적"}
+    choice = payload.get("choice")
+    direction_id = payload.get("direction_id")
+    if choice not in allowed_choices:
+        raise ValueError("Unsupported selection.")
+    if payload.get("motion_level") not in allowed_motion:
+        raise ValueError("Unsupported motion level.")
+    valid_direction_ids = {item["id"] for item in manifest["recommendations"]}
+    if choice != "keep_current" and direction_id not in valid_direction_ids:
+        raise ValueError("Select one validated direction.")
+    if choice == "keep_current":
+        direction_id = manifest["current_design_id"]
+    artifact_dir = os.path.join(v2_root, "pm1-artifacts", "reference-board")
+    os.makedirs(artifact_dir, exist_ok=True)
+    artifact = {
+        "schema_version": "1.0",
+        "board_id": manifest["board_id"],
+        "choice": choice,
+        "direction_id": direction_id,
+        "motion_level": payload["motion_level"],
+        "selected_by": "user",
+        "status": "draft_not_applied",
+        "selected_at": datetime.now(timezone.utc).isoformat(),
+        "product_changed": False
+    }
+    target = os.path.join(artifact_dir, "selection.json")
+    fd, temp_path = tempfile.mkstemp(prefix=".selection-", suffix=".json", dir=artifact_dir)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as temp_file:
+            json.dump(artifact, temp_file, ensure_ascii=False, indent=2)
+            temp_file.write("\n")
+        os.replace(temp_path, target)
+    finally:
+        if os.path.exists(temp_path):
+            os.unlink(temp_path)
+    return os.path.relpath(target, v2_root)
+
 def cmd_dashboard(args):
     port = args.port
     server_address = ('127.0.0.1', port)
-    httpd = HTTPServer(server_address, DashboardHTTPRequestHandler)
+    httpd = ThreadingHTTPServer(server_address, DashboardHTTPRequestHandler)
     print(f"AI OS V2 Dashboard starting at http://127.0.0.1:{port} ...")
     print("Press Ctrl+C to stop.")
 

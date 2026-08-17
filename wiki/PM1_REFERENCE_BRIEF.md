@@ -1,21 +1,15 @@
 # PM1 Reference Brief — V2 디자인 채택 방식 시험
 
 작성일: 2026-08-17  
-상태: PM1 조사 입력 승인  
+상태: 실패 Pilot 반영 후 우선 Workflow 검증 입력
 대상: `v2_board`  
 구현 상태: 시작 전
 
 ## 1. 시험 목적
 
-AI OS V2 운영 UI의 디자인 하나를 바로 확정하는 것이 아니라, 초보자가 전문용어와 반복 이미지 생성 없이 좋은 방향을 빠르게 고를 수 있는 채택 방식을 비교합니다.
+초보자가 Reference 목록과 디자인 전문용어를 직접 다루지 않고, 실제 V2 데이터가 들어간 완성도 높은 화면 하나를 빠르게 확인하는 방식을 검증합니다. 우선 후보는 `single_visual_target_with_ui_ux_pro_guard`이며 아직 최종 확정이 아닙니다.
 
-비교할 방식은 다음 세 가지입니다.
-
-1. `추천형`: V2가 실제 Reference 10개 이상을 조사하고 구조가 다른 추천 3개를 먼저 보여줍니다.
-2. `Reference 가져오기`: 사용자가 URL 또는 Screenshot을 제공하고 화면 전체나 사용할 Section을 마우스로 선택합니다.
-3. `직접 조립형`: 검증된 Block·Section 후보를 골라 순서를 조합한 저비용 구조 Draft를 확인합니다.
-
-모든 방식에서 `현재안 유지`, `다른 방식`, `중단`을 선택할 수 있습니다. 사용자가 편하다고 판정한 방식만 이후 V2 기본 Workflow 후보가 됩니다.
+기본 흐름은 `쉬운 요청 → 필요한 Reference만 내부 조사 → UI UX Pro 규칙·품질 검사 → Visual Target 하나 → 부분 수정 → 승인·거절·중단`입니다. 거절된 경우에만 이유를 반영한 구조적으로 다른 대안 하나를 만듭니다.
 
 ## 2. 사용자와 사용 환경
 
@@ -69,7 +63,7 @@ PM1은 구조와 채택 편의성을 시험합니다. 실제 Module 장착·상�
 
 ## 5. Reference 조사 계약
 
-최소 10개를 조사하되 숫자를 채우기 위해 비슷한 구조를 반복하지 않습니다.
+Reference는 필요할 때 내부적으로 제한 조사하며 개수 채우기를 목표로 하지 않습니다. 같은 화면 종류의 실제 사례, 공식 자료, 라이선스가 확인된 OSS와 검증된 디자인 시스템을 우선합니다. 실제 Screenshot을 Wireframe으로 변환하지 않고 디자인 사례와 UI Library·Editor·Animation 도구를 디자인 후보처럼 섞지 않습니다. 전체 목록과 구역·속성 선택은 사용자가 명시적으로 요청할 때만 제공합니다.
 
 각 후보 기록:
 
@@ -81,24 +75,48 @@ PM1은 구조와 채택 편의성을 시험합니다. 실제 Module 장착·상�
 - 의존성과 React 19·Vite 호환 가능성
 - 접근성·반응형·구현 난이도
 - Section ID 후보
+- 의미 있는 구역 이름과 Screenshot의 정규화 좌표
+- 가져올 속성과 가져오지 않을 속성
 
-같은 기준으로 0~5점을 기록하지만 총점으로 자동 선택하지 않습니다. 추천 3개와 전체 목록을 모두 사용자가 열람할 수 있어야 합니다.
+필요하면 같은 기준으로 0~5점을 기록하지만 총점으로 자동 선택하지 않습니다. 기본 사용자 화면에는 Visual Target, 쉬운 추천 이유, 선택형 `근거 보기`만 제공합니다.
+
+구역 선택 계약:
+
+```yaml
+selection:
+  reference_id: string
+  region_label: string
+  normalized_bounds: {x, y, width, height}
+  target_section_id: string
+  selected_properties: [layout, spacing]
+apply:
+  layout: true
+  spacing: true
+  color: false
+  typography: false
+  content: false
+  branding: false
+  motion: false
+```
+
+좌표와 의미 있는 구역 이름을 함께 기록합니다. 선택하지 않은 속성은 잠그며 원본 문구·Logo·브랜드 자산은 기본적으로 가져오지 않습니다.
 
 ## 6. 저비용 Preview 원칙
 
 ```text
-Reference 10개 이상
-→ 구조가 다른 추천 3개
-→ Section 선택·조합
-→ 구조 Draft 1~2개
-→ 방향 확인
-→ 실제 V2 데이터 Code Preview 1개
-→ 사용자 채택 방식·디자인 판정
+쉬운 사용자 요청
+→ 필요한 Reference만 내부 조사
+→ UI UX Pro 규칙·품질 검사
+→ 실제 V2 데이터 Visual Target 1개
+→ 사용자 진행·부분 수정·다른 방향·현재안 유지·중단
+→ 거절된 경우에만 구조적으로 다른 대안 1개
+→ 최종 승인 후 PM2 허용
 ```
 
 - 여러 Reference 조합을 이해하기 어려울 때만 조합 이미지 한 장을 만듭니다.
 - 반복 ImageGen A/B/C는 기본 흐름으로 사용하지 않습니다.
 - 사용자 방향 승인 전 Image-to-Code를 시작하지 않습니다.
+- Reference와 Preview는 동일 Viewport·실제 V2 데이터·화면 상태·Light/Dark Mode·확대 비율·Motion 시점에서 비교합니다.
 - 중단하면 제품·Recipe·Registry를 변경하지 않습니다.
 - 검증된 Browser 기본 기능과 현재 Stack을 우선하며, 여러 UI·Animation Library를 동시에 설치해 비교하지 않습니다.
 - 새로운 도구는 현재 기본 방식의 부족함이 실제 증거로 확인된 뒤 제거 가능한 격리 Pilot 하나로만 검증합니다.
@@ -107,11 +125,11 @@ Reference 10개 이상
 
 | 도구 | PM1 역할 | 현재 판정 |
 |---|---|---|
-| Product Design | Reference 근거·화면 비교·시각 검증 절차 | 사용 |
-| UI UX Pro | 사용성·구조 분석 보조 | 사용 가능 |
+| Product Design | Visual Target 제작·시각 검증 절차 | 사용 |
+| UI UX Pro | 디자인 규칙 제안·사용성·접근성·최종 품질 검사 | 우선 검증 후보의 Guard |
 | shadcn·라이선스 확인 OSS | 실제 재사용 가능한 Block 후보 | 우선 조사 |
 | NotebookLM | 공식 문서·웹·YouTube 자막의 수동 출처 비교 | 선택 보조, Core 연결 없음 |
-| Google Stitch | 자연어·이미지 기반 생성 방향을 Reference-first 결과와 비교 | 선택 후보, 기본 방식 아님 |
+| Google Stitch | 이번 생성 결과 비교 | 사용자 비교에서 기본 방식 거절, 재도입 보류 |
 | Taste Skill | 시각 평가 보조 | 미검증 후보 |
 | Puck | 승인된 Recipe의 부분 편집 Adapter | PM3 조건부 후보, PM1 설치 금지 |
 | Lighthouse·PageSpeed Insights | 고객 결과물 성능·접근성 검증 | PM2 이후 |
@@ -121,13 +139,12 @@ NotebookLM의 요약과 Stitch의 생성 결과는 검증 증거를 대신하지
 
 ## 8. PM1 PASS 조건
 
-- 실제 Reference 10개 이상과 구조가 다른 추천 3개를 보여줍니다.
-- 출처·접근·라이선스·사용 부분·구현 가능성을 기록합니다.
-- 현재안·추천형·가져오기·직접 조립형을 마우스로 전환합니다.
-- 전체 화면 또는 특정 Section을 선택할 수 있습니다.
-- 실제 V2 데이터 Code Preview는 최종 후보 하나만 만듭니다.
-- 사용자가 디자인 품질과 채택 방식 편의성을 각각 판정합니다.
-- 선택 결과를 Visual Target·Section ID·Design Recipe에 연결합니다.
+- 실제 V2 데이터로 Visual Target 하나를 만들고 사용한 UI UX Pro 규칙과 Reference가 있다면 출처를 기록합니다.
+- 사용자가 실제 화면을 눈으로 확인하고 필요한 Section만 수정할 수 있습니다.
+- 부분 수정에서 지정하지 않은 영역을 보존하고 변경 전후를 확인합니다.
+- 사용자가 이 방식이 거절된 Pilot보다 빠르고 편하다고 판정합니다.
+- 사용자가 디자인 품질을 승인합니다.
+- 실패·중단 시 제품·Recipe·Registry와 이전 상태를 보존합니다.
 - 사용자 승인 전 PM2 구현을 시작하지 않습니다.
 
 ## 9. 현재 Gate
@@ -135,11 +152,16 @@ NotebookLM의 요약과 Stitch의 생성 결과는 검증 증거를 대신하지
 ```yaml
 pm0: pass_with_user_deferred_backup
 pm1: active
-pm1_method_selected: false
+pm1_original_pilot: rejected_and_preserved
+pm1_reference_board: rejected_and_preserved
+pm1_visual_companion: rejected_and_preserved
+google_stitch: rejected_by_user_comparison
+pm1_selected_workflow: single_visual_target_with_ui_ux_pro_guard
+selection_status: preferred_candidate_for_validation
 pm1_visual_target_approved: false
 pm2_allowed: false
 product_code_changed: false
 core_code_changed: false
 ```
 
-다음 한 작업은 이 Brief를 바탕으로 실제 Reference 10개 이상을 조사하고, Reference Board 초안을 만드는 것입니다.
+다음 한 작업은 사용자 요청·기존 V2 결정·실제 V2 데이터와 기록 가능한 UI UX Pro 규칙을 입력으로 삼아 제품과 분리된 Visual Target 하나의 최소 제작 범위를 확정하는 것입니다.

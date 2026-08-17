@@ -43,80 +43,56 @@ PASS:
 
 ### PM1 — 디자인 탐색·채택
 
-목적: AI 생성안만 반복하지 않고 사용자가 더 다양하고 좋은 디자인을 눈으로 선택하게 합니다.
+목적: 사용자가 복잡한 디자인 탐색을 직접 수행하지 않고도 완성도 높은 실제 화면 하나를 빠르게 확인하고 승인·수정·거절하게 합니다.
 
-후보 구성:
+기본 Workflow:
 
-- 검증된 외부 Block 조합 A
-- 구조가 다른 외부 Block 조합 B
-- 현재 디자인 유지안
-- 필요한 경우에만 AI 보완안
+- 사용자가 쉬운 말로 원하는 화면을 요청합니다.
+- V2는 필요한 경우에만 같은 화면 종류의 검증 가능한 Reference를 내부적으로 제한 조사합니다.
+- `UI UX Pro`는 화면 유형·정보 우선순위·색상·Typography·Spacing·접근성 규칙과 금지 Pattern을 제안하고 최종 결과를 검사합니다.
+- 기존 V2 결정과 실제 프로젝트 데이터를 사용해 Visual Target 하나만 제작합니다.
+- 사용자는 실제 화면에서 `이 방향으로 진행`, `이 부분만 수정`, `다른 방향 보기`, `현재안 유지`, `중단`, `이전 상태로` 중 하나를 선택합니다.
+- 첫 결과가 거절된 경우에만 거절 이유를 반영한 구조적으로 다른 대안 하나를 제작합니다.
+- 사용자 최종 승인 전 PM2 구현·제품 적용·Design Recipe 승격을 차단합니다.
 
 구현 범위:
 
-- 검색 전 `Reference Brief` 작성: 화면 목적, 사용자, 필수 정보, 핵심 행동, 정보 밀도, PC·모바일 기준, 유지할 V2 규칙, 제외할 디자인
-- 공식 Registry, 라이선스가 확인된 OSS와 검증된 디자인 시스템 우선 조사
-- 출처·라이선스·의존성·기술 호환성 확인
-- 실제 Reference 10개 이상을 `Reference Board`에 공개하고 구조가 겹치는 후보를 제거
-- 같은 평가 기준으로 분석한 추천 방향 3~5개와 현재안 비교
-- 전체 구조·특정 Section·Design DNA를 마우스와 간단한 선택 버튼으로 선택
-- V2 기본 Typography·Color·Button 규칙으로 시각 통일
-- 선택 출처·Section ID·Design Recipe 기록
-- 저비용 구조 Preview 1~2개 뒤 실제 데이터 Code Preview 1개만 제작
-- 승인된 Visual Target 등록과 승인 전 구현 차단
+- 간단한 `Reference Brief`: 화면 목적, 사용자, 필수 정보, 핵심 행동, 정보 밀도, 대상 Viewport, 유지할 V2 규칙, 제외할 디자인
+- Reference가 필요하면 공식 자료·라이선스가 확인된 OSS·검증된 디자인 시스템을 우선하고 출처·접근 시점·라이선스·사용 Section·의존성을 기록
+- `visual_reference`와 `reusable_code_block`을 구분하고 문구·Logo·브랜드 자산은 기본적으로 복제하지 않음
+- 실제 V2 데이터와 동일한 Viewport·화면 상태·Theme·확대 비율·Motion 시점으로 Visual Target 하나를 제공
+- Section ID를 유지한 부분 수정, 변경 전후 확인, 선택하지 않은 영역 보존
+- 사용자가 요청할 때만 Reference 전체 목록·구역 선택·속성 선택 같은 상세 탐색 기능 제공
+- 승인된 Visual Target 기록과 승인 전 구현 차단
 
-입력 우선순위와 채택 방식:
+입력 우선순위:
 
 ```yaml
 pm1_input_priority:
-  primary: mouse_selection
-  secondary: simple_choice_buttons
-  fallback: natural_language
-
-adoption_methods:
-  recommended:
-    description: V2가 Reference 10개 이상을 조사하고 추천 3개를 표시
-  bring_reference:
-    description: 사용자가 URL 또는 Screenshot을 제공하고 사용할 부분을 선택
-  direct_assembly:
-    description: 검증된 Block·Section 보관함에서 선택해 저비용 구조 Draft로 원하는 순서를 조합
+  request: easy_natural_language
+  review: actual_visual_preview
+  primary_actions: simple_choice_buttons
+  revision: section_selection_or_short_request
 ```
 
-- 어느 방식에서도 현재안을 유지할 수 있습니다.
-- 방식을 전환해도 이미 고른 Reference는 해당 Draft의 임시 후보로 보존합니다.
-- 추천 3개를 먼저 표시하되 전체 Reference 목록을 열람할 수 있습니다.
-- 최종 실제 데이터 Code Preview는 하나만 제작합니다.
-- 사용자가 중단하면 제품·Recipe·Registry를 변경하지 않습니다.
-- PM1은 특정 디자인의 채택뿐 아니라 채택 방식 자체가 편한지 시험합니다. 불편하다고 판정한 방식은 기본 Workflow로 승격하지 않고 다른 방식으로 전환합니다.
-- PM1의 직접 조립형은 이미지·구조 Draft와 격리 Code Preview 수준입니다. 실제 Module Registry 등록·장착·상태 저장·장애 격리는 PM2에서만 구현하며 PM1이 PM2 Gate를 우회하지 않습니다.
-
-Reference는 두 종류를 구분합니다.
-
-- `visual_reference`: 구조·분위기만 참고하며 코드를 복사하지 않습니다.
-- `reusable_code_block`: 라이선스·의존성·코드를 확인한 뒤 실제 재사용 후보로 다룹니다.
-
-평가 항목은 `task_fit`, `information_hierarchy`, `implementation_feasibility`, `responsive_quality`, `accessibility`, `license_clarity`, `v2_design_system_fit`, `section_reusability`이며 각 0~5점입니다. 점수는 추천 근거일 뿐 자동 선택 근거가 아니며 최종 선택은 사용자가 합니다. `UI UX Pro`는 사용성·구조 분석 보조 도구이고 `Taste Skill`은 미검증 평가 후보입니다.
+Reference Board·구역/속성 선택형 Visual Companion·Google Stitch는 사용자 Pilot에서 기존 방식보다 빠르거나 좋은 결과를 증명하지 못했으므로 기본 Workflow에서 제외하고 실패 증거로 보존합니다. `UI Remix` 연구는 실제 사례의 전체·부분 선택이 비전문가에게 도움이 될 수 있다는 외부 근거로 유지하지만, V2 사용자가 탐색과 선택을 부담스럽다고 판정했으므로 요청 시 선택 기능으로만 사용합니다. 자동 Reference Collector·대형 Database·Vector 검색·별도 Art Director Agent는 같은 제한 작업이 실제 프로젝트에서 3회 이상 성공하고 자동화 가치가 증명되기 전에는 만들지 않습니다.
 
 PASS — 디자인 품질:
 
-- 출처와 라이선스를 확인한 구조적으로 다른 후보가 존재합니다.
-- Reference 10개 이상과 추천 방향 3~5개가 사용자에게 공개됩니다.
-- 모든 후보를 같은 데이터와 Viewport로 비교합니다.
-- 사용자가 현재안보다 나은 방향 또는 현재안 유지를 명시적으로 선택합니다.
-- 선택 결과가 Visual Target·Section ID·Design Recipe에 연결됩니다.
-- 사용자 승인 전 PM2 구현을 시작하지 않습니다.
+- 실제 V2 데이터로 Visual Target 하나가 만들어지고 사용한 UI UX Pro 규칙과 Reference가 있다면 출처가 기록됩니다.
+- 사용자가 실제 화면을 눈으로 확인하고 디자인 품질을 명시적으로 승인합니다.
+- Section 단위 수정이 가능하고 선택하지 않은 영역이 보존됩니다.
+- 첫 결과가 거절되면 색상만 바꾼 복제안이 아니라 거절 이유를 반영한 구조적으로 다른 대안 하나만 제공합니다.
+- 승인 전 제품·Recipe·Registry를 변경하지 않고 실패·중단 시 이전 상태를 보존합니다.
 
 PASS — 채택 편의성:
 
-- 전문용어와 자연어 입력 없이 선택 흐름을 완료합니다.
-- 현재안·추천형·Reference 가져오기·직접 조립형 사이를 전환할 수 있습니다.
-- 전체 화면과 특정 Section을 각각 선택할 수 있습니다.
-- 실제 V2 데이터 Preview를 확인합니다.
-- 채택·다른 방식·중단 중 하나를 선택할 수 있습니다.
-- 사용자가 채택 방식이 편하다고 명시적으로 판정합니다.
+- 사용자가 Reference 목록이나 디자인 전문용어를 다루지 않고 요청부터 결과 확인까지 완료합니다.
+- 쉬운 버튼으로 진행·부분 수정·다른 방향·현재안 유지·중단·복구를 선택합니다.
+- 사용자가 거절된 Pilot보다 이 방식이 빠르고 편하다고 명시적으로 판정합니다.
 - 중단 시 제품·Recipe·Registry 변경이 없습니다.
 
-제외: 대규모 자동 수집기, 새 DB, 자동 Template 혼합, 출처 없는 복제.
+제외: Reference 10개 강제 노출, 반복 ImageGen A/B/C, 후보별 Code Preview, 대규모 자동 수집기, 새 DB, 자동 Template 혼합, 출처 없는 복제.
 
 ### PM2 — 조립식 V2 보드
 
@@ -232,6 +208,27 @@ references:
     license: string
     access_status: verified | inaccessible | user_screenshot
     adoption_status: candidate | selected | verified | reusable
+selections:
+  - reference_id: string
+    region_label: string
+    normalized_bounds: {x, y, width, height}
+    target_section_id: string
+    selected_properties: [layout | spacing | color | typography | content | branding | motion]
+    apply:
+      layout: boolean
+      spacing: boolean
+      color: boolean
+      typography: boolean
+      content: boolean
+      branding: boolean
+      motion: boolean
+comparison_context:
+  viewport: {width, height}
+  zoom: number
+  data_fixture_id: string
+  screen_state: string
+  color_mode: light | dark
+  motion_capture: paused | timestamp_ms
 changes:
   - change_id: string
     command: string
@@ -244,6 +241,8 @@ changes:
 ```
 
 직접 편집과 자연어 편집은 같은 `changes[]`를 생성합니다. 기존 Version을 덮어쓰지 않고 항상 새 Draft를 만들며 사용자 승인 후 `approved`, Core 검증 후 `applied`로 전환합니다. 취소는 `discarded`, Restore는 과거 Version을 복사한 새 Draft입니다. Puck JSON은 Recipe에 저장하지 않습니다.
+
+Screenshot 좌표만으로 구역을 식별하지 않습니다. `normalized_bounds`와 `region_label`, 실제 적용 대상인 `target_section_id`를 함께 기록합니다. `apply`에서 선택하지 않은 속성은 잠기며 원본의 문구·Logo·브랜드 자산은 기본값 `false`입니다. Reference와 Preview의 비교는 `comparison_context`가 일치할 때만 유효합니다.
 
 반응형 계약:
 
@@ -497,6 +496,6 @@ pm1_adoption_method: test_not_finalized
 pm0_operational_readiness: blocked
 ```
 
-Post-MVP 설계 계약은 완료됐습니다. 이는 구현·도구 채택·사용 방식 승격 완료를 뜻하지 않습니다. 다음 구현 작업은 PM0 Gate를 완료하는 것입니다. PM0 PASS 후 PM1에서 추천형·Reference 가져오기·직접 조립형을 실제로 비교하고 사용자가 편하다고 판정한 방식만 기본 Workflow 후보로 승격합니다.
+Post-MVP 설계 계약은 완료됐습니다. 이는 구현·도구 채택·사용 방식 승격 완료를 뜻하지 않습니다. PM0는 사용자가 외부 Backup·표본 Restore를 후속으로 유예한 조건으로 통과했고 현재 PM1이 활성 단계입니다. PM1에서는 사용자 Pilot 비교로 다시 선택된 `single_visual_target_with_ui_ux_pro_guard`를 검증하며, 사용자가 실패 Pilot보다 빠르고 편하고 시각 품질도 좋다고 승인한 경우에만 기본 Workflow로 승격합니다.
 
 생산 배포·운영 관찰과 10년차 전문가 수준 판정은 PM0~PM6 완료만으로 선언하지 않습니다. 배포 가능한 프로젝트에서 별도 승인된 Deployment·Monitoring Adapter와 여러 프로젝트 재현 증거를 축적하는 `Professional Capability Program`의 후속 범위입니다.
