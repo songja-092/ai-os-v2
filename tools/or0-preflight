@@ -1,0 +1,292 @@
+#!/usr/bin/env bash
+
+# OR0 read-only preflight draft. It does not install packages, start or stop
+# preview processes, modify permissions, upload backups, or write project files.
+
+set -uo pipefail
+
+OR0_ROOT="/home/user/바탕화면/ai_os_v2_or0"
+V2_DIRTY_ROOT="/home/user/바탕화면/ai_os_v2"
+PRODUCT_ROOT="/home/user/바탕화면/test_project"
+V2_UI_ROOT="/home/user/바탕화면/V2_UI"
+UIUX_ROOT="/home/user/바탕화면/test_project/.agents/skills/ui-ux-pro-max"
+EXPECTED_OR0_BASE_SHA="a7bb70e297147b011bacd2fa5ea038313a2fd124"
+EXPECTED_V2_SOURCE_SHA="822a218"
+EXPECTED_REMOTE_MAIN_SHA="83ab8deaa504df6c1baf95a3a49ab1df05345653"
+EXPECTED_DIRTY_STATUS_SHA256="592817a3624832c807944a3b02860deb881c31db607acb925915b2ba359ed920"
+ANTIGRAVITY_ROOT="/home/user/바탕화면/antigravity_ide_2_5_5_audit/isolated/AntigravityIDE"
+EXPECTED_PRODUCT_SHA="3b592c8037a276cb1eb0bf18bd27e3b49e9c3701"
+EXPECTED_PYTHON_PATH="/usr/bin/python3"
+EXPECTED_PYTHON_VERSION="3.14.4"
+EXPECTED_NODE_PATH="/opt/codex-desktop/resources/node-runtime/bin/node"
+EXPECTED_NODE_VERSION="22.22.2"
+EXPECTED_NPM_PATH="/opt/codex-desktop/resources/node-runtime/bin/npm"
+EXPECTED_NPM_VERSION="10.9.7"
+EXPECTED_GIT_PATH="/usr/bin/git"
+EXPECTED_GIT_VERSION="2.53.0"
+EXPECTED_DOCKER_PATH="/usr/bin/docker"
+EXPECTED_DOCKER_VERSION="29.6.1"
+EXPECTED_CHROME_PATH="/usr/bin/google-chrome"
+EXPECTED_CHROME_VERSION="150.0.7871.128"
+EXPECTED_CODEX_PATH="/home/user/.local/bin/codex"
+EXPECTED_CODEX_VERSION="0.147.0"
+EXPECTED_SPECIFY_PATH="/home/user/.local/bin/specify"
+EXPECTED_SPECIFY_VERSION="0.16.1"
+
+PASS_COUNT=0
+FAIL_COUNT=0
+WARN_COUNT=0
+
+pass() { printf 'PASS  %s\n' "$1"; PASS_COUNT=$((PASS_COUNT + 1)); }
+fail() { printf 'FAIL  %s\n' "$1"; FAIL_COUNT=$((FAIL_COUNT + 1)); }
+warn() { printf 'WARN  %s\n' "$1"; WARN_COUNT=$((WARN_COUNT + 1)); }
+info() { printf 'INFO  %s\n' "$1"; }
+
+check_command() {
+  if command -v "$1" >/dev/null 2>&1; then
+    pass "command available: $1 ($(command -v "$1"))"
+  else
+    fail "command missing: $1"
+  fi
+}
+
+check_path() {
+  if test -e "$1"; then
+    pass "path exists: $1"
+  else
+    fail "path missing: $1"
+  fi
+}
+
+check_runtime() {
+  command_name="$1"
+  expected_path="$2"
+  expected_version="$3"
+  actual_version="$4"
+  actual_path="$(command -v "$command_name" 2>/dev/null || true)"
+  if test "$actual_path" = "$expected_path"; then
+    pass "$command_name path matches baseline: $actual_path"
+  else
+    fail "$command_name path expected=$expected_path actual=${actual_path:-unavailable}"
+  fi
+  if test "$actual_version" = "$expected_version"; then
+    pass "$command_name version matches baseline: $actual_version"
+  else
+    fail "$command_name version expected=$expected_version actual=${actual_version:-unavailable}"
+  fi
+}
+
+check_git_head() {
+  repo="$1"
+  expected="$2"
+  label="$3"
+  actual="$(git -C "$repo" rev-parse HEAD 2>/dev/null || true)"
+  if test "$actual" = "$expected"; then
+    pass "$label HEAD: $actual"
+  else
+    fail "$label HEAD expected=$expected actual=${actual:-unavailable}"
+  fi
+}
+
+check_git_contains_base() {
+  repo="$1"
+  expected_base="$2"
+  label="$3"
+  if git -C "$repo" merge-base --is-ancestor "$expected_base" HEAD 2>/dev/null; then
+    pass "$label contains baseline: $expected_base"
+  else
+    fail "$label does not contain baseline: $expected_base"
+  fi
+}
+
+check_port_free() {
+  port="$1"
+  socket_output="$(ss -ltn 2>/dev/null)"
+  socket_status=$?
+  if test "$socket_status" -ne 0; then
+    fail "port inspection failed: ss -ltn exit=$socket_status"
+    return
+  fi
+  if printf '%s\n' "$socket_output" | awk 'NR > 1 {print $4}' | grep -Eq "(^|:)$port$"; then
+    fail "port in use: $port"
+  else
+    pass "port available: $port"
+  fi
+}
+
+printf 'OR0 READ-ONLY PREFLIGHT\n'
+printf '=======================\n'
+
+printf '\nRuntime commands\n'
+for command_name in python3 node npm git docker google-chrome codex specify ss; do
+  check_command "$command_name"
+done
+
+printf '\nObserved versions\n'
+check_runtime python3 "$EXPECTED_PYTHON_PATH" "$EXPECTED_PYTHON_VERSION" "$(python3 --version 2>/dev/null | awk '{print $2}')"
+check_runtime node "$EXPECTED_NODE_PATH" "$EXPECTED_NODE_VERSION" "$(node --version 2>/dev/null | sed 's/^v//')"
+check_runtime npm "$EXPECTED_NPM_PATH" "$EXPECTED_NPM_VERSION" "$(npm --version 2>/dev/null)"
+check_runtime git "$EXPECTED_GIT_PATH" "$EXPECTED_GIT_VERSION" "$(git --version 2>/dev/null | awk '{print $3}')"
+check_runtime docker "$EXPECTED_DOCKER_PATH" "$EXPECTED_DOCKER_VERSION" "$(docker --version 2>/dev/null | sed -E 's/^Docker version ([^,]+).*/\1/')"
+check_runtime google-chrome "$EXPECTED_CHROME_PATH" "$EXPECTED_CHROME_VERSION" "$(google-chrome --version 2>/dev/null | awk '{print $3}')"
+check_runtime codex "$EXPECTED_CODEX_PATH" "$EXPECTED_CODEX_VERSION" "$(codex --version 2>/dev/null | awk '{print $2}')"
+check_runtime specify "$EXPECTED_SPECIFY_PATH" "$EXPECTED_SPECIFY_VERSION" "$(specify --version 2>/dev/null | awk '{print $NF}')"
+
+printf '\nRequired paths\n'
+for required_path in \
+  "$OR0_ROOT" \
+  "$V2_DIRTY_ROOT" \
+  "$PRODUCT_ROOT" \
+  "$V2_UI_ROOT" \
+  "$OR0_ROOT/environment/runtime-baseline.yml" \
+  "$OR0_ROOT/environment/operation-policy.yml" \
+  "$OR0_ROOT/environment/preflight-checklist.md" \
+  "$PRODUCT_ROOT/package.json" \
+  "$PRODUCT_ROOT/package-lock.json" \
+  "$PRODUCT_ROOT/m7-pdf-stamp/package.json" \
+  "$PRODUCT_ROOT/m7-pdf-stamp/package-lock.json" \
+  "$UIUX_ROOT/SKILL.md" \
+  "$UIUX_ROOT/scripts/search.py" \
+  "$ANTIGRAVITY_ROOT/antigravity-ide" \
+  "$ANTIGRAVITY_ROOT/chrome-sandbox"; do
+  check_path "$required_path"
+done
+
+printf '\nGit baselines\n'
+check_git_contains_base "$OR0_ROOT" "$EXPECTED_OR0_BASE_SHA" "OR0 worktree"
+v2_source_head="$(git -C "$V2_DIRTY_ROOT" rev-parse --short=7 HEAD 2>/dev/null || true)"
+if test "$v2_source_head" = "$EXPECTED_V2_SOURCE_SHA"; then
+  pass "V2 dirty source HEAD: $v2_source_head"
+else
+  fail "V2 dirty source HEAD expected=$EXPECTED_V2_SOURCE_SHA actual=${v2_source_head:-unavailable}"
+fi
+check_git_head "$PRODUCT_ROOT" "$EXPECTED_PRODUCT_SHA" "product"
+
+scope_changes="$(git -C "$OR0_ROOT" status --porcelain=v1 --untracked-files=all 2>/dev/null || true)"
+scope_violation=0
+while IFS= read -r status_line; do
+  test -z "$status_line" && continue
+  changed_path="${status_line:3}"
+  case "$changed_path" in
+    environment/runtime-baseline.yml|environment/operation-policy.yml|environment/preflight-checklist.md|tools/or0-preflight) ;;
+    *) fail "OR0 change outside allowed paths: $changed_path"; scope_violation=1 ;;
+  esac
+done <<< "$scope_changes"
+if test "$scope_violation" -eq 0; then
+  pass "OR0 changes are limited to allowed paths"
+fi
+
+origin_output="$(timeout 15s git -C "$OR0_ROOT" ls-remote origin refs/heads/main 2>/dev/null)"
+origin_status=$?
+origin_main="$(printf '%s\n' "$origin_output" | awk '{print $1}')"
+if test "$origin_status" -eq 124; then
+  fail "origin/main read timed out after 15 seconds"
+elif test "$origin_status" -ne 0; then
+  fail "origin/main read failed: exit=$origin_status"
+elif test "$origin_main" = "$EXPECTED_REMOTE_MAIN_SHA"; then
+  pass "origin/main: $origin_main"
+else
+  fail "origin/main expected=$EXPECTED_REMOTE_MAIN_SHA actual=${origin_main:-unavailable}"
+fi
+
+dirty_status="$(git -C "$V2_DIRTY_ROOT" status --porcelain=v1 --untracked-files=all 2>/dev/null || true)"
+dirty_status_sha256="$(printf '%s' "$dirty_status" | sha256sum | awk '{print $1}')"
+info "user dirty status sha256: $dirty_status_sha256"
+if test "$dirty_status_sha256" = "$EXPECTED_DIRTY_STATUS_SHA256"; then
+  pass "user dirty status matches preservation snapshot"
+else
+  fail "user dirty status changed expected=$EXPECTED_DIRTY_STATUS_SHA256 actual=$dirty_status_sha256"
+fi
+
+if test -z "$(git -C "$PRODUCT_ROOT" status --porcelain 2>/dev/null)"; then
+  pass "product working tree is clean"
+else
+  fail "product working tree has changes"
+  git -C "$PRODUCT_ROOT" status --short
+fi
+
+printf '\nReserved ports before Preview\n'
+for reserved_port in 5173 5174 8200; do
+  check_port_free "$reserved_port"
+done
+
+printf '\nDeclared product commands\n'
+printf '%s\n' 'hospital: npm run dev -- --host 127.0.0.1 --port 5173 --strictPort'
+printf '%s\n' 'pdf:      npm run dev -- --host 127.0.0.1 --port 5174 --strictPort'
+if node -e 'const p=require(process.argv[1]); if (!p.scripts || !p.scripts.dev) process.exit(1)' "$PRODUCT_ROOT/package.json"; then
+  pass "hospital package has dev script"
+else
+  fail "hospital package is missing dev script"
+fi
+if node -e 'const p=require(process.argv[1]); if (!p.scripts || !p.scripts.dev) process.exit(1)' "$PRODUCT_ROOT/m7-pdf-stamp/package.json"; then
+  pass "PDF package has dev script"
+else
+  fail "PDF package is missing dev script"
+fi
+
+printf '\nAntigravity metadata\n'
+antigravity_version="$(node -e 'const p=require(process.argv[1]); process.stdout.write(p.version || "")' "$ANTIGRAVITY_ROOT/resources/app/package.json" 2>/dev/null || true)"
+if test -n "$antigravity_version"; then
+  pass "Antigravity metadata version: $antigravity_version"
+else
+  fail "Antigravity version metadata unavailable"
+fi
+sandbox_mode="$(stat -c '%a' "$ANTIGRAVITY_ROOT/chrome-sandbox" 2>/dev/null || true)"
+sandbox_owner="$(stat -c '%U:%G' "$ANTIGRAVITY_ROOT/chrome-sandbox" 2>/dev/null || true)"
+info "isolated chrome-sandbox mode=${sandbox_mode:-unavailable} owner=${sandbox_owner:-unavailable}"
+if test "$sandbox_mode" = "4755" && test "$sandbox_owner" = "root:root"; then
+  pass "isolated chrome-sandbox metadata is ready"
+else
+  fail "isolated chrome-sandbox requires owner=root:root mode=4755"
+fi
+if grep -Eq '^  isolated_launch_verified: true$' "$OR0_ROOT/environment/operation-policy.yml"; then
+  pass "Antigravity isolated launch evidence recorded"
+else
+  fail "Antigravity new-session launch requires separate verification"
+fi
+
+printf '\nExternal backup evidence\n'
+if test -n "${AI_OS_OR0_BACKUP_ROOT:-}" && test -d "${AI_OS_OR0_BACKUP_ROOT}"; then
+  info "backup_destination_exists=true"
+  source_device="$(stat -c '%d' "$OR0_ROOT" 2>/dev/null || true)"
+  backup_device="$(stat -c '%d' "${AI_OS_OR0_BACKUP_ROOT}" 2>/dev/null || true)"
+  if test -z "$source_device" || test -z "$backup_device"; then
+    fail "backup filesystem comparison unavailable"
+  elif test "$source_device" = "$backup_device"; then
+    fail "backup destination is on the same filesystem as OR0 source"
+  else
+    pass "backup destination is on a different filesystem"
+  fi
+  fail "backup contents and Restore require manual verification"
+else
+  if grep -Eq '^  user_deferred: true$' "$OR0_ROOT/environment/operation-policy.yml"; then
+    warn "external backup and Restore deferred by user; required before production or irreplaceable artifacts"
+  else
+    fail "external backup root is not selected; set AI_OS_OR0_BACKUP_ROOT only after user approval"
+  fi
+fi
+
+printf '\nPreview readiness\n'
+warn "Preview processes were not started by this read-only preflight"
+if grep -Eq '^  hospital_manual_preview_verified: true$' "$OR0_ROOT/environment/operation-policy.yml"; then
+  pass "hospital DOM, interaction and fatal-console evidence recorded"
+else
+  fail "hospital DOM and fatal-console checks require OR0-E manual Browser verification"
+fi
+if grep -Eq '^  pdf_manual_preview_verified: true$' "$OR0_ROOT/environment/operation-policy.yml"; then
+  pass "PDF DOM, interaction and fatal-console evidence recorded"
+else
+  fail "PDF DOM and fatal-console checks require OR0-E manual Browser verification"
+fi
+
+printf '\nSummary\n'
+printf 'PASS=%s WARN=%s FAIL=%s\n' "$PASS_COUNT" "$WARN_COUNT" "$FAIL_COUNT"
+if test "$FAIL_COUNT" -eq 0; then
+  printf 'OR0_PREFLIGHT=PASS\n'
+  printf 'PM_START_ALLOWED=true\n'
+  exit 0
+fi
+
+printf 'OR0_PREFLIGHT=BLOCKED\n'
+printf 'PM_START_ALLOWED=false\n'
+exit 1
