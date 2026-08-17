@@ -1,6 +1,6 @@
 # Verification
 
-> Post-MVP 최신 PM0~PM7 PASS 기준은 [[POST_MVP_FINAL_DESIGN]]을 사용합니다. 아래 PM1~PM4 연속 실행 문구는 이전 설계 기록이며 최신 Roadmap을 덮어쓰지 않습니다.
+> Post-MVP 최신 PM0~PM6 PASS 기준은 [[POST_MVP_PM0_PM6_BASELINE]]을 사용합니다. 아래 PM1~PM4 연속 실행 문구는 이전 설계 기록이며 최신 Roadmap을 덮어쓰지 않습니다.
 
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다. Gate와 완료 판정은 이 표준을 기준으로 검증합니다.
 
@@ -228,7 +228,7 @@ M7 판정은 `✅ 검증됨`이며, 이에 따라 V2 Core MVP 검증이 공식�
 - 외부 설치·기존 제품 변경·실제 데이터·권한·DB·배포·삭제는 Gate 없이 실행되지 않습니다.
 - 후보가 실제 환경 검증, 사용자 확인, Commit과 Rollback/Restore를 통과하기 전에는 `verified` 또는 `reusable_recipe`가 될 수 없습니다.
 
-### PM1 최소 조립식 기반·Hybrid H Gate
+### 이전 PM1 최소 조립식 기반·Hybrid H Gate
 
 - [ ] 병원 웹과 PDF 프로젝트가 정적 Project Registry로 각각 열림
 - [ ] PDF Module 비활성화 후에도 Core와 병원 웹이 정상 동작함

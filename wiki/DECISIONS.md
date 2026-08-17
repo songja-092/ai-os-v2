@@ -132,8 +132,8 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 ## UI와 복구 안전
 
 - 📝 승인됨: 얇은 UI MVP는 [[THIN_UI_MVP_CONTRACT]] · [GitHub 링크](THIN_UI_MVP_CONTRACT.md)의 다섯 계약을 공식 기준으로 사용합니다. UI는 Core 상태의 읽기·명령 전달 계층이며 YAML 직접 수정, 임의 Shell 실행, 상태·Action 추론을 금지합니다.
-- 📝 승인됨: PM1은 `최소 조립식 기반 + 얇은 UI`입니다. Project Registry와 Capability/Module Registry는 Core가 검증하는 정적 허용 목록이며 Marketplace나 외부 코드 Runtime이 아닙니다. 고정 Slot은 `project_home`, `workspace_preview`, `workspace_tools`, `background_capability`이며 Module 실패는 Core·다른 프로젝트와 격리합니다.
-- 📝 승인됨: PM1 공식 디자인 방식은 Hybrid H입니다. A/B/C 탐색과 MIX-1 선택 뒤 화면·핵심 상태별 `visual_target`을 승인받고 Image-to-Code와 동일 Viewport Fidelity를 거칩니다. Fidelity PASS 이후 코드만 디자인 원본으로 승격합니다.
+- 🗃️ 번호 대체됨: 이전 `PM1 최소 조립식 기반 + 얇은 UI` 계약은 최신 구조의 `PM2 조립식 V2 보드`로 이동했습니다. Project Registry와 Capability/Module Registry는 Core가 검증하는 정적 허용 목록이며 Marketplace나 외부 코드 Runtime이 아닙니다. 고정 Slot은 `project_home`, `workspace_preview`, `workspace_tools`, `background_capability`이며 Module 실패는 Core·다른 프로젝트와 격리합니다.
+- 🗃️ 대체됨: PM1의 이전 Hybrid H·반복 A/B/C 방식은 역사적 기록으로 보존합니다. 최신 PM1은 Reference Brief → 실제 Reference 10개 이상 → 추천 3~5개 → 구조 Preview 1~2개 → 실제 데이터 Code Preview 1개의 Reference-first 방식을 사용합니다.
 - 📝 판정됨: `run-ef4986d7`의 클릭형 Preview v1은 상호작용·반응형 구조 증거로 보존하지만 `rejected_visual_fidelity`이며 디자인 승인·구현 입력·Reference 등록에 사용할 수 없습니다.
 - M1~M4에서는 전용 V2 UI를 구현하지 않고 Spec Kit 상태와 Obsidian의 Run 기록으로 Core를 검증합니다.
 - Dashboard UI는 Core MVP 이후 후보입니다. 먼저 M5~M7에서 수집·분석·레시피 선택, Change Run과 전체 제작 사이클을 실제 상태로 검증합니다.
@@ -158,6 +158,8 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - ✅ PM1 디자인 품질 PASS와 PM2 조립 기능 PASS를 분리하며, PM1 PASS 전 PM2 구현을 시작하지 않습니다.
 - ✅ PM2 PASS 전 영상·3D Adapter를 추가하지 않습니다.
 - ✅ 이전 Post-MVP PM0~PM7 기능은 삭제하지 않고 이동·통합하며 기존 Run·Artifact·Commit과 당시 판정을 보존합니다.
+- ✅ PM1~PM3 설계 계약 완료: Reference Brief와 Reference Board, Versioned Design Recipe와 반응형 Override, Module Manifest·Slot Renderer, 제거 가능한 Puck Adapter 경계를 확정했습니다. 이는 실제 구현 또는 Package 설치 완료를 의미하지 않습니다.
+- ✅ V2 운영 UI는 PC 전용이며 고객 결과물은 모바일 우선입니다. `390px`·`430px`은 하나의 모바일 규칙을 검증하는 Viewport입니다.
 - 최신 전체 범위·Gate·증거 매핑은 [[POST_MVP_PM0_PM6_BASELINE]]을 단일 기준으로 사용합니다.
 
 ## Post-MVP PM0~PM7 — 이전 확정 기록
@@ -178,13 +180,13 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - PM4는 Intent Packet·Receipt와 Acceptance Checks의 불일치 차단만 Core 기능으로 일반화합니다. AI 역할 Adapter는 설계 경계이며 Provider 자동 교체·Marketplace·Fallback은 구현하지 않습니다.
 - 각 PM 구현 직전에 현재 설치 Skill, 기존 코드·공식 기능, GitHub OSS와 공식 문서를 조사하고 추가 후보는 최대 2개로 제한합니다. 도구를 발견했다는 이유만으로 설치하지 않습니다.
 
-## 직접 부분 수정 패널 후보
+## 직접 부분 수정 패널 후보 — 최신 PM3
 
-- 📝 PM2 채택 방향: `Direct Partial Edit Panel`입니다. PM1 클릭형 Preview 선택과 최소 구현 이후에 검토하며, 별도 승인 전에는 구현하거나 패키지를 설치하지 않습니다.
+- 📝 PM3 채택 방향: `Direct Partial Edit Panel`과 제거 가능한 Visual Editor Adapter입니다. PM1 디자인 품질 PASS와 PM2 조립 기능 PASS 이후에 검토하며, 별도 승인 전에는 구현하거나 패키지를 설치하지 않습니다.
 - 검증된 기반은 안정적인 영역 라벨 `HERO-01`, M6 AI 부분 수정, 변경 범위 제한, 회귀검증, Commit과 Rollback/Restore입니다. AI 부분 수정과 사용자의 직접 시각 편집을 같은 기능으로 기록하지 않습니다.
 - 첫 파일럿은 `HERO-01` 하나에서 글자 크기, 콘텐츠 폭, 자연스러운 줄바꿈과 배경색만 조절합니다. 버튼은 `원래대로`, `미리보기`, `적용`으로 제한합니다.
 - 직접 조절은 글자·색상·간격·모서리·그림자와 제한된 움직임 설정, AI 수정은 메뉴 구조·섹션 순서·카드 정보 순서·반응형 구조, 새 Change Run은 새 화면·기능·로그인·저장·관리자·결제를 담당합니다.
-- 기술 파일럿 조건부 후보는 `Tweakpane`이며 기본 HTML Control이 부족하다는 증거가 생기기 전에는 설치하지 않습니다. `AutoAnimate`, `React Grab`, `Agentation`은 현재 보류하고 `Puck` 전체 편집기, Drag & Drop, 자유 Resize와 범용 페이지 편집기는 폐기합니다.
+- `Puck`은 PM3의 조건부·제거 가능한 Visual Editor Adapter 후보입니다. PM1 기능이나 Core·Recipe의 소유자가 아니며 PM2 PASS와 별도 승인 전에는 설치하지 않습니다. `React Grid Layout`은 Puck만으로 승인된 Panel Resize를 충족하지 못한다는 증거가 생길 때만 보조 후보로 검토하고, 현재 `Craft.js`로 전환할 근거는 없습니다. `Tweakpane`, `AutoAnimate`, `React Grab`, `Agentation`은 보류합니다.
 - 자유 CSS 입력은 금지하고 허용된 CSS 변수 또는 제한 설정값만 사용합니다. 적용 전 Version을 보존하고 390px·430px·1440px, 가로 넘침과 Console을 검증하며 실패 시 원본을 유지합니다.
 
 ## 실제 Galaxy Preview 후보

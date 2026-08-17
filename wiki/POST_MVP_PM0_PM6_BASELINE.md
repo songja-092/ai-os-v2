@@ -54,17 +54,28 @@ PASS:
 
 구현 범위:
 
+- 검색 전 `Reference Brief` 작성: 화면 목적, 사용자, 필수 정보, 핵심 행동, 정보 밀도, PC·모바일 기준, 유지할 V2 규칙, 제외할 디자인
 - 공식 Registry, 라이선스가 확인된 OSS와 검증된 디자인 시스템 우선 조사
 - 출처·라이선스·의존성·기술 호환성 확인
-- 같은 실제 V2 데이터와 Viewport로 후보 3개와 현재안 비교
+- 실제 Reference 10개 이상을 `Reference Board`에 공개하고 구조가 겹치는 후보를 제거
+- 같은 평가 기준으로 분석한 추천 방향 3~5개와 현재안 비교
 - 전체 구조·특정 Section·Design DNA의 자연어 선택
 - V2 기본 Typography·Color·Button 규칙으로 시각 통일
 - 선택 출처·Section ID·Design Recipe 기록
+- 저비용 구조 Preview 1~2개 뒤 실제 데이터 Code Preview 1개만 제작
 - 승인된 Visual Target 등록과 승인 전 구현 차단
+
+Reference는 두 종류를 구분합니다.
+
+- `visual_reference`: 구조·분위기만 참고하며 코드를 복사하지 않습니다.
+- `reusable_code_block`: 라이선스·의존성·코드를 확인한 뒤 실제 재사용 후보로 다룹니다.
+
+평가 항목은 `task_fit`, `information_hierarchy`, `implementation_feasibility`, `responsive_quality`, `accessibility`, `license_clarity`, `v2_design_system_fit`, `section_reusability`이며 각 0~5점입니다. 점수는 추천 근거일 뿐 자동 선택 근거가 아니며 최종 선택은 사용자가 합니다. `UI UX Pro`는 사용성·구조 분석 보조 도구이고 `Taste Skill`은 미검증 평가 후보입니다.
 
 PASS — 디자인 품질:
 
 - 출처와 라이선스를 확인한 구조적으로 다른 후보가 존재합니다.
+- Reference 10개 이상과 추천 방향 3~5개가 사용자에게 공개됩니다.
 - 모든 후보를 같은 데이터와 Viewport로 비교합니다.
 - 사용자가 현재안보다 나은 방향 또는 현재안 유지를 명시적으로 선택합니다.
 - 선택 결과가 Visual Target·Section ID·Design Recipe에 연결됩니다.
@@ -112,6 +123,7 @@ PASS — 조립 기능:
 - 새 Design Version
 - 적용·폐기·이전 Version 복구
 - 고객 결과물 390px·430px 모바일 회귀검증
+- 조건부 Visual Editor Adapter를 통한 Module·Section 이동, 제한된 Resize, 표시·숨김과 허용 속성 편집
 
 PASS:
 
@@ -121,6 +133,100 @@ PASS:
 - 모바일 핵심 흐름이 깨지지 않습니다.
 
 기존 M6 Quick Change 증거는 자연어 국소 수정의 선행 증거로 보존하지만 직접 보드 편집 완료 증거로 확대하지 않습니다.
+
+`Puck`은 PM1 기능이 아니라 PM3의 제거 가능한 Visual Editor Adapter 후보입니다. PM2 PASS와 별도 승인 전에는 설치하지 않습니다. `React Grid Layout`은 Puck만으로 승인된 Panel Resize를 충족하지 못한다는 증거가 생길 때만 보조 후보로 검토하며, 현재 `Craft.js`로 전환할 근거는 없습니다.
+
+## 2-1. PM1~PM3 설계 계약
+
+### Design Recipe
+
+V2는 디자인 원본으로 Versioned Design Recipe를 소유합니다. 최소 필드는 다음과 같습니다.
+
+```yaml
+recipe_id: string
+schema_version: "1.0"
+project_id: string
+target_surface: v2_board | customer_product
+version: integer
+base_version: integer | null
+status: draft | approved | applied | discarded | restored
+sections:
+  - section_id: string
+    module_id: string
+    slot_id: string
+    order: integer
+    visible: boolean
+    layout: {column, row, width, height, min_width, max_width, min_height, max_height}
+    style: {spacing_token, font_token, color_token, typography_scale}
+    reference_ids: [string]
+references:
+  - reference_id: string
+    type: visual_reference | reusable_code_block
+    name: string
+    url: string
+    used_part: string
+    applied_section_ids: [string]
+    license: string
+    access_status: verified | inaccessible | user_screenshot
+    adoption_status: candidate | selected | verified | reusable
+changes:
+  - change_id: string
+    command: string
+    target_section_id: string
+    target_viewport: shared | desktop | mobile
+    property: string
+    before: any
+    after: any
+    source: direct_edit | natural_language | restore
+```
+
+직접 편집과 자연어 편집은 같은 `changes[]`를 생성합니다. 기존 Version을 덮어쓰지 않고 항상 새 Draft를 만들며 사용자 승인 후 `approved`, Core 검증 후 `applied`로 전환합니다. 취소는 `discarded`, Restore는 과거 Version을 복사한 새 Draft입니다. Puck JSON은 Recipe에 저장하지 않습니다.
+
+반응형 계약:
+
+```yaml
+responsive:
+  shared:
+    spacing_tokens: {}
+    typography_tokens: {}
+    component_rules: {}
+  desktop:
+    required_for: [v2_board]
+    layout: {}
+    order_overrides: []
+    hidden_section_ids: []
+  mobile:
+    required_for: [customer_product]
+    breakpoint: 430
+    validation_widths: [390, 430]
+    layout: {}
+    order_overrides: []
+    hidden_section_ids: []
+```
+
+`v2_board`는 PC Recipe가 필수이고 모바일은 선택입니다. `customer_product`는 모바일 Recipe가 필수입니다. 공통 속성과 Viewport Override를 분리하고 PC 변경은 모바일 Override를 자동 변경하지 않습니다. 390·430은 별도 디자인이 아니라 하나의 모바일 규칙을 검증하는 Viewport입니다. Restore는 공통 속성과 Override를 함께 복원합니다.
+
+### Module Manifest와 Slot Renderer
+
+Manifest는 `manifest_version`, `module_id`, `display_name`, `module_version`, `adapter_type`, `allowed_slots`, `required_state`, `emitted_actions`, `permissions`, `health`, `status`를 포함합니다. Slot Renderer는 다음 순서를 지킵니다.
+
+```text
+Manifest Schema 확인 → Registry 등록 확인 → Slot 허용 확인
+→ Core 권한 확인 → Module별 Error Boundary에서 Render
+→ 실패한 Module만 Fallback
+```
+
+Registry에 없거나 허용되지 않은 Module·Slot·Action은 거부합니다. Module은 Core 상태를 직접 수정하지 못합니다. 배치 변경은 새 Recipe Version으로 저장하며 비활성화와 실패 뒤에도 Recipe·Artifact·이전 배치를 복원할 수 있어야 합니다.
+
+### Puck Adapter
+
+```text
+V2 Design Recipe → RecipeToPuckAdapter → 임시 Puck Config·Data
+→ 사용자 편집 → PuckToRecipeDiffAdapter → Core Schema·권한 검증
+→ Draft Preview → 사용자 승인 → 새 Recipe Version
+```
+
+Puck은 Version이나 Core Action을 소유하지 않고 Puck Data와 전용 Component ID를 Source of Truth로 사용하지 않습니다. 제거할 때 Editor Route와 Adapter 연결을 끊고 Package를 제거해도 일반 Slot Renderer가 Recipe를 Render해야 하며 Design Recipe, Version, Reference, Diff, 승인 기록, Preview, 적용 코드와 Artifact가 유지되어야 합니다.
 
 ### PM4 — 자료 조사
 

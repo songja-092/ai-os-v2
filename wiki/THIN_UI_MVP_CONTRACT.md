@@ -99,21 +99,25 @@ Preview 준비 완료는 `health_url` 응답과 제품 초기화 상태 신호�
 - `scrcpy`: 선택 기능
 - 기본 화면에서는 Run ID, Commit SHA, 내부 Gate와 기술 로그를 숨깁니다.
 
-## 공식 디자인 방식 — Hybrid H
+## 공식 디자인 방식 — Reference-first
 
 ```text
-Reference Mix → Design DNA 이미지 탐색 → A/B/C 비교 → 선택·혼합
-→ 화면·핵심 상태별 visual_target → 사용자 시각 승인 → Image-to-Code
-→ 동일 Viewport Fidelity 비교·수정 → Fidelity PASS → 코드가 디자인 원본
+Reference Brief → 실제 Reference 10개 이상 수집·검사
+→ Reference Board 전체 공개 → 추천 방향 3~5개
+→ 전체 구조·Section 선택 → Design Recipe
+→ 구조 Preview 1~2개 → 실제 데이터 Code Preview 1개
+→ visual_target 사용자 승인 → 동일 Viewport Fidelity 검증
 ```
 
-- `design-draft.json`은 구조 계약이며 시각 원본을 대신하지 않습니다.
-- 승인된 `visual_target`을 Image-to-Code에 직접 입력합니다.
+- `visual_reference`와 `reusable_code_block`을 분리하며 전자는 코드를 복사하지 않습니다.
+- 실제 Code Preview를 후보마다 반복 제작하지 않고 최종 방향 하나에만 만듭니다.
+- Design Recipe가 디자인 구조·Reference·Version의 원본이며 승인된 코드가 적용 결과의 원본입니다.
 - 화면 전체를 한 이미지에 강제하지 않고 화면·핵심 상태별 `visual_target`을 허용합니다.
-- 기준 Viewport는 `1440×950`, `430px`, `390px`입니다.
+- V2 운영 UI는 PC 전용입니다. 고객 결과물은 모바일 우선이며 `390px`, `430px`은 하나의 모바일 규칙을 검증하는 Viewport입니다.
 - Fidelity는 레이아웃, 정보 우선순위, 타이포그래피, 색상·배경, 표면·테두리, 간격·밀도, 모바일 흐름과 Preview 비중을 확인합니다.
 - Fidelity PASS 이후에만 코드가 공식 `design_source_of_truth`가 됩니다.
-- 이후 변경은 Section ID·Design Token·컴포넌트 단위로 수행하며 큰 방향 변경만 이미지 탐색부터 다시 시작합니다.
+- 이후 변경은 Section ID·Design Token·컴포넌트 단위의 Recipe Diff로 수행합니다. 직접 편집과 자연어 편집은 같은 Version 규칙을 사용합니다.
+- 상세 Recipe·Manifest·Slot Renderer·Puck Adapter 계약의 원본은 [[POST_MVP_PM0_PM6_BASELINE]]입니다.
 
 ## 현재 상태와 다음 Gate
 
