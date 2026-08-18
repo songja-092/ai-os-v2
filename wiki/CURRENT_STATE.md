@@ -2,7 +2,7 @@
 
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
 
-현재 `M7 — PDF 도면 스탬프 MVP E2E`까지 구현·독립 검증·사용자 승인·Result Commit·Rollback/Restore가 완료됐습니다. M7 공식 Run은 `run-c0a968f3`, 제품 Result Commit은 `3b592c8`입니다. 이로써 `AI OS V2 Core MVP M1~M7`은 검증 완료·동결 상태입니다. Post-MVP 설계는 [[POST_MVP_PM0_PM6_BASELINE]]의 `PM0~PM6`으로 완료됐으며 완료 범위와 미구현 항목은 [[POST_MVP_DESIGN_COMPLETION_REPORT]]에 기록합니다. `PM0 — 운영환경 준비`는 기술 Preflight와 격리 재현을 통과했고, 사용자가 외부 Backup·표본 Restore만 후속으로 유예한 조건으로 PASS했습니다. 현재 활성 단계는 `PM1 — 디자인 탐색·채택 방식 시험`이며 어느 채택 방식도 아직 V2 기본 방식으로 확정되지 않았습니다. `run-ef4986d7`의 기존 Preview v1은 `rejected_visual_fidelity`로 보존하며 구현 입력으로 사용하지 않습니다.
+현재 `M7 — PDF 도면 스탬프 MVP E2E`까지 구현·독립 검증·사용자 승인·Result Commit·Rollback/Restore가 완료됐습니다. M7 공식 Run은 `run-c0a968f3`, 제품 Result Commit은 `3b592c8`입니다. 이로써 `AI OS V2 Core MVP M1~M7`은 검증 완료·동결 상태입니다. Post-MVP 설계는 [[POST_MVP_PM0_PM6_BASELINE]]의 `PM0~PM6`으로 완료됐으며 완료 범위와 미구현 항목은 [[POST_MVP_DESIGN_COMPLETION_REPORT]]에 기록합니다. `PM0 — 운영환경 준비`는 기술 Preflight와 격리 재현을 통과했고, 사용자가 외부 Backup·표본 Restore만 후속으로 유예한 조건으로 PASS했습니다. `PM1 — 디자인 전략·탐색·채택`은 `single_visual_target_with_ui_ux_pro_guard` 방식, PC 운영 UI와 PM3용 Section 계약을 사용자·Codex가 PASS했습니다. 현재 활성 단계는 `PM2 — 조립식 제작 보드`입니다. `run-ef4986d7`의 기존 Preview v1과 PM1의 실패 Pilot은 당시 거절 판정 그대로 보존하며 구현 입력으로 사용하지 않습니다.
 
 M2 공식 검증 Run은 `run-05dbfc27`입니다. `execution_mode: skills`, `workflow_run_id: null`인 동일 Run에서 Specify, 승인 전 Plan 차단, Spec 본문 수정과 Version 증가, 승인, Plan Artifact 생성과 새 프로세스 재조회를 확인했습니다.
 
@@ -42,8 +42,8 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 ## 다음 단계
 
 - 2026-08-18 최종 Post-MVP 순서는 `PM0 운영환경·Capability Lab 준비 → PM1 디자인 전략·탐색·채택 → PM2 조립식 제작 보드 → PM3 부분 수정·Motion Adapter → PM4 조사·Design Intelligence → PM5 사용자 의도·범위·자산 정합성 → PM6 전체 통합·품질·복구 검증`입니다.
-- 설계 상태는 `completed`, PM0 상태는 `pass_with_user_deferred_backup`, 현재 활성 단계는 PM1입니다. 정적 Reference Board, 이를 이용한 `큰 미리보기 작업실` Pilot, 실제 화면 5개의 구역·속성을 선택하는 Visual Companion, Google Stitch 생성 결과는 사용자가 기존 UI UX Pro 중심 방식보다 느리거나 결과가 낮다고 판정했습니다. 이 결과들은 `rejected_and_preserved` 증거이며 제품·Registry·PM2에 적용되지 않았습니다. Visual Companion용 Route·API는 현재 PM1 작업 브랜치의 미커밋 격리 Pilot에만 존재하므로 Core 공식 기능으로 간주하지 않습니다.
-- PM1 우선 검증 후보는 `쉬운 요청 → 필요한 Reference만 내부 조사 → UI UX Pro 규칙·품질 검사 → 실제 V2 데이터 Visual Target 하나 → 부분 수정 → 승인 또는 거절 → 거절 시 대안 하나`입니다. 이는 사용자 비교에서 다시 선택된 후보이며 아직 최종 기본 방식이나 PM1 PASS가 아닙니다.
+- 설계 상태는 `completed`, PM0 상태는 `pass_with_user_deferred_backup`, PM1 상태는 `pass`, 현재 활성 단계는 PM2입니다. 정적 Reference Board, 이를 이용한 `큰 미리보기 작업실` Pilot, 실제 화면 5개의 구역·속성을 선택하는 Visual Companion, Google Stitch 생성 결과는 사용자가 기존 UI UX Pro 중심 방식보다 느리거나 결과가 낮다고 판정했습니다. 이 결과들은 `rejected_and_preserved` 증거이며 제품·Registry·PM2에 적용되지 않았습니다. Visual Companion용 Route·API는 격리 Pilot 증거로만 보존하며 Core 공식 기능으로 간주하지 않습니다.
+- PM1 기본 방식은 `쉬운 요청 → 기존 성공 Recipe·Block 우선 확인 → 필요할 때만 제한 조사 → UI UX Pro 규칙·품질 검사 → 실제 V2 데이터 Visual Target 하나 → 부분 수정 → 승인 또는 거절 → 거절 시 대안 하나`로 PASS했습니다. 완료 증거는 [[PM1_COMPLETION_REPORT_2026-08-18]]을 사용합니다.
 - Reference는 출처·라이선스·사용 Section을 남기는 내부 보조 근거로 유지하고, 전체 목록·구역 선택·속성 선택은 사용자가 요청할 때만 제공하는 선택 기능으로 내립니다. `UI Remix` 연구 근거는 보존하지만 V2 기본 Workflow로 강제하지 않습니다.
 - 반복 ImageGen A/B/C와 후보별 Code Preview는 기본 흐름에서 제외합니다. Visual Target과 수정 전후는 동일 Viewport·V2 데이터·화면 상태·Theme·확대 비율·Motion 시점에서 확인합니다.
 - PM2는 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계와 Slot·Module을 실제 구현하는 조립 기능 Gate입니다.
@@ -54,7 +54,7 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 - 각 PM은 PM PASS·Codex 검증·사용자 PASS·Rollback/Restore 이후 별도 Result Commit 하나로 완료합니다.
 - M5의 수집·분석·레시피 선택 Core와 M6의 Quick Change Run·AI 부분 수정·회귀·복구 흐름, 그리고 M7 모바일 PDF 도면 스탬프 `local_product` E2E 구현 및 사용자 검증을 완료했습니다.
 - 사용자에게는 `원하는 화면 요청 → 실제 결과 확인 → 진행·부분 수정·다른 방향·현재안 유지·중단·복구`만 기본으로 보입니다. 요청은 쉬운 말로 받고 결과 확인과 행동은 실제 Preview·마우스·간단한 버튼을 우선합니다.
-- PM1은 `single_visual_target_with_ui_ux_pro_guard`를 우선 후보로 검증합니다. 사용자가 이 방식이 실패 Pilot보다 빠르고 편하며 결과 품질이 좋다고 승인하기 전에는 V2 기본 Workflow로 승격하지 않습니다.
+- PM1은 `single_visual_target_with_ui_ux_pro_guard`를 기본 Workflow로 채택했습니다. 이는 PM1 디자인 채택 방식의 PASS이며 PM2 조립 기능이나 PM3 직접 편집 기능의 구현 완료를 뜻하지 않습니다.
 - PM1 단일 Visual Target v1 `pm1-v2-dashboard-v1`을 실제 V2 데이터와 기존 선호 화면을 바탕으로 생성했습니다. UI UX Pro의 Grid·Typography·밀도·접근성 규칙만 채택하고 맞지 않는 Landing Pattern·보라/분홍 Palette·GSAP 제안은 거절 이유와 함께 기록했습니다. shadcn `sidebar-07`과 `dashboard-01`은 설치 없이 Registry 원본 Hash·파일·의존성을 확인했으며, `sidebar-07`만 PM2 구현 후보입니다. 사용자는 `오케이 이걸로하고`라고 Visual 방향을 승인했고 Design Finish Audit은 상태 표시·중복 문구·대비·Core 데이터 연결을 구현 시 수정하는 조건으로 `PASS_WITH_FIX`입니다. 이는 PM1 전체 편의성 PASS나 PM2 구현 승인을 대신하지 않습니다.
 - Repo-local `V2 Capability Lab` Pilot은 공개 GitHub 후보 Clone·정적 감사·가짜 Fixture·
   Bubblewrap 격리 실행·사용자 승인 기반 채택/폐기와 Registry 기록을 구현했습니다. 실제

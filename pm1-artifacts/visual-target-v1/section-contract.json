@@ -1,0 +1,71 @@
+{
+  "contract_version": "1.0",
+  "surface": "v2_board",
+  "source": "pm1-complete-review.html",
+  "status": "pm1_candidate",
+  "rule": "PM1 records stable section identity and allowed edits. PM3 implements editing, diff, version, undo and restore.",
+  "sections": [
+    {
+      "section_id": "dashboard.quick-actions",
+      "label": "빠른 실행",
+      "allowed_edits": ["order", "visible", "spacing"]
+    },
+    {
+      "section_id": "dashboard.research-entry",
+      "label": "바로 조사하기",
+      "allowed_edits": ["order", "visible", "spacing"]
+    },
+    {
+      "section_id": "dashboard.project-list",
+      "label": "프로젝트 목록",
+      "allowed_edits": ["order", "width_preset", "spacing"]
+    },
+    {
+      "section_id": "dashboard.background-status",
+      "label": "백그라운드 작업",
+      "allowed_edits": ["order", "visible", "collapsed"]
+    },
+    {
+      "section_id": "dashboard.sync-status",
+      "label": "동기화 상태",
+      "allowed_edits": ["order", "visible", "collapsed"]
+    },
+    {
+      "section_id": "workspace.current-summary",
+      "label": "현재 확인할 내용",
+      "allowed_edits": ["order", "collapsed", "visible"]
+    },
+    {
+      "section_id": "workspace.display-criteria",
+      "label": "표시 기준",
+      "allowed_edits": ["order", "collapsed", "visible"]
+    },
+    {
+      "section_id": "workspace.request-input",
+      "label": "요구사항 전달",
+      "allowed_edits": ["order", "height_preset", "spacing"]
+    },
+    {
+      "section_id": "workspace.mobile-preview",
+      "label": "모바일 Preview Panel",
+      "allowed_edits": ["width_preset", "height_preset", "spacing"]
+    },
+    {
+      "section_id": "skills.capability-list",
+      "label": "스킬·기능 목록",
+      "allowed_edits": ["width_preset", "density", "visible"]
+    },
+    {
+      "section_id": "skills.capability-detail",
+      "label": "스킬 상세",
+      "allowed_edits": ["width_preset", "visible", "collapsed"]
+    }
+  ],
+  "prohibited_in_pm1": [
+    "drag_and_drop",
+    "free_resize",
+    "recipe_version_write",
+    "undo_redo",
+    "core_state_write"
+  ]
+}
