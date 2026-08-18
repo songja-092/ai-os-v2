@@ -1,6 +1,7 @@
 # AI OS V2 Post-MVP 설계 완료 보고서
 
 작성일: 2026-08-17
+최종 갱신: 2026-08-18
 공식 기준: [[POST_MVP_PM0_PM6_BASELINE]]
 범위: Post-MVP PM0~PM6 설계 계약
 
@@ -13,15 +14,16 @@
 ## 2. 최종 사용자 흐름
 
 ```text
-프로젝트 선택
-→ 만들 것·유지할 것·건드리지 않을 것 확인
-→ 디자인 채택 방식 선택
-→ 추천 3개 또는 가져온 Reference 또는 Block 보관함에서 선택
-→ 실제 데이터 Code Preview 하나 확인
-→ 마우스로 Card 이동·순서·크기·여백 수정
-→ 적용·다른 방식·중단
-→ 검증 요약 확인
-→ 승인·Version 저장 또는 이전 상태 복구
+쉬운 요청과 변경 범위 확인
+→ 기존 성공 Recipe·Block 우선 검색
+→ 부족할 때만 V2 Collector가 제한 조사
+→ 업종·사용자·핵심 행동에 맞는 Visual Target 하나 확인
+→ 승인된 Recipe·Block을 조립식 보드에 구현
+→ 마우스로 Card·Section 순서·크기·여백·표현 수정
+→ 필요할 때만 검증된 Motion·Illustration·3D Adapter 적용
+→ 의도·변경 범위·자산 소유 경계 재확인
+→ 디자인·기능·접근성·성능·회귀·복구 통합 검증
+→ 사용자 승인·Version 저장 또는 이전 상태 복구
 ```
 
 기본 입력은 마우스 선택, 간단한 버튼, Drag & Drop과 Property Panel입니다. 키보드와 이동 버튼을 접근성 대안으로 제공하고 자연어는 선택지로 해결되지 않을 때만 사용합니다.
@@ -30,7 +32,8 @@
 
 | 영역 | 최종 반영 | 판정 |
 |---|---|---|
-| PM0 격리 Worktree·Runtime·Port·Backup·새 세션 재현 | 기존 계약 유지 | 완료 |
+| PM0 격리 Worktree·Runtime·Port·Backup·새 세션 재현 | Capability Lab 보안·제거 경로까지 확장 | 설계 완료 |
+| PM1 성공 Recipe 재사용·업종별 차별화 | Block·Layout Recipe·Style Pack 분리 | 설계 완료 |
 | PM1 추천형·Reference 가져오기·직접 조립형 | 전환·중단·임시 후보 보존 포함 | 완료 |
 | PM1 마우스 우선·편의성 PASS | 전문용어·자연어 없이 완료 조건 포함 | 완료 |
 | PM1 직접 조립·PM2 경계 | PM1은 구조 Draft, 실제 Module 장착은 PM2 | 완료 |
@@ -38,7 +41,9 @@
 | PM3 Card 이동·순서 변경 | Drag·버튼·키보드가 같은 Recipe Diff 생성 | 완료 |
 | PM3 복제·삭제 경계 | max_instances, Draft 제거, Core 필수 Module 보호 | 완료 |
 | PM3 Resize·여백·글자 | 제한 Preset으로 시작 | 완료 |
-| PM4 Collector·Analyzer 분리 | 출처·라이선스·증거 등급·부분 실패 포함 | 완료 |
+| PM4 Collector·Analyzer·Design Intelligence | 성공 Recipe 우선, 제한 수집, Capability Lab 연결 계약 | 설계 완료·연결 미구현 |
+| 도구 확장·제거 | Feature Flag·Adapter·Artifact 보존 계약 | 설계 완료 |
+| 공용·맞춤·고객 전용 자산 | PM5가 현재 계약의 재사용 경계 보존 | 설계 완료 |
 | PM5 Intent·Scope Lock | 구현 전·후 불일치 차단 포함 | 완료 |
 | PM5 이전 의도 확인 | PM1~PM4 수동 Intent Receipt 선행 Gate | 완료 |
 | PM6 중단·재개·제거 시험 | stale 증거·Version·복구 확인 포함 | 완료 |
@@ -81,13 +86,14 @@ PM0~PM6은 안전한 로컬 제작·검증·결과 전달까지의 계약입니�
 
 ```yaml
 core_mvp_m1_m7: completed_and_frozen
-post_mvp_design: completed
-post_mvp_implementation: not_started
-active_gate: PM0
-pm0_operational_readiness: blocked
-pm1_adoption_method: test_not_finalized
-pm1_implementation_allowed: false
-next_single_action: complete_PM0_operational_gate
+post_mvp_design: completed_2026_08_18_final_flow
+post_mvp_implementation: partial_pilots_only
+active_gate: PM1
+pm0_operational_readiness: pass_with_user_deferred_backup
+pm1_adoption_method: single_visual_target_with_ui_ux_pro_guard_candidate
+design_intelligence: fixture_ui_not_collector_connected
+capability_lab: isolated_execution
+next_single_action: design_intelligence_collector_adapter_contract
 ```
 
 ## 7. 변경·보존 범위

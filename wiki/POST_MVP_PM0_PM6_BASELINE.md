@@ -1,6 +1,7 @@
 # AI OS V2 Post-MVP PM0~PM6 공식 기준
 
 작성일: 2026-08-17
+최종 갱신: 2026-08-18
 상태: 사용자 승인 완료·설계 완료
 적용 범위: Post-MVP 계획만
 보존 범위: Core MVP M1~M7, 기존 Run·Artifact·Commit
@@ -8,20 +9,48 @@
 ## 1. 공식 순서
 
 ```text
-PM0 운영환경 준비
-→ PM1 디자인 탐색·채택
-→ PM2 조립식 V2 보드
-→ PM3 부분 수정
-→ PM4 자료 조사
-→ PM5 사용자 의도 정합성
-→ PM6 전체 통합·최종 검증
+PM0 운영환경·Capability Lab 준비
+→ PM1 디자인 전략·탐색·채택
+→ PM2 조립식 제작 보드
+→ PM3 부분 수정·Motion Adapter
+→ PM4 조사·Design Intelligence
+→ PM5 사용자 의도·범위·자산 정합성
+→ PM6 전체 통합·품질·복구 검증
 ```
 
 이 문서는 과거 Post-MVP PM0~PM7 번호 체계를 대체합니다. 기능을 삭제한 것이 아니라 이동·통합해 중복을 제거했습니다. Core MVP M1~M7의 완료 판정과 증거에는 영향을 주지 않습니다.
 
+### 1-1. 2026-08-18 최종 제작 흐름
+
+```text
+쉬운 사용자 요청
+→ PM5 수동 Intent·Scope Lock 선행 적용
+→ 기존 성공 Recipe·Block으로 해결 가능한지 확인
+→ 부족할 때만 PM4 V2 Collector가 제한 조사
+→ PM1에서 업종·사용자·핵심 행동에 맞는 Brief·Block·Visual Target 1개 승인
+→ PM2에서 승인된 Recipe·Block을 실제 Module로 조립
+→ PM3에서 마우스로 순서·크기·여백·표현을 부분 수정하고 필요할 때만 Motion·3D Adapter 적용
+→ PM5에서 최초 요청·변경 범위·공용/맞춤/고객 전용 자산 재확인
+→ PM6에서 디자인·기능·접근성·성능·회귀·복구 통합 검증
+→ 사용자 최종 승인
+→ 성공한 Recipe·Block·Adapter만 재사용 자산으로 승격
+```
+
+사용자가 보는 표준 행동은 `추천대로 진행`, `직접 선택`, `문제 있어요`,
+`이전 상태로`를 기본으로 하고 현재 `allowed_actions`에 있는 행동만 표시합니다.
+
+### 1-2. 다양성과 도구 확장 원칙
+
+- 다양성은 반복 ImageGen이 아니라 `Verified Code Block + Layout Recipe + Style Pack + Industry Pattern + Motion·3D Module`의 조합으로 만듭니다.
+- 같은 업종 100개를 제작해도 색상만 바꾸지 않고 고객·진료·사업 전략에 따라 정보 우선순위·Layout·Navigation·Media·기능을 다르게 합니다.
+- 기본형·성장형·프리미엄형 가격은 PM 기능 상태가 아닌 사업 운영 정책입니다. 다만 PM5는 현재 계약에서 재사용·맞춤·고객 전용으로 확정된 자산 경계를 보존합니다.
+- 새 도구는 `발견 → 라이선스·최신성·의존성 감사 → Capability Lab 격리 시험 → 사용자 채택·보류·폐기 → 비활성 Adapter 등록 → 해당 PM의 실제 검증 → 활성`으로 추가합니다.
+- 모든 외부 도구는 Feature Flag로 끄고 Adapter·Package를 제거해도 Design Recipe·Version·Reference·승인·Artifact가 남아야 합니다.
+- 3D·Rive·dotLottie·영상 도구는 실제 고객 요구가 생긴 뒤 하나만 시험하며 PM2 조립 기능 PASS 전에는 V2에 장착하지 않습니다.
+
 ## 2. PM별 책임과 PASS
 
-### PM0 — 운영환경 준비
+### PM0 — 운영환경·Capability Lab 준비
 
 목적: 기존 프로젝트를 손상하지 않고 실제 구현을 반복 실행·복구할 수 있는 환경을 만듭니다.
 
@@ -33,6 +62,8 @@ PM0 운영환경 준비
 - Preview 장애 격리
 - 외부 Backup·Rollback·Restore
 - 새 Codex 세션 재현
+- 후보 Skill·Plugin·Library의 Repo-local 격리 폴더·가짜 Fixture·실행 증거·제거 경로
+- 후보 Process의 비공개 Project·Git 기록·Secret 접근 차단
 
 PASS:
 
@@ -41,7 +72,7 @@ PASS:
 - Preview 실패가 Core와 다른 프로젝트에 전파되지 않습니다.
 - Backup 표본의 Restore를 확인합니다.
 
-### PM1 — 디자인 탐색·채택
+### PM1 — 디자인 전략·탐색·채택
 
 목적: 사용자가 복잡한 디자인 탐색을 직접 수행하지 않고도 완성도 높은 실제 화면 하나를 빠르게 확인하고 승인·수정·거절하게 합니다.
 
@@ -64,6 +95,9 @@ PASS:
 - Section ID를 유지한 부분 수정, 변경 전후 확인, 선택하지 않은 영역 보존
 - 사용자가 요청할 때만 Reference 전체 목록·구역 선택·속성 선택 같은 상세 탐색 기능 제공
 - 승인된 Visual Target 기록과 승인 전 구현 차단
+- 기존 성공 Recipe·Block 우선 검색과 재사용 불가 사유 기록
+- 업종·핵심 고객·핵심 진료/업무·핵심 행동을 디자인 차별화 축으로 고정
+- 실제 구현 재료를 `Verified Code Block`, 배치를 `Layout Recipe`, 시각 규칙을 `Style Pack`으로 분리
 
 입력 우선순위:
 
@@ -94,7 +128,7 @@ PASS — 채택 편의성:
 
 제외: Reference 10개 강제 노출, 반복 ImageGen A/B/C, 후보별 Code Preview, 대규모 자동 수집기, 새 DB, 자동 Template 혼합, 출처 없는 복제.
 
-### PM2 — 조립식 V2 보드
+### PM2 — 조립식 제작 보드
 
 목적: PM1에서 승인한 디자인을 실제로 조립·격리·복원 가능한 보드로 작동시킵니다.
 
@@ -110,6 +144,9 @@ PASS — 채택 편의성:
 - 순서·활성 상태 복원
 - 실제 `V2 Core → ui-state → UI → ui-action → V2 Core`
 - 로컬 프로젝트 등록·전환·이름 변경·보관·복원
+- 출처·Commit/Hash·License·의존성·수정 내역을 고정한 Verified Code Block 등록
+- Layout Recipe·Style Pack을 Module·Slot에 적용하는 결정형 Renderer
+- 향후 Motion·3D·Illustration Module을 Core 변경 없이 연결할 Adapter Slot
 
 PASS — 조립 기능:
 
@@ -122,7 +159,7 @@ PASS — 조립 기능:
 
 예쁜 화면만으로 조립 기능을 PASS하지 않고, Module 동작만으로 PM1 디자인 품질을 PASS하지 않습니다.
 
-### PM3 — 부분 수정
+### PM3 — 부분 수정·Motion Adapter
 
 목적: 승인된 보드와 고객 결과물을 제한된 범위에서 안전하게 수정합니다.
 
@@ -290,7 +327,7 @@ V2 Design Recipe → RecipeToPuckAdapter → 임시 Puck Config·Data
 
 Puck은 Version이나 Core Action을 소유하지 않고 Puck Data와 전용 Component ID를 Source of Truth로 사용하지 않습니다. 제거할 때 Editor Route와 Adapter 연결을 끊고 Package를 제거해도 일반 Slot Renderer가 Recipe를 Render해야 하며 Design Recipe, Version, Reference, Diff, 승인 기록, Preview, 적용 코드와 Artifact가 유지되어야 합니다.
 
-### PM4 — 자료 조사
+### PM4 — 조사·Design Intelligence
 
 목적: 프로젝트 제작과 병목 해결에 필요한 출처가 확인된 자료를 확보합니다.
 
@@ -310,6 +347,10 @@ Puck은 Version이나 Core Action을 소유하지 않고 Puck Data와 전용 Com
   → 채택·보류·폐기`로 처리하는 제거 가능한 Capability Lab
 - 디자인 Reference, 구현 Block, 디자인 Skill, Motion과 검증 도구를 구분하는
   `Design Intelligence` Collection
+- 기존 V2 Artifact·Design Recipe·Module Registry·Reference Evidence를 검색하는 성공 Recipe 우선 경로
+- `Visual Reference | Verified Code Block | Layout Recipe | Style Pack | Motion Module | Illustration Module | 3D Module | Industry Pattern | Rejected Example` 분류
+- 사용자가 채택한 후보 1개만 Capability Lab으로 전달하고 시험 결과를 같은 후보에 연결
+- 최종 채택된 후보를 Core Write 권한이 없는 비활성 Adapter로 등록하고 해당 PM PASS 후에만 활성
 
 최소 계약:
 
@@ -370,7 +411,7 @@ PASS:
 제외: 로그인·유료 제한 우회, 무단 대량 Scraping, 상시 수집 Agent, 별도 Queue·Worker·DB,
 후보의 비공개 프로젝트 직접 접근, 승인 없는 Package Install Script·전역 Skill 설치.
 
-### PM5 — 사용자 의도 정합성
+### PM5 — 사용자 의도·범위·자산 정합성
 
 목적: AI가 요청을 잘못 이해한 상태로 구현을 시작하지 못하게 합니다.
 
@@ -381,6 +422,8 @@ PASS:
 - 변경·비변경 범위
 - Acceptance Checks
 - 구현 전 불일치 차단과 구현 후 원문 비교
+- 공용 재사용·고객 맞춤·고객 전용 자산 경계와 재사용 금지 조건
+- 외부 도구·계정·Network·프로젝트 전송 범위와 사용자 승인
 
 최소 계약:
 
@@ -423,7 +466,7 @@ PASS:
 - 범위 충돌이나 누락이 있으면 구현을 차단합니다.
 - 구현 결과를 최초 요청과 다시 비교합니다.
 
-### PM6 — 전체 통합·최종 검증
+### PM6 — 전체 통합·품질·복구 검증
 
 목적: PM0~PM5가 하나의 안전하고 복구 가능한 제작 흐름으로 작동하는지 확인합니다.
 

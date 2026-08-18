@@ -156,6 +156,7 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 
 - ✅ 2026-08-17 사용자 승인: 공식 순서는 `PM0 운영환경 준비 → PM1 디자인 탐색·채택 → PM2 조립식 V2 보드 → PM3 부분 수정 → PM4 자료 조사 → PM5 사용자 의도 정합성 → PM6 전체 통합·최종 검증`입니다.
 - ✅ 2026-08-18 사용자 승인: Design Intelligence·디자인 다양성·가격별 맞춤 제작·구현 도구 확장을 반영하기 위해 Post-MVP PM의 이름·순서·범위·PASS 조건을 수정해도 됩니다. 이 변경은 사용자가 명시적으로 지시했음을 다음 GPT 인수인계에 남깁니다. Core MVP M1~M7, 과거 Run·Artifact·Commit과 당시 판정은 수정하거나 새 PM 번호로 소급하지 않습니다.
+- ✅ 2026-08-18 최종 확정: `PM0 운영환경·Capability Lab 준비 → PM1 디자인 전략·탐색·채택 → PM2 조립식 제작 보드 → PM3 부분 수정·Motion Adapter → PM4 조사·Design Intelligence → PM5 사용자 의도·범위·자산 정합성 → PM6 전체 통합·품질·복구 검증`을 단일 최신 순서로 사용합니다.
 - ✅ PM1 디자인 품질 PASS와 PM2 조립 기능 PASS를 분리하며, PM1 PASS 전 PM2 구현을 시작하지 않습니다.
 - ✅ PM2 PASS 전 영상·3D Adapter를 추가하지 않습니다.
 - ✅ 이전 Post-MVP PM0~PM7 기능은 삭제하지 않고 이동·통합하며 기존 Run·Artifact·Commit과 당시 판정을 보존합니다.

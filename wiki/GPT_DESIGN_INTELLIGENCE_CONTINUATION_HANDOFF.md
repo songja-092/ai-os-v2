@@ -32,7 +32,23 @@ capability_lab: isolated_execution
 v2_design_finish: executed_with_evidence
 adopted_capability_count: 0
 core_mvp: completed_and_frozen
+pm_final_flow_approved_by_user: true
 ```
+
+## 2026-08-18 최종 PM 흐름
+
+```text
+PM0 운영환경·Capability Lab 준비
+→ PM1 디자인 전략·탐색·채택
+→ PM2 조립식 제작 보드
+→ PM3 부분 수정·Motion Adapter
+→ PM4 조사·Design Intelligence
+→ PM5 사용자 의도·범위·자산 정합성
+→ PM6 전체 통합·품질·복구 검증
+```
+
+사용자가 위 흐름으로 최종 동기화하라고 지시했습니다. 다음 GPT는
+과거 PM 순서를 복원하거나 PM4·PM5를 생략하지 마세요.
 
 ## 현재 결론
 

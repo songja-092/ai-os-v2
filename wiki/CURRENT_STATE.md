@@ -41,7 +41,7 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 
 ## 다음 단계
 
-- Post-MVP 공식 순서는 `PM0 운영환경 준비 → PM1 디자인 탐색·채택 → PM2 조립식 V2 보드 → PM3 부분 수정 → PM4 자료 조사 → PM5 사용자 의도 정합성 → PM6 전체 통합·최종 검증`입니다.
+- 2026-08-18 최종 Post-MVP 순서는 `PM0 운영환경·Capability Lab 준비 → PM1 디자인 전략·탐색·채택 → PM2 조립식 제작 보드 → PM3 부분 수정·Motion Adapter → PM4 조사·Design Intelligence → PM5 사용자 의도·범위·자산 정합성 → PM6 전체 통합·품질·복구 검증`입니다.
 - 설계 상태는 `completed`, PM0 상태는 `pass_with_user_deferred_backup`, 현재 활성 단계는 PM1입니다. 정적 Reference Board, 이를 이용한 `큰 미리보기 작업실` Pilot, 실제 화면 5개의 구역·속성을 선택하는 Visual Companion, Google Stitch 생성 결과는 사용자가 기존 UI UX Pro 중심 방식보다 느리거나 결과가 낮다고 판정했습니다. 이 결과들은 `rejected_and_preserved` 증거이며 제품·Registry·PM2에 적용되지 않았습니다. Visual Companion용 Route·API는 현재 PM1 작업 브랜치의 미커밋 격리 Pilot에만 존재하므로 Core 공식 기능으로 간주하지 않습니다.
 - PM1 우선 검증 후보는 `쉬운 요청 → 필요한 Reference만 내부 조사 → UI UX Pro 규칙·품질 검사 → 실제 V2 데이터 Visual Target 하나 → 부분 수정 → 승인 또는 거절 → 거절 시 대안 하나`입니다. 이는 사용자 비교에서 다시 선택된 후보이며 아직 최종 기본 방식이나 PM1 PASS가 아닙니다.
 - Reference는 출처·라이선스·사용 Section을 남기는 내부 보조 근거로 유지하고, 전체 목록·구역 선택·속성 선택은 사용자가 요청할 때만 제공하는 선택 기능으로 내립니다. `UI Remix` 연구 근거는 보존하지만 V2 기본 Workflow로 강제하지 않습니다.

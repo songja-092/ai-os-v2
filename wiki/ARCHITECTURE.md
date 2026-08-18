@@ -174,7 +174,7 @@ Kernel, Planner, 별도 Collector 서버, Multi-Agent와 자체 실행 엔진은
 
 M7이 PASS하면 Core는 완료 상태만 표시하고 멈추지 않고 `wiki/POST_MVP_ROADMAP.md`의 최우선 미검증 후보를 읽습니다. 이 자동 연결은 `상태 조회 → 후보 로드 → 수집 → 분석 → 추천 → Preview 준비`까지만 허용하며 구현 Gate를 자동 통과하지 않습니다.
 
-Post-MVP 공식 순서는 `PM0 운영환경 준비 → PM1 디자인 탐색·채택 → PM2 조립식 V2 보드 → PM3 부분 수정 → PM4 자료 조사 → PM5 사용자 의도 정합성 → PM6 전체 통합·최종 검증`입니다. 최신 범위와 Gate는 [[POST_MVP_PM0_PM6_BASELINE]]을 단일 기준으로 사용합니다. PM2는 고정 Core 위에 정적 Project·Module Registry, Slot Renderer, Versioned Design Recipe와 Adapter 경계를 두며 Module 실패를 해당 Module에 격리합니다.
+Post-MVP 공식 순서는 `PM0 운영환경·Capability Lab 준비 → PM1 디자인 전략·탐색·채택 → PM2 조립식 제작 보드 → PM3 부분 수정·Motion Adapter → PM4 조사·Design Intelligence → PM5 사용자 의도·범위·자산 정합성 → PM6 전체 통합·품질·복구 검증`입니다. 최신 범위와 Gate는 [[POST_MVP_PM0_PM6_BASELINE]]을 단일 기준으로 사용합니다. PM2는 고정 Core 위에 정적 Project·Module Registry, Slot Renderer, Versioned Design Recipe와 Adapter 경계를 두며 Module 실패를 해당 Module에 격리합니다.
 
 PM2 UI는 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계를 유지합니다. PM4 Source Adapter는 새 프로젝트 조사와 기존 프로젝트 병목 진단을 같은 수집 구조로 처리하고 실패를 Core·다른 프로젝트와 격리합니다. PM5는 Planner·Implementer·Verifier의 Intent 정합성 계약을 분리하지만 새로운 Multi-Agent Orchestrator나 Provider 자동 교체를 구현하지 않습니다.
 

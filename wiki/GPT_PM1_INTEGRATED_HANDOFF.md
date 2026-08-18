@@ -1,5 +1,10 @@
 # AI OS V2 — PM1 착수 통합 GPT 인수인계 지시서
 
+> [!IMPORTANT]
+> 이 문서는 이전 PM1 실험의 인수인계 기록입니다. 2026-08-18 이후 새 작업은
+> [[GPT_DESIGN_INTELLIGENCE_CONTINUATION_HANDOFF]]와
+> [[POST_MVP_PM0_PM6_BASELINE]]을 우선하며, 실패 Pilot은 증거로만 보존합니다.
+
 작성일: 2026-08-17  
 대상: 새 GPT·Codex 세션  
 상태: Post-MVP 설계 완료, PM0 조건부 운영 PASS, PM1 진행 중

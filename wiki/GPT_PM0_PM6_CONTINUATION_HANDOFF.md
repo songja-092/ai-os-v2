@@ -1,5 +1,10 @@
 # AI OS V2 PM0~PM6 다음 세션 인수인계
 
+> [!IMPORTANT]
+> 이 문서는 이전 시점의 인수인계 기록입니다. 2026-08-18 이후 새 작업은
+> [[GPT_DESIGN_INTELLIGENCE_CONTINUATION_HANDOFF]]와
+> [[POST_MVP_PM0_PM6_BASELINE]]의 최종 PM 흐름을 우선합니다.
+
 먼저 [[POST_MVP_PM0_PM6_BASELINE]]과 실제 저장소 상태를 읽습니다. 과거 대화나 이전 PM 번호보다 현재 파일과 Git 상태를 우선합니다.
 
 ## 고정 상태
