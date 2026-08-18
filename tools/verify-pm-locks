@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -u
+set -o pipefail
+
+failures=0
+
+check_sha() {
+  expected="$1"
+  target="$2"
+
+  if [[ ! -f "$target" ]]; then
+    echo "FAIL missing: $target"
+    failures=$((failures + 1))
+    return
+  fi
+
+  actual="$(sha256sum "$target" | cut -d ' ' -f 1)"
+  if [[ "$actual" == "$expected" ]]; then
+    echo "PASS locked: $target"
+  else
+    echo "FAIL changed: $target"
+    failures=$((failures + 1))
+  fi
+}
+
+check_sha "68788ad015b933c6c5ea6507f57219b2c59605bc2cc19c33c12e3e02187ef83a" "pm1-complete-review.html"
+check_sha "5d21ebdae9d81c0e951519db7488d4726c87afe3a9c83f53ac608f36919b8cd2" "wiki/PM1_COMPLETION_REPORT_2026-08-18.md"
+check_sha "8107e07dcbf62fdf77d0581ac8159f5b8646c1d8ca1fa0ef8066e4518cdf2263" "pm1-artifacts/visual-target-v1/section-contract.json"
+
+if [[ "$failures" -gt 0 ]]; then
+  echo "PM lock verification: FAIL ($failures)"
+  exit 1
+fi
+
+echo "PM lock verification: PASS"
