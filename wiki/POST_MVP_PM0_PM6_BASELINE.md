@@ -304,6 +304,10 @@ Puck은 Version이나 Core Action을 소유하지 않고 Puck Data와 전용 Com
 - Source·수집 시점·공식 자료와 보조 의견 구분
 - `Collection Request → Collector → Analyzer → 사용자 선택 → 격리 검증 → 채택` 상태 분리
 - Source Adapter별 Timeout·후보 수 제한과 수동 URL·파일 입력 대체 경로
+- 공개 Capability 후보를 `발견 → 정적 감사 → 가짜 Fixture 격리 시험 → 사용자 판정
+  → 채택·보류·폐기`로 처리하는 제거 가능한 Capability Lab
+- 디자인 Reference, 구현 Block, 디자인 Skill, Motion과 검증 도구를 구분하는
+  `Design Intelligence` Collection
 
 최소 계약:
 
@@ -331,6 +335,29 @@ analyzer_output:
 
 Collector는 수집 사실만 기록하고 사실 판정·추천·채택을 하지 않습니다. 주요 주장은 Source ID와 연결하며 증거를 `official | primary | secondary | community_opinion`으로 구분합니다. 접근하지 못한 내용 추정, Star·조회수만으로 채택, License 불명확 후보 설치를 금지합니다. 상태는 `collected → analyzed → candidate → user_selected → isolated_verified → adopted → reusable`로 분리합니다.
 
+사용자에게는 후보별 `채택`, `보류`, `폐기`만 표시합니다. `채택`은 미검증 코드를
+Core에 즉시 연결한다는 뜻이 아니라 다음 격리 시험을 승인한다는 뜻입니다. 격리 시험
+PASS 뒤 다시 채택된 후보만 비활성 Adapter 상태로 Registry에 기록할 수 있습니다.
+
+데이터 정책:
+
+```yaml
+public_source:
+  examples: [public_url, public_github, public_registry]
+  external_network: allowed_when_declared
+generated_fixture:
+  external_network: allowed_when_declared
+private_project:
+  candidate_access: prohibited
+secret:
+  examples: [token, cookie, password, ssh_key, dotenv]
+  candidate_access: prohibited
+```
+
+외부 Network 사용 자체를 금지하지 않습니다. 대신 후보 Sandbox에는 V2·제품 저장소,
+Git 기록, `.env`, Browser Profile과 Secret을 Mount하거나 전달하지 않습니다. 기본 시험은
+Network를 끄고, 공개 Network가 필요한 시험은 사용자의 명시적 승인을 요구합니다.
+
 PASS:
 
 - 주장과 출처가 연결됩니다.
@@ -338,7 +365,8 @@ PASS:
 - 조사 실패가 Core와 기존 제작 기능을 막지 않습니다.
 - 승인 전 제품을 변경하지 않습니다.
 
-제외: 로그인·유료 제한 우회, 무단 대량 Scraping, 상시 수집 Agent, 별도 Queue·Worker·DB.
+제외: 로그인·유료 제한 우회, 무단 대량 Scraping, 상시 수집 Agent, 별도 Queue·Worker·DB,
+후보의 비공개 프로젝트 직접 접근, 승인 없는 Package Install Script·전역 Skill 설치.
 
 ### PM5 — 사용자 의도 정합성
 

@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "taste-skill-v1",
+  "source": "https://github.com/Leonxlnx/taste-skill",
+  "source_class": "public_github",
+  "prepared_at": "2026-08-18T10:34:43.309747+00:00",
+  "source_commit": "dfb6f9f9e93a39f673b1827c0889cc28326d1800",
+  "source_sha256": "48e6fa7bc22f89c6581b2587a72acd3ffc3c910ccb86c1c984c5556276e265ea",
+  "status": "isolated_tested",
+  "private_project_mounted": false,
+  "audit": {
+    "scanned_text_files": 36,
+    "findings": [
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "README.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "skills/brutalist-skill/SKILL.md",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "skills/imagegen-frontend-web/SKILL.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/taste-skill/SKILL.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "skills/taste-skill/SKILL.md",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/taste-skill-v1/SKILL.md",
+        "match_count": 1
+      }
+    ],
+    "package_lifecycle_scripts": {},
+    "license_files": [
+      "LICENSE"
+    ],
+    "automatic_execution_allowed": false,
+    "note": "Findings require review; absence of a match is not a security guarantee."
+  },
+  "trials": [
+    {
+      "trial_id": "trial-001",
+      "executed_at": "2026-08-18T10:34:53.050566+00:00",
+      "network": "none",
+      "command": [
+        "python3",
+        "-c",
+        "from pathlib import Path; p=Path(\"/work/source/skills/taste-skill-v1/SKILL.md\"); t=p.read_text(); print({\"skill_exists\":p.exists(),\"has_frontmatter\":t.startswith(\"---\"),\"design_variance\": \"DESIGN_VARIANCE\" in t,\"motion_intensity\":\"MOTION_INTENSITY\" in t,\"visual_density\":\"VISUAL_DENSITY\" in t,\"fixture_exists\":Path(\"/work/fixture/index.html\").exists(),\"private_repo_visible\":Path(\"/home/user/바탕화면/ai_os_v2_pm1\").exists()})"
+      ],
+      "returncode": 0,
+      "private_project_mounted": false,
+      "environment_credentials_forwarded": false,
+      "stdout": "evidence/trial-001.stdout.txt",
+      "stderr": "evidence/trial-001.stderr.txt"
+    }
+  ],
+  "fixture": {
+    "path_in_sandbox": "/work/fixture/index.html",
+    "contains_private_project_data": false,
+    "created_at": "2026-08-18T10:34:43.369398+00:00"
+  }
+}

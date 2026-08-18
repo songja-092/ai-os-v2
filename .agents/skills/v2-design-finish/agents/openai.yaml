@@ -1,0 +1,4 @@
+interface:
+  display_name: "V2 디자인 마감"
+  short_description: "Reference부터 구현·시각 QA까지 디자인 마감을 관리합니다"
+  default_prompt: "Use $v2-design-finish to take this interface from brief through implementation-ready visual approval."

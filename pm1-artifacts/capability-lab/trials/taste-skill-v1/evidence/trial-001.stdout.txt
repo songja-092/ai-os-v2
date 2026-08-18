@@ -1,0 +1,1 @@
+{'skill_exists': True, 'has_frontmatter': True, 'design_variance': True, 'motion_intensity': True, 'visual_density': True, 'fixture_exists': True, 'private_repo_visible': False}

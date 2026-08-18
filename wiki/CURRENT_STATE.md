@@ -55,6 +55,13 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 - M5의 수집·분석·레시피 선택 Core와 M6의 Quick Change Run·AI 부분 수정·회귀·복구 흐름, 그리고 M7 모바일 PDF 도면 스탬프 `local_product` E2E 구현 및 사용자 검증을 완료했습니다.
 - 사용자에게는 `원하는 화면 요청 → 실제 결과 확인 → 진행·부분 수정·다른 방향·현재안 유지·중단·복구`만 기본으로 보입니다. 요청은 쉬운 말로 받고 결과 확인과 행동은 실제 Preview·마우스·간단한 버튼을 우선합니다.
 - PM1은 `single_visual_target_with_ui_ux_pro_guard`를 우선 후보로 검증합니다. 사용자가 이 방식이 실패 Pilot보다 빠르고 편하며 결과 품질이 좋다고 승인하기 전에는 V2 기본 Workflow로 승격하지 않습니다.
+- PM1 단일 Visual Target v1 `pm1-v2-dashboard-v1`을 실제 V2 데이터와 기존 선호 화면을 바탕으로 생성했습니다. UI UX Pro의 Grid·Typography·밀도·접근성 규칙만 채택하고 맞지 않는 Landing Pattern·보라/분홍 Palette·GSAP 제안은 거절 이유와 함께 기록했습니다. shadcn `sidebar-07`과 `dashboard-01`은 설치 없이 Registry 원본 Hash·파일·의존성을 확인했으며, `sidebar-07`만 PM2 구현 후보입니다. 사용자는 `오케이 이걸로하고`라고 Visual 방향을 승인했고 Design Finish Audit은 상태 표시·중복 문구·대비·Core 데이터 연결을 구현 시 수정하는 조건으로 `PASS_WITH_FIX`입니다. 이는 PM1 전체 편의성 PASS나 PM2 구현 승인을 대신하지 않습니다.
+- Repo-local `V2 Capability Lab` Pilot은 공개 GitHub 후보 Clone·정적 감사·가짜 Fixture·
+  Bubblewrap 격리 실행·사용자 승인 기반 채택/폐기와 Registry 기록을 구현했습니다. 실제
+  시험에서 V2 저장소 비노출, Credential 0개, 별도 HOME, 기본 Network 차단과 승인 없는
+  채택·폐기 거부를 확인했습니다. `Design Intelligence` Collection은 공개 후보 8개의
+  GitHub 최신성·License·역할과 `채택·보류·폐기` Action을 생성했습니다. 이는 PM4 전체
+  구현 PASS가 아니라 PM1 Worktree의 선행 Pilot이며 Core·제품에는 연결되지 않았습니다.
 - PM1의 직접 조립은 구조 Draft·격리 Preview이며 실제 Module 장착과 상태 저장은 PM2 범위입니다. PM5가 구현되기 전 PM1~PM4에서는 수동 Intent Receipt·Scope Lock을 선행 Gate로 사용합니다.
 - PM3은 Card Drag & Drop, 위·아래 이동, 허용 Slot 이동, 제한된 크기·여백·글자 조절, Manifest 경계 안의 복제와 Draft 제거, Undo·Redo와 Core Version Restore를 포함합니다.
 - 실제 휴대폰 연결은 고객 결과물 검증을 위한 선택형 Adapter입니다. USB + `adb reverse`를 기본 후보로 하고 실패 시 390·430 Browser Preview로 전환하며 Cloud Sync·개인 파일 동기화·무선 외부 공개는 포함하지 않습니다.

@@ -1,0 +1,193 @@
+{
+  "schema_version": "1.0",
+  "collection_id": "design-capabilities-2026-08-18",
+  "created_at": "2026-08-18T10:34:25.571578+00:00",
+  "source_policy": "public_only_no_private_project_input",
+  "category": "all",
+  "candidate_count": 8,
+  "candidates": [
+    {
+      "id": "shadcn-ui",
+      "repo": "shadcn-ui/ui",
+      "role": "verified_component_and_block_registry",
+      "category": "implementation-block",
+      "reason": "Official Registry supports view, dry-run, diff, schema validation and Commit pinning.",
+      "url": "https://github.com/shadcn-ui/ui",
+      "checked_at": "2026-08-18T10:34:23.112751+00:00",
+      "status": "candidate",
+      "decision": null,
+      "actions": [
+        "adopt",
+        "hold",
+        "discard"
+      ],
+      "stars": 121544,
+      "archived": false,
+      "pushed_at": "2026-08-18T05:50:01Z",
+      "freshness": "active_within_1y",
+      "license": "MIT",
+      "default_branch": "main"
+    },
+    {
+      "id": "kokonut-ui",
+      "repo": "kokonut-labs/kokonutui",
+      "role": "animated_shadcn_component_reference",
+      "category": "visual-and-motion-block",
+      "reason": "Public shadcn registry with Motion-based components and an MIT license.",
+      "url": "https://github.com/kokonut-labs/kokonutui",
+      "checked_at": "2026-08-18T10:34:23.423480+00:00",
+      "status": "candidate",
+      "decision": null,
+      "actions": [
+        "adopt",
+        "hold",
+        "discard"
+      ],
+      "stars": 2032,
+      "archived": false,
+      "pushed_at": "2026-08-04T04:22:47Z",
+      "freshness": "active_within_1y",
+      "license": "MIT",
+      "default_branch": "main"
+    },
+    {
+      "id": "impeccable",
+      "repo": "pbakaus/impeccable",
+      "role": "design_finish_second_opinion",
+      "category": "design-skill",
+      "reason": "Bounded critique and finish playbooks plus deterministic anti-pattern checks.",
+      "url": "https://github.com/pbakaus/impeccable",
+      "checked_at": "2026-08-18T10:34:23.785089+00:00",
+      "status": "candidate",
+      "decision": null,
+      "actions": [
+        "adopt",
+        "hold",
+        "discard"
+      ],
+      "stars": 60039,
+      "archived": false,
+      "pushed_at": "2026-08-18T05:38:15Z",
+      "freshness": "active_within_1y",
+      "license": "Apache-2.0",
+      "default_branch": "main"
+    },
+    {
+      "id": "taste-skill-v1",
+      "repo": "Leonxlnx/taste-skill",
+      "role": "design_variance_and_anti_slop_candidate",
+      "category": "design-skill",
+      "reason": "Stable v1 is preserved while v2 remains experimental; requires isolated comparison.",
+      "url": "https://github.com/Leonxlnx/taste-skill",
+      "checked_at": "2026-08-18T10:34:24.052600+00:00",
+      "status": "candidate",
+      "decision": null,
+      "actions": [
+        "adopt",
+        "hold",
+        "discard"
+      ],
+      "stars": 77575,
+      "archived": false,
+      "pushed_at": "2026-08-17T22:57:24Z",
+      "freshness": "active_within_1y",
+      "license": "MIT",
+      "default_branch": "main"
+    },
+    {
+      "id": "stitch-skills",
+      "repo": "google-labs-code/stitch-skills",
+      "role": "stitch_design_workflow_candidate",
+      "category": "external-design-workflow",
+      "reason": "Large public skill suite, but it depends on the external Stitch workflow.",
+      "url": "https://github.com/google-labs-code/stitch-skills",
+      "checked_at": "2026-08-18T10:34:24.308616+00:00",
+      "status": "candidate",
+      "decision": null,
+      "actions": [
+        "adopt",
+        "hold",
+        "discard"
+      ],
+      "stars": 8090,
+      "archived": false,
+      "pushed_at": "2026-08-17T20:20:23Z",
+      "freshness": "active_within_1y",
+      "license": "Apache-2.0",
+      "default_branch": "main"
+    },
+    {
+      "id": "motion",
+      "repo": "motiondivision/motion",
+      "role": "react_motion_engine",
+      "category": "animation-engine",
+      "reason": "Production-oriented React and JavaScript motion library with extensive examples.",
+      "url": "https://github.com/motiondivision/motion",
+      "checked_at": "2026-08-18T10:34:24.606769+00:00",
+      "status": "candidate",
+      "decision": null,
+      "actions": [
+        "adopt",
+        "hold",
+        "discard"
+      ],
+      "stars": 33273,
+      "archived": false,
+      "pushed_at": "2026-08-18T09:46:52Z",
+      "freshness": "active_within_1y",
+      "license": "MIT",
+      "default_branch": "main"
+    },
+    {
+      "id": "auto-animate",
+      "repo": "formkit/auto-animate",
+      "role": "low_configuration_reorder_animation",
+      "category": "animation-engine",
+      "reason": "Small-purpose animation candidate for add, remove and reorder transitions.",
+      "url": "https://github.com/formkit/auto-animate",
+      "checked_at": "2026-08-18T10:34:24.937700+00:00",
+      "status": "candidate",
+      "decision": null,
+      "actions": [
+        "adopt",
+        "hold",
+        "discard"
+      ],
+      "stars": 13899,
+      "archived": false,
+      "pushed_at": "2026-07-10T16:08:00Z",
+      "freshness": "active_within_1y",
+      "license": "MIT",
+      "default_branch": "master"
+    },
+    {
+      "id": "storybook",
+      "repo": "storybookjs/storybook",
+      "role": "component_state_catalog_and_test_workshop",
+      "category": "verification-environment",
+      "reason": "Established isolated component development and test environment.",
+      "url": "https://github.com/storybookjs/storybook",
+      "checked_at": "2026-08-18T10:34:25.247701+00:00",
+      "status": "candidate",
+      "decision": null,
+      "actions": [
+        "adopt",
+        "hold",
+        "discard"
+      ],
+      "stars": 90867,
+      "archived": false,
+      "pushed_at": "2026-08-18T10:04:04Z",
+      "freshness": "active_within_1y",
+      "license": "MIT",
+      "default_branch": "next"
+    }
+  ],
+  "user_actions": [
+    "adopt",
+    "hold",
+    "discard"
+  ],
+  "automatic_install": false,
+  "note": "Adopt selects a candidate for isolated trial; it does not activate it in Core."
+}

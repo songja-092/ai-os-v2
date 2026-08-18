@@ -1,0 +1,82 @@
+{
+  "record_version": "1.0",
+  "checked_at": "2026-08-17",
+  "upstream_repository": "https://github.com/shadcn-ui/ui",
+  "upstream_head": "8a7701ec27eb9cb8e0377db769fbe6d744113c52",
+  "license": "MIT",
+  "installation_performed": false,
+  "candidates": [
+    {
+      "registry_url": "https://ui.shadcn.com/r/styles/new-york-v4/sidebar-07.json",
+      "block_id": "sidebar-07",
+      "source_sha256": "54789cc67edf51a0da25a80c4d68910373edb4354142fdc6dcb2c059aed5f11c",
+      "files": [
+        "page.tsx",
+        "components/app-sidebar.tsx",
+        "components/nav-main.tsx",
+        "components/nav-projects.tsx",
+        "components/nav-user.tsx",
+        "components/team-switcher.tsx"
+      ],
+      "dependencies": [],
+      "registry_dependencies": [
+        "sidebar",
+        "breadcrumb",
+        "separator",
+        "collapsible",
+        "dropdown-menu",
+        "avatar"
+      ],
+      "applied_section_ids": [
+        "dashboard.navigation",
+        "dashboard.flow-disclosure"
+      ],
+      "planned_modifications": [
+        "remove nav-user",
+        "remove team-switcher",
+        "use light cool gray-blue navigation surface",
+        "keep icon and text labels",
+        "preserve collapsible navigation behavior"
+      ],
+      "pm2_candidate": true
+    },
+    {
+      "registry_url": "https://ui.shadcn.com/r/styles/new-york-v4/dashboard-01.json",
+      "block_id": "dashboard-01",
+      "source_sha256": "ec8e10eb0dc64e8c2a3077ca6abb771efc03c8499aa8044811f7a8525141ec0d",
+      "files": [
+        "page.tsx",
+        "data.json",
+        "components/app-sidebar.tsx",
+        "components/chart-area-interactive.tsx",
+        "components/data-table.tsx",
+        "components/nav-documents.tsx",
+        "components/nav-main.tsx",
+        "components/nav-secondary.tsx",
+        "components/nav-user.tsx",
+        "components/section-cards.tsx",
+        "components/site-header.tsx"
+      ],
+      "dependencies": [
+        "@dnd-kit/core",
+        "@dnd-kit/modifiers",
+        "@dnd-kit/sortable",
+        "@dnd-kit/utilities",
+        "@tabler/icons-react",
+        "@tanstack/react-table",
+        "zod"
+      ],
+      "applied_section_ids": [
+        "dashboard.project-list",
+        "dashboard.background-jobs"
+      ],
+      "planned_modifications": [
+        "do not install the full block",
+        "reuse only the list and header composition principles",
+        "exclude charts, metrics, user navigation and drag-and-drop dependencies"
+      ],
+      "pm2_candidate": false,
+      "reason": "The full block is heavier than the approved V2 dashboard requirements."
+    }
+  ]
+}

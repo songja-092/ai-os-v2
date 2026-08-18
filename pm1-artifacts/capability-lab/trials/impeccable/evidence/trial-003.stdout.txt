@@ -1,0 +1,1 @@
+{'private_repo_visible': False, 'home': '/home/candidate', 'credential_names': [], 'network_connect_result': 101}

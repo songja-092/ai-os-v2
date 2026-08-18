@@ -178,4 +178,10 @@ Post-MVP 공식 순서는 `PM0 운영환경 준비 → PM1 디자인 탐색·채
 
 PM2 UI는 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계를 유지합니다. PM4 Source Adapter는 새 프로젝트 조사와 기존 프로젝트 병목 진단을 같은 수집 구조로 처리하고 실패를 Core·다른 프로젝트와 격리합니다. PM5는 Planner·Implementer·Verifier의 Intent 정합성 계약을 분리하지만 새로운 Multi-Agent Orchestrator나 Provider 자동 교체를 구현하지 않습니다.
 
+PM4의 `Design Intelligence`는 디자인 시스템 자체가 아닙니다. 공개 Reference·Block·Skill과
+환경 도구를 수집하고 최신성·License·역할을 기록한 뒤 사용자에게 `채택·보류·폐기`를
+보여주는 조사 계층입니다. 채택 후보는 `V2 Capability Lab`에서 실제 프로젝트 대신 가짜
+Fixture로 실행하며, 후보 Process에는 원본 저장소·Git·Secret을 노출하지 않습니다.
+검증된 후보도 Core가 아니라 제거 가능한 Module·Adapter로만 연결합니다.
+
 PM1은 Reference Brief 뒤 실제 Reference 10개 이상을 수집·분석하고 추천 방향 3~5개, 구조 Preview 1~2개와 실제 데이터 Code Preview 1개로 디자인을 채택합니다. V2 운영 UI는 PC 전용이고 고객 결과물은 모바일 우선입니다. `390px`과 `430px`은 별도 디자인이 아니라 하나의 모바일 Recipe 규칙을 검증합니다. PM3의 Puck은 V2 Recipe를 소유하지 않는 제거 가능한 Adapter 후보입니다.

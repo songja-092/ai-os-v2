@@ -1,0 +1,18 @@
+{
+  "name": "v2-capability-lab",
+  "version": "0.1.0",
+  "description": "Safely discover, isolate, evaluate, adopt, and remove public V2 capability candidates without exposing private projects.",
+  "author": {
+    "name": "AI OS V2"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "V2 Capability Lab",
+    "shortDescription": "공개 도구를 격리 시험하고 채택·폐기합니다.",
+    "longDescription": "공개 GitHub 후보를 원본 프로젝트와 분리해 감사하고, 가짜 Fixture로 실행 검증한 뒤 사용자 승인에 따라 채택하거나 복구 가능하게 폐기합니다.",
+    "developerName": "AI OS V2",
+    "category": "Productivity",
+    "capabilities": ["Public source audit", "Isolated execution", "Removable adoption"],
+    "defaultPrompt": "공개 Capability 후보를 안전하게 격리 시험하고 결과를 보여줘."
+  }
+}

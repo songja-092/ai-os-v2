@@ -158,7 +158,9 @@ pm1_visual_companion: rejected_and_preserved
 google_stitch: rejected_by_user_comparison
 pm1_selected_workflow: single_visual_target_with_ui_ux_pro_guard
 selection_status: preferred_candidate_for_validation
-pm1_visual_target_approved: false
+pm1_visual_target_v1: approved_visual_direction_with_implementation_fixes
+pm1_visual_target_approved: visual_direction_only
+pm1_usability_pass: awaiting_explicit_user_confirmation
 pm2_allowed: false
 product_code_changed: false
 core_code_changed: false
