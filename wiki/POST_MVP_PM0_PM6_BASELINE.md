@@ -294,6 +294,8 @@ Puck은 Version이나 Core Action을 소유하지 않고 Puck Data와 전용 Com
 
 목적: 프로젝트 제작과 병목 해결에 필요한 출처가 확인된 자료를 확보합니다.
 
+2026-08-18 사용자는 Design Intelligence·디자인 다양성·구현 도구 확장을 반영하기 위한 Post-MVP PM 수정을 명시적으로 승인했습니다. PM4를 수정하거나 기능을 이동할 때는 중복·누락 표와 선행 Gate를 함께 갱신하고, Core MVP M1~M7과 과거 증거는 보존합니다.
+
 구현 범위:
 
 - 공식 웹·문서와 GitHub 조사

@@ -62,6 +62,7 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
   채택·폐기 거부를 확인했습니다. `Design Intelligence` Collection은 공개 후보 8개의
   GitHub 최신성·License·역할과 `채택·보류·폐기` Action을 생성했습니다. 이는 PM4 전체
   구현 PASS가 아니라 PM1 Worktree의 선행 Pilot이며 Core·제품에는 연결되지 않았습니다.
+- 2026-08-18 구현 감사 결과 Design Intelligence는 `fixture_ui`입니다. 후보 목록은 코드에 정의된 8개 Catalog에 GitHub 공개 Metadata를 조회해 생성하며, 사용자 선택은 JSON에 보존됩니다. 기존 V2 Collector Adapter, 성공 Recipe 우선 검색, 자동 격리 시험 Queue, 결과 회수, 비활성 Adapter 등록은 아직 구현되지 않았습니다. Capability Lab은 `impeccable`과 `taste-skill-v1`을 실제 Bubblewrap으로 시험한 `isolated_execution` 수준이며 Registry에 채택된 Capability는 0개입니다. `v2-design-finish`는 호출 가능한 Repo-local Skill과 실행 증거가 있지만 V2 Core·Design Recipe와 자동 연결된 기능은 아닙니다.
 - PM1의 직접 조립은 구조 Draft·격리 Preview이며 실제 Module 장착과 상태 저장은 PM2 범위입니다. PM5가 구현되기 전 PM1~PM4에서는 수동 Intent Receipt·Scope Lock을 선행 Gate로 사용합니다.
 - PM3은 Card Drag & Drop, 위·아래 이동, 허용 Slot 이동, 제한된 크기·여백·글자 조절, Manifest 경계 안의 복제와 Draft 제거, Undo·Redo와 Core Version Restore를 포함합니다.
 - 실제 휴대폰 연결은 고객 결과물 검증을 위한 선택형 Adapter입니다. USB + `adb reverse`를 기본 후보로 하고 실패 시 390·430 Browser Preview로 전환하며 Cloud Sync·개인 파일 동기화·무선 외부 공개는 포함하지 않습니다.
