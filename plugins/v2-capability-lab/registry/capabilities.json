@@ -1,4 +1,17 @@
 {
   "schema_version": "1.0",
-  "capabilities": []
+  "capabilities": [
+    {
+      "candidate_id": "impeccable",
+      "source": "https://github.com/pbakaus/impeccable",
+      "source_commit": "f88b2837a7d7c3182e46307bbbb091a1ed547571",
+      "status": "adopted",
+      "adapter_enabled": false,
+      "core_write_allowed": false,
+      "private_project_access": false,
+      "adopted_at": "2026-08-18T11:37:39.819568+00:00",
+      "trial_record": "pm1-artifacts/capability-lab/trials/impeccable/record.json",
+      "removal": "disable adapter, preserve evidence, then run discard with user approval"
+    }
+  ]
 }

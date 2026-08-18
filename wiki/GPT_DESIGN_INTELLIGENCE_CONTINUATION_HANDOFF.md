@@ -30,10 +30,16 @@ design_intelligence: fixture_ui
 v2_collector_connection: not_implemented
 capability_lab: isolated_execution
 v2_design_finish: executed_with_evidence
-adopted_capability_count: 0
+adopted_capability_count: 1
+adopted_capabilities: [impeccable_inactive_adapter]
 core_mvp: completed_and_frozen
 pm_final_flow_approved_by_user: true
 ```
+
+> [!IMPORTANT]
+> 2026-08-18 후속 환경 구성에서 `impeccable` 1개가 비활성 Adapter로 채택됐습니다.
+> 최신 상태는 [[PM1_CAPABILITY_ENVIRONMENT_REPORT_2026-08-18]]을 우선하며,
+> 나머지 후보는 각 PM Gate 전 설치하지 않습니다.
 
 ## 2026-08-18 최종 PM 흐름
 

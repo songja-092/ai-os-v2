@@ -22,10 +22,15 @@ Keep candidate code separate from V2 Core and private projects. Use
 ## Design Intelligence
 
 Use `scripts/design_intelligence.py collect` to create a public candidate queue. It combines a
-small verified source catalog with GitHub public metadata, records freshness and license, and
+small reviewed source catalog in `registry/candidate-catalog.json` with GitHub public metadata,
+records its PM stage, activation Gate, freshness and license, and
 shows only `adopt`, `hold`, and `discard` actions. Collection does not install or execute a
 candidate. A tool selected for adoption still passes through the Capability Lab trial before it
 can enter the active Registry.
+
+Do not bypass the candidate's `activation_gate`. An adopted Registry entry remains an inactive
+Adapter until its target PM passes and the user approves activation. Never install every candidate
+to prepare the environment.
 
 ## Privacy boundary
 

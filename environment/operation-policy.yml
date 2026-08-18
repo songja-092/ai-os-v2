@@ -240,3 +240,44 @@ fresh_codex_reproduction:
   remaining_warnings:
     - external_backup_and_restore_deferred_by_user
     - preview_processes_not_started_by_read_only_preflight_but_manual_evidence_exists
+
+capability_environment:
+  status: ready_for_pm1
+  plugin_path: /home/user/바탕화면/ai_os_v2_pm1/plugins/v2-capability-lab
+  candidate_catalog: plugins/v2-capability-lab/registry/candidate-catalog.json
+  adopted_registry: plugins/v2-capability-lab/registry/capabilities.json
+  candidate_source_policy: reviewed_catalog_plus_public_github_metadata
+  install_all_candidates: false
+  lifecycle:
+    - discover_or_reuse
+    - static_audit
+    - isolated_fixture_trial
+    - user_adopt_hold_or_discard
+    - inactive_adapter_registration
+    - target_pm_validation
+    - user_activation
+  pm1_enabled_tools:
+    - v2-design-finish
+    - ui-ux-pro-max
+    - shadcn-read-only-block-review
+    - impeccable-inactive-second-opinion
+  deferred_candidates:
+    taste-skill-v1: user_visual_comparison_required
+    kokonut-ui: PM2_pass_and_motion_need_required
+    motion: PM2_pass_and_motion_need_required
+    auto-animate: alternative_when_motion_not_installed
+    storybook: reusable_modules_required
+    stitch-skills: rejected_as_default_requires_new_user_request
+  future_media_adapters:
+    status: not_installed
+    gate: PM2_modular_board_pass_and_real_customer_need
+    categories:
+      - animation
+      - illustration
+      - video
+      - 3d
+  removal_contract:
+    feature_flag_off_first: true
+    adapter_removal_supported: true
+    package_removal_supported: true
+    preserve_recipe_version_reference_approval_artifact: true

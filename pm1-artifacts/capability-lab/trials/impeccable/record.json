@@ -6,7 +6,7 @@
   "prepared_at": "2026-08-18T10:29:59.744377+00:00",
   "source_commit": "f88b2837a7d7c3182e46307bbbb091a1ed547571",
   "source_sha256": "2312843602659e103e8a59a07f9290bff304fc336a572e521f54adafd6d8b3ad",
-  "status": "isolated_tested",
+  "status": "adopted",
   "private_project_mounted": false,
   "audit": {
     "scanned_text_files": 3019,
