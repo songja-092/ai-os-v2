@@ -1,6 +1,6 @@
 ---
 name: v2-beginner-translator
-description: "Translate beginner requests into evidence-grounded development intent and translate technical results back into plain Korean with Korean pronunciation, role, impact, and next action. Use for AI OS V2 conversations whenever the user asks what a coding term means, gives an informal change request, reviews a technical report, or must make a technical decision. Do not use as authorization to edit code or change scope."
+description: "Translate beginner requests into evidence-grounded development intent and translate technical results back into plain Korean with Korean pronunciation, role, impact, and next action. Use in Codex conversations about AI OS V2 whenever the user asks what a coding term means, gives an informal change request, reviews a technical report, or must make a technical decision. This is a communication skill, not a V2 product feature or Module, and it does not authorize code or scope changes."
 ---
 
 # V2 초보자 번역
@@ -40,20 +40,11 @@ Use this order:
 
 Do not make the user judge logs, IDs, ports, package names, or architecture unless that detail changes their decision.
 
-## Learn-by-click output
+## Conversation-only learning
 
-When the response will be rendered in V2 UI, provide a small `term_cards` payload for clickable explanations:
-
-```yaml
-term_cards:
-  - term: Section
-    pronunciation: 섹션
-    easy_meaning: 한 화면 안에서 역할이 나뉜 구역
-    role_here: 프로젝트 화면의 요구사항 대화 영역
-    when_used: 화면의 특정 구역만 바꿀 때
-```
-
-Show the easy answer by default. Reveal `term_cards` only when the user selects a term. A term card teaches; it does not expose hidden internal logs.
+- Apply the translation in the Codex conversation where the user makes decisions.
+- Do not add glossary buttons, learning cards, or translation panels to the V2 product unless the user separately requests that product feature.
+- Teach one useful term naturally in the answer instead of turning the product UI into a learning screen.
 
 ## Vocabulary
 
@@ -66,3 +57,4 @@ For V2-specific terms or pronunciation, read [references/v2-glossary.md](referen
 - Requirements chat and Preview are Sections, not Modules.
 - A Skill is a method or tool V2 uses to work.
 - A Module is an actual produced or verified result that can be mounted, removed, and reused.
+- This translator itself is a Codex communication Skill, not a V2 Module.

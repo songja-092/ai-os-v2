@@ -14,9 +14,8 @@
   - 바뀌는 부분·유지되는 부분·확인 방법 정리
   - 영어 기술 용어의 한글 발음 제공
   - 용어의 쉬운 뜻·현재 역할·사용 시점 제공
-  - 클릭형 용어 카드용 `term_cards` 구조 제공
   - 번역을 승인이나 코드 변경 권한으로 사용하지 않음
-- 상태: Repo-local Skill 구현 및 구조 검사 PASS. PM2 화면에는 OS·ERP·Section·Module 클릭형 학습 Fixture가 추가됐으며 실제 Core 연결은 아직 아니다.
+- 상태: Repo-local Skill 구현 및 구조 검사 PASS. Codex 대화 전용이며 V2 제품 기능·Module·Core 연결 대상이 아닙니다.
 
 ### V2 Design Finish
 

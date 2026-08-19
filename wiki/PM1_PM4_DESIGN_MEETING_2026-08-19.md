@@ -281,7 +281,8 @@ V2와 사용자 프로젝트가 외부로 넘어가지 않는 것이 확인된 �
 - Skill 개선은 `실제 사용 → 문제 기록 → 원인 확인 → 작은 수정 → 전후 비교 → 좋아진 변경만 유지 → 문제면 이전 Version 복구` 순서로 한다.
 - 카톡형 요구사항 대화창은 프로젝트 화면의 Section이며 Module이 아니다.
 - V2 자체도 Module이 아니라 보드판이다.
-- 초보자 학습을 위해 Repo-local `V2 Beginner Technical Translator` Skill을 만들고 영어 용어의 한글 발음·쉬운 뜻·현재 역할·사용 시점을 필요할 때 선택해 볼 수 있게 한다.
+- 초보자 학습을 위해 Repo-local `V2 Beginner Technical Translator` Skill을 만들고 Codex와의 대화에서 영어 용어의 한글 발음·쉬운 뜻·현재 역할·사용 시점을 필요할 때 알려준다.
+- 번역 Skill은 V2 제품 기능이나 PM2 Module이 아니며 V2 화면에 학습 UI를 추가하지 않는다.
 
 향후 필요할 때 논의할 항목:
 

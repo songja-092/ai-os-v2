@@ -42,10 +42,6 @@
         .pm2-time{display:block;margin-top:5px;color:#718079;font-size:10px;text-align:right}
         .pm2-scope{margin:0 18px 14px;padding:12px 13px;border:1px solid #b8d7ca;border-radius:8px;background:#eef8f4}
         .pm2-scope strong{display:block;margin-bottom:6px}.pm2-scope p{margin:0;color:#415d52;line-height:1.5;font-size:12px}
-        .pm2-terms{margin:0 18px 14px}.pm2-terms>strong{display:block;margin-bottom:8px;font-size:12px}
-        .pm2-term-list{display:flex;gap:7px;flex-wrap:wrap}.pm2-term{border:1px solid #b8d2c7;border-radius:16px;background:#fff;padding:6px 10px;color:#17684d;font-size:11px;cursor:pointer}
-        .pm2-term:hover,.pm2-term[aria-expanded="true"]{border-color:#00a86b;background:#e7f7f0}
-        .pm2-term-detail{margin-top:8px;padding:10px 11px;border-left:3px solid #00a86b;background:#f5faf8;color:#405c52;font-size:12px;line-height:1.55}
         .pm2-composer{position:sticky;bottom:0;margin-top:auto;padding:13px;border-top:1px solid #d6e2dd;background:#fff}
         .pm2-composer textarea{width:100%;min-height:74px;max-height:150px;resize:vertical;border:1px solid #b9cdc5;border-radius:8px;padding:11px 12px;line-height:1.5;outline:none}
         .pm2-composer textarea:focus{border-color:#00a86b;box-shadow:0 0 0 3px rgba(0,168,107,.12)}
@@ -77,16 +73,6 @@
           <div class="pm2-scope" id="pm2Scope">
             <strong>이번 변경 범위</strong>
             <p>Preview에서 먼저 확인합니다. 아직 제품과 PM1 승인 화면은 변경하지 않습니다.</p>
-          </div>
-          <div class="pm2-terms">
-            <strong>용어를 눌러서 배워보기</strong>
-            <div class="pm2-term-list">
-              <button class="pm2-term" data-term="section" aria-expanded="false">Section (섹션)</button>
-              <button class="pm2-term" data-term="module" aria-expanded="false">Module (모듈)</button>
-              <button class="pm2-term" data-term="os" aria-expanded="false">OS (오에스)</button>
-              <button class="pm2-term" data-term="erp" aria-expanded="false">ERP (이알피)</button>
-            </div>
-            <div class="pm2-term-detail" id="pm2TermDetail" hidden></div>
           </div>
           <div class="pm2-composer">
             <textarea id="pm2Message" aria-label="추가 요구사항" placeholder="추가로 바꿀 내용을 입력하세요"></textarea>
@@ -154,19 +140,6 @@
       files.addEventListener('change', () => {
         if (files.files.length) appendMessage('ai', `${files.files.length}개 파일을 임시 첨부했습니다. 전송·적용 전 다시 확인합니다.`);
       });
-      doc.querySelectorAll('.pm2-term').forEach(button => button.addEventListener('click', () => {
-        const wasOpen = button.getAttribute('aria-expanded') === 'true';
-        doc.querySelectorAll('.pm2-term').forEach(item => item.setAttribute('aria-expanded', 'false'));
-        if (wasOpen) {
-          termDetail.hidden = true;
-          termDetail.innerHTML = '';
-          return;
-        }
-        button.setAttribute('aria-expanded', 'true');
-        termDetail.innerHTML = terms[button.dataset.term];
-        termDetail.hidden = false;
-      }));
-
       requestPanel.dataset.pm2Section = 'requirements-chat-v1';
       requestPanel.querySelector('.panel-title').scrollIntoView({block:'nearest'});
     });
