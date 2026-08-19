@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -u
+
+failures=0
+
+check_file() {
+  if [[ -f "$1" ]]; then
+    printf 'PASS present: %s\n' "$1"
+  else
+    printf 'FAIL missing: %s\n' "$1"
+    failures=$((failures + 1))
+  fi
+}
+
+check_text() {
+  local file="$1"
+  local text="$2"
+  if grep -Fq "$text" "$file"; then
+    printf 'PASS rule: %s -> %s\n' "$file" "$text"
+  else
+    printf 'FAIL rule: %s -> %s\n' "$file" "$text"
+    failures=$((failures + 1))
+  fi
+}
+
+check_file AGENTS.md
+check_file wiki/AI_EVIDENCE_GUARD.md
+check_file .agents/rules/evidence-first.md
+check_text AGENTS.md 'wiki/AI_EVIDENCE_GUARD.md'
+check_text .agents/rules/evidence-first.md 'not_proven'
+check_text wiki/AI_EVIDENCE_GUARD.md 'Fixture·Pilot·정적 Preview'
+
+if (( failures > 0 )); then
+  printf 'AI Evidence Guard: FAIL (%d)\n' "$failures"
+  exit 1
+fi
+
+printf 'AI Evidence Guard: PASS\n'

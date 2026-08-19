@@ -16,6 +16,8 @@
 - Load가 끝나면 `AI OS V2 Memory Loaded: <Commit SHA>` 형식으로 보고한 뒤 작업을 시작한다.
 - 작업 중 `main`이 변경되어도 `Base Memory`를 임의로 바꾸지 않는다. 새 Commit이 필요하면 다시 Load하여 새 작업으로 처리한다.
 - Post-MVP PM 작업에서는 `wiki/PM1_PM4_DESIGN_MEETING_2026-08-19.md`도 읽고, 그 안의 확정 용어·PM 전환·Skill 보호·수집기 규칙을 적용한다.
+- V2의 기능·상태·PASS·동기화·복구를 주장하기 전 `wiki/AI_EVIDENCE_GUARD.md`를 읽고 주장에 필요한 실제 증거를 확인한다.
+- Antigravity는 `.agents/rules/evidence-first.md`를 Workspace Rule로 사용하며 Codex와 같은 증거 우선 정책을 따른다.
 
 ## 저장 규칙
 

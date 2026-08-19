@@ -1,0 +1,36 @@
+{
+  "manifest_version": "1.0",
+  "module_id": "pdf-result-preview",
+  "display_name": "PDF 도면 결과 Preview",
+  "module_version": "0.1.0-pilot",
+  "adapter_type": "internal",
+  "entry": "pm2-modules/pdf-result-preview/index.html",
+  "allowed_slots": ["workspace_preview"],
+  "required_state": ["project_id", "allowed_actions"],
+  "emitted_actions": [
+    {"action_type": "request_revision", "required_core_permission": "module.request_revision"},
+    {"action_type": "accept_preview", "required_core_permission": "module.accept_preview"}
+  ],
+  "permissions": {
+    "movable": true,
+    "resizable": false,
+    "hideable": true,
+    "removable": true,
+    "editable_properties": []
+  },
+  "health": {
+    "timeout_ms": 2000,
+    "fallback_module_id": null
+  },
+  "status": {
+    "enabled": true,
+    "lifecycle": "candidate"
+  },
+  "origin": {
+    "type": "v2_approved_result",
+    "source": "pm1-complete-review.html#projects",
+    "source_commit": "75074311d2e5329d0b770765a95801c6a64f9ff0",
+    "license": "repository_owned",
+    "modifications": "PM1 잠금 화면의 PDF 결과 Preview를 독립 실행 가능한 Pilot Module로 재구성"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "registry_version": "1.0",
+  "status": "pilot",
+  "modules": [
+    {
+      "module_id": "pdf-result-preview",
+      "manifest": "pm2-modules/pdf-result-preview/manifest.json",
+      "lifecycle": "candidate",
+      "verified": false
+    }
+  ]
+}

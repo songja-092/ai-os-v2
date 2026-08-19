@@ -47,6 +47,7 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 - Reference는 출처·라이선스·사용 Section을 남기는 내부 보조 근거로 유지하고, 전체 목록·구역 선택·속성 선택은 사용자가 요청할 때만 제공하는 선택 기능으로 내립니다. `UI Remix` 연구 근거는 보존하지만 V2 기본 Workflow로 강제하지 않습니다.
 - 반복 ImageGen A/B/C와 후보별 Code Preview는 기본 흐름에서 제외합니다. Visual Target과 수정 전후는 동일 Viewport·V2 데이터·화면 상태·Theme·확대 비율·Motion 시점에서 확인합니다.
 - PM2는 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계와 Slot·Module을 실제 구현하는 조립 기능 Gate입니다.
+- 2026-08-19 PM2 첫 Pilot으로 승인된 PDF 결과 Preview를 `pdf-result-preview` Module 후보로 포장했습니다. Manifest·정적 Registry·Draft Layout Recipe와 장착·비활성·오류 격리·복원 Fixture를 기술 검증했지만 Core `ui-state·ui-action`, 영구 상태, Module 2개 순서 이동과 사용자 PASS가 없으므로 PM2는 계속 `in_progress`입니다. 증거는 [[PM2_FIRST_MODULE_PILOT_REPORT_2026-08-19]]을 사용합니다.
 - 디자인 Reference 수집은 PM1, 일반 자료·병목 조사는 PM4에서 요청 시 제한형 Workflow로 수행합니다.
 - PM1~PM3의 Reference Brief·Reference-first 채택, Versioned Design Recipe·반응형 Override, Module Manifest·Slot Renderer와 제거 가능한 Puck Adapter 경계 설계는 완료됐습니다. 실제 구현과 Puck 설치는 시작하지 않았습니다.
 - 기존 PM1 Preview는 실제 제품 Stack이 아니라 `static_design_evidence_only`로 보존합니다. PM2 실제 보드는 React 19 + Vite를 권장 기반으로 기록하되 PM0 PASS와 구현 승인 전에는 채택·설치로 간주하지 않습니다.

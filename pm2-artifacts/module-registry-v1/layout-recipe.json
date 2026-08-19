@@ -1,0 +1,17 @@
+{
+  "recipe_id": "pm2-module-pilot-layout",
+  "schema_version": "1.0",
+  "project_id": "pdf-drawing-symbols",
+  "version": 1,
+  "base_version": null,
+  "status": "draft",
+  "slots": [
+    {
+      "slot_id": "workspace_preview",
+      "modules": [
+        {"module_id": "pdf-result-preview", "order": 1, "enabled": true}
+      ]
+    }
+  ],
+  "allowed_actions": ["module.disable", "module.enable", "module.simulate_failure", "layout.restore"]
+}
