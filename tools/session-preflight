@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+set -u
+
+repo_root="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [[ -z "$repo_root" ]]; then
+  printf 'session_preflight: FAIL\nreason: not_a_git_repository\n'
+  exit 1
+fi
+
+cd "$repo_root" || exit 1
+
+branch="$(git branch --show-current 2>/dev/null || true)"
+local_head="$(git rev-parse HEAD 2>/dev/null || true)"
+origin_main="$(git rev-parse origin/main 2>/dev/null || true)"
+dirty_count="$(git status --porcelain | wc -l | tr -d ' ')"
+
+github_alignment=not_checked
+if [[ -n "$origin_main" ]]; then
+  if [[ "$local_head" == "$origin_main" ]]; then
+    github_alignment=same
+  else
+    github_alignment=different
+  fi
+fi
+
+obsidian_root="${V2_OBSIDIAN_ROOT:-/home/user/바탕화면/ai_os_v2}"
+obsidian_head=""
+obsidian_alignment=not_checked
+if [[ -d "$obsidian_root/.obsidian" ]] && git -C "$obsidian_root" rev-parse HEAD >/dev/null 2>&1; then
+  obsidian_head="$(git -C "$obsidian_root" rev-parse HEAD)"
+  if [[ "$local_head" == "$obsidian_head" ]]; then
+    obsidian_alignment=same
+  else
+    obsidian_alignment=different
+  fi
+fi
+
+printf 'session_preflight:\n'
+printf '  repo_path: %s\n' "$repo_root"
+printf '  branch: %s\n' "${branch:-detached}"
+printf '  local_head: %s\n' "$local_head"
+printf '  dirty_count: %s\n' "$dirty_count"
+printf '  dirty_preserved: true\n'
+printf '  origin_main: %s\n' "${origin_main:-not_checked}"
+printf '  github_alignment: %s\n' "$github_alignment"
+printf '  obsidian_vault: %s\n' "$obsidian_root"
+printf '  obsidian_head: %s\n' "${obsidian_head:-not_checked}"
+printf '  obsidian_alignment: %s\n' "$obsidian_alignment"
+printf '  note: local refs only; run an approved git fetch before claiming current GitHub synchronization\n'
+
+required=(
+  AGENTS.md
+  wiki/SESSION_START_CONTRACT.md
+  wiki/GOAL.md
+  wiki/CURRENT_STATE.md
+  wiki/DECISIONS.md
+  wiki/ARCHITECTURE.md
+  wiki/VERIFICATION.md
+  wiki/POST_MVP_PM0_PM6_BASELINE.md
+  wiki/PM1_PM4_DESIGN_MEETING_2026-08-19.md
+  wiki/AI_EVIDENCE_GUARD.md
+)
+
+missing=0
+for file in "${required[@]}"; do
+  if [[ ! -f "$file" ]]; then
+    printf '  missing_document: %s\n' "$file"
+    missing=$((missing + 1))
+  fi
+done
+
+if (( missing > 0 )); then
+  printf '  document_gate: FAIL\n'
+  exit 1
+fi
+
+printf '  document_gate: PASS\n'

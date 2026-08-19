@@ -1,5 +1,7 @@
 # Current State
 
+새 Codex·Antigravity 세션은 반드시 [[SESSION_START_CONTRACT]]를 가장 먼저 읽고, 현재 Worktree·GitHub `origin/main`·Obsidian Vault의 SHA를 구분해 보고합니다. 직접 확인하지 않은 기능·상태·PASS·동기화·복구는 `확인 필요` 또는 `not_proven`으로 기록하며, 이 규칙이 환각을 0으로 보장한다고 표현하지 않습니다.
+
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
 
 현재 `M7 — PDF 도면 스탬프 MVP E2E`까지 구현·독립 검증·사용자 승인·Result Commit·Rollback/Restore가 완료됐습니다. M7 공식 Run은 `run-c0a968f3`, 제품 Result Commit은 `3b592c8`입니다. 이로써 `AI OS V2 Core MVP M1~M7`은 검증 완료·동결 상태입니다. Post-MVP 설계는 [[POST_MVP_PM0_PM6_BASELINE]]의 `PM0~PM6`으로 완료됐으며 완료 범위와 미구현 항목은 [[POST_MVP_DESIGN_COMPLETION_REPORT]]에 기록합니다. `PM0 — 운영환경 준비`는 기술 Preflight와 격리 재현을 통과했고, 사용자가 외부 Backup·표본 Restore만 후속으로 유예한 조건으로 PASS했습니다. `PM1 — 디자인 전략·탐색·채택`은 `single_visual_target_with_ui_ux_pro_guard` 방식, PC 운영 UI와 PM3용 Section 계약을 사용자·Codex가 PASS했습니다. 현재 활성 단계는 `PM2 — 조립식 제작 보드`입니다. `run-ef4986d7`의 기존 Preview v1과 PM1의 실패 Pilot은 당시 거절 판정 그대로 보존하며 구현 입력으로 사용하지 않습니다.

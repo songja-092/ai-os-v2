@@ -2,6 +2,7 @@
 
 ## 새 작업 및 새 세션 시작 규칙
 
+- 새 세션에서는 다른 문서보다 `wiki/SESSION_START_CONTRACT.md`를 가장 먼저 읽고 그 절차와 보고 형식을 적용한다.
 - 새 작업 또는 새 세션에서 사용자의 첫 요청을 처리하기 전에 현재 저장소와 `main` 상태를 확인한다.
 - 원격 확인 전에 로컬 미커밋 변경이나 충돌 위험이 있으면 동기화하거나 덮어쓰지 말고 중단하여 사용자에게 보고한다.
 - 작업트리가 안전할 때 원격 `origin/main`을 확인하고 필요한 경우 fast-forward 방식으로만 최신 상태를 동기화한다.
@@ -13,7 +14,8 @@
   - `wiki/VERIFICATION.md`
 - 읽지 않은 내용을 기억이나 추측으로 대체하지 않는다.
 - 위 Wiki 문서를 AI OS V2의 공용 기억으로 사용하며, 채팅의 추측보다 승인된 Git commit의 내용을 우선한다.
-- Load가 끝나면 `AI OS V2 Memory Loaded: <Commit SHA>` 형식으로 보고한 뒤 작업을 시작한다.
+- 로컬 Worktree·GitHub `origin/main`·Obsidian Vault의 HEAD를 각각 확인하고, SHA가 다르면 `동기화됨`이라고 표현하지 않는다.
+- 필수 문서를 모두 읽은 경우에만 `AI OS V2 Memory Loaded: <Commit SHA>` 형식으로 보고한 뒤 작업을 시작한다. 일부에 접근하지 못했으면 누락을 보고하고 이 문구를 사용하지 않는다.
 - 작업 중 `main`이 변경되어도 `Base Memory`를 임의로 바꾸지 않는다. 새 Commit이 필요하면 다시 Load하여 새 작업으로 처리한다.
 - Post-MVP PM 작업에서는 `wiki/PM1_PM4_DESIGN_MEETING_2026-08-19.md`도 읽고, 그 안의 확정 용어·PM 전환·Skill 보호·수집기 규칙을 적용한다.
 - V2의 기능·상태·PASS·동기화·복구를 주장하기 전 `wiki/AI_EVIDENCE_GUARD.md`를 읽고 주장에 필요한 실제 증거를 확인한다.
