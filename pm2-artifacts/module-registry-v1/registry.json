@@ -1,12 +1,18 @@
 {
   "registry_version": "1.0",
-  "status": "pilot",
+  "status": "verified",
   "modules": [
     {
       "module_id": "pdf-result-preview",
       "manifest": "pm2-modules/pdf-result-preview/manifest.json",
-      "lifecycle": "candidate",
-      "verified": false
+      "lifecycle": "verified",
+      "verified": true
+    },
+    {
+      "module_id": "hospital-web-result-preview",
+      "manifest": "pm2-modules/hospital-web-result-preview/manifest.json",
+      "lifecycle": "verified",
+      "verified": true
     }
   ]
 }

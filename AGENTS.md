@@ -23,7 +23,9 @@
 
 ## 저장 규칙
 
-- 확정된 결정이나 검증 결과는 `작업 → 검증 → 사용자 승인 → Wiki 반영 → Commit → Push` 순서로 저장한다.
+- 확정된 결정이나 검증 결과는 `작업 → 검증 → 사용자 승인 → Wiki·세션 공통계약 반영 → Commit → Push` 순서로 저장한다.
+- PM이 끝나거나 Repo-local Skill을 만들거나 변경하면 `wiki/SESSION_START_CONTRACT.md`의 정확한 상태와 Skill 목록을 같은 Commit에서 갱신한다.
+- 세션 공통계약 반영이 누락되면 PM 또는 Skill 저장 완료로 보고하지 않는다.
 - 검증되지 않은 내용을 확정 사실로 저장하지 않는다.
 - 한 Commit에는 가능한 하나의 의미 있는 변경만 포함한다.
 - Commit과 Push가 완료되면 `Saved: <Commit SHA>` 형식으로 보고한다.

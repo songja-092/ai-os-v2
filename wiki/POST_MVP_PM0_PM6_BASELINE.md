@@ -561,14 +561,14 @@ core_mvp_m1_m7: completed_and_frozen
 post_mvp_design: completed
 design_completion_scope: contracts_only
 official_post_mvp_sequence: PM0_to_PM6
-active_gate: PM2
+active_gate: PM3
 pm1_design_exploration: pass
-pm2_modular_board: not_started
+pm2_modular_board: completed_and_locked
 pm3_to_pm6: not_started
 pm1_adoption_method: single_visual_target_with_ui_ux_pro_guard
 pm0_operational_readiness: pass_with_user_deferred_backup
 ```
 
-Post-MVP 설계 계약은 완료됐습니다. PM0는 사용자가 외부 Backup·표본 Restore를 후속으로 유예한 조건으로 통과했습니다. PM1에서는 실패 Pilot을 보존한 상태로 `single_visual_target_with_ui_ux_pro_guard`와 PC 운영 UI를 검증했고 사용자가 PASS했습니다. 현재 활성 단계는 PM2이며 PM1 PASS를 Module·Slot·Core 연결 구현 완료로 확대하지 않습니다.
+Post-MVP 설계 계약은 완료됐습니다. PM0는 사용자가 외부 Backup·표본 Restore를 후속으로 유예한 조건으로 통과했습니다. PM1에서는 실패 Pilot을 보존한 상태로 `single_visual_target_with_ui_ux_pro_guard`와 PC 운영 UI를 검증했고 사용자가 PASS했습니다. PM2는 두 프로젝트 결과 Module과 단일 선택 Preview, 프로젝트별 기능 목록, Module 격리·복원을 사용자·기술 검증으로 완료했습니다. 현재 활성 단계는 PM3이며 PM2 PASS를 PM3 직접 편집 구현 완료로 확대하지 않습니다.
 
 생산 배포·운영 관찰과 10년차 전문가 수준 판정은 PM0~PM6 완료만으로 선언하지 않습니다. 배포 가능한 프로젝트에서 별도 승인된 Deployment·Monitoring Adapter와 여러 프로젝트 재현 증거를 축적하는 `Professional Capability Program`의 후속 범위입니다.

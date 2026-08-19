@@ -2,9 +2,16 @@
   "manifest_version": "1.0",
   "module_id": "pdf-result-preview",
   "display_name": "PDF 도면 결과 Preview",
-  "module_version": "0.1.0-pilot",
+  "module_version": "0.2.0-core-pilot",
   "adapter_type": "internal",
-  "entry": "pm2-modules/pdf-result-preview/index.html",
+  "entry": "/pm2-product-preview/pdf/index.html",
+  "features": [
+    {"feature_id": "pdf.open", "display_name": "PDF 열기", "status": "verified"},
+    {"feature_id": "pdf.pages", "display_name": "페이지 보기", "status": "verified"},
+    {"feature_id": "stamp.place", "display_name": "도면 기호 배치", "status": "verified"},
+    {"feature_id": "stamp.edit", "display_name": "기호 수정·복사·삭제", "status": "verified"},
+    {"feature_id": "pdf.export", "display_name": "새 PDF 저장", "status": "verified"}
+  ],
   "allowed_slots": ["workspace_preview"],
   "required_state": ["project_id", "allowed_actions"],
   "emitted_actions": [
@@ -24,7 +31,7 @@
   },
   "status": {
     "enabled": true,
-    "lifecycle": "candidate"
+    "lifecycle": "verified"
   },
   "origin": {
     "type": "v2_approved_result",

@@ -1,0 +1,35 @@
+{
+  "verification_version": "1.0",
+  "verified_at": "2026-08-19",
+  "base_commit": "96a1b50c48e286b5664f70bc1b5874545d2240a3",
+  "surface": "pm2-module-test.html",
+  "url": "http://127.0.0.1:8203/pm2-module-test.html",
+  "core_contract": "V2 Core -> ui-state -> UI -> ui-action -> V2 Core",
+  "modules": [
+    "pdf-result-preview",
+    "hospital-web-result-preview"
+  ],
+  "checks": {
+    "registered_manifest_only": "pass",
+    "two_product_modules_rendered": "pass",
+    "single_selected_preview": "pass",
+    "project_feature_lists_separated": "pass",
+    "module_order_move": "pass",
+    "order_persists_after_reload": "pass",
+    "single_module_disable": "pass",
+    "single_module_failure_isolation": "pass",
+    "initial_layout_restore": "pass",
+    "forbidden_action_rejected": "pass",
+    "cross_project_action_rejected": "pass",
+    "pm1_lock_regression": "pass",
+    "pdf_default_sample_and_worker": "pass_after_core_asset_route_fix",
+    "new_relevant_console_errors": "none"
+  },
+  "limitations": [
+    "제품 Build 결과는 읽기 전용 Preview로 연결하며 제품 원본을 수정하지 않았다.",
+    "Electron 개발 환경의 Content-Security-Policy 경고는 남아 있으며 이번 PM2 기능 오류와 구분한다."
+  ],
+  "technical_verdict": "pass",
+  "user_verdict": "pass_2026-08-19",
+  "pm2_pass": true
+}

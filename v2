@@ -16,6 +16,8 @@ import socket
 import re
 import hashlib
 import struct
+import mimetypes
+from urllib.parse import urlsplit, parse_qs
 
 # Helper to run shell commands
 def run_cmd(cmd, cwd=None):
@@ -2791,12 +2793,283 @@ def update_run_status(run_id, target_status):
     print(f"Success: Run '{run_id}' status updated from '{current_status}' to '{t_status}'.")
 
 # Custom HTTP Request Handler for serving dashboard and REST APIs
+
+PM2_PROJECT_ID = "pdf-drawing-symbols"
+PM2_STATE_RELATIVE_PATH = os.path.join("state", "pm2-board-state.json")
+PM2_REQUIRED_MANIFEST_FIELDS = {
+    "manifest_version", "module_id", "display_name", "module_version", "adapter_type",
+    "entry", "allowed_slots", "required_state", "emitted_actions", "permissions", "health", "status",
+}
+
+
+def load_json_file(path):
+    with open(path, "r", encoding="utf-8") as source_file:
+        return json.load(source_file)
+
+
+def write_json_atomic(path, payload):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    fd, temp_path = tempfile.mkstemp(prefix=".pm2-state-", suffix=".json", dir=os.path.dirname(path))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as target_file:
+            json.dump(payload, target_file, ensure_ascii=False, indent=2)
+            target_file.write("\n")
+        os.replace(temp_path, path)
+    finally:
+        if os.path.exists(temp_path):
+            os.unlink(temp_path)
+
+
+def load_pm2_registry(v2_root):
+    registry_path = os.path.join(v2_root, "pm2-artifacts", "module-registry-v1", "registry.json")
+    registry = load_json_file(registry_path)
+    if registry.get("registry_version") != "1.0" or not isinstance(registry.get("modules"), list):
+        raise ValueError("PM2 Module Registry is invalid.")
+    manifests = {}
+    for record in registry["modules"]:
+        module_id = record.get("module_id")
+        manifest_relative = record.get("manifest")
+        if not isinstance(module_id, str) or not isinstance(manifest_relative, str):
+            raise ValueError("PM2 Module Registry contains an incomplete record.")
+        manifest_path = os.path.abspath(os.path.join(v2_root, manifest_relative))
+        if os.path.commonpath([v2_root, manifest_path]) != v2_root:
+            raise ValueError("PM2 Module Manifest escapes the repository.")
+        manifest = load_json_file(manifest_path)
+        if not PM2_REQUIRED_MANIFEST_FIELDS.issubset(manifest):
+            raise ValueError(f"Module Manifest is incomplete: {module_id}")
+        if manifest.get("module_id") != module_id:
+            raise ValueError(f"Module id mismatch: {module_id}")
+        if "workspace_preview" not in manifest.get("allowed_slots", []):
+            raise ValueError(f"Module is not allowed in workspace_preview: {module_id}")
+        manifests[module_id] = manifest
+    return registry, manifests
+
+
+def default_pm2_board_state():
+    return {
+        "state_version": "1.0",
+        "revision": 1,
+        "project_id": PM2_PROJECT_ID,
+        "active_slot": "workspace_preview",
+        "active_module_id": "pdf-result-preview",
+        "allowed_actions": [
+            "module.enable", "module.disable", "module.move_up", "module.move_down",
+            "module.simulate_failure", "module.select", "layout.restore",
+        ],
+        "modules": [
+            {"module_id": "pdf-result-preview", "order": 1, "enabled": True, "failed": False},
+            {"module_id": "hospital-web-result-preview", "order": 2, "enabled": True, "failed": False},
+        ],
+        "last_action": "layout.initialized",
+    }
+
+
+def validate_pm2_board_state(state, manifests):
+    if state.get("project_id") != PM2_PROJECT_ID or state.get("active_slot") != "workspace_preview":
+        raise ValueError("PM2 board state belongs to an unsupported project or Slot.")
+    modules = state.get("modules")
+    if not isinstance(modules, list) or len(modules) != 2:
+        raise ValueError("PM2 board state must contain exactly two verified Module candidates.")
+    seen = set()
+    for item in modules:
+        module_id = item.get("module_id")
+        if module_id in seen or module_id not in manifests:
+            raise ValueError(f"Unregistered or duplicate Module: {module_id}")
+        if not isinstance(item.get("enabled"), bool) or not isinstance(item.get("failed"), bool):
+            raise ValueError(f"Invalid Module state: {module_id}")
+        seen.add(module_id)
+    modules.sort(key=lambda item: item.get("order", 0))
+    for index, item in enumerate(modules, start=1):
+        item["order"] = index
+    active_module_id = state.get("active_module_id")
+    if active_module_id not in seen:
+        state["active_module_id"] = modules[0]["module_id"]
+    return state
+
+
+def load_pm2_board_state(v2_root):
+    _, manifests = load_pm2_registry(v2_root)
+    state_path = os.path.join(v2_root, PM2_STATE_RELATIVE_PATH)
+    state = load_json_file(state_path) if os.path.exists(state_path) else default_pm2_board_state()
+    return validate_pm2_board_state(state, manifests), manifests
+
+
+def pm2_ui_state(v2_root):
+    state, manifests = load_pm2_board_state(v2_root)
+    payload = dict(state)
+    payload["modules"] = []
+    for item in state["modules"]:
+        manifest = manifests[item["module_id"]]
+        enriched = dict(item)
+        enriched.update({
+            "display_name": manifest["display_name"],
+            "module_version": manifest["module_version"],
+            "entry": manifest["entry"],
+            "lifecycle": manifest["status"].get("lifecycle", "candidate"),
+            "permissions": manifest["permissions"],
+            "features": manifest.get("features", []),
+        })
+        payload["modules"].append(enriched)
+    payload["evidence_level"] = "core_connected_user_verified"
+    payload["pm2_pass"] = True
+    return payload
+
+
+def apply_pm2_ui_action(v2_root, payload):
+    state, manifests = load_pm2_board_state(v2_root)
+    if payload.get("project_id") != state["project_id"]:
+        raise PermissionError("Project mismatch. No state was changed.")
+    action = payload.get("action")
+    if action not in state["allowed_actions"]:
+        raise PermissionError("Action is not allowed by V2 Core.")
+    module_id = payload.get("module_id")
+    module = next((item for item in state["modules"] if item["module_id"] == module_id), None)
+    if action != "layout.restore" and module is None:
+        raise ValueError("Registered Module not found.")
+
+    if action == "layout.restore":
+        restored = default_pm2_board_state()
+        restored["revision"] = int(state.get("revision", 1)) + 1
+        restored["last_action"] = action
+        state = restored
+    elif action == "module.enable":
+        module.update({"enabled": True, "failed": False})
+        state["active_module_id"] = module_id
+    elif action == "module.disable":
+        if not manifests[module_id]["permissions"].get("hideable"):
+            raise PermissionError("This Module cannot be disabled.")
+        module.update({"enabled": False, "failed": False})
+        if state.get("active_module_id") == module_id:
+            replacement = next((item for item in state["modules"] if item["module_id"] != module_id and item["enabled"] and not item["failed"]), None)
+            state["active_module_id"] = replacement["module_id"] if replacement else module_id
+    elif action == "module.simulate_failure":
+        module.update({"enabled": True, "failed": True})
+        if state.get("active_module_id") == module_id:
+            replacement = next((item for item in state["modules"] if item["module_id"] != module_id and item["enabled"] and not item["failed"]), None)
+            state["active_module_id"] = replacement["module_id"] if replacement else module_id
+    elif action == "module.select":
+        if not module["enabled"] or module["failed"]:
+            raise PermissionError("비활성 또는 오류 상태인 Module은 열 수 없습니다.")
+        state["active_module_id"] = module_id
+    elif action in {"module.move_up", "module.move_down"}:
+        if not manifests[module_id]["permissions"].get("movable"):
+            raise PermissionError("This Module cannot be moved.")
+        modules = sorted(state["modules"], key=lambda item: item["order"])
+        current = modules.index(module)
+        target = current - 1 if action == "module.move_up" else current + 1
+        if 0 <= target < len(modules):
+            modules[current], modules[target] = modules[target], modules[current]
+        for index, item in enumerate(modules, start=1):
+            item["order"] = index
+        state["modules"] = modules
+
+    if action != "layout.restore":
+        state["revision"] = int(state.get("revision", 1)) + 1
+        state["last_action"] = action
+    validate_pm2_board_state(state, manifests)
+    write_json_atomic(os.path.join(v2_root, PM2_STATE_RELATIVE_PATH), state)
+    return pm2_ui_state(v2_root)
+
+
+def resolve_pm2_product_asset(request_path):
+    products = {
+        "hospital": "/home/user/바탕화면/test_project/dist",
+        "pdf": "/home/user/바탕화면/test_project/m7-pdf-stamp/dist",
+    }
+    relative = request_path.removeprefix("/pm2-product-preview/")
+    product_id, separator, asset = relative.partition("/")
+    if not separator or product_id not in products:
+        raise ValueError("Unknown PM2 product preview.")
+    asset = asset or "index.html"
+    root = os.path.abspath(products[product_id])
+    target = os.path.abspath(os.path.join(root, asset))
+    if os.path.commonpath([root, target]) != root or not os.path.isfile(target):
+        raise ValueError("PM2 product asset is unavailable.")
+    return product_id, root, target
+
+
 class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         pass
 
     def do_GET(self):
         v2_root = os.path.dirname(os.path.abspath(__file__))
+        request = urlsplit(self.path)
+        request_path = request.path
+
+        if request_path == "/api/pm2/ui-state":
+            project_id = parse_qs(request.query).get("project_id", [""])[0]
+            if project_id != PM2_PROJECT_ID:
+                self.send_json(409, {"error": "Project mismatch."})
+                return
+            try:
+                self.send_json(200, pm2_ui_state(v2_root))
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"PM2 Core state unavailable: {exc}"})
+            return
+
+        if request_path.startswith("/pm2-product-preview/"):
+            try:
+                product_id, _, asset_path = resolve_pm2_product_asset(request_path)
+                with open(asset_path, "rb") as asset_file:
+                    body = asset_file.read()
+                content_type = mimetypes.guess_type(asset_path)[0] or "application/octet-stream"
+                if asset_path.endswith("index.html"):
+                    prefix = f"/pm2-product-preview/{product_id}"
+                    html = body.decode("utf-8")
+                    html = html.replace('src="/assets/', f'src="{prefix}/assets/')
+                    html = html.replace('href="/assets/', f'href="{prefix}/assets/')
+                    html = html.replace('href="/favicon.svg"', f'href="{prefix}/favicon.svg"')
+                    body = html.encode("utf-8")
+                    content_type = "text/html; charset=utf-8"
+            except (OSError, ValueError, UnicodeDecodeError) as exc:
+                self.send_json(404, {"error": str(exc)})
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", content_type)
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        if request_path in {
+            "/sample-floor-plan.pdf", "/icons.svg", "/favicon.svg",
+            "/assets/pdf.worker-CwUwjlJG.mjs",
+        }:
+            asset_path = os.path.join(
+                "/home/user/바탕화면/test_project/m7-pdf-stamp/dist",
+                request_path.lstrip("/"),
+            )
+            try:
+                with open(asset_path, "rb") as asset_file:
+                    body = asset_file.read()
+            except OSError:
+                self.send_json(404, {"error": "PM2 PDF preview asset is unavailable."})
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", mimetypes.guess_type(asset_path)[0] or "application/octet-stream")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        static_pm2 = {
+            "/pm2-module-test.html": "pm2-module-test.html",
+            "/pm2-workspace.html": "pm2-workspace.html",
+        }
+        if request_path in static_pm2:
+            html_path = os.path.join(v2_root, static_pm2[request_path])
+            with open(html_path, "rb") as html_file:
+                body = html_file.read()
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
 
         if self.path == "/api/design-intelligence":
             collection_path = os.path.join(
@@ -2955,6 +3228,22 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         v2_root = os.path.dirname(os.path.abspath(__file__))
+        request_path = urlsplit(self.path).path
+        if request_path == "/api/pm2/ui-action":
+            try:
+                content_length = int(self.headers.get("Content-Length", "0"))
+                if content_length <= 0 or content_length > 4096:
+                    raise ValueError("Invalid request size.")
+                payload = json.loads(self.rfile.read(content_length).decode("utf-8"))
+                result = apply_pm2_ui_action(v2_root, payload)
+            except PermissionError as exc:
+                self.send_json(403, {"error": str(exc)})
+                return
+            except (OSError, ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                self.send_json(400, {"error": str(exc)})
+                return
+            self.send_json(200, {"message": "V2 Core가 상태를 저장했습니다.", "state": result})
+            return
         if self.path not in {"/api/reference-board/selection", "/api/visual-companion/selection", "/api/design-intelligence/decision"}:
             self.send_json(404, {"error": "Not found"})
             return

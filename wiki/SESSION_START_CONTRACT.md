@@ -74,6 +74,7 @@ session_preflight:
 - 회의가 끝나면 `회의가 끝났습니다`라고 명확히 말하고 결과를 기록합니다.
 - PM 범위를 벗어난 요청이면 현재 작업을 섞지 않고 어느 PM 범위인지 먼저 알립니다.
 - 사용자가 PM을 PASS하면 해당 PM의 승인 화면·동작·유지 범위·복구 기준을 고정하고 잠근 뒤 다음 PM으로 이동합니다.
+- PM이 완료되거나 Repo-local Skill을 새로 만들거나 변경하면 같은 작업에서 이 세션 공통계약의 `정확한 상태`와 Skill 목록을 갱신합니다. 공통계약 반영 전에는 PM 저장이 끝났다고 보고하지 않습니다.
 - Dirty 변경은 사용자의 변경으로 보존하며 임의로 Reset·Restore·Stash·Commit하지 않습니다.
 - 설치·외부 전송·제품 적용·Commit·Push는 승인 범위 안에서만 수행합니다.
 
@@ -87,19 +88,29 @@ session_preflight:
 - 카톡형 요구사항 대화창과 Preview는 Section이며 Module이 아닙니다.
 - 외부 GitHub 프로젝트나 Skill은 가져왔다는 이유만으로 Module이 되지 않습니다. 계약 변환·격리·동작 검증을 통과해야 Module 후보 또는 Module이 됩니다.
 
+## 모든 AI가 확인할 Repo-local Skill
+
+- `V2 Beginner Technical Translator`: 초보자 표현과 개발 설명을 서로 번역하는 Codex 대화용 Skill
+- `V2 Design Finish`: Visual Target 제작부터 디자인 마감 검사까지 지원하는 Skill
+- `V2 Capability Lab`: 외부 Skill·Plugin·오픈소스를 비공개 프로젝트와 분리해 격리 시험하는 Skill
+- `프로젝트 패키징` (`v2-project-packaging`): 이미 제작된 프로젝트 결과를 읽고 Module Manifest·기능 목록·격리 Preview 초안을 만드는 Skill. 자동 기능 완료 판정·자동 Core 등록·자동 채택은 하지 않습니다.
+
+Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLATOR_RESEARCH_2026-08-19.md`에서 확인합니다. 문서에 이름만 있다고 Runtime에 자동 연결됐다고 판단하지 않습니다.
+
 ## 이 문서 작성 시점의 정확한 상태
 
 - Core MVP M1~M7: 완료·동결로 기록되어 있으나 새 세션은 현재 Commit의 증거를 다시 연결해야 합니다.
 - PM0: 사용자 유예 조건이 포함된 PASS로 기록되어 있습니다.
 - PM1: 사용자 PASS 후 잠금 기준이 존재합니다.
-- PM2: 진행 중입니다.
-- `pdf-result-preview`: 첫 Module **Pilot 후보**입니다. Manifest·정적 Registry·Draft Recipe와 Fixture 검증 증거가 있습니다.
-- PM2 전체 PASS: 아직 아닙니다.
-- Core `ui-state → ui-action` 실제 연결, 영구 상태, 실제 Module 2개 조립과 사용자 PASS: 아직 증명되지 않았습니다.
+- PM2: 사용자·기술 PASS 후 `pm2-complete-2026-08-19` Tag로 잠겼습니다.
+- `pdf-result-preview`와 `hospital-web-result-preview`: 검증된 프로젝트 결과 Module입니다.
+- 목록에서 선택한 Module 하나만 Preview하며 프로젝트별 기능 목록을 분리합니다.
+- Core `ui-state → UI → ui-action → Core`, 선택 상태 저장, 비활성, 오류 격리, 복원과 금지 Action 차단을 검증했습니다.
+- 현재 활성 단계: PM3 — 부분 수정·Motion Adapter
 - 새 세션은 위 문장을 그대로 믿지 말고 `CURRENT_STATE.md`와 해당 증거 파일을 현재 SHA에서 다시 확인합니다.
 
 ## 공식 사실을 바꾸는 순서
 
-`작업 → 실제 검증 → 사용자 승인 → Wiki 반영 → Commit → Push`
+`작업 → 실제 검증 → 사용자 승인 → Wiki·세션 공통계약 반영 → Commit → Push`
 
 Push하지 않은 로컬 Commit은 GitHub `main`의 공식 상태가 아닙니다. Commit하지 않은 Obsidian 문서는 다른 세션의 공식 기억이 아닙니다.

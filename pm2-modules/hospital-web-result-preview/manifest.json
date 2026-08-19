@@ -1,0 +1,39 @@
+{
+  "manifest_version": "1.0",
+  "module_id": "hospital-web-result-preview",
+  "display_name": "동네 병원 웹 결과 Preview",
+  "module_version": "0.1.0-core-pilot",
+  "adapter_type": "internal",
+  "entry": "/pm2-product-preview/hospital/index.html",
+  "features": [
+    {"feature_id": "clinic.hours", "display_name": "진료시간 확인", "status": "verified"},
+    {"feature_id": "clinic.staff", "display_name": "의료진 보기", "status": "verified"},
+    {"feature_id": "clinic.call", "display_name": "전화 문의", "status": "verified"},
+    {"feature_id": "clinic.reservation", "display_name": "예약 요청", "status": "fixture_only"}
+  ],
+  "allowed_slots": ["workspace_preview"],
+  "required_state": ["project_id", "allowed_actions"],
+  "emitted_actions": [],
+  "permissions": {
+    "movable": true,
+    "resizable": false,
+    "hideable": true,
+    "removable": true,
+    "editable_properties": []
+  },
+  "health": {
+    "timeout_ms": 2000,
+    "fallback_module_id": null
+  },
+  "status": {
+    "enabled": true,
+    "lifecycle": "verified"
+  },
+  "origin": {
+    "type": "v2_verified_result",
+    "source": "/home/user/바탕화면/test_project/dist",
+    "source_commit": "e2625bb",
+    "license": "repository_owned",
+    "modifications": "제품 Build 결과를 읽기 전용 Preview로 연결"
+  }
+}

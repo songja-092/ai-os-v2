@@ -33,3 +33,20 @@
 - Base: `pm1-complete-2026-08-18`
 - 금지: PM1 승인 화면·완료 보고서·Section 계약 직접 수정
 - 필수: PM1 전체 화면을 유지한 상태에서 조립 기능만 추가
+
+## PM2 잠금 기준
+
+- 상태: `completed_and_user_approved`
+- Tag: `pm2-complete-2026-08-19`
+- 승인 화면: `pm2-module-test.html`
+- 복원: 위 Tag 또는 PM2 완료 Commit으로 전체 상태 복원
+
+### 핵심 파일 SHA-256
+
+| 파일 | SHA-256 |
+|---|---|
+| `pm2-module-test.html` | `1d440bbbdf6c90fe5e24e6463060911801d62b5d96c33e34c1aa2bf634de1fb8` |
+| `wiki/PM2_FIRST_MODULE_PILOT_REPORT_2026-08-19.md` | `768d7b13ec42c353f8757d6603f455203189ead69adae55838459da0b6fc0902` |
+| `pm2-artifacts/module-registry-v1/core-verification.json` | `da8adcb9e34cee648e466509b63ae0396195697f58b883c7749ff8179a22ebb5` |
+
+PM3부터 위 세 파일을 직접 수정하지 않습니다. PM2의 프로젝트 선택·단일 Preview·기능 목록을 변경해야 한다면 별도 Change Run과 사용자 승인을 사용합니다.

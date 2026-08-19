@@ -26,6 +26,9 @@ check_sha() {
 check_sha "68788ad015b933c6c5ea6507f57219b2c59605bc2cc19c33c12e3e02187ef83a" "pm1-complete-review.html"
 check_sha "5d21ebdae9d81c0e951519db7488d4726c87afe3a9c83f53ac608f36919b8cd2" "wiki/PM1_COMPLETION_REPORT_2026-08-18.md"
 check_sha "8107e07dcbf62fdf77d0581ac8159f5b8646c1d8ca1fa0ef8066e4518cdf2263" "pm1-artifacts/visual-target-v1/section-contract.json"
+check_sha "1d440bbbdf6c90fe5e24e6463060911801d62b5d96c33e34c1aa2bf634de1fb8" "pm2-module-test.html"
+check_sha "768d7b13ec42c353f8757d6603f455203189ead69adae55838459da0b6fc0902" "wiki/PM2_FIRST_MODULE_PILOT_REPORT_2026-08-19.md"
+check_sha "da8adcb9e34cee648e466509b63ae0396195697f58b883c7749ff8179a22ebb5" "pm2-artifacts/module-registry-v1/core-verification.json"
 
 if [[ "$failures" -gt 0 ]]; then
   echo "PM lock verification: FAIL ($failures)"

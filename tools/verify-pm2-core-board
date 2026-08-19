@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+set -eu
+
+repo_root="$(git rev-parse --show-toplevel)"
+port="${PM2_VERIFY_PORT:-8292}"
+log_file="$(mktemp)"
+state_file="$repo_root/state/pm2-board-state.json"
+state_backup="$(mktemp)"
+cp "$state_file" "$state_backup"
+
+cleanup() {
+  cp "$state_backup" "$state_file"
+  rm -f "$state_backup" "$log_file" /tmp/pm2-state-$$.json /tmp/pm2-action-$$.json /tmp/pm2-denied-$$.json
+  if [[ -n "${server_pid:-}" ]] && kill -0 "$server_pid" 2>/dev/null; then
+    kill "$server_pid" 2>/dev/null || true
+    wait "$server_pid" 2>/dev/null || true
+  fi
+}
+trap cleanup EXIT
+
+"$repo_root/v2" dashboard --port "$port" >"$log_file" 2>&1 &
+server_pid=$!
+ready=false
+for _ in $(seq 1 40); do
+  if curl --silent --fail "http://127.0.0.1:$port/api/pm2/ui-state?project_id=pdf-drawing-symbols" >/tmp/pm2-state-$$.json; then ready=true; break; fi
+  sleep 0.1
+done
+if [[ "$ready" != true ]]; then printf 'FAIL Core server did not start\n'; sed -n '1,80p' "$log_file"; exit 1; fi
+
+python3 - /tmp/pm2-state-$$.json <<'PY'
+import json, sys
+state=json.load(open(sys.argv[1], encoding="utf-8"))
+assert state["project_id"] == "pdf-drawing-symbols"
+assert len(state["modules"]) == 2
+assert state["pm2_pass"] is True
+assert state["active_module_id"] == "pdf-result-preview"
+assert all(item["entry"].startswith("/pm2-product-preview/") for item in state["modules"])
+assert all(item["features"] for item in state["modules"])
+print("PASS Core ui-state exposes two project Modules and separate feature lists")
+PY
+
+post() { curl --silent --output "$2" --write-out '%{http_code}' -H 'Content-Type: application/json' -X POST --data "$1" "http://127.0.0.1:$port/api/pm2/ui-action"; }
+code="$(post '{"project_id":"pdf-drawing-symbols","action":"module.select","module_id":"hospital-web-result-preview"}' /tmp/pm2-action-$$.json)"; [[ "$code" == 200 ]] || exit 1
+python3 - /tmp/pm2-action-$$.json <<'PY'
+import json, sys
+state=json.load(open(sys.argv[1], encoding="utf-8"))["state"]
+assert state["active_module_id"] == "hospital-web-result-preview"
+print("PASS one selected project controls the single Preview")
+PY
+code="$(post '{"project_id":"pdf-drawing-symbols","action":"module.move_up","module_id":"hospital-web-result-preview"}' /tmp/pm2-action-$$.json)"; [[ "$code" == 200 ]] || exit 1
+python3 - /tmp/pm2-action-$$.json <<'PY'
+import json, sys
+state=json.load(open(sys.argv[1], encoding="utf-8"))["state"]
+assert state["modules"][0]["module_id"] == "hospital-web-result-preview"
+print("PASS Core ui-action moves Module order")
+PY
+code="$(post '{"project_id":"pdf-drawing-symbols","action":"module.disable","module_id":"pdf-result-preview"}' /tmp/pm2-action-$$.json)"; [[ "$code" == 200 ]] || exit 1; printf 'PASS Core ui-action disables one Module\n'
+code="$(post '{"project_id":"another-project","action":"module.disable","module_id":"pdf-result-preview"}' /tmp/pm2-denied-$$.json)"; [[ "$code" == 403 ]] || exit 1; printf 'PASS mismatched project is rejected\n'
+code="$(post '{"project_id":"pdf-drawing-symbols","action":"module.delete_source","module_id":"pdf-result-preview"}' /tmp/pm2-denied-$$.json)"; [[ "$code" == 403 ]] || exit 1; printf 'PASS forbidden action is rejected\n'
+code="$(post '{"project_id":"pdf-drawing-symbols","action":"module.simulate_failure","module_id":"hospital-web-result-preview"}' /tmp/pm2-action-$$.json)"; [[ "$code" == 200 ]] || exit 1; printf 'PASS one Module failure is isolated in Core state\n'
+code="$(post '{"project_id":"pdf-drawing-symbols","action":"layout.restore","module_id":null}' /tmp/pm2-action-$$.json)"; [[ "$code" == 200 ]] || exit 1
+python3 - /tmp/pm2-action-$$.json <<'PY'
+import json, sys
+state=json.load(open(sys.argv[1], encoding="utf-8"))["state"]
+assert [item["module_id"] for item in state["modules"]] == ["pdf-result-preview", "hospital-web-result-preview"]
+assert all(item["enabled"] and not item["failed"] for item in state["modules"])
+print("PASS Core restores initial order and active state")
+PY
+curl --silent --fail "http://127.0.0.1:$port/pm2-product-preview/hospital/index.html" | grep -Fq '해온가정의학과'; printf 'PASS hospital product preview is served read-only\n'
+curl --silent --fail "http://127.0.0.1:$port/pm2-product-preview/pdf/index.html" | grep -Fq 'm7-pdf-stamp'; printf 'PASS PDF product preview is served read-only\n'
+curl --silent --fail "http://127.0.0.1:$port/sample-floor-plan.pdf" >/dev/null; printf 'PASS PDF default sample is served read-only\n'
+curl --silent --fail "http://127.0.0.1:$port/assets/pdf.worker-CwUwjlJG.mjs" >/dev/null; printf 'PASS PDF worker is served read-only\n'
+printf 'PM2 Core Board: PASS (technical and user gate)\n'

@@ -46,6 +46,19 @@
   - Design Intelligence 후보 Queue 생성
 - 상태: Impeccable과 Taste 후보의 격리 시험 증거가 있다. V2 Core 자동 설치·자동 적용 기능은 아니다.
 
+### 프로젝트 패키징
+
+- 경로: `plugins/v2-capability-lab/skills/v2-project-packaging/`
+- 역할: 이미 제작된 로컬 프로젝트 결과를 V2에 장착 가능한 Module 후보로 포장
+- 주요 기능:
+  - 민감 파일을 제외한 프로젝트 구조 읽기
+  - 원본 상태 Hash와 실행 Entry 후보 기록
+  - Manifest·기능 목록·중복 기능 초안 생성
+  - 격리 Preview와 검증 상태 연결
+  - 사용자 채택 전 Registry 등록 차단
+  - 채택·보류·폐기 및 제거 가능성 유지
+- 상태: Repo-local Skill 구조 검사와 병원 웹 폴더 대상 읽기 전용 초안 생성 시험 PASS. 자동 기능 판정이나 자동 Registry 등록은 구현하지 않으며 실제 작동 검증과 사용자 채택이 필요합니다.
+
 ## 2. 저장소에 추가된 보조 Skill
 
 ### Ponytail
