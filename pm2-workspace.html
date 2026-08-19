@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI OS V2 — PM2 요구사항 대화 Section</title>
+  <style>
+    html,body,iframe{width:100%;height:100%;margin:0;border:0;background:#f8fbfa}
+    iframe{display:block}
+  </style>
+</head>
+<body>
+  <iframe id="pm1Shell" src="./pm1-complete-review.html#projects" title="AI OS V2 PM2 작업실"></iframe>
+  <script>
+    const shell = document.getElementById('pm1Shell');
+
+    shell.addEventListener('load', () => {
+      const doc = shell.contentDocument;
+      const win = shell.contentWindow;
+      if (!doc || !win) return;
+
+      const requestPanel = doc.querySelector('#view-projects .request-panel');
+      const sideStack = doc.querySelector('#view-projects .side-stack');
+      if (!requestPanel || !sideStack) return;
+      if (requestPanel.dataset.pm2Section === 'requirements-chat-v1') return;
+
+      const style = doc.createElement('style');
+      style.dataset.pm2Extension = 'requirements-chat-v1';
+      style.textContent = `
+        #view-projects .workspace{align-items:stretch}
+        #view-projects .side-stack{display:flex;flex-direction:column;min-height:725px}
+        #view-projects .request-panel{order:3!important;display:flex;flex:1;min-height:430px;flex-direction:column}
+        #view-projects .request-panel .panel-title{flex:0 0 auto}
+        #view-projects .request-panel .pm2-chat{display:flex;flex:1;min-height:0;flex-direction:column;background:#fbfdfc}
+        .pm2-chat-log{flex:1;min-height:260px;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:14px;scrollbar-gutter:stable}
+        .pm2-message{display:flex;gap:9px;max-width:92%;align-items:flex-end}
+        .pm2-message.ai{align-self:flex-start}.pm2-message.user{align-self:flex-end;flex-direction:row-reverse}
+        .pm2-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;background:#d8f2e8;color:#007d50;font-size:11px;font-weight:800}
+        .pm2-message.user .pm2-avatar{background:#14251f;color:#fff}
+        .pm2-bubble{padding:11px 13px;border:1px solid #c8d9d2;border-radius:7px 15px 15px 15px;background:#fff;line-height:1.55;white-space:pre-wrap}
+        .pm2-message.user .pm2-bubble{border-color:#9bd3bd;border-radius:15px 7px 15px 15px;background:#e2f5ed}
+        .pm2-time{display:block;margin-top:5px;color:#718079;font-size:10px;text-align:right}
+        .pm2-scope{margin:0 18px 14px;padding:12px 13px;border:1px solid #b8d7ca;border-radius:8px;background:#eef8f4}
+        .pm2-scope strong{display:block;margin-bottom:6px}.pm2-scope p{margin:0;color:#415d52;line-height:1.5;font-size:12px}
+        .pm2-terms{margin:0 18px 14px}.pm2-terms>strong{display:block;margin-bottom:8px;font-size:12px}
+        .pm2-term-list{display:flex;gap:7px;flex-wrap:wrap}.pm2-term{border:1px solid #b8d2c7;border-radius:16px;background:#fff;padding:6px 10px;color:#17684d;font-size:11px;cursor:pointer}
+        .pm2-term:hover,.pm2-term[aria-expanded="true"]{border-color:#00a86b;background:#e7f7f0}
+        .pm2-term-detail{margin-top:8px;padding:10px 11px;border-left:3px solid #00a86b;background:#f5faf8;color:#405c52;font-size:12px;line-height:1.55}
+        .pm2-composer{position:sticky;bottom:0;margin-top:auto;padding:13px;border-top:1px solid #d6e2dd;background:#fff}
+        .pm2-composer textarea{width:100%;min-height:74px;max-height:150px;resize:vertical;border:1px solid #b9cdc5;border-radius:8px;padding:11px 12px;line-height:1.5;outline:none}
+        .pm2-composer textarea:focus{border-color:#00a86b;box-shadow:0 0 0 3px rgba(0,168,107,.12)}
+        .pm2-composer-actions{display:flex;justify-content:space-between;gap:8px;margin-top:9px}
+        .pm2-composer-left,.pm2-composer-right{display:flex;gap:8px}
+        .pm2-send{background:#00a86b!important;border-color:#00a86b!important;color:#fff}
+        .pm2-lock-note{font-size:11px;color:#697c74;align-self:center}
+        @media(max-width:1200px){#view-projects .side-stack{min-height:auto}.pm2-chat-log{min-height:360px}}
+      `;
+      doc.head.appendChild(style);
+
+      requestPanel.querySelector('.panel-title').innerHTML = '<h2>요구사항 대화</h2><span class="sync-state"><span class="icon">lock</span>적용 전 확인</span>';
+      requestPanel.querySelector('.request-box').outerHTML = `
+        <div class="pm2-chat" data-section-id="workspace.requirements-chat" aria-label="V2 요구사항 대화">
+          <div class="pm2-chat-log" id="pm2ChatLog" aria-live="polite">
+            <div class="pm2-message ai">
+              <span class="pm2-avatar">V2</span>
+              <div class="pm2-bubble">현재 확인할 요청을 정리했습니다. 바꾸고 싶은 내용을 편하게 적어주세요.<span class="pm2-time">방금</span></div>
+            </div>
+            <div class="pm2-message user">
+              <span class="pm2-avatar">나</span>
+              <div class="pm2-bubble">도면 위 기호를 배치하고 수정한 뒤 새 PDF로 저장하고 싶어요.<span class="pm2-time">방금</span></div>
+            </div>
+            <div class="pm2-message ai">
+              <span class="pm2-avatar">V2</span>
+              <div class="pm2-bubble">이해한 내용입니다.\n• 바꿀 것: 기호 배치·수정·PDF 저장\n• 유지할 것: 원본 PDF와 기존 기호\n• 적용 시점: 결과를 보여드리고 승인받은 뒤<span class="pm2-time">방금</span></div>
+            </div>
+          </div>
+          <div class="pm2-scope" id="pm2Scope">
+            <strong>이번 변경 범위</strong>
+            <p>Preview에서 먼저 확인합니다. 아직 제품과 PM1 승인 화면은 변경하지 않습니다.</p>
+          </div>
+          <div class="pm2-terms">
+            <strong>용어를 눌러서 배워보기</strong>
+            <div class="pm2-term-list">
+              <button class="pm2-term" data-term="section" aria-expanded="false">Section (섹션)</button>
+              <button class="pm2-term" data-term="module" aria-expanded="false">Module (모듈)</button>
+              <button class="pm2-term" data-term="os" aria-expanded="false">OS (오에스)</button>
+              <button class="pm2-term" data-term="erp" aria-expanded="false">ERP (이알피)</button>
+            </div>
+            <div class="pm2-term-detail" id="pm2TermDetail" hidden></div>
+          </div>
+          <div class="pm2-composer">
+            <textarea id="pm2Message" aria-label="추가 요구사항" placeholder="추가로 바꿀 내용을 입력하세요"></textarea>
+            <div class="pm2-composer-actions">
+              <div class="pm2-composer-left">
+                <label class="control file-label"><span class="icon">attach_file</span>파일 추가<input id="pm2Files" type="file" multiple></label>
+              </div>
+              <div class="pm2-composer-right">
+                <span class="pm2-lock-note">승인 전 적용 안 함</span>
+                <button class="control pm2-send" id="pm2Send">보내기</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+
+      const log = doc.getElementById('pm2ChatLog');
+      const input = doc.getElementById('pm2Message');
+      const send = doc.getElementById('pm2Send');
+      const files = doc.getElementById('pm2Files');
+      const termDetail = doc.getElementById('pm2TermDetail');
+      const terms = {
+        section: '<strong>Section (섹션)</strong><br>한 화면 안에서 역할이 나뉜 구역입니다. 여기서는 요구사항 대화창과 Preview가 각각 Section입니다.',
+        module: '<strong>Module (모듈)</strong><br>V2가 제작했거나 가져와 검증한 실제 결과물입니다. 장착·제거·재사용할 수 있어야 합니다.',
+        os: '<strong>OS (오에스)</strong><br>여러 작업과 도구를 관리하는 바탕 시스템입니다. V2는 제작과 운영을 관리하는 OS형 보드판입니다.',
+        erp: '<strong>ERP (이알피)</strong><br>고객·예약·재고·회계 같은 회사 업무를 묶어 관리하는 제품입니다. V2 전체가 아니라 V2가 만들 수 있는 자식 제품입니다.'
+      };
+
+      function appendMessage(role, text) {
+        const item = doc.createElement('div');
+        item.className = `pm2-message ${role}`;
+        const avatar = doc.createElement('span');
+        avatar.className = 'pm2-avatar';
+        avatar.textContent = role === 'user' ? '나' : 'V2';
+        const bubble = doc.createElement('div');
+        bubble.className = 'pm2-bubble';
+        bubble.textContent = text;
+        const time = doc.createElement('span');
+        time.className = 'pm2-time';
+        time.textContent = '방금';
+        bubble.appendChild(time);
+        item.append(avatar, bubble);
+        log.appendChild(item);
+        log.scrollTop = log.scrollHeight;
+      }
+
+      function submit() {
+        const text = input.value.trim();
+        if (!text) return;
+        appendMessage('user', text);
+        input.value = '';
+        setTimeout(() => {
+          appendMessage('ai', `요청을 받았습니다.\n\n바꿀 내용: ${text}\n유지할 내용: 현재 Preview와 PM1 승인 상태\n\n실제 적용 전 변경 범위를 다시 보여드릴게요.`);
+          const syncedRequest = doc.getElementById('syncedRequest');
+          if (syncedRequest) syncedRequest.textContent = `요청 Draft: ${text}`;
+        }, 250);
+      }
+
+      send.addEventListener('click', submit);
+      input.addEventListener('keydown', event => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+          event.preventDefault();
+          submit();
+        }
+      });
+      files.addEventListener('change', () => {
+        if (files.files.length) appendMessage('ai', `${files.files.length}개 파일을 임시 첨부했습니다. 전송·적용 전 다시 확인합니다.`);
+      });
+      doc.querySelectorAll('.pm2-term').forEach(button => button.addEventListener('click', () => {
+        const wasOpen = button.getAttribute('aria-expanded') === 'true';
+        doc.querySelectorAll('.pm2-term').forEach(item => item.setAttribute('aria-expanded', 'false'));
+        if (wasOpen) {
+          termDetail.hidden = true;
+          termDetail.innerHTML = '';
+          return;
+        }
+        button.setAttribute('aria-expanded', 'true');
+        termDetail.innerHTML = terms[button.dataset.term];
+        termDetail.hidden = false;
+      }));
+
+      requestPanel.dataset.pm2Section = 'requirements-chat-v1';
+      requestPanel.querySelector('.panel-title').scrollIntoView({block:'nearest'});
+    });
+    // Local PM1 fixture can finish loading before this module registers its handler.
+    // Re-run the same idempotent enhancement once after registration.
+    setTimeout(() => shell.dispatchEvent(new Event('load')), 50);
+  </script>
+</body>
+</html>

@@ -5,6 +5,19 @@
 
 ## 1. V2용으로 직접 제작한 Skill
 
+### V2 Beginner Technical Translator
+
+- 경로: `.agents/skills/v2-beginner-translator/`
+- 역할: 초보자 표현을 개발 작업 설명으로 바꾸고 기술 결과를 쉬운 말로 다시 설명
+- 주요 기능:
+  - 사용자의 원래 표현을 먼저 보존
+  - 바뀌는 부분·유지되는 부분·확인 방법 정리
+  - 영어 기술 용어의 한글 발음 제공
+  - 용어의 쉬운 뜻·현재 역할·사용 시점 제공
+  - 클릭형 용어 카드용 `term_cards` 구조 제공
+  - 번역을 승인이나 코드 변경 권한으로 사용하지 않음
+- 상태: Repo-local Skill 구현 및 구조 검사 PASS. PM2 화면에는 OS·ERP·Section·Module 클릭형 학습 Fixture가 추가됐으며 실제 Core 연결은 아직 아니다.
+
 ### V2 Design Finish
 
 - 경로: `.agents/skills/v2-design-finish/`
@@ -147,5 +160,5 @@ Aider·OpenHands·Continue를 설치하면 자연어 Coding은 가능하지만 �
 dedicated_verified_external_skill: not_found
 large_coding_agent_install: not_recommended
 repo_local_translator_skill: recommended
-implementation_status: not_started
+implementation_status: implemented_repo_local
 ```

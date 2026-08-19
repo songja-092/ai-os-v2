@@ -1,0 +1,4 @@
+interface:
+  display_name: "V2 초보자 번역"
+  short_description: "초보자 표현과 코딩 용어를 쉬운 설명·한글 발음으로 서로 번역"
+  default_prompt: "내 요청이나 기술 결과를 초보자가 이해하고 선택할 수 있게 번역해줘."
