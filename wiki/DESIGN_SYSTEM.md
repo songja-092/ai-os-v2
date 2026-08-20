@@ -196,6 +196,8 @@ PM1과 PM2는 잠금 기준이 존재하며 현재 활성 단계는 PM3입니다
 
 PM3 부분수정의 사용자 흐름·허용 속성·Diff·검증·Restore 최종 계약은 [[PM3_PARTIAL_EDIT_FINAL_FLOW_2026-08-20]]을 사용합니다.
 
+전체 흐름이 실제로 실행됐는지는 문서 존재가 아니라 단계별 Artifact·Hash·Version·사용자 판정을 연결해 검사합니다. `V2 Design Director`의 Evidence Audit은 첫 누락 Handoff에서 `BLOCKED`를 보고하며 Reference Trace PASS를 제품 구현·Fidelity·최종 승인·Restore PASS로 확대하지 않습니다. 후속 조사 지시서는 [[DESIGN_WORKFLOW_RESEARCH_HANDOFF_2026-08-20]]을 사용합니다.
+
 ## 10. 과거 문서 보존과 충돌 처리
 
 다음 문서는 삭제하지 않고 역사·조사·실패·검증 증거로만 사용합니다.

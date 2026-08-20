@@ -63,9 +63,9 @@
 
 - 위치: `plugins/v2-capability-lab/skills/v2-design-director/`
 - 쉬운 이름: `디자인 총괄`
-- 기능: 동일한 V2 시험 화면을 기준으로 디자인 공급원 후보를 하나씩 탐색하고, 실제 사용 부분·총괄 수정·구현 가능성·사용자 판정을 기록합니다.
+- 기능: 동일한 시험 화면을 기준으로 디자인 공급원 후보를 하나씩 탐색하고, 실제 사용 부분·총괄 수정·구현 가능성·사용자 판정을 기록합니다. 채택 공급원을 Draft Recipe와 Section에 연결하며, 요청부터 구현·독립 검증·최종 승인·Version Restore까지 각 단계의 실제 Artifact가 이어졌는지 Evidence Audit으로 확인합니다.
 - 안전 경계: `OS`를 화면 스타일로 강제하지 않고 `조립형 제작 작업공간`으로 시험합니다. 비공개 프로젝트를 외부 후보에 전달하지 않으며 Core·Design Recipe를 직접 변경하지 않습니다.
-- 현재 상태: `repo_local_verified_reference_trace` — 디자인 공급원 10개 비교와 사용자 판정을 기록했고, 채택 Trial→역할별 Section→Draft Design Recipe→HTML 출처 표시 자동 검사를 PASS했습니다. 디자인 품질 자동 판정·Core 자동 적용·제품 적용은 포함하지 않습니다.
+- 현재 상태: `repo_local_verified_reference_trace` — 디자인 공급원 10개 비교와 사용자 판정을 기록했고, 채택 Trial→역할별 Section→Draft Design Recipe→HTML 출처 표시 자동 검사를 PASS했습니다. 전체 흐름 Evidence Audit은 구현 Handoff에서 `BLOCKED`이며, 디자인 품질 자동 판정·Core 자동 적용·제품 적용은 포함하지 않습니다. UI Remix·Misty는 설치된 Skill이 아니라 참고 연구입니다.
 
 ## 2. 저장소에 추가된 보조 Skill
 

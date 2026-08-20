@@ -47,6 +47,18 @@ hash changes after compilation. It does not judge visual quality, choose sources
 apply a draft to a product, or write to Core. Read [references/adoption-automation.md](references/adoption-automation.md)
 before compiling or verifying a combined Recipe.
 
+## End-to-end evidence audit
+
+When the user asks whether the design workflow actually happened, do not infer completion from the
+existence of documents or a visible mockup. Read
+[references/workflow-evidence.md](references/workflow-evidence.md) and map every stage to its real
+input, output, user decision, and hash or Version. Report the first missing handoff as the current
+blocker. A Reference trace PASS is not an implementation, Fidelity, final approval, or Restore PASS.
+
+`UI Remix` and `Misty` are research evidence for example search and whole/partial selection. They are
+not installed V2 Runtime tools unless a separate audited Adapter and execution evidence exist. Do not
+claim that V2 "uses UI Remix" merely because its interaction principle influenced the workflow.
+
 ## Required record
 
 Read [references/trial-contract.md](references/trial-contract.md) before starting or closing a
