@@ -96,6 +96,7 @@
 - Frontend App Builder: Frontend 구현 보조
 - Browser 검증: 실제 화면·상호작용·Console 검사
 - shadcn/ui: 구현용 Component·Block 공급원
+- Interview Me: 모호한 요구를 질문 하나씩 확인하는 외부 Skill 후보. Addy Osmani Commit `df1edb2`의 Skill 하나를 Capability Lab에서 시험했고 판정은 `PASS_WITH_FIX`, 상태는 `isolated_tested`입니다. 전역 설치·Registry 채택·PM5 Runtime 연결은 하지 않았습니다.
 
 ## 4. 초보자 표현과 코딩 용어를 서로 번역하는 도구 조사
 

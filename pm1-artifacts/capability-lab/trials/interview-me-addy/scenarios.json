@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "cases": [
+    {
+      "id": "clear-mechanical-request",
+      "request": "H3 구역 글씨 크기를 한 단계 줄여줘.",
+      "signals": ["clear_mechanical_change", "scope_lock_present"],
+      "expected": "skip"
+    },
+    {
+      "id": "vague-important-request",
+      "request": "인테리어 웹 만들어줘.",
+      "signals": ["missing_user_or_outcome_or_success"],
+      "expected": "interview"
+    },
+    {
+      "id": "user-stops-interview",
+      "request": "새 자동매매 기능을 만들고 싶은데 인터뷰는 여기서 그만할래.",
+      "signals": ["high_cost_or_security_or_scope_decision", "user_stop"],
+      "expected": "stop_without_implementation"
+    }
+  ]
+}

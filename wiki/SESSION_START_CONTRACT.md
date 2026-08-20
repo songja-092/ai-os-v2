@@ -119,6 +119,7 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
 - PM3 부분수정의 고정 흐름은 `승인 Recipe → 새 Draft → Viewport·Section 선택 → 마우스 수정 → Recipe Diff → Preview·경고 → 권한·반응형·Motion·Reference Trace 검사 → 사용자 적용 → 새 Version·Restore Draft`입니다. Auto 정리는 Draft 제안일 뿐이며 실제 제품에 자동 적용하지 않습니다. 상세 원본은 `wiki/PM3_PARTIAL_EDIT_FINAL_FLOW_2026-08-20.md`입니다.
 - 디자인 탐색·채택은 업계의 `탐색 → 정의 → 방향 개발 → Prototype 확인 → 선택·전달` 흐름과 정합하지만 V2 자동 성공 증거는 아닙니다. Design Recipe는 Visual Target 승인 후 처음 쓰지 않고 Reference 선택 시 Draft로 시작해 승인 때 승격합니다.
 - `UI Remix`·`Misty`는 설치된 V2 Skill·Runtime이 아니라 디자인 탐색·부분 선택의 외부 연구 근거입니다. 현재 전체 디자인 흐름은 Draft Recipe와 Section Trace까지 증명됐고, 승인 Recipe 기반 실제 제품 구현→독립 Fidelity 검증→사용자 최종 승인→Version Restore는 아직 `not_proven`입니다. 새 세션은 `wiki/DESIGN_WORKFLOW_EVIDENCE_AUDIT_2026-08-20.md`의 첫 누락 Handoff부터 이어가며, 추가 조사는 `wiki/DESIGN_WORKFLOW_RESEARCH_HANDOFF_2026-08-20.md`를 그대로 사용합니다.
+- `Interview Me(인터뷰 미)`는 전역 Skill이나 활성 Core 기능이 아닙니다. Addy Osmani 원본 Commit `df1edb2`의 Skill 하나를 Capability Lab에서 시험한 `isolated_tested` 후보이며, V2 Adapter를 통한 선택 실행·질문 3개 Pause·사용자 중단·PM5 쉬운 의도 확인서 변환이 필요합니다. 사용자가 채택하기 전 Registry 등록·활성화하지 않습니다. 상세 보고는 `wiki/INTERVIEW_ME_CAPABILITY_LAB_REPORT_2026-08-20.md`입니다.
 - 새 세션은 위 문장을 그대로 믿지 말고 `CURRENT_STATE.md`와 해당 증거 파일을 현재 SHA에서 다시 확인합니다.
 
 ## 공식 사실을 바꾸는 순서

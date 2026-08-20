@@ -1,0 +1,86 @@
+{
+  "verdict": "PASS",
+  "source_contract": {
+    "checks": {
+      "one_question_at_a_time": true,
+      "explicit_confirmation": true,
+      "out_of_scope": true,
+      "no_premature_spec": true,
+      "clear_request_skip": true,
+      "live_user_required": true
+    },
+    "pass": true
+  },
+  "scenario_results": [
+    {
+      "id": "clear-mechanical-request",
+      "expected": "skip",
+      "actual": "skip",
+      "pass": true,
+      "receipt": {
+        "record_version": "1.0",
+        "original_request": "H3 구역 글씨 크기를 한 단계 줄여줘.",
+        "outcome": null,
+        "user": null,
+        "why_now": null,
+        "success": null,
+        "constraint": null,
+        "out_of_scope": [],
+        "unresolved": [],
+        "status": "not_required",
+        "implementation_allowed": true
+      }
+    },
+    {
+      "id": "vague-important-request",
+      "expected": "interview",
+      "actual": "interview",
+      "pass": true,
+      "receipt": {
+        "record_version": "1.0",
+        "original_request": "인테리어 웹 만들어줘.",
+        "outcome": null,
+        "user": null,
+        "why_now": null,
+        "success": null,
+        "constraint": null,
+        "out_of_scope": [],
+        "unresolved": [
+          "outcome",
+          "user",
+          "success"
+        ],
+        "status": "needs_user_answers",
+        "implementation_allowed": false
+      }
+    },
+    {
+      "id": "user-stops-interview",
+      "expected": "stop_without_implementation",
+      "actual": "stop_without_implementation",
+      "pass": true,
+      "receipt": {
+        "record_version": "1.0",
+        "original_request": "새 자동매매 기능을 만들고 싶은데 인터뷰는 여기서 그만할래.",
+        "outcome": null,
+        "user": null,
+        "why_now": null,
+        "success": null,
+        "constraint": null,
+        "out_of_scope": [],
+        "unresolved": [
+          "outcome",
+          "user",
+          "success"
+        ],
+        "status": "stopped_unconfirmed",
+        "implementation_allowed": false
+      }
+    }
+  ],
+  "limits": [
+    "This proves deterministic routing and receipt boundaries, not LLM answer quality.",
+    "The upstream skill has no hard question cap; V2 adds a three-question pause, not a forced completion.",
+    "No Core or product write is performed."
+  ]
+}

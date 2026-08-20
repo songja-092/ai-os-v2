@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "interview-me-addy",
+  "source": "https://github.com/addyosmani/agent-skills",
+  "source_commit": "df1edb2e05487d0aa6d93c747141e0aed1187f25",
+  "skill_sha256": "1d94741d10d2c826cd0c191aea3981ee94c8abb27ef2a166f6a372117d06448f",
+  "isolated_install": "PASS",
+  "static_contract": "PASS",
+  "scenario_routing": "PASS",
+  "question_fatigue_boundary": "PASS_WITH_V2_ADAPTER",
+  "user_stop": "PASS_WITH_V2_ADAPTER",
+  "pm5_easy_intent_receipt": "PASS_AS_FULL_MINIMUM_SCHEMA_PROTOTYPE",
+  "private_project_mounted": false,
+  "network_used_in_trial": false,
+  "credentials_forwarded": false,
+  "global_install": false,
+  "core_registry_entry": false,
+  "core_write": false,
+  "product_write": false,
+  "automatic_implementation": false,
+  "verdict": "PASS_WITH_FIX",
+  "fixes_required_before_activation": [
+    "Keep activation optional and ambiguity-triggered instead of global.",
+    "Pause after three questions and offer continue, summary, or stop.",
+    "Persist only a user-confirmed PM5 easy intent receipt.",
+    "Skipping the interview never grants implementation permission without an existing Scope Lock.",
+    "Do not treat the model's 95 percent confidence as an objective metric."
+  ],
+  "limits": [
+    "The trial proves routing and safety contracts, not interview answer quality across real users.",
+    "PM5 Core runtime consumption of the receipt is not implemented.",
+    "The candidate remains isolated_tested and is not adopted or active."
+  ]
+}

@@ -1,0 +1,327 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "interview-me-addy",
+  "source": "https://github.com/addyosmani/agent-skills",
+  "source_class": "public_github",
+  "prepared_at": "2026-08-20T13:49:22.284711+00:00",
+  "source_commit": "df1edb2e05487d0aa6d93c747141e0aed1187f25",
+  "source_sha256": "46b9a07072e6aad74af8a6ba8dfa29313c8e8641e5d68b54b806325e6a298bd7",
+  "status": "isolated_tested",
+  "private_project_mounted": false,
+  "audit": {
+    "scanned_text_files": 162,
+    "findings": [
+      {
+        "risk": "home_access",
+        "file": ".claude/commands/ship.md",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude-plugin/plugin.json",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "AGENTS.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "CLAUDE.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "README.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "README.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "agents/security-auditor.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "docs/codex-setup.md",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "docs/copilot-setup.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "docs/developer-onboarding.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "docs/getting-started.md",
+        "match_count": 3
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "evals/cases/shipping-and-launch.json",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "evals/fixtures/deprecation-and-migration/api-inventory.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "evals/fixtures/incremental-implementation-pressure/draft-export.js",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "evals/fixtures/incremental-implementation-pressure/scenario.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "hooks/SDD-CACHE.md",
+        "match_count": 15
+      },
+      {
+        "risk": "home_access",
+        "file": "hooks/SIMPLIFY-IGNORE.md",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "hooks/hooks.json",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "hooks/sdd-cache-post.sh",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "hooks/sdd-cache-pre.sh",
+        "match_count": 3
+      },
+      {
+        "risk": "environment_access",
+        "file": "hooks/session-start-test.sh",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "hooks/simplify-ignore.sh",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "references/observability-checklist.md",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": "references/orchestration-patterns.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "references/performance-checklist.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "references/security-checklist.md",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/run-evals-test.js",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/run-evals-test.js",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/run-evals.js",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/run-evals.js",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/validate-artifact-paths-test.js",
+        "match_count": 10
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/validate-artifact-paths-test.js",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/validate-artifact-paths-test.js",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/validate-artifact-paths.js",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/validate-commands-test.js",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/validate-commands-test.js",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/validate-commands-test.js",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/validate-commands.js",
+        "match_count": 11
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/validate-reference-links-test.js",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/validate-reference-links-test.js",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/validate-reference-links.js",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/validate-versions-test.js",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/validate-versions-test.js",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/validate-versions.js",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/validate-versions.js",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "skills/debugging-and-error-recovery/SKILL.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "skills/idea-refine/examples.md",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "skills/incremental-implementation/SKILL.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "skills/observability-and-instrumentation/SKILL.md",
+        "match_count": 11
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/performance-optimization/SKILL.md",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "skills/security-and-hardening/SKILL.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "skills/security-and-hardening/SKILL.md",
+        "match_count": 6
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/shipping-and-launch/SKILL.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "skills/source-driven-development/SKILL.md",
+        "match_count": 2
+      }
+    ],
+    "package_lifecycle_scripts": {},
+    "license_files": [
+      "LICENSE"
+    ],
+    "automatic_execution_allowed": false,
+    "note": "Findings require review; absence of a match is not a security guarantee."
+  },
+  "trials": [
+    {
+      "trial_id": "trial-001",
+      "executed_at": "2026-08-20T13:50:37.265840+00:00",
+      "network": "none",
+      "command": [
+        "python3",
+        "/work/v2_interview_adapter.py"
+      ],
+      "returncode": 0,
+      "private_project_mounted": false,
+      "environment_credentials_forwarded": false,
+      "stdout": "evidence/trial-001.stdout.txt",
+      "stderr": "evidence/trial-001.stderr.txt"
+    },
+    {
+      "trial_id": "trial-002",
+      "executed_at": "2026-08-20T13:53:24.487679+00:00",
+      "network": "none",
+      "command": [
+        "python3",
+        "/work/v2_interview_adapter.py"
+      ],
+      "returncode": 0,
+      "private_project_mounted": false,
+      "environment_credentials_forwarded": false,
+      "stdout": "evidence/trial-002.stdout.txt",
+      "stderr": "evidence/trial-002.stderr.txt"
+    }
+  ],
+  "fixture": {
+    "path_in_sandbox": "/work/fixture/index.html",
+    "contains_private_project_data": false,
+    "created_at": "2026-08-20T13:49:22.359139+00:00"
+  }
+}
