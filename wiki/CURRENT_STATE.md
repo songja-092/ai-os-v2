@@ -56,6 +56,8 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 - 디자인 Reference 수집은 PM1, 일반 자료·병목 조사는 PM4에서 요청 시 제한형 Workflow로 수행합니다.
 - 2026-08-20 디자인 공급원 비교에서 사용자 선호와 채택·보류 판정을 기록했습니다. 단일 우승자를 고르지 않고 Design MCP·21st.dev·UI UX Pro MCP·Creative Tim UI·Aceternity/React Bits처럼 역할이 다른 공급원을 조합합니다. 방향 3개는 빠른 비교 시안이고 실제 Code Preview는 선택 조합 하나만 제작합니다.
 - `V2 Design Director`의 Reference Flow 자동화가 사용자 채택 Trial 5개를 Draft Design Recipe로 컴파일하고 실제 Preview의 5개 Section 출처와 SHA-256을 대조해 PASS했습니다. 이는 Reference 추적 자동화 증거이며 Core 자동 선택·제품 적용·PM3 편집 뒤 보존·교차 프로젝트 재사용 증거는 아닙니다. 상세 내용은 [[DESIGN_SUPPLIER_TRIAL_SYNC_2026-08-20]]을 사용합니다.
+- PM3 부분수정의 최종 흐름을 [[PM3_PARTIAL_EDIT_FINAL_FLOW_2026-08-20]]에 고정했습니다. 승인 Recipe를 덮어쓰지 않고 새 Draft에서 Viewport·Section을 선택해 마우스로 수정하며, 모든 변경은 Recipe Diff·Preview·경고·권한·반응형·Motion·Reference Trace 검사를 거쳐 새 Version으로 적용됩니다. 실제 고객 결과물 전체 적용과 사용자 PM3 PASS는 아직 남아 있습니다.
+- 디자인 탐색·채택 방식은 Double Diamond·Enterprise Design Thinking 및 UI Remix·Misty의 사례 선택·부분 적용 연구와 비교했습니다. 큰 흐름은 정합하지만 V2 고유 명칭과 자동화가 업계 표준이거나 성공이 증명됐다는 뜻은 아닙니다. Design Recipe는 Reference 선택 때 Draft로 시작하고 Visual Target 승인 때 승격합니다. 상세 검토는 [[DESIGN_ADOPTION_METHOD_REVIEW_2026-08-20]]을 사용합니다.
 - PM1~PM3의 Reference Brief·Reference-first 채택, Versioned Design Recipe·반응형 Override, Module Manifest·Slot Renderer와 제거 가능한 Puck Adapter 경계 설계는 완료됐습니다. PM3에서는 Puck 0.22.4와 React Grid Layout 2.2.4를 격리 Pilot에만 설치해 카드 3개의 구조·배치·속성 편집, 이미지 Slot, 단색·투톤 Palette, 자동 배치·줄바꿈·색상 Draft와 Undo를 검증했습니다. 이는 Core Registry 승격이나 실제 제품 적용 완료를 뜻하지 않으며, 실제 병원 웹 Section 적용·Bundle 지연 로딩·사용자 최종 PASS는 남아 있습니다.
 - 기존 PM1 Preview는 실제 제품 Stack이 아니라 `static_design_evidence_only`로 보존합니다. PM2 실제 보드는 React 19 + Vite를 권장 기반으로 기록하되 PM0 PASS와 구현 승인 전에는 채택·설치로 간주하지 않습니다.
 - V2 운영 UI는 PC 전용이며, 390px·430px은 고객 결과물 하나의 모바일 규칙을 회귀검증하는 Viewport입니다.

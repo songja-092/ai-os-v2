@@ -200,6 +200,8 @@ font_size: [small, medium, large]
 
 직접 편집도 항상 Recipe Diff를 만듭니다. Drag와 이동 버튼은 같은 이동 명령을 생성하고 같은 Slot 또는 Manifest가 허용한 Slot으로만 이동합니다. `Undo·Redo`는 현재 Draft 안에서 작동하며 적용 뒤 복구는 Core Version Restore를 사용합니다. 변경 전후 비교 전에는 적용할 수 없고 사용자 승인 전 실제 제품을 변경하지 않습니다.
 
+부분수정은 `승인 Recipe 불러오기 → 새 Draft → Viewport·Section 선택 → 마우스 수정 → Recipe Diff → 즉시 Preview·넘침 경고 → Schema·권한·반응형·Motion·Reference Trace 검사 → 사용자 적용 → 새 Version → Restore Draft` 순서로 고정합니다. Auto Layout·줄바꿈·Palette는 승인 없는 자동 적용이 아니라 Draft 제안입니다. 세부 계약은 [[PM3_PARTIAL_EDIT_FINAL_FLOW_2026-08-20]]을 사용합니다.
+
 복제·삭제 경계:
 
 - `duplicate`는 Manifest의 `max_instances`와 복제 권한이 허용한 Module 인스턴스에만 적용합니다.

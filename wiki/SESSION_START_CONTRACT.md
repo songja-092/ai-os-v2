@@ -116,6 +116,8 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
 - `reference-adoption-pilot-v1`에서 채택 공급원 5개가 Draft Recipe와 실제 HTML 5개 Section에 연결되는 것을 자동 검증했습니다. Core 자동 선택·제품 적용·PM3 수정 뒤 방향 보존·다른 프로젝트 재사용은 아직 `not_proven`입니다.
 - 디자인 규칙과 역할의 공식 원본은 `wiki/DESIGN_SYSTEM.md`입니다. V2 운영 화면과 고객 결과물은 공통 품질 규칙만 공유하며, Codex는 디자인 총괄·지시·독립 검증, Antigravity는 승인된 실제 구현, 사용자는 최종 판정을 담당합니다.
 - PM3 격리 Pilot에는 카드 3개의 Puck·React Grid Layout 편집, 글씨와 Grid 크기 독립성, 넘침 경고, 이미지 Slot, 구역별 색상, 대표색 자동 Palette와 자동 배치·줄바꿈 Draft가 구현됐습니다. Build와 핵심 상호작용은 검증했지만 실제 병원 웹 Section 적용, 접근성·Bundle 분리, 사용자 최종 PASS는 아직 `not_proven`입니다.
+- PM3 부분수정의 고정 흐름은 `승인 Recipe → 새 Draft → Viewport·Section 선택 → 마우스 수정 → Recipe Diff → Preview·경고 → 권한·반응형·Motion·Reference Trace 검사 → 사용자 적용 → 새 Version·Restore Draft`입니다. Auto 정리는 Draft 제안일 뿐이며 실제 제품에 자동 적용하지 않습니다. 상세 원본은 `wiki/PM3_PARTIAL_EDIT_FINAL_FLOW_2026-08-20.md`입니다.
+- 디자인 탐색·채택은 업계의 `탐색 → 정의 → 방향 개발 → Prototype 확인 → 선택·전달` 흐름과 정합하지만 V2 자동 성공 증거는 아닙니다. Design Recipe는 Visual Target 승인 후 처음 쓰지 않고 Reference 선택 시 Draft로 시작해 승인 때 승격합니다.
 - 새 세션은 위 문장을 그대로 믿지 말고 `CURRENT_STATE.md`와 해당 증거 파일을 현재 SHA에서 다시 확인합니다.
 
 ## 공식 사실을 바꾸는 순서

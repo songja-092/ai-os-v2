@@ -102,8 +102,9 @@ Antigravity는 디자인 방향·범위를 임의로 확대하거나 자신의 �
 → 사용자가 전체·부분 선택
 → 출처·라이선스·반응형·기술·자산의 제작 가능성 확인
 → Codex가 디자인 총괄 절차로 하나의 구현 가능한 방향 제안
+→ Reference·Section·가져올 속성·가져오지 않을 속성을 Draft Design Recipe로 기록
 → 방향 Visual Target 한 장을 사용자가 승인
-→ Design Recipe와 구현 Component 목록 확정
+→ 같은 Design Recipe를 승인 상태로 승격하고 구현 Component 목록 확정
 → UI UX Pro가 사용성·접근성·기본 규칙 검사
 → Codex가 Antigravity 작업 지시서 작성
 → Antigravity가 실제 구현
@@ -115,6 +116,8 @@ Antigravity는 디자인 방향·범위를 임의로 확대하거나 자신의 �
 ```
 
 사용자가 직접 결정하는 기본 지점은 `요청 확인`, `Reference 선택`, `방향 이미지 승인`, `최종 판정`입니다. 나머지는 내부 절차로 처리하고 전문용어를 기본 화면에 노출하지 않습니다.
+
+이 흐름은 특정 회사 하나의 고정 절차를 복제한 것이 아니라 `탐색 → 문제 정의 → 방향 확장 → 선택·전달`로 수렴하는 보편적 Human-centered Design 흐름을 V2에 맞게 줄인 것입니다. V2는 여러 고해상도 시안을 반복 생성하지 않고 서로 다른 방향을 낮은 비용으로 비교한 뒤 실제 데이터 Visual Target 하나만 마감합니다. 상세 비교와 근거는 [[DESIGN_ADOPTION_METHOD_REVIEW_2026-08-20]]을 사용합니다.
 
 ## 5. Reference 제공 계약
 
@@ -161,6 +164,8 @@ Design Recipe는 최소한 다음을 Version별로 보존합니다.
 
 기존 Version을 덮어쓰지 않습니다. 직접 편집과 자연어 편집은 같은 Recipe Diff를 만들고 사용자 승인 전 실제 제품에 적용하지 않습니다.
 
+Design Recipe는 Visual Target 승인 뒤 새로 작성하지 않습니다. Reference의 전체·부분과 적용 속성을 선택하는 순간 `draft`로 시작하고, Visual Target 승인 때 같은 Version 계열을 `approved`로 승격합니다. 그래야 탐색 중 선택·제외 이유가 구현 단계에서 사라지지 않습니다.
+
 `DESIGN.md`가 필요하면 승인된 Design Recipe에서 생성합니다. Recipe 변경 시 다시 생성하며 DESIGN.md를 따로 편집해 두 원본을 만들지 않습니다.
 
 ## 8. 마감과 검증
@@ -188,6 +193,8 @@ Reference·Visual Target·구현 결과 비교 시 다음 조건을 고정합니
 PM1과 PM2는 잠금 기준이 존재하며 현재 활성 단계는 PM3입니다. 최근 Puck·React Grid Layout Pilot은 PM3 격리 시험이며 Core Registry 승격·실제 고객 제품 적용·사용자 최종 PASS는 아직 증명되지 않았습니다.
 
 현재 PM1의 기존 기본 방식은 사용자 PASS 증거로 보존합니다. 이번 디자인 총괄·한국 중심 Reference 비교 이미지 흐름은 사용자 회의에서 승인된 **다음 개선 계약**이며 아직 V2 Core 자동 기능으로 구현·검증된 것은 아닙니다.
+
+PM3 부분수정의 사용자 흐름·허용 속성·Diff·검증·Restore 최종 계약은 [[PM3_PARTIAL_EDIT_FINAL_FLOW_2026-08-20]]을 사용합니다.
 
 ## 10. 과거 문서 보존과 충돌 처리
 
