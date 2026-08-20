@@ -1,0 +1,11 @@
+2026-08-20 Antigravity CLI E2E attempt
+
+Observed in Antigravity renderer log after `antigravity-ide chat --mode agent`:
+
+command 'workbench.action.chat.newChat' not found
+
+The same new window also logged:
+
+failed to parse JSON config: invalid value: "dynamic_discovery"
+
+No file was created under the isolated product directory. This evidence proves the handoff/open attempt, not implementation.
