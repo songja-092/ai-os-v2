@@ -1,0 +1,14 @@
+{
+  "candidate_id": "interview-me-addy",
+  "decided_at": "2026-08-20",
+  "decision": "discarded_by_user",
+  "technical_trial": "pass_with_fix",
+  "reason": "Interview is handled by Codex conversation and is not needed as a V2 product capability.",
+  "prohibited": [
+    "core_registry_registration",
+    "pm5_runtime_connection",
+    "global_skill_installation",
+    "automatic_execution"
+  ],
+  "preserve_trial_evidence": true
+}

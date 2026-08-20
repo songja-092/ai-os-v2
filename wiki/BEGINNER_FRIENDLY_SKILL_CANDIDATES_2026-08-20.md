@@ -43,8 +43,9 @@
 ## 권장 도입 순서
 
 ```text
-Interview Me 사용자 채택 여부 결정
-→ Source-driven Development Skill 하나만 격리 시험
+Interview Me는 V2에서 폐기
+→ 인터뷰는 Codex 대화 원칙으로만 유지
+→ Source-driven Development Skill은 별도 승인 시에만 격리 시험
 → 실제 환각·구버전 구현 감소 효과 확인
 → 효과가 있으면 비활성 Adapter로 채택
 → Debugging Skill은 회귀 오류 사례 하나로만 비교

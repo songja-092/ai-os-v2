@@ -2,7 +2,16 @@
 
 ## 결론
 
-Addy Osmani의 `Interview Me(인터뷰 미)`를 고정 Commit에서 Skill 하나만 격리 설치해 시험했습니다. V2 적용 판정은 `PASS_WITH_FIX`이며 아직 채택·활성화하지 않습니다.
+Addy Osmani의 `Interview Me(인터뷰 미)`를 고정 Commit에서 Skill 하나만 격리 설치해 시험했습니다. 기술 Trial은 `PASS_WITH_FIX`였으나, 2026-08-20 사용자가 인터뷰는 Codex가 담당하고 V2 제품에는 필요 없다고 결정했습니다. 최종 V2 판정은 `discarded_by_user`입니다.
+
+## 최종 사용자 결정
+
+- V2 Core Registry 등록: 금지
+- PM5 Runtime 연결: 금지
+- 전역 Skill 설치: 금지
+- Trial Artifact: 폐기 근거로 보존
+- 필요한 인터뷰: Codex가 중요한·모호한 요청에서만 수행
+- 명확한 요청: 질문 피로 없이 바로 작업
 
 ## 원본
 
