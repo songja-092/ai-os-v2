@@ -1,0 +1,17 @@
+{
+  "verdict": "PASS",
+  "recipe_id": "ondam-home-community-reference-adoption-v1",
+  "verified_sources": 5,
+  "verified_sections": [
+    "community-feed",
+    "hero",
+    "live-topics",
+    "navigation",
+    "questions"
+  ],
+  "failures": [],
+  "limits": [
+    "This verifies traceability and deterministic recipe compilation, not visual quality.",
+    "Core automatic source selection and product application remain outside this pilot."
+  ]
+}

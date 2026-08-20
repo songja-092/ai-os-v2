@@ -1,0 +1,8 @@
+{
+  "trial_id":"21st-customer-web-v1","candidate_id":"21st-codex-plugin","target_surface":"customer_product","status":"adopted_design_direction","subject":"온담 인테리어","fixed_asset":"../shared/ondam-interior-fixture.png",
+  "source":{"catalog":"https://21st.dev/community/components","access":"public_metadata_only","plugin_commit":"df9d8c7a5c64cdf7e107e336fa8c129ede02ca20","code_retrieval":"not_performed","reason":"Component code retrieval is metered; this trial measures free search and preview value first."},
+  "selected_components":[{"name":"Scroll media expansion hero","url":"https://21st.dev/community/components?tab=heroes","used_part":"scroll-expanded media composition"},{"name":"Gallery with image cards","url":"https://21st.dev/community/components?tab=cards","used_part":"image-led portfolio grid"},{"name":"Portfolio Hero","url":"https://21st.dev/community/components/wisedev/portfolio-hero","used_part":"large type and overlapping image direction"}],
+  "director_decision":{"tone":"cinematic editorial portfolio","layout":"scroll-expanding hero + asymmetric image gallery + oversized CTA","motion":"purposeful scroll expansion","do_not_copy":["source code","author branding","source images","demo copy"]},
+  "director_runtime":{"mode":"codex_executing_v2_design_director_skill","independent_agent_running":false,"automated_orchestrator_implemented":false},
+  "decision_owner":"user","user_decision":"adopt","decision_note":"Accepted because the expressive direction is useful and its clear difference from trial 3 makes visual comparison much easier.","allowed_decisions":["adopt","hold","discard"]
+}

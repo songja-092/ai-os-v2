@@ -6,6 +6,8 @@
 적용 범위: Post-MVP 계획만
 보존 범위: Core MVP M1~M7, 기존 Run·Artifact·Commit
 
+디자인 탐색·채택·구현·수정·검증의 상세 계약은 [[DESIGN_SYSTEM]] · [GitHub 링크](DESIGN_SYSTEM.md)를 단일 공식 원본으로 사용합니다. 이 문서의 디자인 요약과 충돌하면 디자인 시스템을 우선하고 충돌을 보고합니다.
+
 ## 1. 공식 순서
 
 ```text
@@ -79,9 +81,13 @@ PASS:
 기본 Workflow:
 
 - 사용자가 쉬운 말로 원하는 화면을 요청합니다.
-- V2는 필요한 경우에만 같은 화면 종류의 검증 가능한 Reference를 내부적으로 제한 조사합니다.
+- Codex는 사용자의 요청을 짧은 디자인 요청서로 정리합니다.
+- 기존 성공 Recipe·Block으로 해결할 수 없을 때만 V2가 한국 중심 실제 Reference를 제한 조사하고, 비교 이미지 한 장과 원본 링크를 제공합니다.
+- 사용자는 Reference의 전체 또는 일부를 선택합니다.
+- Codex는 디자인 총괄 절차로 선택 결과를 하나의 구현 가능한 방향으로 정리하고, 사용자가 Visual Target 한 장을 승인합니다.
 - `UI UX Pro`는 화면 유형·정보 우선순위·색상·Typography·Spacing·접근성 규칙과 금지 Pattern을 제안하고 최종 결과를 검사합니다.
-- 기존 V2 결정과 실제 프로젝트 데이터를 사용해 Visual Target 하나만 제작합니다.
+- Codex는 승인된 방향을 Antigravity 작업 지시서로 만들고 Antigravity가 실제 제품을 구현합니다.
+- Codex는 구현과 독립적으로 Reference·Visual Target·실제 결과와 기술 증거를 검증합니다.
 - 사용자는 실제 화면에서 `이 방향으로 진행`, `이 부분만 수정`, `다른 방향 보기`, `현재안 유지`, `중단`, `이전 상태로` 중 하나를 선택합니다.
 - 첫 결과가 거절된 경우에만 거절 이유를 반영한 구조적으로 다른 대안 하나를 제작합니다.
 - 사용자 최종 승인 전 PM2 구현·제품 적용·Design Recipe 승격을 차단합니다.
@@ -98,6 +104,8 @@ PASS:
 - 기존 성공 Recipe·Block 우선 검색과 재사용 불가 사유 기록
 - 업종·핵심 고객·핵심 진료/업무·핵심 행동을 디자인 차별화 축으로 고정
 - 실제 구현 재료를 `Verified Code Block`, 배치를 `Layout Recipe`, 시각 규칙을 `Style Pack`으로 분리
+- 여러 공급원을 사용할 때 `방향 탐색·구현 Block·정보 구조·품질 검사·Motion` 역할을 분리하고, 각 공급원의 적용 Section과 Trial Hash를 Draft Design Recipe에 기록
+- 방향 3개는 빠른 비교 시안으로 제한하고 실제 Code Preview는 선택 조합 하나만 제작
 
 입력 우선순위:
 
@@ -109,7 +117,7 @@ pm1_input_priority:
   revision: section_selection_or_short_request
 ```
 
-Reference Board·구역/속성 선택형 Visual Companion·Google Stitch는 사용자 Pilot에서 기존 방식보다 빠르거나 좋은 결과를 증명하지 못했으므로 기본 Workflow에서 제외하고 실패 증거로 보존합니다. `UI Remix` 연구는 실제 사례의 전체·부분 선택이 비전문가에게 도움이 될 수 있다는 외부 근거로 유지하지만, V2 사용자가 탐색과 선택을 부담스럽다고 판정했으므로 요청 시 선택 기능으로만 사용합니다. 자동 Reference Collector·대형 Database·Vector 검색·별도 Art Director Agent는 같은 제한 작업이 실제 프로젝트에서 3회 이상 성공하고 자동화 가치가 증명되기 전에는 만들지 않습니다.
+Reference Board·구역/속성 선택형 Visual Companion·Google Stitch는 사용자 Pilot에서 기존 방식보다 빠르거나 좋은 결과를 증명하지 못했으므로 기본 Workflow에서 제외하고 실패 증거로 보존합니다. `UI Remix` 연구는 실제 사례의 전체·부분 선택이 비전문가에게 도움이 될 수 있다는 외부 근거로 유지하지만, V2 사용자가 탐색과 선택을 부담스럽다고 판정했으므로 요청 시 선택 기능으로만 사용합니다. 자동 Reference Collector·대형 Database·Vector 검색·독립 실행형 디자인 총괄 Agent는 만들지 않고, Codex가 공식 디자인 총괄 절차를 수행합니다.
 
 PASS — 디자인 품질:
 

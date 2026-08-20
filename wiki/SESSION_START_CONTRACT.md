@@ -38,6 +38,7 @@ Obsidian은 문서를 보여주는 도구일 뿐 별도의 최신 상태 보증 
    - `wiki/DECISIONS.md`
    - `wiki/ARCHITECTURE.md`
    - `wiki/VERIFICATION.md`
+   - `wiki/DESIGN_SYSTEM.md`
    - `wiki/POST_MVP_PM0_PM6_BASELINE.md`
    - `wiki/PM1_PM4_DESIGN_MEETING_2026-08-19.md`
    - `wiki/AI_EVIDENCE_GUARD.md`
@@ -85,6 +86,7 @@ session_preflight:
 - `Section`: 요구사항 대화, 현재 단계, Preview처럼 화면을 구성하는 영역입니다.
 - `Skill`: V2가 작업에 사용하는 방법이나 도구입니다. 사용자 화면에서는 `스킬`이라고 부릅니다.
 - `Module`: V2가 제작했거나 가져와 검증했고 장착·제거·재사용할 수 있는 실제 결과물입니다.
+- `디자인 시스템`: 디자인 탐색·채택·구현·수정·검증의 단일 공식 원본인 `wiki/DESIGN_SYSTEM.md`입니다.
 - 카톡형 요구사항 대화창과 Preview는 Section이며 Module이 아닙니다.
 - 외부 GitHub 프로젝트나 Skill은 가져왔다는 이유만으로 Module이 되지 않습니다. 계약 변환·격리·동작 검증을 통과해야 Module 후보 또는 Module이 됩니다.
 
@@ -94,6 +96,8 @@ session_preflight:
 - `V2 Design Finish`: Visual Target 제작부터 디자인 마감 검사까지 지원하는 Skill
 - `V2 Capability Lab`: 외부 Skill·Plugin·오픈소스를 비공개 프로젝트와 분리해 격리 시험하는 Skill
 - `프로젝트 패키징` (`v2-project-packaging`): 이미 제작된 프로젝트 결과를 읽고 Module Manifest·기능 목록·격리 Preview 초안을 만드는 Skill. 자동 기능 완료 판정·자동 Core 등록·자동 채택은 하지 않습니다.
+- `V2 Layout Editor Integration` (`v2-layout-editor-integration`): Puck·React Grid Layout을 제거 가능한 PM3 Adapter로 연결하고, PC·모바일 배치 분리, 이미지 Slot, 단색·투톤 Palette, 자동 정리, Undo·Restore와 Recipe 안전 검사를 수행하는 Codex Skill. 현재 격리 Pilot 검증 단계이며 Core Registry에는 승격되지 않았습니다.
+- `V2 Design Director` (`v2-design-director`): 후보별 Reference 탐색·시각 결과·사용자 채택/보류/폐기를 기록하고, 채택 공급원을 역할별 Section에 연결한 Draft Design Recipe와 HTML 추적 상태를 자동 검사합니다. 사용자 결정을 대신하거나 Core·제품에 자동 적용하지 않습니다.
 
 Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLATOR_RESEARCH_2026-08-19.md`에서 확인합니다. 문서에 이름만 있다고 Runtime에 자동 연결됐다고 판단하지 않습니다.
 
@@ -107,6 +111,11 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
 - 목록에서 선택한 Module 하나만 Preview하며 프로젝트별 기능 목록을 분리합니다.
 - Core `ui-state → UI → ui-action → Core`, 선택 상태 저장, 비활성, 오류 격리, 복원과 금지 Action 차단을 검증했습니다.
 - 현재 활성 단계: PM3 — 부분 수정·Motion Adapter
+- 디자인 공급원 비교는 `pm3-artifacts/design-director-trials/trial-index.json`의 순서와 고정 Brief를 사용합니다. 최초 Figma 실행은 연결 예비 시험이며 본 비교 결과로 계산하지 않습니다.
+- 디자인 공급원 10개 시각 시험은 종료됐습니다. 5번 Design MCP와 7번 UI UX Pro MCP가 명시적 선호 1·2위이며, 2·3·4·5·7·9·10번 방향을 채택하고 6·8번은 보류했습니다. 여러 채택 공급원을 역할별로 함께 사용할 수 있습니다.
+- `reference-adoption-pilot-v1`에서 채택 공급원 5개가 Draft Recipe와 실제 HTML 5개 Section에 연결되는 것을 자동 검증했습니다. Core 자동 선택·제품 적용·PM3 수정 뒤 방향 보존·다른 프로젝트 재사용은 아직 `not_proven`입니다.
+- 디자인 규칙과 역할의 공식 원본은 `wiki/DESIGN_SYSTEM.md`입니다. V2 운영 화면과 고객 결과물은 공통 품질 규칙만 공유하며, Codex는 디자인 총괄·지시·독립 검증, Antigravity는 승인된 실제 구현, 사용자는 최종 판정을 담당합니다.
+- PM3 격리 Pilot에는 카드 3개의 Puck·React Grid Layout 편집, 글씨와 Grid 크기 독립성, 넘침 경고, 이미지 Slot, 구역별 색상, 대표색 자동 Palette와 자동 배치·줄바꿈 Draft가 구현됐습니다. Build와 핵심 상호작용은 검증했지만 실제 병원 웹 Section 적용, 접근성·Bundle 분리, 사용자 최종 PASS는 아직 `not_proven`입니다.
 - 새 세션은 위 문장을 그대로 믿지 말고 `CURRENT_STATE.md`와 해당 증거 파일을 현재 SHA에서 다시 확인합니다.
 
 ## 공식 사실을 바꾸는 순서

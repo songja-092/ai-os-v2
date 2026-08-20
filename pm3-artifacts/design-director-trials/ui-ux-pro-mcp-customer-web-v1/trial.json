@@ -1,0 +1,28 @@
+{
+  "trial_id": "ui-ux-pro-mcp-customer-web-v1",
+  "candidate": "UI UX Pro MCP",
+  "candidate_number": 7,
+  "status": "adopted_with_adjustment",
+  "target_surface": "customer_website",
+  "benchmark": "ondam-interior",
+  "runtime_installation": false,
+  "source_mode": "existing_local_repository_data_read_only",
+  "source_commit": "943385ee3e2320f493dedd86f0869260d3f8324e",
+  "matched_records": {
+    "product": "Architecture / Interior",
+    "primary_style": "Exaggerated Minimalism + High Imagery",
+    "secondary_style": "Swiss Modernism 2.0",
+    "landing": "Portfolio Grid + Visuals",
+    "palette": "Monochrome + Gold Accent + High Imagery",
+    "typography": "Luxury Serif"
+  },
+  "truth": "This MCP searches design rules and code-oriented guidance; it does not independently create or implement the final website.",
+  "user_evaluation": {
+    "preference_rank_at_decision": 2,
+    "positive": "Second favorite among the candidates reviewed so far.",
+    "adjustment_required": "Reduce image dominance and increase the balance of text and project information."
+  },
+  "design_director_runtime": "Codex applies the repository-local v2-design-director decision framework; no independent automated director agent is running",
+  "decision_owner": "user",
+  "allowed_decisions": ["adopt", "hold", "discard"]
+}

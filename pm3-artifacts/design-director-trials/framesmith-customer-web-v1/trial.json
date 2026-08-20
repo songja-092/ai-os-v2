@@ -1,0 +1,32 @@
+{
+  "trial_id": "framesmith-customer-web-v1",
+  "candidate": "Framesmith",
+  "candidate_number": 6,
+  "status": "ready_for_user_review",
+  "target_surface": "customer_website",
+  "benchmark": "ondam-interior",
+  "runtime_installation": false,
+  "source_mode": "existing_local_repository_read_only",
+  "source_commit": "8ff503abbe0e1fa78dde4af8045f434483daeac0",
+  "patterns_used": [
+    {
+      "id": "catalogue",
+      "applied_to": ["selected-work", "project-grid"],
+      "reason": "balanced density and repeatable catalogue items"
+    },
+    {
+      "id": "editorial-longform",
+      "applied_to": ["typography", "process", "content rhythm"],
+      "reason": "airy left-aligned editorial hierarchy"
+    }
+  ],
+  "design_dna": {
+    "direction": "architectural editorial catalogue",
+    "palette": "warm paper, ink black, brick red, acid lime",
+    "layout": "precise borders, asymmetrical project grid, oversized numbering",
+    "motion": "minimal interaction feedback"
+  },
+  "design_director_runtime": "Codex applies the repository-local v2-design-director decision framework; no independent automated director agent is running",
+  "decision_owner": "user",
+  "allowed_decisions": ["adopt", "hold", "discard"]
+}

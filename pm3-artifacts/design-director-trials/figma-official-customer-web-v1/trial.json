@@ -1,0 +1,18 @@
+{
+  "trial_id":"figma-official-customer-web-v1",
+  "candidate_id":"figma-official",
+  "target_surface":"customer_product",
+  "status":"adopted_design_direction",
+  "subject":"온담 인테리어",
+  "fixed_asset":"../shared/ondam-interior-fixture.png",
+  "figma_file_key":"ZYnDo92iB7O4QMMecbwDKG",
+  "figma_library":{"name":"Simple Design System","license":"CC BY 4.0","source":"community"},
+  "selected_components":[
+    {"name":"Hero Image","component_key":"6fb5ec3698da245adf641fda0c62494c73d1b88a","updated_at":"2025-11-19T12:18:11Z","used_part":"responsive image-led hero"},
+    {"name":"Card Grid Image","component_key":"39e1cba84417660804816cb9b918c712ee3ad430","updated_at":"2026-03-09T15:23:23Z","used_part":"repeatable portfolio cards"},
+    {"name":"Form Contact","component_key":"182b34d6a03dcd59ca280b3dffd70edcb15f4779","updated_at":"2025-11-19T12:25:48Z","used_part":"structured consultation form"}
+  ],
+  "director_decision":{"tone":"clean modular contemporary","layout":"hero component + image card grid + contact component","palette":["#f7f8f3","#18211d","#28614c","#d8f17b"],"do_not_copy":["Figma example text","Figma example branding","external imagery"]},
+  "implemented_interactions":["project filters","consultation anchor","form status","390·430 responsive"],
+  "decision_owner":"user","user_decision":"adopt","decision_note":"Accepted because it was the cleanest and most orderly result among trials 1 through 3. The contribution of searchable Figma Simple Design System components was accepted, but Figma is not a mandatory V2 runtime dependency.","allowed_decisions":["adopt","hold","discard"]
+}

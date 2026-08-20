@@ -59,6 +59,14 @@
   - 채택·보류·폐기 및 제거 가능성 유지
 - 상태: Repo-local Skill 구조 검사와 병원 웹 폴더 대상 읽기 전용 초안 생성 시험 PASS. 자동 기능 판정이나 자동 Registry 등록은 구현하지 않으며 실제 작동 검증과 사용자 채택이 필요합니다.
 
+### V2 Design Director
+
+- 위치: `plugins/v2-capability-lab/skills/v2-design-director/`
+- 쉬운 이름: `디자인 총괄`
+- 기능: 동일한 V2 시험 화면을 기준으로 디자인 공급원 후보를 하나씩 탐색하고, 실제 사용 부분·총괄 수정·구현 가능성·사용자 판정을 기록합니다.
+- 안전 경계: `OS`를 화면 스타일로 강제하지 않고 `조립형 제작 작업공간`으로 시험합니다. 비공개 프로젝트를 외부 후보에 전달하지 않으며 Core·Design Recipe를 직접 변경하지 않습니다.
+- 현재 상태: `repo_local_verified_reference_trace` — 디자인 공급원 10개 비교와 사용자 판정을 기록했고, 채택 Trial→역할별 Section→Draft Design Recipe→HTML 출처 표시 자동 검사를 PASS했습니다. 디자인 품질 자동 판정·Core 자동 적용·제품 적용은 포함하지 않습니다.
+
 ## 2. 저장소에 추가된 보조 Skill
 
 ### Ponytail

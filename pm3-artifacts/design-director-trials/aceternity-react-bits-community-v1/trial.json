@@ -1,0 +1,21 @@
+{
+  "trial_id": "aceternity-react-bits-community-v1",
+  "candidate": "Aceternity UI + React Bits",
+  "candidate_number": 10,
+  "status": "adopted_design_direction",
+  "target_surface": "customer_community_website",
+  "benchmark": "ondam-home-community",
+  "sources": [
+    {"name":"Aceternity UI","url":"https://ui.aceternity.com/","license":"Aceternity License","use":"visual pattern reference only; source not redistributed"},
+    {"name":"React Bits","url":"https://github.com/DavidHDev/react-bits","license":"MIT","use":"motion interaction pattern reference"}
+  ],
+  "patterns": ["aurora background", "glass floating panel", "animated marquee", "image hover reveal", "responsive editorial cards"],
+  "features_verified": ["category selection", "like/save state", "primary action feedback", "reduced-motion fallback", "430px responsive layout"],
+  "decision_owner": "user",
+  "user_decision": {
+    "decision": "adopt",
+    "decided_at": "2026-08-20",
+    "reason": "사용자 채택"
+  },
+  "allowed_decisions": ["adopt", "hold", "discard"]
+}

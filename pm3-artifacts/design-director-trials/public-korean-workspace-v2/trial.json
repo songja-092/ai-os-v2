@@ -1,0 +1,11 @@
+{
+  "schema_version":"1.0","trial_id":"public-korean-workspace-v2","candidate_id":"public-korean-web","candidate_role":"reference_source","benchmark_brief_id":"v2-ui-project-workspace-v1","status":"ready_for_user","source_commit_or_version":"public-web-checked-2026-08-20",
+  "queries":["한국 SaaS 프로젝트 관리 협업툴 대시보드 UI 공식 사이트","국내 SaaS 워크스페이스 대시보드 프로젝트 관리 서비스 디자인"],
+  "references":[
+    {"url":"https://www.aprodot.com/","access_checked_at":"2026-08-20","license_status":"do_not_reuse","selected_part":"전체 진행과 세부 작업을 동시에 파악하는 통합 작업공간","do_not_copy":["브랜드","이미지","문구","코드"]},
+    {"url":"https://washnote.kr/","access_checked_at":"2026-08-20","license_status":"do_not_reuse","selected_part":"한 화면에서 현재 작업을 처리하는 워크보드와 명확한 상태","do_not_copy":["브랜드","제품 데이터","이미지","코드"]},
+    {"url":"https://tossplace.com/product/franchise","access_checked_at":"2026-08-20","license_status":"do_not_reuse","selected_part":"복잡한 정보를 단순한 화면 위계와 큰 숫자·행동으로 정리하는 방식","do_not_copy":["Toss 브랜드","그래프","문구","코드"]}
+  ],
+  "director_decision":{"kept":["카톡형 요구사항","큰 고정 고객 Preview","수정·통과·복구"],"changed":["V2 바깥 작업공간에만 한국 SaaS의 통합 Workboard 구조 적용","프로젝트·진행상태·판정 행동을 한 줄 Header와 하단 Command Bar로 정리"],"rejected":["고객 인테리어 Preview 재디자인","대시보드 통계 카드","원본 서비스 시각 자산 복제"],"reason":"고객 Preview는 고정하고 후보가 V2 UI에 기여한 차이만 평가한다."},
+  "visual_output":{"url_or_path":"http://127.0.0.1:8207/","viewport":"1440x950","same_fixture":true},"implementation":{"possible":true,"dependencies":[],"estimated_lock_in":"none","removal_steps":["시험 Artifact 제거","후보 연결 해제"]},"comparison":{"current_v2_strengths_preserved":["쉬운 문구","승인 전 적용 차단","요구사항 대화"],"improvements":["고객 Preview를 고정하고 V2 작업공간만 변경","프로젝트 문맥·대화·Preview·판정의 세로 깊이를 줄여 한 화면에 집중","원본 Reference와 적용 부분을 하단에서 확인"],"regressions":["전역 메뉴를 아이콘 Rail로 줄여 처음에는 메뉴 의미가 덜 분명할 수 있음","실제 SaaS 내부 제품 화면은 공개 범위가 제한돼 공식 소개 화면의 구조만 참고"],"design_diversity_gain":"high"},"user_decision":"pending","user_reason":""
+}

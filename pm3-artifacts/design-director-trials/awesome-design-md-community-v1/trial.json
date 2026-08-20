@@ -1,0 +1,21 @@
+{
+  "trial_id": "awesome-design-md-community-v1",
+  "candidate": "awesome-design-md + Framesmith",
+  "candidate_number": 8,
+  "status": "held_design_direction",
+  "target_surface": "customer_community_website",
+  "benchmark": "ondam-home-community",
+  "source_commit": "8147538b4226ae41e2487a9179e3bcc1f68e8554",
+  "license": "MIT for the DESIGN.md collection; referenced imagery remains reference-only and requires separate publication rights review",
+  "preset": "pinterest/DESIGN.md",
+  "selected_rules": ["photography-first discovery", "masonry grid", "rounded image cards", "single red action color", "search and save as primary actions"],
+  "excluded_brand_assets": ["Pinterest name", "Pinterest logo", "proprietary Pin Sans font", "original product copy"],
+  "features_verified": ["category filter", "text search", "save", "like", "post detail modal", "mobile two-column feed"],
+  "user_evaluation": {
+    "decision": "hold",
+    "summary": "Not bad, but not strong enough to adopt as a preferred direction."
+  },
+  "design_director_runtime": "Codex applies the repository-local v2-design-director decision framework; no independent automated director agent is running",
+  "decision_owner": "user",
+  "allowed_decisions": ["adopt", "hold", "discard"]
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "trial_id": "public-korean-web-v1",
+  "candidate_id": "public-korean-web",
+  "candidate_role": "reference_source",
+  "benchmark_brief_id": "v2-ui-project-workspace-v1",
+  "status": "discarded",
+  "source_commit_or_version": "public-web-checked-2026-08-20",
+  "queries": [
+    "한국 병원 웹사이트 디자인 의료진 소개 예약 홈페이지 우수 사례",
+    "한국 병원 홈페이지 의료진 소개 예약 모바일 웹 디자인"
+  ],
+  "references": [
+    {
+      "url": "https://www.viger.co.kr/portfolio/hyemin-hosital",
+      "access_checked_at": "2026-08-20",
+      "license_status": "do_not_reuse",
+      "selected_part": "상단에서 진료·의료진·예약을 빠르게 찾는 환자 중심 정보 우선순위",
+      "do_not_copy": ["브랜드", "색상", "이미지", "문구", "코드"]
+    },
+    {
+      "url": "https://dianemedi.com/sub/project/list",
+      "access_checked_at": "2026-08-20",
+      "license_status": "do_not_reuse",
+      "selected_part": "의료진의 전문성·브랜드 분위기·예약 동선을 함께 보여주는 사례 분류",
+      "do_not_copy": ["개별 병원 디자인", "브랜드 자산", "이미지", "코드"]
+    },
+    {
+      "url": "https://webpreme.com/landing/hospital-homepage",
+      "access_checked_at": "2026-08-20",
+      "license_status": "do_not_reuse",
+      "selected_part": "의료진 신뢰에서 진료 안내를 거쳐 예약 행동으로 연결하는 구조",
+      "do_not_copy": ["판매 문구", "가격", "브랜드", "코드"]
+    }
+  ],
+  "director_decision": {
+    "kept": ["V2의 카톡형 요청 대화", "큰 고객 결과 Preview", "수정·통과·복구"],
+    "changed": ["의료진 사진과 예약 행동을 고객 Preview의 핵심으로 승격", "V2 작업 도구를 상단 Toolbar와 하단 판정 Dock으로 단순화"],
+    "rejected": ["병원 사이트의 브랜드·문구·사진 복제", "파란색 의료 Dashboard 관습", "과도한 신뢰 Badge"],
+    "reason": "한국 병원 사례의 환자 신뢰·예약 동선만 추출하고 V2 운영 화면과 고객 브랜드를 분리한다."
+  },
+  "visual_output": {"url_or_path":"http://127.0.0.1:8207/","viewport":"1440x950","same_fixture":true},
+  "implementation": {"possible":true,"dependencies":[],"estimated_lock_in":"none","removal_steps":["시험 Artifact 제거","trial-index 연결 해제"]},
+  "comparison": {
+    "current_v2_strengths_preserved":["초보자용 문구","승인 전 적용 차단","요구사항 대화와 큰 Preview"],
+    "improvements":["의료진 사진·진료시간·진료 안내·오시는 길·예약을 실제 환자 행동 순서로 구성","한국 병원 사례의 구조를 원본 링크와 함께 확인 가능","V2 운영 UI와 고객 병원 브랜드 표현을 분리"],
+    "regressions":["공개 Reference의 시각 자산은 재사용할 수 없어 시험용 의료진 이미지는 대체 표현","실제 사이트별 세부 Motion은 이번 정적 시험에서 비교하지 않음"],
+    "design_diversity_gain":"high"
+  },
+  "user_decision":"discard",
+  "user_reason":"시험 대상이 V2 작업공간이 아니라 병원 고객 Preview로 이동해 고정 목표와 불일치함"
+}

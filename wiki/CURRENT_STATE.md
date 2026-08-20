@@ -4,6 +4,8 @@
 
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
 
+디자인 탐색·채택·구현·수정·검증의 단일 공식 원본은 [[DESIGN_SYSTEM]] · [GitHub 링크](DESIGN_SYSTEM.md)입니다. 흩어진 과거 디자인 문서는 증거로 보존하되 새 결정과 충돌하면 현재 Commit의 디자인 시스템을 우선합니다.
+
 현재 `M7 — PDF 도면 스탬프 MVP E2E`까지 구현·독립 검증·사용자 승인·Result Commit·Rollback/Restore가 완료됐습니다. M7 공식 Run은 `run-c0a968f3`, 제품 Result Commit은 `3b592c8`입니다. 이로써 `AI OS V2 Core MVP M1~M7`은 검증 완료·동결 상태입니다. Post-MVP 설계는 [[POST_MVP_PM0_PM6_BASELINE]]의 `PM0~PM6`으로 완료됐으며 완료 범위와 미구현 항목은 [[POST_MVP_DESIGN_COMPLETION_REPORT]]에 기록합니다. `PM0 — 운영환경 준비`는 기술 Preflight와 격리 재현을 통과했고, 사용자가 외부 Backup·표본 Restore만 후속으로 유예한 조건으로 PASS했습니다. `PM1 — 디자인 전략·탐색·채택`은 `single_visual_target_with_ui_ux_pro_guard` 방식과 PC 운영 UI를 PASS했습니다. `PM2 — 조립식 제작 보드`는 두 프로젝트 결과 Module, 단일 선택 Preview, 프로젝트별 기능 목록, Core 상태·Action·격리·복원을 사용자·Codex가 PASS했습니다. 현재 활성 단계는 `PM3 — 부분 수정·Motion Adapter`입니다. `run-ef4986d7`의 기존 Preview v1과 PM1의 실패 Pilot은 당시 거절 판정 그대로 보존하며 구현 입력으로 사용하지 않습니다.
 
 M2 공식 검증 Run은 `run-05dbfc27`입니다. `execution_mode: skills`, `workflow_run_id: null`인 동일 Run에서 Specify, 승인 전 Plan 차단, Spec 본문 수정과 Version 증가, 승인, Plan Artifact 생성과 새 프로세스 재조회를 확인했습니다.
@@ -33,6 +35,7 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 - Antigravity는 실제 웹·앱·화면·기능 구현을 담당하며 M4 병원 웹 구현을 완료했습니다.
 - 동일 Run은 한 시점에 쓰기 담당자 한 명만 허용합니다.
 - 구현 Agent의 완료 보고는 공식 사실이 아니며, Codex 검증과 사용자 승인을 거친 변경만 Git에 저장합니다.
+- 디자인 작업에서 Codex는 디자인 총괄 절차·작업 지시·독립 검증을 담당하고, Antigravity는 승인된 Visual Target·Design Recipe를 실제 제품으로 구현하며, 사용자가 최종 채택·수정·폐기를 판정합니다.
 
 ## 공식 기억 상태
 
@@ -51,7 +54,9 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 - PM2는 `V2 Core → ui-state(JSON) → UI → ui-action → V2 Core` 경계와 Slot·Module을 실제 구현하는 조립 기능 Gate입니다.
 - 2026-08-19 PM2에서 PDF 결과와 동네 병원 웹을 검증된 프로젝트 Module로 등록했습니다. 목록에서 선택한 결과 하나만 Preview하고 해당 프로젝트 기능만 표시합니다. Core `ui-state → UI → ui-action → Core`, 선택 상태 유지, 비활성, 오류 격리, 복원, 금지 Action·다른 Project 차단을 검증했으며 사용자가 PASS했습니다. PM2는 `completed_and_locked`, 다음 단계는 PM3입니다. 증거는 [[PM2_FIRST_MODULE_PILOT_REPORT_2026-08-19]]과 `pm2-artifacts/module-registry-v1/core-verification.json`을 사용합니다.
 - 디자인 Reference 수집은 PM1, 일반 자료·병목 조사는 PM4에서 요청 시 제한형 Workflow로 수행합니다.
-- PM1~PM3의 Reference Brief·Reference-first 채택, Versioned Design Recipe·반응형 Override, Module Manifest·Slot Renderer와 제거 가능한 Puck Adapter 경계 설계는 완료됐습니다. 실제 구현과 Puck 설치는 시작하지 않았습니다.
+- 2026-08-20 디자인 공급원 비교에서 사용자 선호와 채택·보류 판정을 기록했습니다. 단일 우승자를 고르지 않고 Design MCP·21st.dev·UI UX Pro MCP·Creative Tim UI·Aceternity/React Bits처럼 역할이 다른 공급원을 조합합니다. 방향 3개는 빠른 비교 시안이고 실제 Code Preview는 선택 조합 하나만 제작합니다.
+- `V2 Design Director`의 Reference Flow 자동화가 사용자 채택 Trial 5개를 Draft Design Recipe로 컴파일하고 실제 Preview의 5개 Section 출처와 SHA-256을 대조해 PASS했습니다. 이는 Reference 추적 자동화 증거이며 Core 자동 선택·제품 적용·PM3 편집 뒤 보존·교차 프로젝트 재사용 증거는 아닙니다. 상세 내용은 [[DESIGN_SUPPLIER_TRIAL_SYNC_2026-08-20]]을 사용합니다.
+- PM1~PM3의 Reference Brief·Reference-first 채택, Versioned Design Recipe·반응형 Override, Module Manifest·Slot Renderer와 제거 가능한 Puck Adapter 경계 설계는 완료됐습니다. PM3에서는 Puck 0.22.4와 React Grid Layout 2.2.4를 격리 Pilot에만 설치해 카드 3개의 구조·배치·속성 편집, 이미지 Slot, 단색·투톤 Palette, 자동 배치·줄바꿈·색상 Draft와 Undo를 검증했습니다. 이는 Core Registry 승격이나 실제 제품 적용 완료를 뜻하지 않으며, 실제 병원 웹 Section 적용·Bundle 지연 로딩·사용자 최종 PASS는 남아 있습니다.
 - 기존 PM1 Preview는 실제 제품 Stack이 아니라 `static_design_evidence_only`로 보존합니다. PM2 실제 보드는 React 19 + Vite를 권장 기반으로 기록하되 PM0 PASS와 구현 승인 전에는 채택·설치로 간주하지 않습니다.
 - V2 운영 UI는 PC 전용이며, 390px·430px은 고객 결과물 하나의 모바일 규칙을 회귀검증하는 Viewport입니다.
 - 각 PM은 PM PASS·Codex 검증·사용자 PASS·Rollback/Restore 이후 별도 Result Commit 하나로 완료합니다.
