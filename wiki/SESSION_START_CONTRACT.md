@@ -118,7 +118,7 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
 - PM3 격리 Pilot에는 카드 3개의 Puck·React Grid Layout 편집, 글씨와 Grid 크기 독립성, 넘침 경고, 이미지 Slot, 구역별 색상, 대표색 자동 Palette와 자동 배치·줄바꿈 Draft가 구현됐습니다. Build와 핵심 상호작용은 검증했지만 실제 병원 웹 Section 적용, 접근성·Bundle 분리, 사용자 최종 PASS는 아직 `not_proven`입니다.
 - PM3 부분수정의 고정 흐름은 `승인 Recipe → 새 Draft → Viewport·Section 선택 → 마우스 수정 → Recipe Diff → Preview·경고 → 권한·반응형·Motion·Reference Trace 검사 → 사용자 적용 → 새 Version·Restore Draft`입니다. Auto 정리는 Draft 제안일 뿐이며 실제 제품에 자동 적용하지 않습니다. 상세 원본은 `wiki/PM3_PARTIAL_EDIT_FINAL_FLOW_2026-08-20.md`입니다.
 - 디자인 탐색·채택은 업계의 `탐색 → 정의 → 방향 개발 → Prototype 확인 → 선택·전달` 흐름과 정합하지만 V2 자동 성공 증거는 아닙니다. Design Recipe는 Visual Target 승인 후 처음 쓰지 않고 Reference 선택 시 Draft로 시작해 승인 때 승격합니다.
-- `UI Remix`·`Misty`는 설치된 V2 Skill·Runtime이 아니라 디자인 탐색·부분 선택의 외부 연구 근거입니다. 현재 전체 디자인 흐름은 Draft Recipe와 Section Trace까지 증명됐고, 승인 Recipe 기반 실제 제품 구현→독립 Fidelity 검증→사용자 최종 승인→Version Restore는 아직 `not_proven`입니다.
+- `UI Remix`·`Misty`는 설치된 V2 Skill·Runtime이 아니라 디자인 탐색·부분 선택의 외부 연구 근거입니다. 현재 전체 디자인 흐름은 Draft Recipe와 Section Trace까지 증명됐고, 승인 Recipe 기반 실제 제품 구현→독립 Fidelity 검증→사용자 최종 승인→Version Restore는 아직 `not_proven`입니다. 새 세션은 `wiki/DESIGN_WORKFLOW_EVIDENCE_AUDIT_2026-08-20.md`의 첫 누락 Handoff부터 이어가며, 추가 조사는 `wiki/DESIGN_WORKFLOW_RESEARCH_HANDOFF_2026-08-20.md`를 그대로 사용합니다.
 - 새 세션은 위 문장을 그대로 믿지 말고 `CURRENT_STATE.md`와 해당 증거 파일을 현재 SHA에서 다시 확인합니다.
 
 ## 공식 사실을 바꾸는 순서
