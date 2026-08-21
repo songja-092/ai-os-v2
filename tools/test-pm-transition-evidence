@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -u
+set -o pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+checker="$repo_root/tools/verify-pm-transition-evidence"
+fixture_root="$repo_root/test-fixtures/pm-transition-evidence"
+failures=0
+
+run_case() {
+  local name="$1"
+  local expected_code="$2"
+  local expected_text="$3"
+  local output
+  local actual_code
+
+  output="$($checker --repo "$repo_root" --manifest "$fixture_root/$name.json" 2>&1)"
+  actual_code=$?
+
+  if [[ "$actual_code" -ne "$expected_code" ]]; then
+    printf 'FAIL %s: expected code %s, got %s\n' "$name" "$expected_code" "$actual_code"
+    failures=$((failures + 1))
+    return
+  fi
+
+  if [[ "$output" != *"$expected_text"* ]]; then
+    printf 'FAIL %s: expected output containing %s\n' "$name" "$expected_text"
+    failures=$((failures + 1))
+    return
+  fi
+
+  printf 'PASS %s\n' "$name"
+}
+
+run_case pass 0 '"verdict": "PASS"'
+run_case missing 2 '"status": "missing"'
+run_case conflict 2 '"status": "conflict"'
+
+if [[ "$failures" -gt 0 ]]; then
+  printf 'PM transition evidence fixtures: FAIL (%s)\n' "$failures"
+  exit 1
+fi
+
+printf 'PM transition evidence fixtures: PASS\n'

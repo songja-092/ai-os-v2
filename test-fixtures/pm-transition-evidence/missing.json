@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "transition": "PM2_to_PM3_missing_fixture",
+  "files": [
+    {
+      "path": "pm2-artifacts/module-registry-v1/does-not-exist.json"
+    }
+  ]
+}

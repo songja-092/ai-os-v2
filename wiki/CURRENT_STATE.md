@@ -2,7 +2,7 @@
 
 새 Codex·Antigravity 세션은 반드시 [[SESSION_START_CONTRACT]]를 가장 먼저 읽고, 현재 Worktree·GitHub `origin/main`·Obsidian Vault의 SHA를 구분해 보고합니다. 직접 확인하지 않은 기능·상태·PASS·동기화·복구는 `확인 필요` 또는 `not_proven`으로 기록하며, 이 규칙이 환각을 0으로 보장한다고 표현하지 않습니다.
 
-V2의 현재 엔지니어링 운영 방향은 [[V2_ENGINEERING_OPERATING_MODEL]]의 `Harness-first, Spec-guided, Eval-driven, Human-approved, Loop-assisted`입니다. 초기 방법 비교는 [[V2_ENGINEERING_METHOD_RESEARCH_2026-08-21]]에 기록했으며 새 Framework 설치 없이 기존 인터뷰·PM 계약·검증·승인을 조합합니다. 첫 자동화 후보는 읽기 전용 PM 전환 증거 검사기입니다. 구현·정확도 검증·사용자 채택과 실제 프로젝트 반복 효과는 아직 `not_proven`입니다.
+V2의 현재 엔지니어링 운영 방향은 [[V2_ENGINEERING_OPERATING_MODEL]]의 `Harness-first, Spec-guided, Eval-driven, Human-approved, Loop-assisted`입니다. 초기 방법 비교는 [[V2_ENGINEERING_METHOD_RESEARCH_2026-08-21]]에 기록했으며 새 Framework 설치 없이 기존 인터뷰·PM 계약·검증·승인을 조합합니다. 첫 읽기 전용 PM 전환 증거 검사기는 정상·누락·충돌 Fixture를 구분하고 기존 잠금·증거 Guard 회귀검사를 PASS했습니다. 이는 격리 검증이며 사용자 채택, 다른 PM 일반화와 실제 프로젝트 반복 효과는 아직 `not_proven`입니다.
 
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
 

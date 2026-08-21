@@ -145,7 +145,7 @@ Loop 비활성화
 
 ## 현재 미완료 검증
 
-- PM 전환 증거 검사기 격리 Fixture·정확도 검증
+- PM 전환 증거 검사기의 다른 PM 적용·사용자 채택
 - 현재 PM1~PM3 작업의 측정 가능한 Baseline 보완
 - 첫 제한 자동화 Loop의 범위·중단·복구 계약 확정
 - 실제 서로 다른 프로젝트에서 반복 효과 검증
@@ -159,5 +159,6 @@ engineering_direction: harness_first_spec_guided_eval_driven_human_approved_loop
 safety_contract: active
 comparative_research: completed_initial_review
 bounded_loop_runtime: not_yet_proven
+first_read_only_loop: isolated_fixture_verified
 best_method_claim: not_proven
 ```

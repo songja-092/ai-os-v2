@@ -96,7 +96,7 @@ Harness
 
 ```yaml
 pm_transition_evidence_loop:
-  state: proposed
+  state: isolated_fixture_verified
   mode: read_only
   max_attempts: 1
   pass_condition: required_evidence_present_and_consistent
@@ -113,6 +113,8 @@ pm_transition_evidence_loop:
 4. 현재 PM3에는 판정만 실행하고 자동 수정하지 않습니다.
 5. 사용자 판정 후 채택·보류·폐기합니다.
 
+2026-08-21 격리 검증에서 정상 Fixture는 `PASS`, 필수 파일 누락 Fixture와 Hash 충돌 Fixture는 각각 `BLOCKED`로 구분했습니다. 기존 `verify-pm-locks`와 `verify-ai-evidence-guard`도 함께 PASS했습니다. 이는 검사기 동작 증거이며 사용자 채택이나 모든 PM 전환에 대한 일반화 증거는 아닙니다.
+
 ## 현재 판정
 
 ```yaml
@@ -121,6 +123,7 @@ recommended_operating_model: harness_first_spec_guided_eval_driven_human_approve
 new_framework_installation: not_required_now
 spec_kit: watchlist_due_to_contract_overlap
 first_bounded_loop: pm_transition_evidence_checker
-first_loop_implementation: not_started
+first_loop_implementation: isolated_fixture_verified
+first_loop_user_adoption: pending
 industry_best_absolute_claim: not_proven
 ```
