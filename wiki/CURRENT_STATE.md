@@ -2,6 +2,8 @@
 
 새 Codex·Antigravity 세션은 반드시 [[SESSION_START_CONTRACT]]를 가장 먼저 읽고, 현재 Worktree·GitHub `origin/main`·Obsidian Vault의 SHA를 구분해 보고합니다. 직접 확인하지 않은 기능·상태·PASS·동기화·복구는 `확인 필요` 또는 `not_proven`으로 기록하며, 이 규칙이 환각을 0으로 보장한다고 표현하지 않습니다.
 
+V2의 현재 엔지니어링 운영 방향은 [[V2_ENGINEERING_OPERATING_MODEL]]의 `Harness-first, Loop-ready`입니다. 안전·승인·증거·복구 하네스를 기본으로 유지하고 반복 가능하며 판정·복구 가능한 병목만 제한된 Loop로 자동화합니다. 다른 방법과의 비교 조사, 자동화 Runtime, 실제 프로젝트 반복 효과는 아직 `not_proven`입니다.
+
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
 
 디자인 탐색·채택·구현·수정·검증의 단일 공식 원본은 [[DESIGN_SYSTEM]] · [GitHub 링크](DESIGN_SYSTEM.md)입니다. 흩어진 과거 디자인 문서는 증거로 보존하되 새 결정과 충돌하면 현재 Commit의 디자인 시스템을 우선합니다.

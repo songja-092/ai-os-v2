@@ -39,6 +39,7 @@ Obsidian은 문서를 보여주는 도구일 뿐 별도의 최신 상태 보증 
    - `wiki/ARCHITECTURE.md`
    - `wiki/VERIFICATION.md`
    - `wiki/DESIGN_SYSTEM.md`
+   - `wiki/V2_ENGINEERING_OPERATING_MODEL.md`
    - `wiki/POST_MVP_PM0_PM6_BASELINE.md`
    - `wiki/PM1_PM4_DESIGN_MEETING_2026-08-19.md`
    - `wiki/AI_EVIDENCE_GUARD.md`
@@ -83,6 +84,10 @@ session_preflight:
   인터뷰를 생략합니다. 모호하거나 충돌하면 한 번에 질문 하나만 합니다.
 - 인터뷰 결과는 대화로만 소비하지 않고 `제작 범위 확인서`로 정리해 사용자가
   `이대로 시작 | 수정 | 추천 | 중단` 중 하나를 고른 뒤에만 제작 입력으로 사용합니다.
+- V2의 현재 엔지니어링 기본 방향은 `Harness-first, Loop-ready`입니다. 사람의 목표·범위·승인·복구 계약 안에서 AI가 작업하고, 반복 가능하며 기계적으로 검증·복구 가능한 병목만 제한된 Loop로 자동화합니다.
+- 새로운 방법은 `조사 → 격리 시험 → 기존 방식 비교 → 사용자 채택 → 실제 프로젝트 → 반복 성공` 순서를 거쳐야 기본값이 됩니다. 유행, GitHub Star, 홍보 문구만으로 기본 Skill이나 Core 기능으로 승격하지 않습니다.
+- 자동화에는 시도·시간·비용 제한, PASS·중단 조건, Rollback, 사용자 호출 조건이 있어야 하며 효과가 없으면 수동 흐름과 기존 Artifact를 보존한 채 제거할 수 있어야 합니다.
+- 상세 운영 원본은 `wiki/V2_ENGINEERING_OPERATING_MODEL.md`입니다. 이 문서와 충돌하는 임시 대화·보고서는 공식 기본 규칙으로 사용하지 않습니다.
 
 ## 변하지 않는 V2 용어 계약
 
@@ -136,6 +141,7 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
   과거 Trial 근거는 `wiki/INTERVIEW_ME_CAPABILITY_LAB_REPORT_2026-08-20.md`, 새 회의
   결정은 `wiki/DESIGN_AND_EDITOR_MEETING_2026-08-21.md`를 사용합니다.
 - 새 세션은 위 문장을 그대로 믿지 말고 `CURRENT_STATE.md`와 해당 증거 파일을 현재 SHA에서 다시 확인합니다.
+- V2 엔지니어링 운영 모델은 `Harness-first, Loop-ready`를 현재 방향으로 채택했지만 업계 최선이라는 비교 검증은 아직 `pending`입니다. 자동화 Runtime과 실제 프로젝트 반복 효과도 `not_proven`이며, 상세 기준은 `wiki/V2_ENGINEERING_OPERATING_MODEL.md`를 사용합니다.
 
 ## 공식 사실을 바꾸는 순서
 
