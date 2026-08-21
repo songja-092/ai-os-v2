@@ -48,12 +48,12 @@ def main() -> int:
         checks.extend([
             ("interview is confirmed before collection", local_collection["interview_status"] == "confirmed"),
             ("collector only collects", local_collection["quality_judgment"] is None and local_collection["adoption_decision"] is None),
-            ("analyzer owns coverage judgment", local["role"] == "fact_analysis_not_collection_not_adoption"),
-            ("sufficient local case skips external research", local["external_research_needed"] is False),
-            ("missing case creates bounded external request", missing["external_research_needed"] is True and bool(missing["external_queries"])),
+            ("analyzer summarizes facts without sufficiency judgment", local["role"] == "fact_summary_not_sufficiency_not_adoption" and local["sufficiency_judgment"] is None),
+            ("each result has a link and short summary", all(item.get("link") and item.get("short_summary") for item in local["results"])),
+            ("user decides whether collection is enough", local["user_review"]["decision"] is None and "자료 더 찾기" in local["user_review"]["choices"]),
             ("external network is never automatic", missing_collection["automatic_network_execution"] is False),
             ("private project upload is prohibited", missing_collection["private_project_upload"] is False),
-            ("analyzer cannot recommend or adopt", local["recommendation"] is None and local["adoption_decision"] is None),
+            ("analyzer cannot recommend or adopt", local["recommendation"] is None and local["adoption_decision"] is None and missing["recommendation"] is None),
             ("no install, activation, or Core mutation", not any(local_collection["side_effects"].values()) and not any(missing_collection["side_effects"].values())),
         ])
     failures = [name for name, passed in checks if not passed]

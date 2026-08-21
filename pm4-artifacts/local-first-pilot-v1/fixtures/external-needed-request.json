@@ -6,12 +6,6 @@
     "target": "고객용 웹",
     "priority": "균형 있게"
   },
-  "minimum_local_matches": 3,
-  "required_terms": [
-    "홀로그램",
-    "양자",
-    "수어"
-  ],
   "research_gaps": [
     "실제 구현 도구",
     "공개 라이선스",

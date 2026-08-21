@@ -11,20 +11,22 @@ PM4 조사를 모든 요청마다 대량 실행하지 않고, V2가 이미 가�
 ```text
 사용자 요청
 → V2 로컬 성공 자산 검색
-→ 필요한 증거 종류가 충분한지 확인
-→ 충분: 기존 자산 재사용
-→ 부족: 부족 항목만 외부 조사 요청 생성
-→ 출처·접근·라이선스·구현 가능성 기록
-→ 사용자 채택·보류·폐기
+→ 수집된 링크와 짧은 요약 표시
+→ Analyzer가 확인 가능한 사실만 정리
+→ 사용자에게 `이 정도면 충분한가요?` 인터뷰
+→ 자료 더 찾기: 기존 결과를 보존하고 외부 수집 계속
+→ 이 정도면 충분: V2 AI·총괄에게 전달
+→ 조사 방향 수정: 구체적인 인터뷰 계속
 → 채택 후에만 기존 Capability Lab 격리 시험
 ```
 
-Collector는 추천·설치·채택을 대신하지 않습니다. 흔한 단어가 여러 문서에서 발견됐다는 이유만으로 충분하다고 판정하지 않고, 요청이 지정한 필수 용어·증거 조건까지 충족해야 합니다.
+Collector는 추천·설치·채택을 대신하지 않습니다. Analyzer도 자료의 충분 여부를 확정하지 않습니다. 수집 건수·출처·관련 용어·접근 상태처럼 확인 가능한 사실만 보여주며, 계속 수집할지는 사용자가 결정합니다.
 
 ## 구현
 
-- `plugins/v2-capability-lab/scripts/pm4_collector.py`: 허용된 로컬 폴더 검색, 충분·부분·부족 판정, 제한 외부 Query 초안, Source URL 정규화·중복 제거
-- `tools/verify-pm4-collector`: 로컬 충분 사례와 외부 조사 필요 사례를 Network 없이 검증
+- `plugins/v2-capability-lab/scripts/pm4_collector.py`: 허용된 로컬 폴더 검색, Source URL 정규화·중복 제거, 판단 없는 수집 결과 생성
+- `plugins/v2-capability-lab/scripts/pm4_analyzer.py`: 링크·짧은 요약·사실표 생성 후 사용자 확인 질문 생성
+- `tools/verify-pm4-collector`: 수집·분석·사용자 결정 경계를 Network 없이 검증
 - `pm4-review.html`: 초보자가 두 분기를 눈으로 비교하는 읽기 전용 Pilot 화면
 
 ## 외부 도구 역할 판정
@@ -47,9 +49,9 @@ Collector는 추천·설치·채택을 대신하지 않습니다. 흔한 단어�
 
 1. 인터뷰 확인 후에만 수집
 2. Collector는 수집만 수행
-3. Analyzer가 사실·충분성 분석 담당
-4. 충분한 로컬 사례에서 외부 조사 생략
-5. 부족 사례에서 제한 조사 요청 생성
+3. Analyzer는 사실 요약만 담당하고 충분성 판정 금지
+4. 모든 결과에 Link와 짧은 요약 제공
+5. 사용자가 계속 수집·종료·방향 수정을 결정
 6. 외부 Network 자동 실행 금지
 7. 비공개 Project 외부 전송 금지
 8. Analyzer 추천·자동 채택 금지
@@ -74,7 +76,7 @@ core_changed: false
 
 ## 다음 Gate
 
-실제 PM4 조사 요청 한 건으로 올바른 분기, 실제 출처·License·접근 상태, 사용자 `채택·보류·폐기`, 채택 후에만 Capability Lab으로 넘기는지를 확인합니다.
+실제 PM4 조사 요청 한 건으로 Link·짧은 요약 표시, 사용자 `자료 더 찾기·이 정도면 충분·조사 방향 수정`, 실제 출처·접근 상태, 채택 후에만 Capability Lab으로 넘기는지를 확인합니다.
 
 ## 자동화와 Skill 경계
 
@@ -94,4 +96,4 @@ core_changed: false
 - 사용자 대신 채택·보류·폐기
 - 승인 없는 설치·제품 적용
 
-기본 외부 공급원 후보는 GitHub·Reddit·YouTube·Threads·Instagram입니다. 현재 실제 Adapter가 확인된 것은 공개 GitHub Metadata 조회뿐입니다. Reddit·YouTube·Threads·Instagram은 아직 `planned_not_connected`이며, 로그인 우회·비공개 자료 수집·무단 다운로드를 구현하지 않습니다.
+기본 외부 공급원 후보는 GitHub·Reddit·YouTube·Threads·Instagram입니다. 현재 실제 Adapter가 확인된 것은 공개 GitHub Metadata 조회뿐입니다. Reddit·YouTube·Threads·Instagram은 아직 `planned_not_connected`입니다. Threads·Instagram은 사용자가 Aside Browser에서 최초 로그인한 사용자 세션을 유효한 동안 읽기 전용으로 재사용할 수 있게 설계하되, 자격증명을 V2에 저장하거나 로그인·접근 차단을 우회하지 않습니다. 만료·차단 시 `access_unavailable`로 표시합니다.

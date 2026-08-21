@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Analyze collected PM4 facts without selecting or adopting a candidate."""
+"""Summarize collected PM4 facts and ask the user whether to continue."""
 
 from __future__ import annotations
 
@@ -19,33 +19,37 @@ def main() -> int:
         request = json.loads(Path(args.request_file).resolve().read_text(encoding="utf-8"))
         collection = json.loads(Path(args.collection_file).resolve().read_text(encoding="utf-8"))
         matches = collection.get("local_collection", {}).get("items", [])
-        minimum = int(request.get("minimum_local_matches", 3))
-        required_terms = set(request.get("required_terms") or [])
         strong = [item for item in matches if item.get("score", 0) >= 3]
-        covered = {term for item in strong for term in item.get("matched_terms", [])}
-        required_met = not required_terms or required_terms <= covered
-        sufficient = len(strong) >= minimum and required_met
-        gaps = list(request.get("research_gaps") or ([] if sufficient else ["구현 가능성", "유지관리", "라이선스"]))
-        original = request["original_request"]
-        queries = [] if sufficient else [f"{original} {gap}" for gap in gaps]
+        covered = sorted({term for item in matches for term in item.get("matched_terms", [])})
+        summaries = [
+            {
+                "source_id": item["source_id"],
+                "title": item["title"],
+                "link": item.get("url") or item.get("path"),
+                "short_summary": f"{', '.join(item.get('matched_terms', [])[:5])} 관련 자료",
+                "source_type": item["source_type"],
+            }
+            for item in matches
+        ]
         result = {
             "schema_version": "1.0",
             "request_id": request.get("request_id"),
-            "role": "fact_analysis_not_collection_not_adoption",
-            "coverage": "sufficient" if sufficient else ("partial" if matches else "insufficient"),
+            "role": "fact_summary_not_sufficiency_not_adoption",
             "facts": {
                 "collected_count": len(matches),
                 "strong_match_count": len(strong),
-                "minimum_required": minimum,
-                "required_terms": sorted(required_terms),
-                "required_terms_met": required_met,
+                "covered_terms": covered,
             },
-            "external_research_needed": not sufficient,
-            "research_gaps": gaps,
-            "external_queries": queries,
+            "results": summaries,
+            "sufficiency_judgment": None,
             "recommendation": None,
             "adoption_decision": None,
-            "next_owner": "collector" if not sufficient else "v2_ai_or_director",
+            "user_review": {
+                "question": "현재 수집된 자료와 짧은 요약을 확인했습니다. 이 정도면 충분한가요?",
+                "choices": ["자료 더 찾기", "이 정도면 충분", "조사 방향 수정"],
+                "decision": None,
+            },
+            "next_owner": "user",
         }
         Path(args.output).resolve().write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(json.dumps(result, ensure_ascii=False, indent=2))

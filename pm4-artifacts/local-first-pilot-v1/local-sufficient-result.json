@@ -1,19 +1,92 @@
 {
   "schema_version": "1.0",
   "request_id": "pm4-local-layout-editor",
-  "role": "fact_analysis_not_collection_not_adoption",
-  "coverage": "sufficient",
+  "role": "fact_summary_not_sufficiency_not_adoption",
   "facts": {
     "collected_count": 8,
     "strong_match_count": 8,
-    "minimum_required": 2,
-    "required_terms": [],
-    "required_terms_met": true
+    "covered_terms": [
+      "design",
+      "grid",
+      "layout",
+      "manifest",
+      "module",
+      "puck",
+      "react",
+      "recipe",
+      "부분",
+      "편집"
+    ]
   },
-  "external_research_needed": false,
-  "research_gaps": [],
-  "external_queries": [],
+  "results": [
+    {
+      "source_id": "local-90d48a1d139a",
+      "title": "Current State",
+      "link": "wiki/CURRENT_STATE.md",
+      "short_summary": "design, grid, layout, manifest, module 관련 자료",
+      "source_type": "local_v2_asset"
+    },
+    {
+      "source_id": "local-6d503a19ed7a",
+      "title": "AI OS V2 Post-MVP PM0~PM6 공식 기준",
+      "link": "wiki/POST_MVP_PM0_PM6_BASELINE.md",
+      "short_summary": "design, grid, layout, manifest, module 관련 자료",
+      "source_type": "local_v2_asset"
+    },
+    {
+      "source_id": "local-a1f31fd2b9a3",
+      "title": "AI OS V2 새 세션 시작 계약",
+      "link": "wiki/SESSION_START_CONTRACT.md",
+      "short_summary": "design, grid, layout, manifest, module 관련 자료",
+      "source_type": "local_v2_asset"
+    },
+    {
+      "source_id": "local-6dc66e8eb2b9",
+      "title": "Decisions",
+      "link": "wiki/DECISIONS.md",
+      "short_summary": "design, grid, layout, manifest, module 관련 자료",
+      "source_type": "local_v2_asset"
+    },
+    {
+      "source_id": "local-a214677431a4",
+      "title": "디자인 탐색·인터뷰·편집기 회의 — 2026-08-21",
+      "link": "wiki/DESIGN_AND_EDITOR_MEETING_2026-08-21.md",
+      "short_summary": "design, grid, layout, module, puck 관련 자료",
+      "source_type": "local_v2_asset"
+    },
+    {
+      "source_id": "local-3dd3aa825d3b",
+      "title": "AI OS V2 디자인 시스템",
+      "link": "wiki/DESIGN_SYSTEM.md",
+      "short_summary": "design, grid, layout, module, puck 관련 자료",
+      "source_type": "local_v2_asset"
+    },
+    {
+      "source_id": "local-31248dac04f1",
+      "title": "AI OS V2 — PM1 착수 통합 GPT 인수인계 지시서",
+      "link": "wiki/GPT_PM1_INTEGRATED_HANDOFF.md",
+      "short_summary": "layout, manifest, module, puck, react 관련 자료",
+      "source_type": "local_v2_asset"
+    },
+    {
+      "source_id": "local-8d8db69ce3dc",
+      "title": "PM1 Reference Board v1",
+      "link": "wiki/PM1_REFERENCE_BOARD.md",
+      "short_summary": "design, layout, manifest, module, puck 관련 자료",
+      "source_type": "local_v2_asset"
+    }
+  ],
+  "sufficiency_judgment": null,
   "recommendation": null,
   "adoption_decision": null,
-  "next_owner": "v2_ai_or_director"
+  "user_review": {
+    "question": "현재 수집된 자료와 짧은 요약을 확인했습니다. 이 정도면 충분한가요?",
+    "choices": [
+      "자료 더 찾기",
+      "이 정도면 충분",
+      "조사 방향 수정"
+    ],
+    "decision": null
+  },
+  "next_owner": "user"
 }

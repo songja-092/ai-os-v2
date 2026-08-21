@@ -135,9 +135,10 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
   `wiki/PM3_EDITOR_INTERVIEW_AND_RESEARCH_2026-08-21.md`입니다.
 - PM3 사용자 판정과 잠금 경계는
   `wiki/PM3_USER_PASS_WITH_PM6_REVALIDATION_2026-08-21.md`를 사용합니다.
-- PM4는 2026-08-21 Interview → Collector(수집만) → Analyzer(사실 분석)를 분리한
-  로컬 우선 최소 Pilot을 `9/9 PASS`했고 현재 `started`입니다. 기존 성공 자산이 충분하면 재사용하고 부족할 때만 제한 외부 조사
-  요청을 만듭니다. 실제 조사 요청·출처 검증·사용자 판정·Capability Lab 연결 전에는
+- PM4는 2026-08-21 Interview → Collector(수집만) → Analyzer(사실·Link·짧은 요약) →
+  사용자 확인을 분리한 로컬 우선 최소 Pilot을 `9/9 PASS`했고 현재 `started`입니다.
+  V2는 자료가 충분하다고 단정하지 않으며 사용자가 `자료 더 찾기·이 정도면 충분·조사 방향 수정`을 선택합니다.
+  실제 조사 요청·출처 검증·사용자 판정·Capability Lab 연결 전에는
   PM4 전체 PASS라고 말하지 않습니다. 새 세션은
   `wiki/PM4_LOCAL_FIRST_COLLECTOR_PILOT_2026-08-21.md`를 먼저 읽습니다.
 - 작은 수정은 `V2 Spec Adapter`의 `Spec Lite`를 먼저 사용합니다. 사용자가 개발 용어로 다시 설명하게 하지 않고 선택된 화면에서 대상을 찾은 뒤 `바꿀 것·유지할 것·확인 방법`만 보여줍니다. 새 프로젝트·새 Module·여러 화면·데이터·권한·배포가 포함되면 `Spec Full`로 승격해 저장소의 공식 Spec Kit Skill을 사용합니다. 명세 생성은 구현·PASS·Commit 승인이 아닙니다.

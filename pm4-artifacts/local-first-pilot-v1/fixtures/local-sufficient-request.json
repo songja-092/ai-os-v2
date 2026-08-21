@@ -6,6 +6,5 @@
     "target": "V2 운영 화면",
     "priority": "검증된 구현"
   },
-  "minimum_local_matches": 2,
   "research_gaps": []
 }
