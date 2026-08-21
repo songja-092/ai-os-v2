@@ -1,0 +1,36 @@
+{
+  "manifest_version": "1.0",
+  "module_id": "daily-discovery-briefing",
+  "display_name": "일일 뉴스·탐색 브리핑",
+  "module_version": "0.1.0-pilot",
+  "adapter_type": "internal",
+  "entry": "/pm4-modules/daily-discovery-briefing/index.html",
+  "features": [
+    {"feature_id": "briefing.read", "display_name": "원본 링크와 짧은 요약 보기", "status": "pilot_verified"},
+    {"feature_id": "briefing.schedule", "display_name": "매일 실행 시간 변경 요청", "status": "pilot_verified"},
+    {"feature_id": "briefing.collect", "display_name": "5개 공급원 자동 수집", "status": "not_yet_verified"}
+  ],
+  "allowed_slots": ["project_home", "background_capability"],
+  "required_state": ["allowed_actions", "briefing_schedule", "briefing_items"],
+  "emitted_actions": [
+    {"action_type": "briefing.schedule.update", "required_core_permission": "briefing.schedule.update"},
+    {"action_type": "briefing.collect.more", "required_core_permission": "briefing.collect.more"},
+    {"action_type": "briefing.direction.change", "required_core_permission": "briefing.direction.change"},
+    {"action_type": "briefing.accept.current", "required_core_permission": "briefing.accept.current"}
+  ],
+  "permissions": {
+    "movable": true,
+    "resizable": false,
+    "hideable": true,
+    "removable": true,
+    "editable_properties": ["schedule_hour"]
+  },
+  "health": {"timeout_ms": 2000, "fallback_module_id": null},
+  "status": {"enabled": true, "lifecycle": "candidate"},
+  "origin": {
+    "type": "pm4_pilot",
+    "automation_id": "v2",
+    "license": "repository_owned",
+    "modifications": "일일 탐색 Automation을 V2 Module Action 계약과 분리 연결"
+  }
+}

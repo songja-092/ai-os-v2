@@ -141,9 +141,12 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
   실제 조사 요청·출처 검증·사용자 판정·Capability Lab 연결 전에는
   PM4 전체 PASS라고 말하지 않습니다. 새 세션은
   `wiki/PM4_LOCAL_FIRST_COLLECTOR_PILOT_2026-08-21.md`를 먼저 읽습니다.
-- PM4 일일 탐색 브리핑은 Codex App Automation `v2`로 매일 오전 9시에 실행됩니다.
+- PM4 일일 탐색 브리핑은 Codex App Automation `v2`로 매일 오전 7시에 실행됩니다.
   Reddit·GitHub·YouTube·Threads·Instagram의 Link와 짧은 요약만 수집하며 충분성·채택을
   자동 판정하지 않습니다. Automation 존재를 각 공급원 Adapter 접근 PASS로 표현하지 않습니다.
+- `pm4-modules/daily-discovery-briefing`은 제거 가능한 Candidate Module입니다. 시간 설정 UI는
+  `briefing.schedule.update` Action만 생성하며 Core→Automation Adapter가 실제 시간을 바꾸는 기능은
+  아직 `not_yet_verified`입니다.
 - 작은 수정은 `V2 Spec Adapter`의 `Spec Lite`를 먼저 사용합니다. 사용자가 개발 용어로 다시 설명하게 하지 않고 선택된 화면에서 대상을 찾은 뒤 `바꿀 것·유지할 것·확인 방법`만 보여줍니다. 새 프로젝트·새 Module·여러 화면·데이터·권한·배포가 포함되면 `Spec Full`로 승격해 저장소의 공식 Spec Kit Skill을 사용합니다. 명세 생성은 구현·PASS·Commit 승인이 아닙니다.
 - 디자인 공급원 비교는 `pm3-artifacts/design-director-trials/trial-index.json`의 순서와 고정 Brief를 사용합니다. 최초 Figma 실행은 연결 예비 시험이며 본 비교 결과로 계산하지 않습니다.
 - 디자인 공급원 10개 시각 시험은 종료됐습니다. 5번 Design MCP와 7번 UI UX Pro MCP가 명시적 선호 1·2위이며, 2·3·4·5·7·9·10번 방향을 채택하고 6·8번은 보류했습니다. 여러 채택 공급원을 역할별로 함께 사용할 수 있습니다.

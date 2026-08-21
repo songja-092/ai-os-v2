@@ -102,7 +102,7 @@ core_changed: false
 
 2026-08-21 Codex App Automation `v2`를 `V2 일일 탐색 브리핑` 이름으로 활성화했습니다.
 
-- 실행: 매일 오전 9시, 로컬
+- 실행: 매일 오전 7시, 로컬
 - 공급원: Reddit·GitHub·YouTube·Threads·Instagram
 - 분류: 참고자료 / V2 적용·격리 시험 후보 / 수익 아이템
 - 출력: 원본 Web Link + 초보자용 1~2문장 요약
@@ -110,3 +110,16 @@ core_changed: false
 - 종료 질문: `자료 더 찾기 / 이 정도면 충분 / 조사 방향 수정`
 
 Automation 생성 자체는 각 공급원 Adapter의 실제 접근 성공을 증명하지 않습니다. Threads·Instagram Browser Session이 없거나 만료되면 `접근 불가`로 보고해야 합니다.
+
+### 뉴스·브리핑 Module Pilot
+
+`pm4-modules/daily-discovery-briefing`을 PM2 Module 계약을 재사용한 제거 가능한 PM4 Module로 만들었습니다.
+
+- 원본 Web Link와 짧은 요약 표시
+- GitHub·Reddit·YouTube·Threads·Instagram 접근 상태 표시
+- 매일 실행 시간을 `HH:MM`으로 선택
+- `briefing.schedule.update` Action으로 Core 승인 요청
+- `자료 더 찾기·이 정도면 충분·방향 수정` Action 제공
+- Module이 Automation 설정이나 Core 상태를 직접 변경하지 않음
+
+Manifest·Fixture 계약 검사는 `8/8 PASS`했고 Browser에서 `07:30` 변경 요청이 정확한 Action Payload로 생성되는 것을 확인했습니다. 실제 Automation은 사용자 요청에 따라 오전 `07:00`으로 변경됐습니다. 다섯 공급원의 실제 자동 수집은 `not_yet_verified`이며 Module Lifecycle은 `candidate`입니다.
