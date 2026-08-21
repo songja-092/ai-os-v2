@@ -1,6 +1,11 @@
 {
   "request_id": "pm4-local-layout-editor",
   "original_request": "Puck React Grid Layout 부분 편집 Design Recipe Module Manifest",
+  "interview_answers": {
+    "goal": "구현 도구",
+    "target": "V2 운영 화면",
+    "priority": "검증된 구현"
+  },
   "minimum_local_matches": 2,
   "research_gaps": []
 }

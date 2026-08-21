@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""PM4 local-first research collector.
-
-Searches approved/local V2 evidence before requesting bounded external research.
-It never installs, activates, or adopts a capability.
-"""
+"""PM4 collector: collect and normalize facts without judging them."""
 
 from __future__ import annotations
 
@@ -116,11 +112,6 @@ def normalize_sources(records: list[dict]) -> list[dict]:
     return list(unique.values())
 
 
-def external_queries(request: str, gaps: list[str]) -> list[str]:
-    suffixes = ["공식 문서", "GitHub open source license", "검증 사례"]
-    return [f"{request} {gap} {suffix}".strip() for gap, suffix in zip(gaps or ["자료"], suffixes)]
-
-
 def cmd_run(args: argparse.Namespace) -> None:
     repo = Path(args.repo).resolve()
     request_file = Path(args.request_file).resolve()
@@ -128,45 +119,32 @@ def cmd_run(args: argparse.Namespace) -> None:
     original = str(request.get("original_request", "")).strip()
     if not original:
         raise ValueError("original_request is required")
+    interview_answers = request.get("interview_answers") or {}
+    if not all(interview_answers.get(field) for field in ("goal", "target", "priority")):
+        raise ValueError("PM4 interview must be confirmed before collection")
     roots = request.get("local_roots") or list(DEFAULT_ROOTS)
     if not isinstance(roots, list) or not all(isinstance(item, str) for item in roots):
         raise ValueError("local_roots must be a list of repository-relative paths")
     matches = local_search(repo, roots, original, args.limit)
-    required_matches = int(request.get("minimum_local_matches", 3))
-    required_terms = set(request.get("required_terms") or [])
-    strong_matches = [item for item in matches if item["score"] >= 3]
-    covered_terms = {term for item in strong_matches for term in item["matched_terms"]}
-    required_terms_met = not required_terms or required_terms <= covered_terms
-    sufficient = len(strong_matches) >= required_matches and required_terms_met
-    gaps = list(request.get("research_gaps") or ([] if sufficient else ["구현 가능성", "유지관리", "라이선스"]))
     result = {
         "schema_version": "1.0",
         "run_at": now(),
         "request_id": request.get("request_id"),
         "original_request": original,
-        "policy": "local_first_external_only_if_missing",
-        "local_search": {
+        "role": "collection_only_no_quality_or_adoption_judgment",
+        "policy": "interview_then_local_collection",
+        "interview_status": "confirmed",
+        "local_collection": {
             "roots": roots,
-            "match_count": len(matches),
-            "strong_match_count": len(strong_matches),
-            "minimum_required": required_matches,
-            "required_terms": sorted(required_terms),
-            "required_terms_met": required_terms_met,
-            "matches": matches,
+            "item_count": len(matches),
+            "items": matches,
         },
-        "coverage": "sufficient" if sufficient else ("partial" if matches else "insufficient"),
-        "external_research_needed": not sufficient,
-        "external_research": {
-            "gaps": gaps,
-            "queries": [] if sufficient else external_queries(original, gaps),
-            "automatic_network_execution": False,
-            "private_project_upload": False,
-        },
-        "decision": {
-            "available_actions": ["adopt", "hold", "discard"],
-            "current": None,
-            "requires_user": True,
-        },
+        "quality_judgment": None,
+        "license_judgment": None,
+        "fit_judgment": None,
+        "adoption_decision": None,
+        "automatic_network_execution": False,
+        "private_project_upload": False,
         "side_effects": {"installed": False, "activated": False, "core_changed": False},
     }
     write_json(Path(args.output).resolve(), result)

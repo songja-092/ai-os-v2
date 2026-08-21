@@ -1,6 +1,11 @@
 {
   "request_id": "pm4-external-unknown-capability",
   "original_request": "수중 홀로그램 수어 통역 양자 센서 고객 웹 모듈",
+  "interview_answers": {
+    "goal": "구현 도구",
+    "target": "고객용 웹",
+    "priority": "균형 있게"
+  },
   "minimum_local_matches": 3,
   "required_terms": [
     "홀로그램",

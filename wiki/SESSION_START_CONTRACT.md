@@ -135,8 +135,8 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
   `wiki/PM3_EDITOR_INTERVIEW_AND_RESEARCH_2026-08-21.md`입니다.
 - PM3 사용자 판정과 잠금 경계는
   `wiki/PM3_USER_PASS_WITH_PM6_REVALIDATION_2026-08-21.md`를 사용합니다.
-- PM4는 2026-08-21 로컬 우선 Collector 최소 Pilot을 `7/7 PASS`했고 현재
-  `started`입니다. 기존 성공 자산이 충분하면 재사용하고 부족할 때만 제한 외부 조사
+- PM4는 2026-08-21 Interview → Collector(수집만) → Analyzer(사실 분석)를 분리한
+  로컬 우선 최소 Pilot을 `9/9 PASS`했고 현재 `started`입니다. 기존 성공 자산이 충분하면 재사용하고 부족할 때만 제한 외부 조사
   요청을 만듭니다. 실제 조사 요청·출처 검증·사용자 판정·Capability Lab 연결 전에는
   PM4 전체 PASS라고 말하지 않습니다. 새 세션은
   `wiki/PM4_LOCAL_FIRST_COLLECTOR_PILOT_2026-08-21.md`를 먼저 읽습니다.

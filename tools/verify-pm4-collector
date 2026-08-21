@@ -12,12 +12,23 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "plugins/v2-capability-lab/scripts/pm4_collector.py"
+INTERVIEW = ROOT / "plugins/v2-capability-lab/scripts/pm4_interview.py"
+ANALYZER = ROOT / "plugins/v2-capability-lab/scripts/pm4_analyzer.py"
 FIXTURES = ROOT / "pm4-artifacts/local-first-pilot-v1/fixtures"
 
 
-def run(request: str, output: Path) -> dict:
+def collect(request: str, output: Path) -> dict:
     subprocess.run(
         [sys.executable, str(SCRIPT), "run", "--repo", str(ROOT), "--request-file", str(FIXTURES / request), "--output", str(output)],
+        check=True,
+        stdout=subprocess.DEVNULL,
+    )
+    return json.loads(output.read_text(encoding="utf-8"))
+
+
+def analyze(request: str, collection: Path, output: Path) -> dict:
+    subprocess.run(
+        [sys.executable, str(ANALYZER), "--request-file", str(FIXTURES / request), "--collection-file", str(collection), "--output", str(output)],
         check=True,
         stdout=subprocess.DEVNULL,
     )
@@ -28,16 +39,22 @@ def main() -> int:
     checks: list[tuple[str, bool]] = []
     with tempfile.TemporaryDirectory(prefix="pm4-verify-") as folder:
         target = Path(folder)
-        local = run("local-sufficient-request.json", target / "local.json")
-        missing = run("external-needed-request.json", target / "missing.json")
+        local_path = target / "local-collection.json"
+        missing_path = target / "missing-collection.json"
+        local_collection = collect("local-sufficient-request.json", local_path)
+        missing_collection = collect("external-needed-request.json", missing_path)
+        local = analyze("local-sufficient-request.json", local_path, target / "local-analysis.json")
+        missing = analyze("external-needed-request.json", missing_path, target / "missing-analysis.json")
         checks.extend([
-            ("local assets searched first", local["policy"] == "local_first_external_only_if_missing"),
+            ("interview is confirmed before collection", local_collection["interview_status"] == "confirmed"),
+            ("collector only collects", local_collection["quality_judgment"] is None and local_collection["adoption_decision"] is None),
+            ("analyzer owns coverage judgment", local["role"] == "fact_analysis_not_collection_not_adoption"),
             ("sufficient local case skips external research", local["external_research_needed"] is False),
-            ("missing case creates bounded external request", missing["external_research_needed"] is True and bool(missing["external_research"]["queries"])),
-            ("external network is never automatic", missing["external_research"]["automatic_network_execution"] is False),
-            ("private project upload is prohibited", missing["external_research"]["private_project_upload"] is False),
-            ("collector cannot adopt automatically", local["decision"]["requires_user"] is True and local["decision"]["current"] is None),
-            ("no install, activation, or Core mutation", not any(local["side_effects"].values()) and not any(missing["side_effects"].values())),
+            ("missing case creates bounded external request", missing["external_research_needed"] is True and bool(missing["external_queries"])),
+            ("external network is never automatic", missing_collection["automatic_network_execution"] is False),
+            ("private project upload is prohibited", missing_collection["private_project_upload"] is False),
+            ("analyzer cannot recommend or adopt", local["recommendation"] is None and local["adoption_decision"] is None),
+            ("no install, activation, or Core mutation", not any(local_collection["side_effects"].values()) and not any(missing_collection["side_effects"].values())),
         ])
     failures = [name for name, passed in checks if not passed]
     print(json.dumps({"checks": [{"name": name, "status": "PASS" if passed else "FAIL"} for name, passed in checks], "verdict": "PASS" if not failures else "FAIL"}, ensure_ascii=False, indent=2))
