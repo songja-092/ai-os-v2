@@ -4,7 +4,7 @@
 
 V2의 현재 엔지니어링 운영 방향은 [[V2_ENGINEERING_OPERATING_MODEL]]의 `Harness-first, Spec-guided, Eval-driven, Human-approved, Loop-assisted`입니다. 초기 방법 비교는 [[V2_ENGINEERING_METHOD_RESEARCH_2026-08-21]]에 기록했습니다. 첫 읽기 전용 PM 전환 증거 검사기는 정상·누락·충돌 Fixture와 기존 잠금·증거 Guard 회귀검사를 PASS했고, 같은 역할의 기존 기본 자동화가 없어 사용자가 `stable_default`로 채택했습니다. PM 자동 PASS·파일 자동 수정은 금지하며 다른 PM Manifest 일반화와 실제 프로젝트 반복 효과는 아직 `not_proven`입니다.
 
-GitHub Spec Kit `v0.16.5`를 전역이 아닌 `/home/user/바탕화면/v2_spec_kit_pilot`에 격리 설치해 가짜 요구사항으로 시험했습니다. 사용자의 변경·유지·완료·회귀 의미가 Spec·Plan·20개 Task까지 보존돼 `PASS_WITH_FIX`이지만 작은 수정에 전체 흐름은 과합니다. 권장안은 작은 수정용 `Spec Lite`와 새 프로젝트·큰 기능용 `Spec Full`을 나누는 제거 가능한 V2 Adapter이며 Core 채택은 사용자 검토 전입니다. 상세 증거는 [[SPEC_KIT_V2_ADAPTER_PILOT_2026-08-21]]을 사용합니다.
+GitHub Spec Kit `v0.16.5`를 전역이 아닌 `/home/user/바탕화면/v2_spec_kit_pilot`에 격리 설치해 가짜 요구사항으로 시험했습니다. 사용자의 변경·유지·완료·회귀 의미가 Spec·Plan·20개 Task까지 보존돼 `PASS_WITH_FIX`이지만 작은 수정에 전체 흐름은 과합니다. 사용자는 작은 수정용 `Spec Lite`와 새 프로젝트·큰 기능용 `Spec Full` 분리를 승인했습니다. Repo-local `V2 Spec Adapter`를 만들고 `요구사항 창을 늘려줘` 요청의 원문·대상·보존 범위·완료 기준·회귀검사를 생성해 구조 검사와 읽기 전용 검증을 PASS했습니다. 이는 Core Runtime 자동 연결이나 실제 제품 구현 완료를 뜻하지 않습니다. 상세 증거는 [[SPEC_KIT_V2_ADAPTER_PILOT_2026-08-21]]을 사용합니다.
 
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
 

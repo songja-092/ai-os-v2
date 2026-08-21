@@ -87,6 +87,16 @@
 - 역할: 요구사항·명세·계획·작업 목록·정합성 검토
 - 구분: V2에서 새로 발명한 Skill이 아니라 외부 공식 Workflow Skill을 저장소에 연결한 것이다.
 
+### V2 Spec Adapter
+
+- 경로: `.agents/skills/v2-spec-adapter/`
+- 역할: 초보자의 짧은 요청을 원문 그대로 보존하면서 현재 선택 화면·Section·PM 잠금·허용 범위를 읽어 구현 가능한 명세로 번역합니다.
+- 작은 수정: `Spec Lite`로 `change`, `preserve`, `done_when`, `regression_checks`만 만듭니다.
+- 큰 작업: 새 프로젝트·Module·여러 화면·데이터·권한·배포가 포함될 때만 저장소의 공식 Spec Kit Skill 묶음으로 연결합니다.
+- 사용자 화면: 내부 YAML·Task 대신 `이렇게 이해했습니다`, `그대로 유지합니다`, `확인 방법`, `이대로 진행·다르게 수정·중단`만 표시합니다.
+- 검증: `요구사항 창을 늘려줘` 가짜 요청을 대상으로 Section, 보존 범위, 완료 기준, 회귀검사와 승인 대기를 생성했고 `tools/verify-v2-spec-adapter`가 PASS했습니다.
+- 상태: `repo_local_verified_spec_lite_pilot`. V2 Core Runtime 자동 연결, 실제 제품 수정, 자동 승인 기능은 아직 구현되지 않았습니다.
+
 ## 3. 외부에서 사용 중이거나 검증한 도구와 구분
 
 다음은 사용자 제작 Skill로 표현하지 않는다.

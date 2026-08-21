@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "request_id": "spec-lite-pilot-001",
+  "project_id": "fixture-pdf-symbol-workspace",
+  "original_request": "요구사항 창을 늘려줘",
+  "mode": "spec_lite",
+  "target": {
+    "surface_id": "project-workspace",
+    "section_id": "requirements-chat",
+    "selected_by_user": true,
+    "resolution_evidence": "The active project workspace has the requirements-chat Section selected."
+  },
+  "change": {
+    "command": "section_resize",
+    "property": "height",
+    "requested_direction": "increase",
+    "exact_value": null
+  },
+  "preserve": [
+    "global-navigation",
+    "project-preview",
+    "selected-project",
+    "sync-status",
+    "locked-pm1-pm2-files"
+  ],
+  "done_when": [
+    "The requirements chat is visibly taller in the draft preview.",
+    "The input remains usable without horizontal overflow.",
+    "The user can compare before and after before applying."
+  ],
+  "regression_checks": [
+    "All existing navigation items still open.",
+    "The selected project and preview state are unchanged.",
+    "PM1 and PM2 lock verification passes.",
+    "Restore returns to the previous layout."
+  ],
+  "assumptions": [
+    "Increase height within the available workspace instead of using unrestricted resize."
+  ],
+  "unresolved_questions": [],
+  "user_facing_confirmation": {
+    "understood": "요구사항 창을 더 길게 만듭니다.",
+    "preserved": "메뉴, Preview, 현재 프로젝트와 동기화 상태는 그대로 유지합니다.",
+    "verification": "변경 전후 화면과 기존 메뉴 동작을 함께 확인합니다.",
+    "actions": [
+      "이대로 진행",
+      "다르게 수정",
+      "중단"
+    ]
+  },
+  "approval": {
+    "required": true,
+    "status": "pending"
+  },
+  "implementation_performed": false
+}

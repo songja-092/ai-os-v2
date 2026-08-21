@@ -110,6 +110,7 @@ session_preflight:
 - `V2 Capability Lab`: 외부 Skill·Plugin·오픈소스를 비공개 프로젝트와 분리해 격리 시험하는 Skill
 - `프로젝트 패키징` (`v2-project-packaging`): 이미 제작된 프로젝트 결과를 읽고 Module Manifest·기능 목록·격리 Preview 초안을 만드는 Skill. 자동 기능 완료 판정·자동 Core 등록·자동 채택은 하지 않습니다.
 - `V2 Layout Editor Integration` (`v2-layout-editor-integration`): Puck·React Grid Layout을 제거 가능한 PM3 Adapter로 연결하고, PC·모바일 배치 분리, 이미지 Slot, 단색·투톤 Palette, 자동 정리, Undo·Restore와 Recipe 안전 검사를 수행하는 Codex Skill. 현재 격리 Pilot 검증 단계이며 Core Registry에는 승격되지 않았습니다.
+- `V2 Spec Adapter` (`v2-spec-adapter`): 사용자의 짧은 자연어를 원문 그대로 보존하고 현재 화면·Section·잠금 계약을 읽어 작은 수정용 `Spec Lite` 또는 새 프로젝트·큰 기능용 `Spec Full`로 변환하는 Repo-local Skill입니다. `요구사항 창을 늘려줘` 수준의 요청도 변경 범위·보존 범위·완료 기준·회귀검사로 정리하며, 사용자는 쉬운 확인만 봅니다. Skill 구조와 가짜 요청 Pilot은 PASS했지만 V2 Core Runtime 자동 연결은 아직 구현되지 않았습니다.
 - `V2 Design Director` (`v2-design-director`): 후보별 Reference 탐색·시각 결과·사용자 채택/보류/폐기를 기록하고, 채택 공급원을 역할별 Section에 연결한 Draft Design Recipe와 HTML 추적 상태를 자동 검사합니다. 사용자 결정을 대신하거나 Core·제품에 자동 적용하지 않습니다.
 
 Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLATOR_RESEARCH_2026-08-19.md`에서 확인합니다. 문서에 이름만 있다고 Runtime에 자동 연결됐다고 판단하지 않습니다.
@@ -124,6 +125,7 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
 - 목록에서 선택한 Module 하나만 Preview하며 프로젝트별 기능 목록을 분리합니다.
 - Core `ui-state → UI → ui-action → Core`, 선택 상태 저장, 비활성, 오류 격리, 복원과 금지 Action 차단을 검증했습니다.
 - 현재 활성 단계: PM3 — 부분 수정·Motion Adapter
+- 작은 수정은 `V2 Spec Adapter`의 `Spec Lite`를 먼저 사용합니다. 사용자가 개발 용어로 다시 설명하게 하지 않고 선택된 화면에서 대상을 찾은 뒤 `바꿀 것·유지할 것·확인 방법`만 보여줍니다. 새 프로젝트·새 Module·여러 화면·데이터·권한·배포가 포함되면 `Spec Full`로 승격해 저장소의 공식 Spec Kit Skill을 사용합니다. 명세 생성은 구현·PASS·Commit 승인이 아닙니다.
 - 디자인 공급원 비교는 `pm3-artifacts/design-director-trials/trial-index.json`의 순서와 고정 Brief를 사용합니다. 최초 Figma 실행은 연결 예비 시험이며 본 비교 결과로 계산하지 않습니다.
 - 디자인 공급원 10개 시각 시험은 종료됐습니다. 5번 Design MCP와 7번 UI UX Pro MCP가 명시적 선호 1·2위이며, 2·3·4·5·7·9·10번 방향을 채택하고 6·8번은 보류했습니다. 여러 채택 공급원을 역할별로 함께 사용할 수 있습니다.
 - `reference-adoption-pilot-v1`에서 채택 공급원 5개가 Draft Recipe와 실제 HTML 5개 Section에 연결되는 것을 자동 검증했습니다. Core 자동 선택·제품 적용·PM3 수정 뒤 방향 보존·다른 프로젝트 재사용은 아직 `not_proven`입니다.

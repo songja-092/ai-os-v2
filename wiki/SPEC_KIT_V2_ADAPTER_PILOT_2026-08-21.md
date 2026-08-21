@@ -1,5 +1,15 @@
 # Spec Kit V2 Adapter 격리 Pilot — 2026-08-21
 
+## 사용자 채택 및 Repo-local 적용
+
+- 사용자 결정: `Spec Lite + Spec Full` 분리 채택
+- 초보자 입력 기준: `요구사항 창을 늘려줘` 같은 짧은 문장으로 충분해야 함
+- Repo-local Skill: `.agents/skills/v2-spec-adapter/`
+- 짧은 요청 증거: `pm3-artifacts/spec-adapter-v1/short-request-pilot.json`
+- 읽기 전용 검사기: `tools/verify-v2-spec-adapter`
+- 검사 결과: Skill 구조 PASS, 짧은 요청 계약 PASS, PM1·PM2 잠금 PASS
+- 정확한 경계: Repo-local Skill과 Fixture Pilot까지 검증됨. V2 Core Runtime 자동 연결과 실제 제품 적용은 아직 `not_implemented`입니다.
+
 ## 목적
 
 사용자의 쉬운 자연어가 구현 과정에서 다르게 해석되는 병목을 줄이기 위해 GitHub Spec Kit을 V2의 명세·작업 분리 보조 도구로 사용할 가치가 있는지 확인했습니다.
