@@ -5,12 +5,12 @@ Codex·Antigravity·기타 AI는 새 세션에서 `SESSION_START_CONTRACT.md`를
 
 ## 현재 공식 방향
 
-현재 기본 방향은 **Harness-first, Loop-ready**입니다.
+현재 기본 방향은 **Harness-first, Spec-guided, Eval-driven, Human-approved, Loop-assisted**입니다. 짧게는 **Harness-first, Loop-ready**라고 부릅니다.
 
 - `Harness Engineering (하네스 엔지니어링)`: 사람이 목표·범위·승인·안전장치를 정하고, AI가 그 안에서 작업하도록 환경·도구·증거·복구 절차를 설계합니다.
 - `Loop Engineering (루프 엔지니어링)`: 반복 가능하고 판정 가능한 작업만 자동 실행·검사·수정·재검사합니다.
 - V2는 하네스를 기본으로 유지하고, 실제 병목이 반복될 때만 제한된 자동화 루프를 추가합니다.
-- 이 조합이 업계의 절대적 최선이라는 최종 판정은 아직 하지 않았습니다. 다른 엔지니어링 방법과 비교 조사·격리 시험·실제 프로젝트 측정 후 기본값 승격 여부를 다시 판정합니다.
+- 초기 비교 조사는 완료했으며 이 조합이 현재 V2에 가장 적합한 기본 구조라고 판정했습니다. 업계의 절대적 최선이라는 주장과 실제 프로젝트 반복 효과는 아직 검증하지 않았습니다.
 
 ## 변하지 않는 목적
 
@@ -145,18 +145,19 @@ Loop 비활성화
 
 ## 현재 미완료 검증
 
-- Harness·Loop·Spec-driven·Eval-driven·Agent-first·Human-in-the-loop 등 대안 비교
-- YouTube·Reddit·GitHub·공식 자료에서 실제 성공·실패 사례 정리
+- PM 전환 증거 검사기 격리 Fixture·정확도 검증
 - 현재 PM1~PM3 작업의 측정 가능한 Baseline 보완
 - 첫 제한 자동화 Loop의 범위·중단·복구 계약 확정
 - 실제 서로 다른 프로젝트에서 반복 효과 검증
 
+초기 방법 비교와 근거는 `wiki/V2_ENGINEERING_METHOD_RESEARCH_2026-08-21.md`를 사용합니다.
+
 따라서 현재 판정은 다음과 같습니다.
 
 ```yaml
-engineering_direction: harness_first_loop_ready
+engineering_direction: harness_first_spec_guided_eval_driven_human_approved_loop_assisted
 safety_contract: active
-comparative_research: pending
+comparative_research: completed_initial_review
 bounded_loop_runtime: not_yet_proven
 best_method_claim: not_proven
 ```
