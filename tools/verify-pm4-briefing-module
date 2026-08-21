@@ -14,8 +14,10 @@ actions={item['action_type'] for item in manifest['emitted_actions']}
 checks={
   'module id fixed':manifest['module_id']=='daily-discovery-briefing',
   'background slot allowed':'background_capability' in manifest['allowed_slots'],
-  'schedule action permissioned':'briefing.schedule.update' in actions,
-  'schedule is 07:00 KST':fixture['schedule']=={'hour':7,'minute':0,'timezone':'Asia/Seoul','status':'active'},
+  'config action permissioned':'briefing.config.update' in actions,
+  'topic starts empty for user input':fixture['topic']=='',
+  'schedule is user draft':fixture['schedule']['status']=='draft',
+  'platforms start unselected':fixture['selected_platforms']==[],
   'five source labels present':{item['id'] for item in fixture['sources']}=={'github','reddit','youtube','threads','instagram'},
   'output has link and summary':all(item.get('url') and item.get('short_summary') for item in fixture['items']),
   'external collection not falsely verified':next(x for x in manifest['features'] if x['feature_id']=='briefing.collect')['status']=='not_yet_verified',

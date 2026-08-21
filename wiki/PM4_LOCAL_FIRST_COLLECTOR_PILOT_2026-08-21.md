@@ -113,13 +113,14 @@ Automation 생성 자체는 각 공급원 Adapter의 실제 접근 성공을 증
 
 ### 뉴스·브리핑 Module Pilot
 
-`pm4-modules/daily-discovery-briefing`을 PM2 Module 계약을 재사용한 제거 가능한 PM4 Module로 만들었습니다.
+`pm4-modules/daily-discovery-briefing`을 PM2 Module 계약을 재사용한 제거 가능한 PM4 Module Draft로 만들었습니다. Codex App Automation `v2`는 사용자가 개인적으로 쓰는 오전 7시 고정 브리핑이며 이 공용 Module과 분리합니다.
 
 - 원본 Web Link와 짧은 요약 표시
 - GitHub·Reddit·YouTube·Threads·Instagram 접근 상태 표시
-- 매일 실행 시간을 `HH:MM`으로 선택
-- `briefing.schedule.update` Action으로 Core 승인 요청
-- `자료 더 찾기·이 정도면 충분·방향 수정` Action 제공
+- 조사 주제를 사용자가 입력
+- 실행 시간을 `HH:MM`으로 선택
+- GitHub·Reddit·YouTube·Threads·Instagram 중 조사 플랫폼을 사용자가 선택
+- `briefing.config.update` Action으로 주제·시간·플랫폼 설정을 Core에 승인 요청
 - Module이 Automation 설정이나 Core 상태를 직접 변경하지 않음
 
-Manifest·Fixture 계약 검사는 `8/8 PASS`했고 Browser에서 `07:30` 변경 요청이 정확한 Action Payload로 생성되는 것을 확인했습니다. 실제 Automation은 사용자 요청에 따라 오전 `07:00`으로 변경됐습니다. 다섯 공급원의 실제 자동 수집은 `not_yet_verified`이며 Module Lifecycle은 `candidate`입니다.
+초기 고정 시간 Module의 Manifest·Fixture 계약과 시간 Action은 검증했지만 사용자가 범용 설정형으로 범위를 수정했습니다. 수정된 Module의 실제 Core 연결·Automation 생성·수집·사용성은 사용자 요청에 따라 PM 마지막에 검증합니다. 현재 Lifecycle은 `candidate`, 기능 상태는 `draft | not_yet_verified`입니다. 개인용 Automation `v2`는 오전 `07:00`으로 별도 유지합니다.
