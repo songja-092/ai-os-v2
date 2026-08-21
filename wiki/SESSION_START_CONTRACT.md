@@ -120,6 +120,7 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
 - 디자인 탐색·채택은 업계의 `탐색 → 정의 → 방향 개발 → Prototype 확인 → 선택·전달` 흐름과 정합하지만 V2 자동 성공 증거는 아닙니다. Design Recipe는 Visual Target 승인 후 처음 쓰지 않고 Reference 선택 시 Draft로 시작해 승인 때 승격합니다.
 - `UI Remix`·`Misty`는 설치된 V2 Skill·Runtime이 아니라 디자인 탐색·부분 선택의 외부 연구 근거입니다. 현재 전체 디자인 흐름은 Draft Recipe와 Section Trace까지 증명됐고, 승인 Recipe 기반 실제 제품 구현→독립 Fidelity 검증→사용자 최종 승인→Version Restore는 아직 `not_proven`입니다. 새 세션은 `wiki/DESIGN_WORKFLOW_EVIDENCE_AUDIT_2026-08-20.md`의 첫 누락 Handoff부터 이어가며, 추가 조사는 `wiki/DESIGN_WORKFLOW_RESEARCH_HANDOFF_2026-08-20.md`를 그대로 사용합니다.
 - 디자인 E2E 구현 Handoff는 2026-08-20 고정 Hash와 격리 Base Commit으로 생성됐습니다. 현재 첫 Blocker는 Handoff가 아니라 `antigravity_execution`이며 CLI Chat 명령 호환 오류 때문에 제품 파일은 0개입니다. Codex 대체 구현으로 이 단계를 PASS 처리하지 말고 `pm3-artifacts/design-flow-e2e-v1/execution-attempt.json`에서 이어갑니다.
+- 디자인 E2E를 나중에 재개할 때는 `wiki/DESIGN_FLOW_E2E_CONTINUATION_2026-08-21.md`를 읽고, 격리 저장소·고정 Hash·첫 Blocker를 재확인한 뒤 그 문서의 다음 작업 하나부터 이어갑니다.
 - `Interview Me(인터뷰 미)` Trial은 V2에 채택하지 않습니다. 사용자는 인터뷰를 V2 UI가 아니라 Codex가 중요한·모호한 요청에서만 수행하도록 결정했습니다. 상태는 `discarded_by_user`이며 Core Registry·PM5 Runtime·전역 Skill 연결을 금지합니다. Codex도 명확한 요청에는 불필요한 인터뷰를 하지 않고, 질문이 필요하면 한 번에 하나만 묻고 사용자가 중단할 수 있게 합니다. 상세 근거는 `wiki/INTERVIEW_ME_CAPABILITY_LAB_REPORT_2026-08-20.md`입니다.
 - 새 세션은 위 문장을 그대로 믿지 말고 `CURRENT_STATE.md`와 해당 증거 파일을 현재 SHA에서 다시 확인합니다.
 
