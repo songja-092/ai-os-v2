@@ -80,17 +80,19 @@ PASS:
 
 기본 Workflow:
 
-- 사용자가 쉬운 말로 원하는 화면을 요청합니다.
-- Codex는 사용자의 요청을 짧은 디자인 요청서로 정리합니다.
-- 기존 성공 Recipe·Block으로 해결할 수 없을 때만 V2가 한국 중심 실제 Reference를 제한 조사하고, 비교 이미지 한 장과 원본 링크를 제공합니다.
-- 사용자는 Reference의 전체 또는 일부를 선택합니다.
-- Codex는 디자인 총괄 절차로 선택 결과를 하나의 구현 가능한 방향으로 정리하고, 사용자가 Visual Target 한 장을 승인합니다.
+- PM5의 인터뷰·명세 계약으로 화면 목적·사용자·핵심 행동·범위·유지 영역을 먼저 확인합니다. PM5 Runtime 완성 전에는 같은 필드의 수동 Gate를 사용합니다.
+- 기존 성공 Recipe·DNA·Block을 먼저 검색하고, 충분하면 조사 없이 재사용 후보로 제시합니다.
+- 부족할 때만 PM4 수집 계약으로 한국 중심 실제 Reference·구현 Block을 제한 조사합니다.
+- 디자인 총괄은 사용할 수 없는 후보를 제거하고 구조·밀도·표현이 서로 다른 낮은 비용의 방향 3개를 실제 화면으로 정리합니다. 이는 완성 Code Preview 3개가 아닙니다.
+- 사용자는 화면을 보고 전체 방향 또는 마음에 드는 부분을 선택하며 `현재안 유지`, `다른 후보 보기`, `중단`을 사용할 수 있습니다.
+- 정식 Design DNA는 사용자 선택 전에 모든 후보에서 추출하지 않고, 선택된 후보·부분에서만 구조·정보 밀도·Typography·색상·공간·Component·Motion 7축으로 추출합니다.
+- 사용할 부분과 제외할 부분을 Draft Design Recipe에 기록한 뒤 구현 가능한 Visual Target 한 장만 마감하고 사용자가 승인합니다.
 - `UI UX Pro`는 화면 유형·정보 우선순위·색상·Typography·Spacing·접근성 규칙과 금지 Pattern을 제안하고 최종 결과를 검사합니다.
 - Codex는 승인된 방향을 Antigravity 작업 지시서로 만들고 Antigravity가 실제 제품을 구현합니다.
 - Codex는 구현과 독립적으로 Reference·Visual Target·실제 결과와 기술 증거를 검증합니다.
 - 사용자는 실제 화면에서 `이 방향으로 진행`, `이 부분만 수정`, `다른 방향 보기`, `현재안 유지`, `중단`, `이전 상태로` 중 하나를 선택합니다.
 - 첫 결과가 거절된 경우에만 거절 이유를 반영한 구조적으로 다른 대안 하나를 제작합니다.
-- 사용자 최종 승인 전 PM2 구현·제품 적용·Design Recipe 승격을 차단합니다.
+- 사용자 디자인 승인 전 PM2 구현·제품 적용·Design Recipe의 `approved` 승격을 차단합니다.
 
 구현 범위:
 
@@ -106,6 +108,7 @@ PASS:
 - 실제 구현 재료를 `Verified Code Block`, 배치를 `Layout Recipe`, 시각 규칙을 `Style Pack`으로 분리
 - 여러 공급원을 사용할 때 `방향 탐색·구현 Block·정보 구조·품질 검사·Motion` 역할을 분리하고, 각 공급원의 적용 Section과 Trial Hash를 Draft Design Recipe에 기록
 - 방향 3개는 빠른 비교 시안으로 제한하고 실제 Code Preview는 선택 조합 하나만 제작
+- 선택 전 후보 분류와 선택 후 정식 7축 Design DNA를 구분하고, 선택·제외 이유를 Draft Design Recipe에 보존
 
 입력 우선순위:
 
@@ -121,6 +124,8 @@ Reference Board·구역/속성 선택형 Visual Companion·Google Stitch는 사�
 
 PASS — 디자인 품질:
 
+- 구조적으로 다른 방향 3개가 같은 목적·데이터·Viewport 조건에서 비교 가능하고, 완성 Code Preview를 후보마다 반복 제작하지 않습니다.
+- 정식 Design DNA가 선택된 후보·부분에서만 추출되고 사용할 부분·제외할 부분과 연결됩니다.
 - 실제 V2 데이터로 Visual Target 하나가 만들어지고 사용한 UI UX Pro 규칙과 Reference가 있다면 출처가 기록됩니다.
 - 사용자가 실제 화면을 눈으로 확인하고 디자인 품질을 명시적으로 승인합니다.
 - Section 단위 수정이 가능하고 선택하지 않은 영역이 보존됩니다.
@@ -134,7 +139,7 @@ PASS — 채택 편의성:
 - 사용자가 거절된 Pilot보다 이 방식이 빠르고 편하다고 명시적으로 판정합니다.
 - 중단 시 제품·Recipe·Registry 변경이 없습니다.
 
-제외: Reference 10개 강제 노출, 반복 ImageGen A/B/C, 후보별 Code Preview, 대규모 자동 수집기, 새 DB, 자동 Template 혼합, 출처 없는 복제.
+제외: Reference 10개 강제 노출, 고해상도 ImageGen A/B/C 반복, 후보별 완성 Code Preview, 선택 전 모든 후보의 상세 DNA 추출, 대규모 자동 수집기, 새 DB, 자동 Template 혼합, 출처 없는 복제.
 
 ### PM2 — 조립식 제작 보드
 
@@ -174,33 +179,36 @@ PASS — 조립 기능:
 구현 범위:
 
 - 마우스로 Section·Module Card 선택
-- Card Drag & Drop, 위·아래 이동 버튼과 허용된 Slot 간 이동
-- Property Panel에서 여백·크기·순서·표현·표시 상태 변경
+- Card·Section을 마우스로 직접 Drag & Drop하고 허용된 Slot 간 이동
+- 화면 Inline Text와 Property Panel Text를 같은 Draft에 동기화
+- 테두리·모서리 Drag로 폭·높이를 직접 조절하고 사용 불가능한 극단값만 차단
+- Property Panel에서 여백·색상·글자·표현·표시 상태 변경
+- 이미지는 원본을 보존하며 교체·크기만 제공
 - Manifest가 허용한 Module 인스턴스 복제와 Draft 배치에서 제거
 - 변경 전후 Preview
 - 새 Design Version
 - 적용·폐기·이전 Version 복구
+- 문구·색상·이미지는 PC·모바일 공통으로 변경하고 배치·순서·크기·여백·줄바꿈은 Viewport별 Override로 분리
 - 고객 결과물 390px·430px 모바일 회귀검증
-- 조건부 Visual Editor Adapter를 통한 Module·Section 이동, 제한된 Resize, 표시·숨김과 허용 속성 편집
+- 조건부 Visual Editor Adapter를 통한 Module·Section 이동, 자유 Drag Resize, 표시·숨김과 허용 속성 편집
 
 입력과 제한값:
 
 ```yaml
 pm3_input_priority:
-  primary: [drag_and_drop, up_down_buttons, property_panel]
+  primary: [drag_and_drop, inline_text, property_panel, edge_corner_resize]
   accessibility_alternative: [keyboard_control, move_buttons]
   fallback: [natural_language]
 
-size_presets:
-  width: [small, medium, large, full]
-  height: [compact, normal, expanded]
-spacing: [small, medium, large]
-font_size: [small, medium, large]
+resize_boundary:
+  default: free_drag
+  block_only: [zero_size, off_canvas_unrecoverable, unusable_content]
+  otherwise: warn_and_preview
 ```
 
-직접 편집도 항상 Recipe Diff를 만듭니다. Drag와 이동 버튼은 같은 이동 명령을 생성하고 같은 Slot 또는 Manifest가 허용한 Slot으로만 이동합니다. `Undo·Redo`는 현재 Draft 안에서 작동하며 적용 뒤 복구는 Core Version Restore를 사용합니다. 변경 전후 비교 전에는 적용할 수 없고 사용자 승인 전 실제 제품을 변경하지 않습니다.
+직접 편집도 항상 Recipe Diff를 만듭니다. 마우스 Drag와 접근성용 이동 버튼은 같은 이동 명령을 생성하고 같은 Slot 또는 Manifest가 허용한 Slot으로만 이동합니다. 기본 UI에는 위·아래 버튼을 강제하지 않습니다. `이전으로`는 현재 Draft를 한 단계씩 되돌리고 `수정 전체 버리기`는 Draft 전체를 폐기합니다. 적용 뒤 과거 결과 복구는 Core Version Restore를 사용합니다. 변경 전후 비교 전에는 적용할 수 없고 사용자 승인 전 실제 제품을 변경하지 않습니다.
 
-부분수정은 `승인 Recipe 불러오기 → 새 Draft → Viewport·Section 선택 → 마우스 수정 → Recipe Diff → 즉시 Preview·넘침 경고 → Schema·권한·반응형·Motion·Reference Trace 검사 → 사용자 적용 → 새 Version → Restore Draft` 순서로 고정합니다. Auto Layout·줄바꿈·Palette는 승인 없는 자동 적용이 아니라 Draft 제안입니다. 세부 계약은 [[PM3_PARTIAL_EDIT_FINAL_FLOW_2026-08-20]]을 사용합니다.
+부분수정은 `승인 Recipe 불러오기 → 새 Draft → Viewport·Section 선택 → 마우스 수정 → Recipe Diff → 즉시 Preview·넘침 경고 → Schema·권한·반응형·Motion·Reference Trace 검사 → 사용자 적용 → 새 Version → Restore Draft` 순서로 고정합니다. Auto Layout·줄바꿈·Palette는 선택한 Section 전체에만 만드는 Draft 제안이며 다른 화면과 Menu를 변경하지 않습니다. 세부 계약은 [[PM3_PARTIAL_EDIT_FINAL_FLOW_2026-08-20]]과 [[PM3_EDITOR_INTERVIEW_AND_RESEARCH_2026-08-21]]을 사용합니다.
 
 복제·삭제 경계:
 
@@ -216,7 +224,9 @@ PASS:
 - 변경 전후를 확인하고 취소·적용할 수 있습니다.
 - 새 Version과 Restore 지점이 존재합니다.
 - 모바일 핵심 흐름이 깨지지 않습니다.
-- Card 순서 변경, 허용 Slot 이동, 제한 Resize, 복제·Draft 제거와 Undo가 동일 Recipe Diff·Version 규칙으로 재현됩니다.
+- Card 순서 변경, 허용 Slot 이동, 자유 Drag Resize, 복제·Draft 제거와 Undo가 동일 Recipe Diff·Version 규칙으로 재현됩니다.
+- 편집기 출력이 V2 Design Recipe Draft로 변환되고 Core 승인·Version·Restore 경계를 우회하지 않습니다.
+- 실제 고객 제품 전체 품질·390/430·원본 보존·격리·접근성·회귀는 PM6에서 다시 검증됩니다.
 
 기존 M6 Quick Change 증거는 자연어 국소 수정의 선행 증거로 보존하지만 직접 보드 편집 완료 증거로 확대하지 않습니다.
 
@@ -345,6 +355,8 @@ Puck은 Version이나 Core Action을 소유하지 않고 Puck Data와 전용 Com
 
 구현 범위:
 
+- 조사 요청을 받으면 현재 프로젝트 파일·과거 승인 Recipe·DNA·Block·기존 Skill을 먼저 검색하고 부족한 범위만 외부 수집
+- 디자인 요청에서는 후보의 출처·접근·라이선스·구현 가능성만 공급하며, 서로 다른 방향 3개 정리·사용자 디자인 선택·DNA 추출은 PM1이 소유
 - 공식 웹·문서와 GitHub 조사
 - Reddit 조사
 - 사용자가 제공한 Threads 자료
@@ -415,6 +427,8 @@ PASS:
 
 - 주장과 출처가 연결됩니다.
 - 공식 자료와 보조 의견이 구분됩니다.
+- 기존 자산으로 해결 가능한 요청은 불필요한 외부 수집 없이 재사용 후보를 반환합니다.
+- 외부 후보는 중복·라이선스·접근·기존 Skill과의 차이를 표시하고 사용자가 채택·보류·폐기할 수 있습니다.
 - 조사 실패가 Core와 기존 제작 기능을 막지 않습니다.
 - 승인 전 제품을 변경하지 않습니다.
 
@@ -439,6 +453,8 @@ V2 공통 시작 계약:
 구현 범위:
 
 - 사용자 원문과 Intent Packet
+- 명확한 작은 수정용 `Spec Lite`와 새 프로젝트·새 Module·여러 화면·데이터·권한·배포용 `Spec Full`
+- `Spec Lite`가 진행 중 새 Section·새 편집 기능·외부 도구·여러 화면으로 커지면 즉시 중단하고 짧은 인터뷰 또는 `Spec Full`로 승격
 - AI Intent Receipt
 - 변경·비변경 범위
 - Acceptance Checks
@@ -495,6 +511,7 @@ PM5 구현 전 임시 Gate:
 PASS:
 
 - 구현 전 사용자 요청과 AI 이해가 일치합니다.
+- 같은 입력에서 `Spec Lite | Spec Full | interview_required`가 재현 가능하게 분류되고 사용자는 쉬운 확인서만 봅니다.
 - 범위 충돌이나 누락이 있으면 구현을 차단합니다.
 - 구현 결과를 최초 요청과 다시 비교합니다.
 
@@ -505,10 +522,20 @@ PASS:
 통합 흐름:
 
 ```text
-프로젝트 등록 → 의도 확인 → 자료 조사 → 디자인 탐색·선택
-→ 보드 조립 → 부분 수정 → 최종 Preview → 승인
-→ Commit·Rollback·Restore → 결과 전달
+프로젝트 등록 → PM5 계약으로 인터뷰·명세·범위 확인
+→ 기존 성공 Recipe·DNA·Block 검색 → 부족할 때만 PM4 제한 조사
+→ PM1 디자인 총괄이 서로 다른 방향 3개 제시 → 사용자 선택
+→ 선택된 후보·부분에서만 Design DNA 추출 → Draft Design Recipe
+→ Visual Target 하나 → 사용자 디자인 승인 → 승인 Recipe
+→ Antigravity 실제 구현 → Codex 독립 검증
+→ PM2 보드·Module 연결 → PM3 부분 수정·Recipe Diff
+→ 디자인 마감·기능·접근성·성능·회귀 검증 → 사용자 최종 승인
+→ 성공 Recipe·DNA·거절 이유 저장 → Commit·Rollback·Restore → 결과 전달
 ```
+
+위 순서는 사용자가 실제 제작할 때의 실행 순서입니다. PM 번호는 기능을 구현·검증한
+순서이므로 PM5가 뒤 번호여도 모든 새 제작의 시작 Gate로 호출됩니다. PM6은 디자인
+방향을 새로 결정하지 않고 이미 승인된 흐름과 결과를 끝에서 다시 검증합니다.
 
 PASS:
 
@@ -517,6 +544,8 @@ PASS:
 - 실패 단계에서 중단·재개할 수 있습니다.
 - 승인 결과를 저장하고 이전 상태로 복구합니다.
 - 최종 Preview·검증 보고서·실행 방법·제한사항을 함께 전달합니다.
+- Reference 선택·Design DNA·Visual Target·승인 Recipe·구현 결과·부분 수정 Diff가 같은 프로젝트와 Version 계열로 연결됩니다.
+- PM3에서 사용자 조건부 통과한 편집 기능을 실제 고객 결과물·390/430·Undo·원본 보존·격리·접근성·회귀 조건으로 다시 검증합니다.
 
 중단·재개 계약은 `project_id`, 공식 PM 순서, PM별 상태, Evidence Version, stale 증거, 현재 Blocker와 다음 행동 하나를 보존합니다. 재개 시 Core·제품 Commit, Intent·Recipe Version, Port·Worktree와 stale 증거를 다시 확인합니다. 기술 PASS와 사용자 PASS는 분리합니다.
 
@@ -601,6 +630,6 @@ pm1_adoption_method: single_visual_target_with_ui_ux_pro_guard
 pm0_operational_readiness: pass_with_user_deferred_backup
 ```
 
-Post-MVP 설계 계약은 완료됐습니다. PM0는 사용자가 외부 Backup·표본 Restore를 후속으로 유예한 조건으로 통과했습니다. PM1에서는 실패 Pilot을 보존한 상태로 `single_visual_target_with_ui_ux_pro_guard`와 PC 운영 UI를 검증했고 사용자가 PASS했습니다. PM2는 두 프로젝트 결과 Module과 단일 선택 Preview, 프로젝트별 기능 목록, Module 격리·복원을 사용자·기술 검증으로 완료했습니다. 현재 활성 단계는 PM3이며 PM2 PASS를 PM3 직접 편집 구현 완료로 확대하지 않습니다.
+Post-MVP 설계 계약은 완료됐습니다. PM0는 사용자가 외부 Backup·표본 Restore를 후속으로 유예한 조건으로 통과했습니다. PM1에서는 실패 Pilot을 보존한 상태로 `single_visual_target_with_ui_ux_pro_guard`와 PC 운영 UI를 검증했고 사용자가 PASS했습니다. 이후 사용자는 기존 성공 자산 우선·서로 다른 방향 3개·선택 후 Design DNA·Visual Target 하나를 다음 개선 계약으로 승인했으며 이는 아직 Core 자동 기능 PASS가 아닙니다. PM2는 두 프로젝트 결과 Module과 단일 선택 Preview, 프로젝트별 기능 목록, Module 격리·복원을 사용자·기술 검증으로 완료했습니다. PM3은 사용자 조건부 통과로 범위를 잠갔지만 기술 완료는 `not_proven`이고 PM6 재검증이 필수입니다. 다음 진행 가능 단계는 PM4입니다.
 
 생산 배포·운영 관찰과 10년차 전문가 수준 판정은 PM0~PM6 완료만으로 선언하지 않습니다. 배포 가능한 프로젝트에서 별도 승인된 Deployment·Monitoring Adapter와 여러 프로젝트 재현 증거를 축적하는 `Professional Capability Program`의 후속 범위입니다.

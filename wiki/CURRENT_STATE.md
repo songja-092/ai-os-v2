@@ -79,6 +79,11 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
   `not_proven`입니다. 실제 고객 결과물·모바일 390/430·Undo·원본 보존·프로젝트 격리·
   접근성·회귀는 PM6에서 의무적으로 다시 검증합니다. 병원 웹 Draft는 제품 Commit·원본
   Merge 없이 보존합니다. [[PM3_USER_PASS_WITH_PM6_REVALIDATION_2026-08-21]]을 사용합니다.
+- 2026-08-21 사용자가 결정한 인터뷰·기존 자산 우선·필요 시 수집·서로 다른 방향 3개·
+  선택 후 Design DNA·Visual Target 하나·Recipe·구현·부분 수정·PM6 재검증 흐름을
+  PM0~PM6 공식 기준에 재배치했습니다. 문서 정합성은 완료됐지만 Collector·DNA 추출·
+  Spec Runtime·편집기 Recipe 연결·전체 E2E는 아직 구현 또는 검증되지 않았습니다.
+  [[PM_FLOW_DECISION_ALIGNMENT_2026-08-21]]을 사용합니다.
 - 기존 PM1 Preview는 실제 제품 Stack이 아니라 `static_design_evidence_only`로 보존합니다. PM2 실제 보드는 React 19 + Vite를 권장 기반으로 기록하되 PM0 PASS와 구현 승인 전에는 채택·설치로 간주하지 않습니다.
 - V2 운영 UI는 PC 전용이며, 390px·430px은 고객 결과물 하나의 모바일 규칙을 회귀검증하는 Viewport입니다.
 - 각 PM은 PM PASS·Codex 검증·사용자 PASS·Rollback/Restore 이후 별도 Result Commit 하나로 완료합니다.

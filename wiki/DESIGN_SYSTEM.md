@@ -95,15 +95,15 @@ Antigravity는 디자인 방향·범위를 임의로 확대하거나 자신의 �
 
 ```text
 쉬운 사용자 요청
-→ Codex가 짧은 디자인 요청서로 정리
-→ 기존 성공 Recipe·Block으로 해결 가능한지 확인
+→ PM5 계약으로 인터뷰·Spec Lite/Full·제작 범위 확인
+→ 기존 성공 Recipe·DNA·Block으로 해결 가능한지 확인
 → 부족할 때만 V2 수집기가 한국 중심 실제 Reference 조사
-→ 비교 이미지 한 장과 원본 링크 제공
-→ 사용자가 전체·부분 선택
 → 출처·라이선스·반응형·기술·자산의 제작 가능성 확인
-→ Codex가 디자인 총괄 절차로 하나의 구현 가능한 방향 제안
-→ Reference·Section·가져올 속성·가져오지 않을 속성을 Draft Design Recipe로 기록
-→ 방향 Visual Target 한 장을 사용자가 승인
+→ Codex가 디자인 총괄 절차로 구조적으로 다른 낮은 비용의 방향 3개 제안
+→ 사용자가 화면을 보고 전체 방향·마음에 드는 부분·현재안 유지·다른 후보·중단 선택
+→ 선택된 후보·부분에서만 7축 Design DNA 추출
+→ Reference·DNA·Section·가져올 속성·가져오지 않을 속성을 Draft Design Recipe로 기록
+→ 선택 조합의 Visual Target 한 장을 제작하고 사용자가 승인
 → 같은 Design Recipe를 승인 상태로 승격하고 구현 Component 목록 확정
 → UI UX Pro가 사용성·접근성·기본 규칙 검사
 → Codex가 Antigravity 작업 지시서 작성
@@ -115,7 +115,7 @@ Antigravity는 디자인 방향·범위를 임의로 확대하거나 자신의 �
 → 채택 결과만 성공 Recipe·Block으로 승격
 ```
 
-사용자가 직접 결정하는 기본 지점은 `요청 확인`, `Reference 선택`, `방향 이미지 승인`, `최종 판정`입니다. 나머지는 내부 절차로 처리하고 전문용어를 기본 화면에 노출하지 않습니다.
+사용자가 직접 결정하는 기본 지점은 `요청 확인`, `방향 3개 중 선택`, `Visual Target 승인`, `최종 판정`입니다. Reference 원본과 상세 DNA는 요청할 때 열어보고 나머지는 내부 절차로 처리하며 전문용어를 기본 화면에 노출하지 않습니다.
 
 이 흐름은 특정 회사 하나의 고정 절차를 복제한 것이 아니라 `탐색 → 문제 정의 → 방향 확장 → 선택·전달`로 수렴하는 보편적 Human-centered Design 흐름을 V2에 맞게 줄인 것입니다. V2는 여러 고해상도 시안을 반복 생성하지 않고 서로 다른 방향을 낮은 비용으로 비교한 뒤 실제 데이터 Visual Target 하나만 마감합니다. 상세 비교와 근거는 [[DESIGN_ADOPTION_METHOD_REVIEW_2026-08-20]]을 사용합니다.
 
@@ -183,16 +183,16 @@ Reference·Visual Target·구현 결과 비교 시 다음 조건을 고정합니
 
 ## 9. PM 연결과 현재 사실
 
-- PM1: 디자인 요청·Reference·디자인 총괄·Visual Target 채택
+- PM1: 서로 다른 방향 3개·사용자 선택·선택 후 Design DNA·Visual Target 채택
 - PM2: 승인된 Recipe·Component를 실제 Module로 조립
-- PM3: 마우스 중심 부분 수정·Motion·Version·Restore
-- PM4: 디자인 외 일반 자료·병목의 제한 조사
-- PM5: 최초 의도·변경 범위·자산 경계 재확인
-- PM6: 디자인·기능·접근성·성능·회귀·복구 통합 검증
+- PM3: V2 Design Recipe에 연결된 마우스 중심 부분 수정·Motion·Version·Restore
+- PM4: 기존 자산 우선 검색과 부족한 Reference·Block·Skill·일반 병목의 제한 조사
+- PM5: 모든 제작 시작의 인터뷰·Spec Lite/Full·변경 범위·자산 경계 확인
+- PM6: 결정된 디자인 흐름과 기능·접근성·성능·회귀·복구 통합 재검증
 
-PM1과 PM2는 잠금 기준이 존재하며 현재 활성 단계는 PM3입니다. 최근 Puck·React Grid Layout Pilot은 PM3 격리 시험이며 Core Registry 승격·실제 고객 제품 적용·사용자 최종 PASS는 아직 증명되지 않았습니다.
+PM1과 PM2는 잠금 기준이 존재합니다. PM3은 사용자가 조건부 통과로 범위를 잠갔지만 기술 완료는 `not_proven`이며 PM6 재검증이 필수입니다. 다음 진행 가능 단계는 PM4입니다. 최근 Puck·React Grid Layout Pilot은 PM3 격리 시험이며 Core Registry 승격·실제 고객 제품 적용은 아직 증명되지 않았습니다.
 
-현재 PM1의 기존 기본 방식은 사용자 PASS 증거로 보존합니다. 이번 디자인 총괄·한국 중심 Reference 비교 이미지 흐름은 사용자 회의에서 승인된 **다음 개선 계약**이며 아직 V2 Core 자동 기능으로 구현·검증된 것은 아닙니다.
+현재 PM1의 기존 기본 방식은 사용자 PASS 증거로 보존합니다. 이번 인터뷰·성공 Recipe 우선·한국 중심 Reference·서로 다른 방향 3개·선택 후 Design DNA·Visual Target 하나 흐름은 사용자 회의에서 승인된 **다음 개선 계약**이며 아직 V2 Core 자동 기능으로 구현·검증된 것은 아닙니다.
 
 PM3 부분수정의 사용자 흐름·허용 속성·Diff·검증·Restore 최종 계약은 [[PM3_PARTIAL_EDIT_FINAL_FLOW_2026-08-20]]을 사용합니다.
 

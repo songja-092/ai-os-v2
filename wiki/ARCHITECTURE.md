@@ -184,4 +184,4 @@ PM4의 `Design Intelligence`는 디자인 시스템 자체가 아닙니다. 공�
 Fixture로 실행하며, 후보 Process에는 원본 저장소·Git·Secret을 노출하지 않습니다.
 검증된 후보도 Core가 아니라 제거 가능한 Module·Adapter로만 연결합니다.
 
-PM1은 Reference Brief 뒤 실제 Reference 10개 이상을 수집·분석하고 추천 방향 3~5개, 구조 Preview 1~2개와 실제 데이터 Code Preview 1개로 디자인을 채택합니다. V2 운영 UI는 PC 전용이고 고객 결과물은 모바일 우선입니다. `390px`과 `430px`은 별도 디자인이 아니라 하나의 모바일 Recipe 규칙을 검증합니다. PM3의 Puck은 V2 Recipe를 소유하지 않는 제거 가능한 Adapter 후보입니다.
+PM1은 PM5의 인터뷰·명세 필드를 수동 또는 Runtime Gate로 먼저 확인하고 기존 성공 Recipe·DNA·Block을 우선 검색합니다. 부족할 때만 PM4 수집 계약으로 Reference를 조사한 뒤 디자인 총괄이 구조적으로 다른 낮은 비용의 방향 3개를 제시합니다. 사용자가 선택한 후보·부분에서만 7축 Design DNA를 추출하고 Visual Target과 실제 데이터 Code Preview는 선택 조합 하나만 제작합니다. V2 운영 UI는 PC 전용이고 고객 결과물은 모바일 우선입니다. `390px`과 `430px`은 별도 디자인이 아니라 하나의 모바일 Recipe 규칙을 검증합니다. PM3의 Puck은 V2 Recipe를 소유하지 않는 제거 가능한 Adapter 후보입니다.
