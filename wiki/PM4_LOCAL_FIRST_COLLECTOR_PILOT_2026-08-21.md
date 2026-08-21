@@ -97,3 +97,16 @@ core_changed: false
 - 승인 없는 설치·제품 적용
 
 기본 외부 공급원 후보는 GitHub·Reddit·YouTube·Threads·Instagram입니다. 현재 실제 Adapter가 확인된 것은 공개 GitHub Metadata 조회뿐입니다. Reddit·YouTube·Threads·Instagram은 아직 `planned_not_connected`입니다. Threads·Instagram은 사용자가 Aside Browser에서 최초 로그인한 사용자 세션을 유효한 동안 읽기 전용으로 재사용할 수 있게 설계하되, 자격증명을 V2에 저장하거나 로그인·접근 차단을 우회하지 않습니다. 만료·차단 시 `access_unavailable`로 표시합니다.
+
+## 일일 탐색 브리핑 자동화
+
+2026-08-21 Codex App Automation `v2`를 `V2 일일 탐색 브리핑` 이름으로 활성화했습니다.
+
+- 실행: 매일 오전 9시, 로컬
+- 공급원: Reddit·GitHub·YouTube·Threads·Instagram
+- 분류: 참고자료 / V2 적용·격리 시험 후보 / 수익 아이템
+- 출력: 원본 Web Link + 초보자용 1~2문장 요약
+- 금지: 충분성 단정, 자동 설치·채택, Core 변경, Commit·Push, 로그인·접근 차단 우회
+- 종료 질문: `자료 더 찾기 / 이 정도면 충분 / 조사 방향 수정`
+
+Automation 생성 자체는 각 공급원 Adapter의 실제 접근 성공을 증명하지 않습니다. Threads·Instagram Browser Session이 없거나 만료되면 `접근 불가`로 보고해야 합니다.

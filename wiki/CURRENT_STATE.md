@@ -14,6 +14,8 @@ GitHub Spec Kit `v0.16.5`를 전역이 아닌 `/home/user/바탕화면/v2_spec_k
 
 2026-08-21 PM4는 로컬 우선 Collector 최소 Pilot으로 시작했습니다. Interview → Collector(수집만) → Analyzer(사실·Link·짧은 요약) → 사용자 `자료 더 찾기·이 정도면 충분·조사 방향 수정`으로 역할을 분리했습니다. V2가 자료의 충분 여부를 단정하는 이전 Pilot 계약은 폐기했고, 판단은 사용자에게만 있습니다. 경계 회귀검사는 Network 없이 `9/9 PASS`했습니다. 이는 PM4 전체 PASS가 아닙니다. 실제 외부 조사 요청, 출처 접근, 사용자 결정, 채택 후 Capability Lab 연결은 아직 `not_yet_verified`입니다. GitHub 공개 Metadata 외 Reddit·YouTube·Threads·Instagram Adapter는 `planned_not_connected`입니다. Threads·Instagram은 사용자 Aside Browser 로그인 Session을 유효한 동안만 재사용하며 접근 우회는 금지합니다. 자세한 증거는 [[PM4_LOCAL_FIRST_COLLECTOR_PILOT_2026-08-21]]을 사용합니다.
 
+PM4 일일 탐색을 위해 Codex App Automation `v2` (`V2 일일 탐색 브리핑`)를 매일 오전 9시 로컬 실행으로 활성화했습니다. Reddit·GitHub·YouTube·Threads·Instagram에서 참고자료·V2 적용 후보·수익 아이템을 `원본 Link + 짧은 요약`으로 보고하도록 지시했으며 충분성 단정·자동 설치·채택·Core 변경·Commit·Push는 금지했습니다. Automation 등록은 공급원별 실제 접근 성공 증거가 아닙니다.
+
 M2 공식 검증 Run은 `run-05dbfc27`입니다. `execution_mode: skills`, `workflow_run_id: null`인 동일 Run에서 Specify, 승인 전 Plan 차단, Spec 본문 수정과 Version 증가, 승인, Plan Artifact 생성과 새 프로세스 재조회를 확인했습니다.
 
 M3에서도 같은 `run-05dbfc27`을 유지했습니다. UI UX Pro Max와 frontend-app-builder로 모바일 우선 Option C v2를 생성하고 Browser 기술 검증을 통과했습니다. 사용자는 디자인 마감에 `needs_improvement`를 남겼지만 M4 파이프라인 시험 입력으로 승인했습니다. 상업 디자인과 Reference 승인은 아닙니다.
