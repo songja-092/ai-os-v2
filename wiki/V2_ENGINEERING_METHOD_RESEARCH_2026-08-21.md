@@ -61,9 +61,12 @@ Harness
 
 ### 지금 설치하지 않음
 
-- GitHub Spec Kit: 기능과 유지관리 근거는 충분하지만 V2의 인터뷰·PM·계약 문서와 중복 가능성이 큽니다.
 - 별도 Agent Harness 제품: Codex·Antigravity·V2 Core 위에 또 다른 제어 계층을 얹으면 상태 원본이 나뉠 수 있습니다.
 - 자동 Harness 개선 도구: Baseline과 Golden Case가 없는 상태에서 Prompt·규칙을 자동 수정하면 개선 여부를 판정할 수 없습니다.
+
+### 격리 Pilot 완료
+
+- GitHub Spec Kit `v0.16.5`: 자연어의 변경·유지·완료·회귀 조건을 Spec·Plan·Task까지 보존해 `PASS_WITH_FIX`입니다. 작은 수정에 Full Flow는 무거워 `Spec Lite`, 새 프로젝트·큰 기능에는 `Spec Full`을 쓰는 제거 가능한 Adapter가 적합합니다. 상세 증거는 `wiki/SPEC_KIT_V2_ADAPTER_PILOT_2026-08-21.md`를 사용합니다.
 
 ### 필요한 부분만 흡수
 
@@ -121,7 +124,7 @@ pm_transition_evidence_loop:
 initial_comparative_research: completed
 recommended_operating_model: harness_first_spec_guided_eval_driven_human_approved_loop_assisted
 new_framework_installation: not_required_now
-spec_kit: watchlist_due_to_contract_overlap
+spec_kit: isolated_pilot_pass_with_spec_lite_full_split
 first_bounded_loop: pm_transition_evidence_checker
 first_loop_implementation: isolated_fixture_verified
 first_loop_user_adoption: adopted

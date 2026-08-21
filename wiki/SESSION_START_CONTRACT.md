@@ -41,6 +41,7 @@ Obsidian은 문서를 보여주는 도구일 뿐 별도의 최신 상태 보증 
    - `wiki/DESIGN_SYSTEM.md`
    - `wiki/V2_ENGINEERING_OPERATING_MODEL.md`
    - `wiki/V2_ENGINEERING_METHOD_RESEARCH_2026-08-21.md`
+   - `wiki/SPEC_KIT_V2_ADAPTER_PILOT_2026-08-21.md`
    - `wiki/POST_MVP_PM0_PM6_BASELINE.md`
    - `wiki/PM1_PM4_DESIGN_MEETING_2026-08-19.md`
    - `wiki/AI_EVIDENCE_GUARD.md`

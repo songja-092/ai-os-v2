@@ -4,6 +4,8 @@
 
 V2의 현재 엔지니어링 운영 방향은 [[V2_ENGINEERING_OPERATING_MODEL]]의 `Harness-first, Spec-guided, Eval-driven, Human-approved, Loop-assisted`입니다. 초기 방법 비교는 [[V2_ENGINEERING_METHOD_RESEARCH_2026-08-21]]에 기록했습니다. 첫 읽기 전용 PM 전환 증거 검사기는 정상·누락·충돌 Fixture와 기존 잠금·증거 Guard 회귀검사를 PASS했고, 같은 역할의 기존 기본 자동화가 없어 사용자가 `stable_default`로 채택했습니다. PM 자동 PASS·파일 자동 수정은 금지하며 다른 PM Manifest 일반화와 실제 프로젝트 반복 효과는 아직 `not_proven`입니다.
 
+GitHub Spec Kit `v0.16.5`를 전역이 아닌 `/home/user/바탕화면/v2_spec_kit_pilot`에 격리 설치해 가짜 요구사항으로 시험했습니다. 사용자의 변경·유지·완료·회귀 의미가 Spec·Plan·20개 Task까지 보존돼 `PASS_WITH_FIX`이지만 작은 수정에 전체 흐름은 과합니다. 권장안은 작은 수정용 `Spec Lite`와 새 프로젝트·큰 기능용 `Spec Full`을 나누는 제거 가능한 V2 Adapter이며 Core 채택은 사용자 검토 전입니다. 상세 증거는 [[SPEC_KIT_V2_ADAPTER_PILOT_2026-08-21]]을 사용합니다.
+
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다.
 
 디자인 탐색·채택·구현·수정·검증의 단일 공식 원본은 [[DESIGN_SYSTEM]] · [GitHub 링크](DESIGN_SYSTEM.md)입니다. 흩어진 과거 디자인 문서는 증거로 보존하되 새 결정과 충돌하면 현재 Commit의 디자인 시스템을 우선합니다.
