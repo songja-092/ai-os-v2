@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "pm": "PM4",
+  "original_request": "pm4 더 잘할수 있는 방법이 있는지 조사하고 시작해봐",
+  "exact_task": "기존 V2 자산을 먼저 검색하고 부족할 때만 제한된 외부 조사 요청을 만드는 로컬 우선 Collector Pilot",
+  "allowed": [
+    "공식 자료 조사",
+    "새 격리 스크립트와 Fixture 작성",
+    "로컬 전용 검증",
+    "PM4 상태 문서 갱신"
+  ],
+  "prohibited": [
+    "기존 Dirty 파일 변경",
+    "대형 수집기 또는 새 패키지 설치",
+    "비공개 프로젝트 외부 전송",
+    "자동 Skill 채택 또는 Core 활성화",
+    "PM4 PASS 선언"
+  ],
+  "approval_basis": "사용자의 명시적 PM4 조사 및 시작 요청",
+  "status": "approved_for_bounded_pilot"
+}

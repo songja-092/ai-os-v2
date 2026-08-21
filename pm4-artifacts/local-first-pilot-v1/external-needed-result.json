@@ -1,0 +1,144 @@
+{
+  "schema_version": "1.0",
+  "run_at": "2026-08-21T12:09:57.378578+00:00",
+  "request_id": "pm4-external-unknown-capability",
+  "original_request": "수중 홀로그램 수어 통역 양자 센서 고객 웹 모듈",
+  "policy": "local_first_external_only_if_missing",
+  "local_search": {
+    "roots": [
+      "wiki",
+      ".agents/skills",
+      "plugins/v2-capability-lab/skills"
+    ],
+    "match_count": 8,
+    "strong_match_count": 8,
+    "minimum_required": 3,
+    "required_terms": [
+      "수어",
+      "양자",
+      "홀로그램"
+    ],
+    "required_terms_met": false,
+    "matches": [
+      {
+        "source_id": "local-01f8b2720143",
+        "source_type": "local_v2_asset",
+        "path": ".agents/skills/v2-beginner-translator/references/v2-glossary.md",
+        "title": "V2 초보자 용어집",
+        "matched_terms": [
+          "고객",
+          "모듈"
+        ],
+        "score": 4,
+        "evidence_hint": "approved_or_verified_term_present"
+      },
+      {
+        "source_id": "local-0e9f070e2fdf",
+        "source_type": "local_v2_asset",
+        "path": "wiki/ARCHITECTURE.md",
+        "title": "Architecture",
+        "matched_terms": [
+          "고객"
+        ],
+        "score": 3,
+        "evidence_hint": "approved_or_verified_term_present"
+      },
+      {
+        "source_id": "local-90d48a1d139a",
+        "source_type": "local_v2_asset",
+        "path": "wiki/CURRENT_STATE.md",
+        "title": "Current State",
+        "matched_terms": [
+          "고객"
+        ],
+        "score": 3,
+        "evidence_hint": "approved_or_verified_term_present"
+      },
+      {
+        "source_id": "local-6dc66e8eb2b9",
+        "source_type": "local_v2_asset",
+        "path": "wiki/DECISIONS.md",
+        "title": "Decisions",
+        "matched_terms": [
+          "고객"
+        ],
+        "score": 3,
+        "evidence_hint": "approved_or_verified_term_present"
+      },
+      {
+        "source_id": "local-a214677431a4",
+        "source_type": "local_v2_asset",
+        "path": "wiki/DESIGN_AND_EDITOR_MEETING_2026-08-21.md",
+        "title": "디자인 탐색·인터뷰·편집기 회의 — 2026-08-21",
+        "matched_terms": [
+          "고객"
+        ],
+        "score": 3,
+        "evidence_hint": "approved_or_verified_term_present"
+      },
+      {
+        "source_id": "local-ab2b2785799d",
+        "source_type": "local_v2_asset",
+        "path": "wiki/DESIGN_SUPPLIER_TRIAL_SYNC_2026-08-20.md",
+        "title": "AI OS V2 — 디자인 공급원 시험·자동화 동기화 보고",
+        "matched_terms": [
+          "고객"
+        ],
+        "score": 3,
+        "evidence_hint": "approved_or_verified_term_present"
+      },
+      {
+        "source_id": "local-3dd3aa825d3b",
+        "source_type": "local_v2_asset",
+        "path": "wiki/DESIGN_SYSTEM.md",
+        "title": "AI OS V2 디자인 시스템",
+        "matched_terms": [
+          "고객"
+        ],
+        "score": 3,
+        "evidence_hint": "approved_or_verified_term_present"
+      },
+      {
+        "source_id": "local-61688b2ee020",
+        "source_type": "local_v2_asset",
+        "path": "wiki/GPT_DESIGN_INTELLIGENCE_CONTINUATION_HANDOFF.md",
+        "title": "AI OS V2 — Design Intelligence 다음 GPT 인수인계",
+        "matched_terms": [
+          "고객"
+        ],
+        "score": 3,
+        "evidence_hint": "approved_or_verified_term_present"
+      }
+    ]
+  },
+  "coverage": "partial",
+  "external_research_needed": true,
+  "external_research": {
+    "gaps": [
+      "실제 구현 도구",
+      "공개 라이선스",
+      "검증 사례"
+    ],
+    "queries": [
+      "수중 홀로그램 수어 통역 양자 센서 고객 웹 모듈 실제 구현 도구 공식 문서",
+      "수중 홀로그램 수어 통역 양자 센서 고객 웹 모듈 공개 라이선스 GitHub open source license",
+      "수중 홀로그램 수어 통역 양자 센서 고객 웹 모듈 검증 사례 검증 사례"
+    ],
+    "automatic_network_execution": false,
+    "private_project_upload": false
+  },
+  "decision": {
+    "available_actions": [
+      "adopt",
+      "hold",
+      "discard"
+    ],
+    "current": null,
+    "requires_user": true
+  },
+  "side_effects": {
+    "installed": false,
+    "activated": false,
+    "core_changed": false
+  }
+}
