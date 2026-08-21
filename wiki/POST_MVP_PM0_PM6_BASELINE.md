@@ -425,6 +425,17 @@ PASS:
 
 목적: AI가 요청을 잘못 이해한 상태로 구현을 시작하지 못하게 합니다.
 
+V2 공통 시작 계약:
+
+- V2가 만드는 모든 새 프로젝트·새 결과물은 인터뷰로 시작합니다.
+- 새 프로젝트는 전체 인터뷰, 큰 기능 변경은 기존 Intent를 재사용한 짧은 인터뷰,
+  승인 범위 안의 명확한 작은 수정은 인터뷰를 생략합니다.
+- 질문은 한 번에 하나씩 쉬운 말로 제공하며 `잘 모르겠어요`, `추천해주세요`,
+  `나중에 결정`, `건너뛰기`, `중단`을 허용합니다.
+- 인터뷰 결과는 `제작 범위 확인서`로 변환하고 사용자 확인 전 제작을 시작하지 않습니다.
+- 과거 `Interview Me` 원본 Skill Trial과 이 V2 전용 계약을 같은 Runtime 채택으로
+  간주하지 않습니다. PM5 구현 전에는 수동 계약이며 자동 기능 완료가 아닙니다.
+
 구현 범위:
 
 - 사용자 원문과 Intent Packet
@@ -452,6 +463,13 @@ intent_packet:
   constraints: []
   unresolved_questions: []
   risk_classification: string
+  interview_mode: full | short | skipped_clear_minor_edit
+  primary_user: string
+  primary_outcome: string
+  required_surfaces: []
+  required_features: []
+  delivery_scope: []
+  deadline_or_priority: string | null
 scope_lock:
   intent_packet_version: integer
   scope_hash: string
@@ -462,6 +480,10 @@ scope_lock:
 ```
 
 초보자에게는 `만들 것`, `유지할 것`, `건드리지 않을 것`, `완료 확인 방법`과 `맞아요`, `수정할게요`만 기본 표시합니다. 사용자 원문 충돌, 미해결 질문, 범위 초과, 보호 대상 변경, Acceptance 누락 또는 Target Environment 불일치 시 구현을 차단합니다. 구현 뒤 최초 원문·승인 Intent Version·실제 변경·보존 범위·Acceptance 결과를 다시 비교하고 불일치하면 완료·Commit을 차단합니다.
+
+`제작 범위 확인서`의 기본 사용자 행동은 `이대로 시작`, `수정할게요`, `V2 추천 보기`,
+`중단`입니다. 견적이 필요한 상업 작업에서는 화면·Viewport·기능·디자인 후보·수정 범위·
+원본 제공·개발·배포·납기·추가 작업 기준을 같은 Intent Packet에 선택적으로 포함합니다.
 
 PM5 구현 전 임시 Gate:
 

@@ -78,6 +78,11 @@ session_preflight:
 - PM이 완료되거나 Repo-local Skill을 새로 만들거나 변경하면 같은 작업에서 이 세션 공통계약의 `정확한 상태`와 Skill 목록을 갱신합니다. 공통계약 반영 전에는 PM 저장이 끝났다고 보고하지 않습니다.
 - Dirty 변경은 사용자의 변경으로 보존하며 임의로 Reset·Restore·Stash·Commit하지 않습니다.
 - 설치·외부 전송·제품 적용·Commit·Push는 승인 범위 안에서만 수행합니다.
+- V2가 만드는 모든 **새 제작**은 인터뷰로 시작합니다. 새 프로젝트는 전체 인터뷰,
+  큰 기능 변경은 기존 답을 재사용한 짧은 인터뷰, 승인 범위 안의 명확한 작은 수정은
+  인터뷰를 생략합니다. 모호하거나 충돌하면 한 번에 질문 하나만 합니다.
+- 인터뷰 결과는 대화로만 소비하지 않고 `제작 범위 확인서`로 정리해 사용자가
+  `이대로 시작 | 수정 | 추천 | 중단` 중 하나를 고른 뒤에만 제작 입력으로 사용합니다.
 
 ## 변하지 않는 V2 용어 계약
 
@@ -121,7 +126,15 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
 - `UI Remix`·`Misty`는 설치된 V2 Skill·Runtime이 아니라 디자인 탐색·부분 선택의 외부 연구 근거입니다. 현재 전체 디자인 흐름은 Draft Recipe와 Section Trace까지 증명됐고, 승인 Recipe 기반 실제 제품 구현→독립 Fidelity 검증→사용자 최종 승인→Version Restore는 아직 `not_proven`입니다. 새 세션은 `wiki/DESIGN_WORKFLOW_EVIDENCE_AUDIT_2026-08-20.md`의 첫 누락 Handoff부터 이어가며, 추가 조사는 `wiki/DESIGN_WORKFLOW_RESEARCH_HANDOFF_2026-08-20.md`를 그대로 사용합니다.
 - 디자인 E2E 구현 Handoff는 2026-08-20 고정 Hash와 격리 Base Commit으로 생성됐습니다. 현재 첫 Blocker는 Handoff가 아니라 `antigravity_execution`이며 CLI Chat 명령 호환 오류 때문에 제품 파일은 0개입니다. Codex 대체 구현으로 이 단계를 PASS 처리하지 말고 `pm3-artifacts/design-flow-e2e-v1/execution-attempt.json`에서 이어갑니다.
 - 디자인 E2E를 나중에 재개할 때는 `wiki/DESIGN_FLOW_E2E_CONTINUATION_2026-08-21.md`를 읽고, 격리 저장소·고정 Hash·첫 Blocker를 재확인한 뒤 그 문서의 다음 작업 하나부터 이어갑니다.
-- `Interview Me(인터뷰 미)` Trial은 V2에 채택하지 않습니다. 사용자는 인터뷰를 V2 UI가 아니라 Codex가 중요한·모호한 요청에서만 수행하도록 결정했습니다. 상태는 `discarded_by_user`이며 Core Registry·PM5 Runtime·전역 Skill 연결을 금지합니다. Codex도 명확한 요청에는 불필요한 인터뷰를 하지 않고, 질문이 필요하면 한 번에 하나만 묻고 사용자가 중단할 수 있게 합니다. 상세 근거는 `wiki/INTERVIEW_ME_CAPABILITY_LAB_REPORT_2026-08-20.md`입니다.
+- `Interview Me(인터뷰 미)` 원본 Skill Trial은 2026-08-20 사용자의 당시 결정으로
+  `discarded_by_user`였고 전역 Skill·Core Registry에는 연결되지 않았습니다. 이 과거
+  판정은 유지합니다. 2026-08-21 사용자는 **V2가 만드는 모든 새 제작을 인터뷰로
+  시작**하도록 새 결정을 내렸습니다. 이는 원본 Skill의 무조건 자동 실행이 아니라
+  PM5가 소유할 V2 전용 `인터뷰 우선 제작 시작 계약`입니다. 새 프로젝트는 전체,
+  큰 변경은 짧게, 작은 수정은 명확하면 생략하며, 출력은 Versioned Intent Packet과
+  `제작 범위 확인서`입니다. Runtime 구현·Core 연결은 아직 `not_implemented`입니다.
+  과거 Trial 근거는 `wiki/INTERVIEW_ME_CAPABILITY_LAB_REPORT_2026-08-20.md`, 새 회의
+  결정은 `wiki/DESIGN_AND_EDITOR_MEETING_2026-08-21.md`를 사용합니다.
 - 새 세션은 위 문장을 그대로 믿지 말고 `CURRENT_STATE.md`와 해당 증거 파일을 현재 SHA에서 다시 확인합니다.
 
 ## 공식 사실을 바꾸는 순서

@@ -61,7 +61,13 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 - `V2 Design Director`에 전체 흐름 Evidence Audit 계약을 추가했습니다. 현재는 요청·총괄·공급원 비교·Visual Target·사용자 방향 선택·Draft Recipe·Section Trace까지 근거가 있고, 같은 승인 Recipe를 사용한 실제 제품 구현·독립 Fidelity 검증·사용자 최종 승인·Version Restore는 아직 `not_proven`이므로 전체 흐름 완료 판정은 `BLOCKED`입니다. 상세 판정은 [[DESIGN_WORKFLOW_EVIDENCE_AUDIT_2026-08-20]], 추가 조사 지시서는 [[DESIGN_WORKFLOW_RESEARCH_HANDOFF_2026-08-20]]을 사용합니다.
 - 2026-08-20 디자인 흐름 E2E 재검증에서 Recipe·Selection·Visual Target Hash와 격리 Base Commit을 포함한 Antigravity Handoff까지는 `proven`으로 승격했습니다. 그러나 현재 설치본의 CLI `chat` 실행이 `workbench.action.chat.newChat not found`로 실패해 제품 파일이 생성되지 않았습니다. 따라서 첫 Blocker는 `antigravity_execution`, 이후 실제 구현·Codex Fidelity·사용자 최종 승인·Version Restore는 계속 `not_proven`입니다.
 - 이 작업의 중단 시점과 정확한 재개 절차는 [[DESIGN_FLOW_E2E_CONTINUATION_2026-08-21]]에 고정했습니다. 새 세션은 제품 구현을 추정하지 말고 격리 저장소의 `product/` 파일 수와 Git 상태부터 다시 확인합니다.
-- Addy Osmani의 `Interview Me` 격리 Trial 자체는 PASS했지만, 2026-08-20 사용자가 인터뷰는 Codex 대화에서 수행하고 V2 제품 기능에는 필요 없다고 결정했습니다. 따라서 V2 판정은 `discarded_by_user`, Core Registry·PM5 Runtime·전역 Skill에 연결하지 않습니다. Trial은 재도입 권고가 아니라 폐기 근거로 보존합니다. 상세 보고는 [[INTERVIEW_ME_CAPABILITY_LAB_REPORT_2026-08-20]]을 사용합니다.
+- Addy Osmani의 `Interview Me` 격리 Trial 자체는 PASS했지만 2026-08-20 당시 사용자가
+  V2 제품 기능에는 불필요하다고 판정해 원본 Skill은 `discarded_by_user`로 보존합니다.
+  2026-08-21 사용자는 이와 별개로 V2의 모든 새 제작을 인터뷰로 시작하는
+  `인터뷰 우선 제작 시작 계약`을 승인했습니다. 새 프로젝트는 전체 인터뷰, 큰 변경은
+  짧은 인터뷰, 명확한 작은 수정은 생략하며 결과를 `제작 범위 확인서`와 Intent Packet으로
+  고정합니다. 이는 회의·설계 결정이며 PM5 Runtime·Core 자동 연결은 아직
+  `not_implemented`입니다. [[DESIGN_AND_EDITOR_MEETING_2026-08-21]]을 사용합니다.
 - 2026-08-20 실제 검증 증거에 가중치를 둔 V2 현재 성숙도 평가는 `62/100`입니다. Core·PM1·PM2는 강하지만 PM3은 Pilot, PM4~PM6은 미구현 비중이 높고 생산 배포·운영·다중 프로젝트 반복 성공은 `not_proven`입니다. 평가표는 [[V2_OBJECTIVE_EVALUATION_2026-08-20]]을 사용합니다.
 - PM1~PM3의 Reference Brief·Reference-first 채택, Versioned Design Recipe·반응형 Override, Module Manifest·Slot Renderer와 제거 가능한 Puck Adapter 경계 설계는 완료됐습니다. PM3에서는 Puck 0.22.4와 React Grid Layout 2.2.4를 격리 Pilot에만 설치해 카드 3개의 구조·배치·속성 편집, 이미지 Slot, 단색·투톤 Palette, 자동 배치·줄바꿈·색상 Draft와 Undo를 검증했습니다. 이는 Core Registry 승격이나 실제 제품 적용 완료를 뜻하지 않으며, 실제 병원 웹 Section 적용·Bundle 지연 로딩·사용자 최종 PASS는 남아 있습니다.
 - 기존 PM1 Preview는 실제 제품 Stack이 아니라 `static_design_evidence_only`로 보존합니다. PM2 실제 보드는 React 19 + Vite를 권장 기반으로 기록하되 PM0 PASS와 구현 승인 전에는 채택·설치로 간주하지 않습니다.
