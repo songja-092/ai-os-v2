@@ -74,6 +74,11 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
   `not_implemented`입니다. [[DESIGN_AND_EDITOR_MEETING_2026-08-21]]을 사용합니다.
 - 2026-08-20 실제 검증 증거에 가중치를 둔 V2 현재 성숙도 평가는 `62/100`입니다. Core·PM1·PM2는 강하지만 PM3은 Pilot, PM4~PM6은 미구현 비중이 높고 생산 배포·운영·다중 프로젝트 반복 성공은 `not_proven`입니다. 평가표는 [[V2_OBJECTIVE_EVALUATION_2026-08-20]]을 사용합니다.
 - PM1~PM3의 Reference Brief·Reference-first 채택, Versioned Design Recipe·반응형 Override, Module Manifest·Slot Renderer와 제거 가능한 Puck Adapter 경계 설계는 완료됐습니다. PM3에서는 Puck 0.22.4와 React Grid Layout 2.2.4를 격리 Pilot에만 설치해 카드 3개의 구조·배치·속성 편집, 이미지 Slot, 단색·투톤 Palette, 자동 배치·줄바꿈·색상 Draft와 Undo를 검증했습니다. 이는 Core Registry 승격이나 실제 제품 적용 완료를 뜻하지 않으며, 실제 병원 웹 Section 적용·Bundle 지연 로딩·사용자 최종 PASS는 남아 있습니다.
+- 2026-08-21 PM3 편집기 확장 인터뷰 11개 항목을 사용자 확인으로 완료했습니다. PM3은
+  고객 결과물 편집 기능의 동작을 판정하고 PM6은 실제 고객 결과물·모바일 390/430·
+  Undo·원본 보존·프로젝트 격리·접근성·회귀를 다시 판정합니다. 병원 웹 편집 Draft는
+  후보 선택 전 동결됐고 새 편집기 구현·제품 Commit은 아직 허용되지 않았습니다.
+  [[PM3_EDITOR_INTERVIEW_AND_RESEARCH_2026-08-21]]을 사용합니다.
 - 기존 PM1 Preview는 실제 제품 Stack이 아니라 `static_design_evidence_only`로 보존합니다. PM2 실제 보드는 React 19 + Vite를 권장 기반으로 기록하되 PM0 PASS와 구현 승인 전에는 채택·설치로 간주하지 않습니다.
 - V2 운영 UI는 PC 전용이며, 390px·430px은 고객 결과물 하나의 모바일 규칙을 회귀검증하는 Viewport입니다.
 - 각 PM은 PM PASS·Codex 검증·사용자 PASS·Rollback/Restore 이후 별도 Result Commit 하나로 완료합니다.
