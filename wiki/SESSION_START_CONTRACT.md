@@ -127,11 +127,14 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
 - `pdf-result-preview`와 `hospital-web-result-preview`: 검증된 프로젝트 결과 Module입니다.
 - 목록에서 선택한 Module 하나만 Preview하며 프로젝트별 기능 목록을 분리합니다.
 - Core `ui-state → UI → ui-action → Core`, 선택 상태 저장, 비활성, 오류 격리, 복원과 금지 Action 차단을 검증했습니다.
-- 현재 활성 단계: PM3 — 부분 수정·Motion Adapter
+- PM3은 2026-08-21 사용자가 `일단 통과`로 판정해 범위를 잠갔습니다. 기술 완료는
+  `not_proven`이며 다음 진행 가능 단계는 PM4입니다.
 - 2026-08-21 PM3 편집기 확장 인터뷰를 완료했습니다. 기능 동작은 PM3에서 판정하되
   실제 고객 결과물·390/430·Undo·원본 보존·격리·접근성·회귀는 PM6에서 다시 검증합니다.
-  병원 웹 편집 Draft는 후보 선택 전 동결 상태입니다. 상세 원본은
+  병원 웹 편집 Draft는 PM6 재검증 전 동결 상태입니다. 상세 원본은
   `wiki/PM3_EDITOR_INTERVIEW_AND_RESEARCH_2026-08-21.md`입니다.
+- PM3 사용자 판정과 잠금 경계는
+  `wiki/PM3_USER_PASS_WITH_PM6_REVALIDATION_2026-08-21.md`를 사용합니다.
 - 작은 수정은 `V2 Spec Adapter`의 `Spec Lite`를 먼저 사용합니다. 사용자가 개발 용어로 다시 설명하게 하지 않고 선택된 화면에서 대상을 찾은 뒤 `바꿀 것·유지할 것·확인 방법`만 보여줍니다. 새 프로젝트·새 Module·여러 화면·데이터·권한·배포가 포함되면 `Spec Full`로 승격해 저장소의 공식 Spec Kit Skill을 사용합니다. 명세 생성은 구현·PASS·Commit 승인이 아닙니다.
 - 디자인 공급원 비교는 `pm3-artifacts/design-director-trials/trial-index.json`의 순서와 고정 Brief를 사용합니다. 최초 Figma 실행은 연결 예비 시험이며 본 비교 결과로 계산하지 않습니다.
 - 디자인 공급원 10개 시각 시험은 종료됐습니다. 5번 Design MCP와 7번 UI UX Pro MCP가 명시적 선호 1·2위이며, 2·3·4·5·7·9·10번 방향을 채택하고 6·8번은 보류했습니다. 여러 채택 공급원을 역할별로 함께 사용할 수 있습니다.

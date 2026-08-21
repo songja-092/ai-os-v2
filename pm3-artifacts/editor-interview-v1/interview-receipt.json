@@ -27,12 +27,19 @@
     "interview_complete": true,
     "research_allowed": true,
     "new_editor_implementation_allowed": false,
-    "next_gate": "user_editor_candidate_selection"
+    "next_gate": "pm4_start_with_pm6_revalidation_debt"
   },
   "current_pilot": {
-    "status": "frozen_pending_editor_selection",
+    "status": "user_passed_with_pm6_revalidation_required",
     "product_worktree": "/home/user/바탕화면/test_project_pm3_hospital",
     "commit_performed": false,
     "push_performed": false
+  },
+  "user_disposition": {
+    "decision": "pass",
+    "decided_at": "2026-08-21",
+    "technical_completion": "not_proven",
+    "scope_locked": true,
+    "pm6_revalidation_required": true
   }
 }
