@@ -88,6 +88,7 @@ session_preflight:
 - V2의 현재 엔지니어링 기본 방향은 `Harness-first, Spec-guided, Eval-driven, Human-approved, Loop-assisted`입니다. 짧게 `Harness-first, Loop-ready`라고 부릅니다. 사람의 목표·범위·승인·복구 계약 안에서 AI가 작업하고, 반복 가능하며 기계적으로 검증·복구 가능한 병목만 제한된 Loop로 자동화합니다.
 - 새로운 방법은 `조사 → 격리 시험 → 기존 방식 비교 → 사용자 채택 → 실제 프로젝트 → 반복 성공` 순서를 거쳐야 기본값이 됩니다. 유행, GitHub Star, 홍보 문구만으로 기본 Skill이나 Core 기능으로 승격하지 않습니다.
 - 자동화에는 시도·시간·비용 제한, PASS·중단 조건, Rollback, 사용자 호출 조건이 있어야 하며 효과가 없으면 수동 흐름과 기존 Artifact를 보존한 채 제거할 수 있어야 합니다.
+- PM을 넘기기 전 `tools/verify-pm-transition-evidence`를 실행해 잠금·Tag·사용자 PASS·기술 증거·현재 상태의 누락과 충돌을 읽기 전용으로 확인합니다. 이 검사는 기본 자동화이지만 PM을 자동 PASS하거나 파일을 자동 수정하지 않습니다.
 - 상세 운영 원본은 `wiki/V2_ENGINEERING_OPERATING_MODEL.md`입니다. 이 문서와 충돌하는 임시 대화·보고서는 공식 기본 규칙으로 사용하지 않습니다.
 
 ## 변하지 않는 V2 용어 계약
