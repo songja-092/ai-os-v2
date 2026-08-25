@@ -4,8 +4,7 @@
     "precheck": [
       {"id": "session-preflight", "command": ["tools/session-preflight"], "classification": "runtime", "side_effect": "read_only"},
       {"id": "ai-evidence-guard", "command": ["tools/verify-ai-evidence-guard"], "classification": "contract_only", "side_effect": "read_only"},
-      {"id": "pm-locks", "command": ["tools/verify-pm-locks"], "classification": "runtime", "side_effect": "read_only"},
-      {"id": "spec-contract", "command": ["tools/verify-v2-spec-adapter", "{spec}"], "classification": "contract_only", "side_effect": "read_only"}
+      {"id": "pm-locks", "command": ["tools/verify-pm-locks"], "classification": "runtime", "side_effect": "read_only"}
     ],
     "postcheck": [
       {"id": "pm-locks", "command": ["tools/verify-pm-locks"], "classification": "runtime", "side_effect": "read_only"},
@@ -28,6 +27,12 @@
       "priority": 10,
       "paths": ["AGENTS.md", ".agents/rules/evidence-first.md", ".agents/rules/v2-memory.md", "wiki/SESSION_START_CONTRACT.md", "wiki/CODEX_COMMON_EXECUTION_CONTRACT.md", "verification-routing.json", "schemas/work-evidence.schema.json", "tools/verify-work-item", "tests/test-verify-work-item", "test-fixtures/verify-work-item/**"],
       "commands": [{"id": "common-harness-fixtures", "command": ["tests/test-verify-work-item"], "classification": "fixture_specific", "side_effect": "temporary_with_restore", "mutable_paths": []}]
+    },
+    {
+      "id": "v2-spec-adapter",
+      "priority": 20,
+      "paths": ["pm3-artifacts/spec-adapter-v1/**", ".agents/skills/v2-spec-adapter/**", "tools/verify-v2-spec-adapter"],
+      "commands": [{"id": "v2-spec-contract", "command": ["tools/verify-v2-spec-adapter", "pm3-artifacts/spec-adapter-v1/short-request-pilot.json"], "classification": "contract_only", "side_effect": "read_only"}]
     },
     {
       "id": "capability-registry",

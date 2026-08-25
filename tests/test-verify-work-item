@@ -165,6 +165,14 @@ def test_restore_hash() -> None:
         shutil.rmtree(repo)
 
 
+def test_global_precheck_has_no_product_specific_spec() -> None:
+    manifest = json.loads((ROOT / "verification-routing.json").read_text(encoding="utf-8"))
+    precheck_ids = {check["id"] for check in manifest["global_checks"]["precheck"]}
+    assert "spec-contract" not in precheck_ids
+    routes = {route["id"]: route for route in manifest["routes"]}
+    assert "v2-spec-adapter" in routes
+
+
 def main() -> None:
     tests = [
         test_positive_and_dirty,
@@ -173,6 +181,7 @@ def main() -> None:
         test_locked_first,
         test_failure_then_same_recheck,
         test_restore_hash,
+        test_global_precheck_has_no_product_specific_spec,
     ]
     for test in tests:
         test()

@@ -1,5 +1,7 @@
 # AI OS V2 — GPT 세션 변경 후 작업 지시서
 
+> 최신 인수인계는 [[GPT_PM0_PM6_CONTINUATION_HANDOFF]]입니다. 이 문서의 PM0~PM7 번호와 당시 작업 상태는 역사적 기록으로만 사용합니다.
+
 아래 내용을 새 GPT 세션에 그대로 전달한다.
 
 ---
@@ -27,6 +29,7 @@ AI OS V2의 Post-MVP 작업을 이어서 진행해줘.
 - `/home/user/바탕화면/V2_UI/PM1_visual_targets_v2_evidence`
 - `/home/user/바탕화면/V2_UI/PM1_mobile_first_v3_options`
 - `/home/user/바탕화면/V2_UI/PM1_mobile_first_v3_evidence`
+- `/home/user/바탕화면/V2_UI/PM1_PC_ONLY_V2_UI_OPTIONS`
 
 ### 제품 저장소
 
@@ -84,18 +87,25 @@ v2_core_modification_for_pm1: false
 official_visual_target_approved: false
 ```
 
-최근 방향:
+최신 확정 Platform 방향:
+
+- V2 운영 UI 자체는 PC 전용이며 V2 모바일 UI는 만들지 않음
+- V2가 제작하는 고객 결과물은 390px·430px 모바일 버전이 필수
+- V2 PC 작업실에서 고객 모바일 결과물을 크게 비교·검증
+
+최근 UI 방향:
 
 - 전역 대시보드와 프로젝트 작업실 분리
 - 전역 `디자인` 메뉴 제거
 - 기능 없는 `HJ` 사용자 Avatar 제거
 - 프로젝트가 10~50개일 때 검색·유형 필터·목록으로 관리
 - 디자인은 프로젝트 제작 단계 안에서 처리
-- 모바일 390px 우선, 이후 430px, 마지막 PC
-- 모바일 작업실은 작은 휴대폰 Mockup이 아니라 Preview가 주 작업 영역
+- V2 UI는 1440px PC 기준으로 구성
+- 고객 결과물은 390px·430px을 필수 제작·검증하며 PC 결과는 프로젝트 요구에 따라 추가
+- PC 작업실에서 고객 모바일 Preview가 75~90%의 주 작업 영역을 사용
 - Docker는 운영환경 상태 진입점 후보이며 무제한 관리 Console이 아님
 
-사용자는 방금 제시된 모바일 시안 세 개를 모두 거절했다. 따라서 시안 1·2·3 중 하나가 선택됐다고 기록하면 안 된다.
+이전 V2 모바일 시안 세 개는 Platform 범위가 잘못돼 `rejected_wrong_platform_scope`로 보존한다. 최신 PC 전용 시안은 사용자 선택 전이며 선택됐다고 기록하면 안 된다.
 
 ## 5. 디자인 기록 의무
 
