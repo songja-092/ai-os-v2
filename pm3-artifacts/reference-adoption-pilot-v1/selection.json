@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "project_id": "ondam-home-community",
+  "target_surface": "customer_product",
+  "preview_path": "../design-director-trials/aceternity-react-bits-community-v1/index.html",
+  "sources": [
+    {
+      "source_id": "design-mcp",
+      "trial_path": "../design-director-trials/design-mcp-customer-web-v1/trial.json",
+      "role": "direction_exploration",
+      "applied_section_ids": ["hero"],
+      "used_part": "강한 첫 인상과 한 가지 강조색을 사용하는 방향"
+    },
+    {
+      "source_id": "21st-codex-plugin",
+      "trial_path": "../design-director-trials/21st-customer-web-v1/trial.json",
+      "role": "implementation_blocks",
+      "applied_section_ids": ["community-feed"],
+      "used_part": "구현 가능한 이미지 카드와 Hover 상호작용 구조"
+    },
+    {
+      "source_id": "ui-ux-pro-mcp",
+      "trial_path": "../design-director-trials/ui-ux-pro-mcp-customer-web-v1/trial.json",
+      "role": "quality_guard",
+      "applied_section_ids": ["navigation", "community-feed"],
+      "used_part": "글자 위계·대비·반응형·동작 줄이기 검사"
+    },
+    {
+      "source_id": "creative-tim-ui",
+      "trial_path": "../design-director-trials/creative-tim-ui-community-v1/trial.json",
+      "role": "information_structure",
+      "applied_section_ids": ["navigation", "hero", "community-feed", "questions"],
+      "used_part": "Hero·작성자·질문·카드가 균형을 이루는 편집형 정보 구조"
+    },
+    {
+      "source_id": "aceternity-react-bits",
+      "trial_path": "../design-director-trials/aceternity-react-bits-community-v1/trial.json",
+      "role": "motion_and_expression",
+      "applied_section_ids": ["hero", "live-topics", "questions"],
+      "used_part": "Aurora 배경·흐르는 주제·카드 반응과 reduced-motion 대체"
+    }
+  ],
+  "user_approval_required": true
+}

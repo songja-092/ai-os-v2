@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -u
+
+failures=0
+
+check_file() {
+  if [[ -f "$1" ]]; then
+    printf 'PASS present: %s\n' "$1"
+  else
+    printf 'FAIL missing: %s\n' "$1"
+    failures=$((failures + 1))
+  fi
+}
+
+check_text() {
+  local file="$1"
+  local text="$2"
+  if grep -Fq "$text" "$file"; then
+    printf 'PASS rule: %s -> %s\n' "$file" "$text"
+  else
+    printf 'FAIL rule: %s -> %s\n' "$file" "$text"
+    failures=$((failures + 1))
+  fi
+}
+
+check_file AGENTS.md
+check_file wiki/SESSION_START_CONTRACT.md
+check_file wiki/AI_EVIDENCE_GUARD.md
+check_file .agents/rules/evidence-first.md
+check_file .agents/rules/v2-memory.md
+check_text AGENTS.md 'wiki/SESSION_START_CONTRACT.md'
+check_text AGENTS.md 'wiki/AI_EVIDENCE_GUARD.md'
+check_text .agents/rules/evidence-first.md 'not_proven'
+check_text wiki/AI_EVIDENCE_GUARD.md 'Fixture·Pilot·정적 Preview'
+check_text wiki/SESSION_START_CONTRACT.md '직접 확인하지 않은 기능·상태·PASS·동기화·복구를 된다고 말하지 않습니다.'
+check_text wiki/SESSION_START_CONTRACT.md 'github_alignment: same | different | not_checked'
+
+if (( failures > 0 )); then
+  printf 'AI Evidence Guard: FAIL (%d)\n' "$failures"
+  exit 1
+fi
+
+printf 'AI Evidence Guard: PASS\n'

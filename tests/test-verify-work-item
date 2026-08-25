@@ -1,0 +1,184 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import hashlib
+import json
+import shutil
+import subprocess
+import tempfile
+from pathlib import Path
+
+import jsonschema
+
+ROOT = Path(__file__).resolve().parents[1]
+RUNNER = ROOT / "tools/verify-work-item"
+FIXTURE = ROOT / "test-fixtures/verify-work-item"
+SCHEMA = json.loads((ROOT / "schemas/work-evidence.schema.json").read_text(encoding="utf-8"))
+
+
+def command(repo: Path, phase: str) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        [
+            str(RUNNER),
+            "--repo", str(repo),
+            "--routing", "routing.json",
+            "--spec", "spec.json",
+            "--base", "HEAD",
+            "--phase", phase,
+            "--evidence", "work-evidence.json",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+
+def create_repo() -> Path:
+    target = Path(tempfile.mkdtemp(prefix="verify-work-item-"))
+    for source in FIXTURE.iterdir():
+        if not source.is_file():
+            continue
+        shutil.copy2(source, target / source.name)
+    subprocess.run(["git", "init", "-q"], cwd=target, check=True)
+    subprocess.run(["git", "config", "user.email", "fixture@example.invalid"], cwd=target, check=True)
+    subprocess.run(["git", "config", "user.name", "Fixture"], cwd=target, check=True)
+    (target / "user.txt").write_text("user baseline\n", encoding="utf-8")
+    subprocess.run(["git", "add", "."], cwd=target, check=True)
+    subprocess.run(["git", "commit", "-qm", "fixture baseline"], cwd=target, check=True)
+    return target
+
+
+def precheck(repo: Path) -> None:
+    (repo / "user.txt").write_text("user dirty preserved\n", encoding="utf-8")
+    (repo / "user-dir").mkdir()
+    (repo / "user-dir/note.txt").write_text("untracked user data\n", encoding="utf-8")
+    result = command(repo, "precheck")
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def load_evidence(repo: Path) -> dict:
+    evidence = json.loads((repo / "work-evidence.json").read_text(encoding="utf-8"))
+    jsonschema.validate(evidence, SCHEMA)
+    return evidence
+
+
+def test_positive_and_dirty() -> None:
+    repo = create_repo()
+    try:
+        precheck(repo)
+        user_hash = hashlib.sha256((repo / "user.txt").read_bytes()).hexdigest()
+        untracked_hash = hashlib.sha256((repo / "user-dir/note.txt").read_bytes()).hexdigest()
+        (repo / "src").mkdir()
+        (repo / "src/ok.txt").write_text("ok\n", encoding="utf-8")
+        result = command(repo, "postcheck")
+        assert result.returncode == 0, result.stdout + result.stderr
+        evidence = load_evidence(repo)
+        assert any(run["check_id"] == "normal-fixture" and run["classification"] == "fixture_specific" for run in evidence["check_runs"])
+        assert evidence["dirty_preservation"]["preserved"] is True
+        assert hashlib.sha256((repo / "user.txt").read_bytes()).hexdigest() == user_hash
+        assert hashlib.sha256((repo / "user-dir/note.txt").read_bytes()).hexdigest() == untracked_hash
+    finally:
+        shutil.rmtree(repo)
+
+
+def test_unmatched_blocks() -> None:
+    repo = create_repo()
+    try:
+        precheck(repo)
+        (repo / "unknown.txt").write_text("unknown\n", encoding="utf-8")
+        result = command(repo, "postcheck")
+        assert result.returncode == 2, result.stdout + result.stderr
+        assert "unknown.txt" in json.loads(result.stdout)["unmatched_files"]
+    finally:
+        shutil.rmtree(repo)
+
+
+def test_dirty_conflict_blocks() -> None:
+    repo = create_repo()
+    try:
+        precheck(repo)
+        (repo / "user.txt").write_text("Codex must not overwrite this\n", encoding="utf-8")
+        (repo / "src").mkdir()
+        (repo / "src/ok.txt").write_text("ok\n", encoding="utf-8")
+        result = command(repo, "postcheck")
+        assert result.returncode == 2, result.stdout + result.stderr
+        assert "user.txt" in json.loads(result.stdout)["dirty_conflicts"]
+    finally:
+        shutil.rmtree(repo)
+
+
+def test_locked_first() -> None:
+    repo = create_repo()
+    try:
+        precheck(repo)
+        (repo / "locked").mkdir()
+        (repo / "locked/result.txt").write_text("changed\n", encoding="utf-8")
+        (repo / "src").mkdir()
+        (repo / "src/also.txt").write_text("normal\n", encoding="utf-8")
+        result = command(repo, "postcheck")
+        assert result.returncode == 2, result.stdout + result.stderr
+        selected = json.loads(result.stdout)["selected_checks"]
+        assert "locked-check" in selected and "normal-fixture" not in selected
+    finally:
+        shutil.rmtree(repo)
+
+
+def test_failure_then_same_recheck() -> None:
+    repo = create_repo()
+    try:
+        precheck(repo)
+        (repo / "repair").mkdir()
+        (repo / "repair/item.txt").write_text("broken\n", encoding="utf-8")
+        first = command(repo, "postcheck")
+        assert first.returncode == 2, first.stdout + first.stderr
+        before = load_evidence(repo)
+        failed_run = next(run for run in before["check_runs"] if run["check_id"] == "repair-check")
+        (repo / "repair.pass").write_text("fixed\n", encoding="utf-8")
+        second = command(repo, "recheck")
+        assert second.returncode == 0, second.stdout + second.stderr
+        after = load_evidence(repo)
+        recheck = next(item for item in after["revalidation"] if item["check_id"] == "repair-check")
+        rerun = [run for run in after["check_runs"] if run["check_id"] == "repair-check"][-1]
+        assert recheck["same_command"] is True and recheck["status"] == "PASS"
+        assert rerun["command"] == failed_run["command"]
+    finally:
+        shutil.rmtree(repo)
+
+
+def test_restore_hash() -> None:
+    repo = create_repo()
+    try:
+        (repo / "state").mkdir()
+        (repo / "state/value.txt").write_text("original\n", encoding="utf-8")
+        subprocess.run(["git", "add", "state/value.txt"], cwd=repo, check=True)
+        subprocess.run(["git", "commit", "-qm", "state baseline"], cwd=repo, check=True)
+        precheck(repo)
+        (repo / "state/trigger.txt").write_text("run\n", encoding="utf-8")
+        before = hashlib.sha256((repo / "state/value.txt").read_bytes()).hexdigest()
+        result = command(repo, "postcheck")
+        assert result.returncode == 0, result.stdout + result.stderr
+        evidence = load_evidence(repo)
+        run = next(run for run in evidence["check_runs"] if run["check_id"] == "restore-check")
+        assert run["restore_verified"] is True
+        assert hashlib.sha256((repo / "state/value.txt").read_bytes()).hexdigest() == before
+    finally:
+        shutil.rmtree(repo)
+
+
+def main() -> None:
+    tests = [
+        test_positive_and_dirty,
+        test_unmatched_blocks,
+        test_dirty_conflict_blocks,
+        test_locked_first,
+        test_failure_then_same_recheck,
+        test_restore_hash,
+    ]
+    for test in tests:
+        test()
+        print(f"PASS {test.__name__}")
+    print("verify-work-item fixtures: PASS")
+
+
+if __name__ == "__main__":
+    main()

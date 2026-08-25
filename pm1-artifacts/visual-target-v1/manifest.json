@@ -1,0 +1,43 @@
+{
+  "artifact_version": "1.0",
+  "artifact_type": "pm1_visual_target",
+  "visual_target_id": "pm1-v2-dashboard-v1",
+  "target_surface": "v2_board",
+  "viewport": {
+    "width": 1600,
+    "height": 1000
+  },
+  "native_image_size": {
+    "width": 1586,
+    "height": 992
+  },
+  "image_path": "/home/user/바탕화면/v2_ui_images/AI OS V2 PM1 Visual Target v1.png",
+  "sha256": "d2738069ee6a404c8c25da2e0eecf8a7c5e4801fee1a5e59d0b5532fc0c66a2a",
+  "generation_tool": "OpenAI built-in ImageGen",
+  "design_rule_tool": "UI UX Pro Max",
+  "status": "approved_visual_direction_with_implementation_fixes",
+  "approval": {
+    "user_statement": "오케이 이걸로하고",
+    "approval_scope": "visual_direction_only",
+    "approved_at": "2026-08-17",
+    "pm1_complete": false
+  },
+  "product_applied": false,
+  "pm2_started": false,
+  "reference_images": [
+    "/home/user/바탕화면/v2_ui_images/대시보드 PC Visual Target.png",
+    "/home/user/바탕화면/v2_ui_images/프로젝트 작업실 PC Visual Target.png"
+  ],
+  "design_system_record": "pm1-artifacts/visual-target-v1/ui-ux-pro-record.json",
+  "implementation_candidates_record": "pm1-artifacts/visual-target-v1/shadcn-blocks.json",
+  "prompt_record": "pm1-artifacts/visual-target-v1/prompt.md",
+  "design_finish_audit": "pm1-artifacts/visual-target-v1/design-finish-audit.md",
+  "finish_test": "pm1-artifacts/visual-target-v1/finish-test.json",
+  "finish_report": "wiki/PM1_VISUAL_TARGET_FINISH_REPORT.md",
+  "required_implementation_fixes": [
+    "Use a waiting or in-progress status treatment instead of a green completion check for design review.",
+    "Remove duplicated status and next-action wording in project rows.",
+    "Preserve crisp text contrast and clearly visible panel borders in code instead of the softened ImageGen rendering.",
+    "Render status and actions only from Core ui-state and allowed_actions."
+  ]
+}

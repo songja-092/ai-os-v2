@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "test_id": "pm1-v2-dashboard-finish-test-v1",
+  "visual_target_id": "pm1-v2-dashboard-v1",
+  "status": "implemented_test_awaiting_user_review",
+  "implementation_scope": "isolated_pm1_fixture_only",
+  "route": "http://127.0.0.1:8200/pm1-finish-test",
+  "source_file": "pm1-finish-test.html",
+  "source_visual": "/home/user/바탕화면/v2_ui_images/AI OS V2 PM1 Visual Target v1.png",
+  "implementation_screenshot": "/home/user/바탕화면/v2_ui_images/AI OS V2 PM1 Finish Test.jpg",
+  "comparison_screenshot": "/home/user/바탕화면/v2_ui_images/AI OS V2 PM1 Finish Comparison.jpg",
+  "viewport": {"width": 1600, "height": 1000},
+  "interaction_checks": {
+    "flow_disclosure": "PASS",
+    "project_filter": "PASS",
+    "project_search": "PASS",
+    "sync_refresh": "PASS"
+  },
+  "design_qa": "PASS",
+  "core_modified": false,
+  "product_modified": false,
+  "pm2_started": false,
+  "user_visual_approval": "pending"
+}

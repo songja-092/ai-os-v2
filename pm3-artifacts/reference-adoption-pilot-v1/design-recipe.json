@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "recipe_id": "ondam-home-community-reference-adoption-v1",
+  "project_id": "ondam-home-community",
+  "target_surface": "customer_product",
+  "version": 1,
+  "status": "draft",
+  "preview": {
+    "path": "/home/user/바탕화면/ai_os_v2_pm3/pm3-artifacts/design-director-trials/aceternity-react-bits-community-v1/index.html",
+    "sha256": "4ef41536af08855398f705d08a981fde5d516b09d81cc42c5f6f8d42e9ec1062"
+  },
+  "sources": [
+    {
+      "source_id": "design-mcp",
+      "trial_path": "/home/user/바탕화면/ai_os_v2_pm3/pm3-artifacts/design-director-trials/design-mcp-customer-web-v1/trial.json",
+      "role": "direction_exploration",
+      "applied_section_ids": [
+        "hero"
+      ],
+      "used_part": "강한 첫 인상과 한 가지 강조색을 사용하는 방향",
+      "trial_sha256": "bb86b53009f20f839a7b1dba67716232e2019d2b9e6e62a8943abd356e583075",
+      "trial_status": "adopted_design_direction"
+    },
+    {
+      "source_id": "21st-codex-plugin",
+      "trial_path": "/home/user/바탕화면/ai_os_v2_pm3/pm3-artifacts/design-director-trials/21st-customer-web-v1/trial.json",
+      "role": "implementation_blocks",
+      "applied_section_ids": [
+        "community-feed"
+      ],
+      "used_part": "구현 가능한 이미지 카드와 Hover 상호작용 구조",
+      "trial_sha256": "1c70482d98eca81ba41a15faee776ec8fcb4e5b57d4e4e947424ca84b4bb4d09",
+      "trial_status": "adopted_design_direction"
+    },
+    {
+      "source_id": "ui-ux-pro-mcp",
+      "trial_path": "/home/user/바탕화면/ai_os_v2_pm3/pm3-artifacts/design-director-trials/ui-ux-pro-mcp-customer-web-v1/trial.json",
+      "role": "quality_guard",
+      "applied_section_ids": [
+        "navigation",
+        "community-feed"
+      ],
+      "used_part": "글자 위계·대비·반응형·동작 줄이기 검사",
+      "trial_sha256": "cc801e48d7e0919a76debf01af4596b0b76c46cae6f6dc5717d779d458145aa1",
+      "trial_status": "adopted_with_adjustment"
+    },
+    {
+      "source_id": "creative-tim-ui",
+      "trial_path": "/home/user/바탕화면/ai_os_v2_pm3/pm3-artifacts/design-director-trials/creative-tim-ui-community-v1/trial.json",
+      "role": "information_structure",
+      "applied_section_ids": [
+        "navigation",
+        "hero",
+        "community-feed",
+        "questions"
+      ],
+      "used_part": "Hero·작성자·질문·카드가 균형을 이루는 편집형 정보 구조",
+      "trial_sha256": "9573c2bc0e6d5b7e9f4dd996b7f699d7027afed03f16dbc9e8beb31eaed55843",
+      "trial_status": "adopted_design_direction"
+    },
+    {
+      "source_id": "aceternity-react-bits",
+      "trial_path": "/home/user/바탕화면/ai_os_v2_pm3/pm3-artifacts/design-director-trials/aceternity-react-bits-community-v1/trial.json",
+      "role": "motion_and_expression",
+      "applied_section_ids": [
+        "hero",
+        "live-topics",
+        "questions"
+      ],
+      "used_part": "Aurora 배경·흐르는 주제·카드 반응과 reduced-motion 대체",
+      "trial_sha256": "c44863abd0556ec75acf48a656d917b9e67294ebdb54d175491d8492d25067e4",
+      "trial_status": "adopted_design_direction"
+    }
+  ],
+  "rules": {
+    "source_of_truth": "design_recipe",
+    "user_approval_required_before_apply": true,
+    "unselected_brand_assets_copy": false,
+    "reference_trace_required": true
+  }
+}

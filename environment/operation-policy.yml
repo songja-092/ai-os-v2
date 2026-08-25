@@ -1,0 +1,283 @@
+schema_version: 1
+status: user_approved_in_progress
+
+gates:
+  current_stage: PM1
+  pm_start_allowed: true
+  pm_blocked: [PM2, PM3, PM4, PM5, PM6]
+  technical_gate: pass
+  user_result: pass
+  user_result_recorded_at: "2026-08-17"
+  backup_exception: deferred_by_user_for_pm1_test
+
+workspaces:
+  v2_dirty_source:
+    path: /home/user/바탕화면/ai_os_v2
+    purpose: preserve_user_dirty_changes
+    mutation_allowed_from_or0: false
+    audited_status_sha256: 592817a3624832c807944a3b02860deb881c31db607acb925915b2ba359ed920
+    snapshot_recorded_at: "2026-08-17"
+    verification_scope: proves_preservation_from_this_snapshot_forward_only
+  or0:
+    path: /home/user/바탕화면/ai_os_v2_or0
+    baseline_commit: a7bb70e297147b011bacd2fa5ea038313a2fd124
+    branch: codex/or0-readiness
+    allowed_paths:
+      - environment/runtime-baseline.yml
+      - environment/operation-policy.yml
+      - environment/preflight-checklist.md
+      - tools/or0-preflight
+    prohibited_mutations:
+      - v2
+      - runs
+      - state
+      - wiki
+      - product_files
+  product:
+    path: /home/user/바탕화면/test_project
+    baseline_commit: 3b592c8037a276cb1eb0bf18bd27e3b49e9c3701
+    remote_backup: not_configured
+    mutation_allowed_from_or0: false
+  product_hospital_worktree:
+    path: /home/user/바탕화면/test_project_pm0_hospital
+    baseline_commit: e2625bba034e5aef4b130c5640d041ab6b76c925
+    detached_head: true
+    dependency_install: npm_ci_completed
+    validation: typecheck_and_build_pass
+  product_pdf_worktree:
+    path: /home/user/바탕화면/test_project_pm0_pdf
+    baseline_commit: 3b592c8037a276cb1eb0bf18bd27e3b49e9c3701
+    detached_head: true
+    dependency_install: npm_ci_completed
+    validation: lint_and_build_pass
+  v2_ui_reference:
+    path: /home/user/바탕화면/V2_UI
+    git_repository: false
+    mutation_allowed_from_or0: false
+
+project_runtime:
+  common:
+    bind_host: 127.0.0.1
+    strict_port: true
+    preview_auto_start_from_preflight: false
+    process_manager_required: false
+    force_kill_allowed: false
+    pid_directory: /home/user/바탕화면/ai_os_v2_or0/.or0/runtime/pids
+    log_directory: /home/user/바탕화면/ai_os_v2_or0/.or0/runtime/logs
+    temp_directory: /home/user/바탕화면/ai_os_v2_or0/.or0/runtime/tmp
+    readiness_checks:
+      - process_running
+      - designated_port_responds
+      - html_loads
+      - expected_dom_elements_exist
+      - no_fatal_console_errors
+  hospital_web:
+    path: /home/user/바탕화면/test_project_pm0_hospital
+    port: 5173
+    command: npm run dev -- --host 127.0.0.1 --port 5173 --strictPort
+    lockfile: /home/user/바탕화면/test_project/package-lock.json
+    expected_dom_meaning:
+      - hospital_title
+      - clinicians
+      - reservation
+  pdf_stamp:
+    path: /home/user/바탕화면/test_project_pm0_pdf/m7-pdf-stamp
+    port: 5174
+    command: npm run dev -- --host 127.0.0.1 --port 5174 --strictPort
+    lockfile: /home/user/바탕화면/test_project/m7-pdf-stamp/package-lock.json
+    expected_dom_meaning:
+      - pdf_open_or_upload
+      - drawing_canvas_or_viewer
+      - stamp_controls
+  v2_ui:
+    port: 8200
+    status: reserved_not_implemented_in_or0
+
+source_policy:
+  general:
+    record_source_url: true
+    record_checked_at: true
+    separate_fact_claim_opinion_recommendation: true
+    bypass_login_or_paywall: false
+    reuse_login_cookie: false
+    bulk_collection: false
+    automatic_product_change: false
+  web:
+    browser_and_web_tools_first: true
+    trafilatura: conditional_pilot_not_installed
+    crawl4ai: deferred_not_installed
+  github:
+    connected_tools_first: true
+    record_repository_release_issue_commit_license: true
+    respect_rate_limit_and_retry_after: true
+    or0_c_origin_main_read_allowed: true
+    or0_c_origin_main_read_timeout_seconds: 15
+    or0_c_other_network_access_allowed: false
+  reddit:
+    user_provided_url: adopted
+    public_web_search: adopted
+    official_api: deferred_account_required
+    treat_as_official_fact: false
+  threads:
+    user_provided_link_text_screenshot: adopted
+    public_web_visible_content: adopted
+    official_api_search: conditional_unverified_for_or0
+    unofficial_api: prohibited
+    scraping: prohibited
+
+reference_policy:
+  storage_format: markdown_yaml_or_json
+  vector_database_required: false
+  required_fields:
+    - id
+    - source
+    - url
+    - title
+    - industry
+    - screen_type
+    - structure_pattern
+    - mobile_flow
+    - visual_style
+    - useful_parts
+    - excluded_parts
+    - checked_at
+    - license_status
+    - screenshot_storage_allowed
+    - selected_by_user
+    - used_in_projects
+  automatic_design_system_adoption: false
+  user_visual_selection_required: true
+  project_verification_before_adoption: true
+  attribution_required_when_license_requires_it: true
+  screenshot_storage_requires_rights_check: true
+
+security_policy:
+  commit_api_keys: false
+  commit_dotenv_or_secret_files: false
+  log_tokens_or_cookies: false
+  reuse_login_cookies: false
+  external_account_connection_requires_user_approval: true
+  external_data_transfer_requires_user_approval: true
+  screenshot_and_pdf_privacy_check_required: true
+  system_permission_changes_separate_from_environment_docs: true
+
+backup_policy:
+  status: deferred_by_user_nonblocking_for_pm1_test
+  external_filesystem_detected: false
+  checked_at: "2026-08-17"
+  user_deferred: true
+  deferred_scope: external_backup_and_restore_verification
+  residual_risk: device_failure_or_local_disk_loss_is_not_covered
+  required_before: production_deployment_or_irreplaceable_artifact_creation
+  same_disk_copy_counts_as_disaster_backup: false
+  required_targets:
+    - /home/user/바탕화면/test_project
+    - /home/user/바탕화면/V2_UI
+    - /home/user/.codex/generated_images
+    - selected_reference_and_user_screenshots
+    - untracked_run_evidence
+    - /home/user/바탕화면/ai_os_v2/wiki/POST_MVP_DESIGN_COLLAB_HANDOFF.md
+  allowed_destination_types:
+    private_github_for_code_and_docs: undecided
+    external_storage_for_images_and_full_projects: undecided
+    nas_or_cloud: undecided
+  automatic_upload_allowed: false
+
+antigravity_reproduction:
+  status: isolated_launch_verified
+  executable: /home/user/바탕화면/antigravity_ide_2_5_5_audit/isolated/AntigravityIDE/antigravity-ide
+  observed_version: 1.107.0
+  sandbox_path: /home/user/바탕화면/antigravity_ide_2_5_5_audit/isolated/AntigravityIDE/chrome-sandbox
+  observed_mode: "4755"
+  observed_owner: root:root
+  permission_change_allowed_in_or0_ab: false
+  separate_approval_required: false
+  user_approval_received: true
+  isolated_target: /home/user/바탕화면/antigravity_ide_2_5_5_audit/isolated/AntigravityIDE/chrome-sandbox
+  required_owner: root:root
+  required_mode: "4755"
+  isolated_launch_verified: true
+  verified_at: "2026-08-17"
+  launch_flags:
+    - --user-data-dir=/tmp/ai-os-or0-antigravity.INSTANCE/user-data
+    - --extensions-dir=/tmp/ai-os-or0-antigravity.INSTANCE/extensions
+    - --disable-extensions
+  no_sandbox_present: false
+  fatal_log_present: false
+  process_count_observed: 21
+  isolated_processes_remaining_after_exit: false
+  temporary_data_cleaned: true
+  existing_install_modified: false
+  legacy_running_install:
+    path: /home/user/Downloads/Antigravity IDE
+    no_sandbox_observed: true
+    modified_or_stopped_by_or0: false
+    allowed_for_pm_work: false
+
+manual_preview_evidence:
+  hospital_manual_preview_verified: true
+  pdf_manual_preview_verified: true
+  verified_at: "2026-08-17"
+  evidence_scope:
+    - expected_dom
+    - primary_interaction
+    - no_fatal_console
+    - strict_port
+    - process_isolation
+
+fresh_codex_reproduction:
+  status: pass
+  verified_at: "2026-08-17"
+  execution_mode: ephemeral_read_only_instructions_with_host_metadata_visibility
+  workspace_clean_at_start: true
+  preflight_execution_count: 1
+  pass_count: 57
+  warn_count: 2
+  fail_count: 0
+  exit_code: 0
+  or0_preflight: PASS
+  file_changes_by_fresh_process: false
+  remaining_warnings:
+    - external_backup_and_restore_deferred_by_user
+    - preview_processes_not_started_by_read_only_preflight_but_manual_evidence_exists
+
+capability_environment:
+  status: ready_for_pm1
+  plugin_path: /home/user/바탕화면/ai_os_v2_pm1/plugins/v2-capability-lab
+  candidate_catalog: plugins/v2-capability-lab/registry/candidate-catalog.json
+  adopted_registry: plugins/v2-capability-lab/registry/capabilities.json
+  candidate_source_policy: reviewed_catalog_plus_public_github_metadata
+  install_all_candidates: false
+  lifecycle:
+    - discover_or_reuse
+    - static_audit
+    - isolated_fixture_trial
+    - user_adopt_hold_or_discard
+    - inactive_adapter_registration
+    - target_pm_validation
+    - user_activation
+  pm1_enabled_tools:
+    - v2-design-finish
+    - ui-ux-pro-max
+    - shadcn-read-only-block-review
+    - impeccable-inactive-second-opinion
+  deferred_candidates:
+    taste-skill-v1: user_visual_comparison_required
+    kokonut-ui: PM2_pass_and_motion_need_required
+    motion: PM2_pass_and_motion_need_required
+    auto-animate: alternative_when_motion_not_installed
+    storybook: reusable_modules_required
+    stitch-skills: rejected_as_default_requires_new_user_request
+  future_media_adapters:
+    status: not_installed
+    gate: PM2_modular_board_pass_and_real_customer_need
+    categories:
+      - animation
+      - illustration
+      - video
+      - 3d
+  removal_contract:
+    feature_flag_off_first: true
+    adapter_removal_supported: true
+    package_removal_supported: true
+    preserve_recipe_version_reference_approval_artifact: true

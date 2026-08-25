@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "board_id": "pm1-reference-board-v1",
+  "status": "candidate_selection",
+  "target_surface": "v2_board",
+  "source_actor": "codex_research_adapter",
+  "core_owned_after_validation": true,
+  "access_checked_at": "2026-08-17",
+  "current_design_id": "current-v2",
+  "recommendations": [
+    {
+      "id": "professional-workroom",
+      "name": "밀도 높은 전문 작업실",
+      "summary": "프로젝트가 많아도 검색·필터·상태를 빠르게 확인하는 운영형 화면",
+      "best_for": "프로젝트 10~50개 관리",
+      "motion_level": "절제",
+      "reference_ids": ["shadcn-dashboard", "tremor-blocks", "plane"],
+      "section_ids": ["dashboard.navigation", "dashboard.quick-actions", "dashboard.project-list", "dashboard.background-jobs"]
+    },
+    {
+      "id": "preview-workspace",
+      "name": "큰 미리보기 작업실",
+      "summary": "설명은 작게, 실제 결과는 크게 보고 승인·수정하는 초보자 중심 화면",
+      "best_for": "결과 확인과 빠른 승인",
+      "motion_level": "절제",
+      "reference_ids": ["storybook", "current-v2", "motion-examples"],
+      "section_ids": ["workspace.context-panel", "workspace.preview", "workspace.preview-toolbar", "workspace.actions"]
+    },
+    {
+      "id": "modular-board",
+      "name": "조립식 Module 보드",
+      "summary": "기능 목록·Canvas·설정 Panel을 분리해 미래 기능을 끼우기 쉬운 화면",
+      "best_for": "Module 이동과 미래 Adapter 확장",
+      "motion_level": "절제",
+      "reference_ids": ["puck", "shadcn-dashboard", "animate-ui"],
+      "section_ids": ["workspace.module-library", "workspace.module-canvas", "workspace.property-panel", "workspace.version-actions"]
+    }
+  ],
+  "references": [
+    {"id":"current-v2","name":"현재 V2 화면","url":"local://v2-ui-images","reference_type":"화면 참고용","license_status":"사용자 제공 자산","section_id":["dashboard.shell","workspace.preview"],"dependencies":["none"],"responsive":"V2 PC","motion_level":"없음","do_not_copy":["작은 미리보기","과도한 설명"],"current_design":true},
+    {"id":"shadcn-dashboard","name":"shadcn Dashboard","url":"https://ui.shadcn.com/blocks?category=dashboard","reference_type":"코드 재사용 가능","license_status":"확인 MIT","section_id":["dashboard.navigation","dashboard.project-list"],"dependencies":["React","Tailwind","shadcn/ui"],"responsive":"PC 확인; 모바일 실행검증 전","motion_level":"절제","do_not_copy":["팀 전환기","불필요한 차트"],"current_design":false},
+    {"id":"tremor-blocks","name":"Tremor Blocks","url":"https://blocks.tremor.so/blocks","reference_type":"코드 재사용 가능","license_status":"확인 MIT","section_id":["dashboard.background-jobs","dashboard.problem-state"],"dependencies":["React","Tailwind"],"responsive":"Block별 검증 전","motion_level":"없음","do_not_copy":["금융 KPI","불필요한 차트"],"current_design":false},
+    {"id":"plane","name":"Plane","url":"https://plane.so/open-source","reference_type":"화면 참고용","license_status":"확인 AGPL; 코드 재사용 금지","section_id":["dashboard.project-list","dashboard.navigation"],"dependencies":["visual only"],"responsive":"PC 참고","motion_level":"절제","do_not_copy":["브랜드","AGPL 코드","협업 UI"],"current_design":false},
+    {"id":"storybook","name":"Storybook UI","url":"https://storybook.js.org/docs/get-started/browse-stories","reference_type":"화면 참고용","license_status":"확인 MIT","section_id":["workspace.navigation","workspace.preview","workspace.details"],"dependencies":["isolated preview"],"responsive":"PC 확인","motion_level":"절제","do_not_copy":["개발자 전문용어","Source 기본노출"],"current_design":false},
+    {"id":"puck","name":"Puck Editor","url":"https://demo.puckeditor.com/edit","reference_type":"화면 참고용","license_status":"확인 MIT","section_id":["workspace.module-library","workspace.module-canvas","workspace.property-panel"],"dependencies":["React","Puck candidate"],"responsive":"PC Editor","motion_level":"절제","do_not_copy":["Puck Data 원본화","무제한 편집"],"current_design":false},
+    {"id":"kokonut-ui","name":"Kokonut UI","url":"https://kokonutui.com/docs","reference_type":"코드 재사용 가능","license_status":"확인 MIT","section_id":["shared.buttons","workspace.status-feedback"],"dependencies":["React","Tailwind","Motion 일부"],"responsive":"Component별 검증 전","motion_level":"절제~표현적","do_not_copy":["Pro 자산","Particle 남용"],"current_design":false},
+    {"id":"magic-ui","name":"Magic UI","url":"https://magicui.design/docs","reference_type":"코드 재사용 가능","license_status":"확인 MIT; 무료 Registry만","section_id":["dashboard.background-jobs","customer.hero"],"dependencies":["React","Tailwind","Motion 일부"],"responsive":"Component별 검증 전","motion_level":"표현적","do_not_copy":["Pro Template","지속 반복 배경"],"current_design":false},
+    {"id":"animate-ui","name":"Animate UI","url":"https://animate-ui.com/docs","reference_type":"코드 재사용 가능","license_status":"개별 원본 재확인 필요","section_id":["shared.dialog","shared.tabs","workspace.property-panel"],"dependencies":["React","Tailwind","Motion"],"responsive":"Component별 검증 전","motion_level":"절제","do_not_copy":["Primitive 일괄도입","목적 없는 효과"],"current_design":false},
+    {"id":"react-bits","name":"React Bits","url":"https://reactbits.dev/","reference_type":"화면 참고용; 코드 조건부","license_status":"조건부 MIT + Commons Clause","section_id":["customer.hero","customer.background"],"dependencies":["React","component specific"],"responsive":"Component별 검증 전","motion_level":"표현적","do_not_copy":["Library 재판매","운영 UI 과도한 효과"],"current_design":false},
+    {"id":"motion-examples","name":"Motion Examples","url":"https://motion.dev/examples","reference_type":"코드 재사용 가능","license_status":"확인 MIT Core; Motion+ 제외","section_id":["shared.layout-transition","shared.reorder","shared.feedback"],"dependencies":["React","Motion"],"responsive":"후보별 검증 전","motion_level":"절제~표현적","do_not_copy":["Motion+","Experimental","큰 Parallax"],"current_design":false}
+  ]
+}

@@ -8,7 +8,7 @@ import json
 import difflib
 import shlex
 from datetime import datetime, timezone
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 import tempfile
 import shutil
 import glob
@@ -16,6 +16,8 @@ import socket
 import re
 import hashlib
 import struct
+import mimetypes
+from urllib.parse import urlsplit, parse_qs
 
 # Helper to run shell commands
 def run_cmd(cmd, cwd=None):
@@ -2894,12 +2896,336 @@ def update_run_status(run_id, target_status):
     print(f"Success: Run '{run_id}' status updated from '{current_status}' to '{t_status}'.")
 
 # Custom HTTP Request Handler for serving dashboard and REST APIs
+
+PM2_PROJECT_ID = "pdf-drawing-symbols"
+PM2_STATE_RELATIVE_PATH = os.path.join("state", "pm2-board-state.json")
+PM2_REQUIRED_MANIFEST_FIELDS = {
+    "manifest_version", "module_id", "display_name", "module_version", "adapter_type",
+    "entry", "allowed_slots", "required_state", "emitted_actions", "permissions", "health", "status",
+}
+
+
+def load_json_file(path):
+    with open(path, "r", encoding="utf-8") as source_file:
+        return json.load(source_file)
+
+
+def write_json_atomic(path, payload):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    fd, temp_path = tempfile.mkstemp(prefix=".pm2-state-", suffix=".json", dir=os.path.dirname(path))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as target_file:
+            json.dump(payload, target_file, ensure_ascii=False, indent=2)
+            target_file.write("\n")
+        os.replace(temp_path, path)
+    finally:
+        if os.path.exists(temp_path):
+            os.unlink(temp_path)
+
+
+def load_pm2_registry(v2_root):
+    registry_path = os.path.join(v2_root, "pm2-artifacts", "module-registry-v1", "registry.json")
+    registry = load_json_file(registry_path)
+    if registry.get("registry_version") != "1.0" or not isinstance(registry.get("modules"), list):
+        raise ValueError("PM2 Module Registry is invalid.")
+    manifests = {}
+    for record in registry["modules"]:
+        module_id = record.get("module_id")
+        manifest_relative = record.get("manifest")
+        if not isinstance(module_id, str) or not isinstance(manifest_relative, str):
+            raise ValueError("PM2 Module Registry contains an incomplete record.")
+        manifest_path = os.path.abspath(os.path.join(v2_root, manifest_relative))
+        if os.path.commonpath([v2_root, manifest_path]) != v2_root:
+            raise ValueError("PM2 Module Manifest escapes the repository.")
+        manifest = load_json_file(manifest_path)
+        if not PM2_REQUIRED_MANIFEST_FIELDS.issubset(manifest):
+            raise ValueError(f"Module Manifest is incomplete: {module_id}")
+        if manifest.get("module_id") != module_id:
+            raise ValueError(f"Module id mismatch: {module_id}")
+        if "workspace_preview" not in manifest.get("allowed_slots", []):
+            raise ValueError(f"Module is not allowed in workspace_preview: {module_id}")
+        manifests[module_id] = manifest
+    return registry, manifests
+
+
+def default_pm2_board_state():
+    return {
+        "state_version": "1.0",
+        "revision": 1,
+        "project_id": PM2_PROJECT_ID,
+        "active_slot": "workspace_preview",
+        "active_module_id": "pdf-result-preview",
+        "allowed_actions": [
+            "module.enable", "module.disable", "module.move_up", "module.move_down",
+            "module.simulate_failure", "module.select", "layout.restore",
+        ],
+        "modules": [
+            {"module_id": "pdf-result-preview", "order": 1, "enabled": True, "failed": False},
+            {"module_id": "hospital-web-result-preview", "order": 2, "enabled": True, "failed": False},
+        ],
+        "last_action": "layout.initialized",
+    }
+
+
+def validate_pm2_board_state(state, manifests):
+    if state.get("project_id") != PM2_PROJECT_ID or state.get("active_slot") != "workspace_preview":
+        raise ValueError("PM2 board state belongs to an unsupported project or Slot.")
+    modules = state.get("modules")
+    if not isinstance(modules, list) or len(modules) != 2:
+        raise ValueError("PM2 board state must contain exactly two verified Module candidates.")
+    seen = set()
+    for item in modules:
+        module_id = item.get("module_id")
+        if module_id in seen or module_id not in manifests:
+            raise ValueError(f"Unregistered or duplicate Module: {module_id}")
+        if not isinstance(item.get("enabled"), bool) or not isinstance(item.get("failed"), bool):
+            raise ValueError(f"Invalid Module state: {module_id}")
+        seen.add(module_id)
+    modules.sort(key=lambda item: item.get("order", 0))
+    for index, item in enumerate(modules, start=1):
+        item["order"] = index
+    active_module_id = state.get("active_module_id")
+    if active_module_id not in seen:
+        state["active_module_id"] = modules[0]["module_id"]
+    return state
+
+
+def load_pm2_board_state(v2_root):
+    _, manifests = load_pm2_registry(v2_root)
+    state_path = os.path.join(v2_root, PM2_STATE_RELATIVE_PATH)
+    state = load_json_file(state_path) if os.path.exists(state_path) else default_pm2_board_state()
+    return validate_pm2_board_state(state, manifests), manifests
+
+
+def pm2_ui_state(v2_root):
+    state, manifests = load_pm2_board_state(v2_root)
+    payload = dict(state)
+    payload["modules"] = []
+    for item in state["modules"]:
+        manifest = manifests[item["module_id"]]
+        enriched = dict(item)
+        enriched.update({
+            "display_name": manifest["display_name"],
+            "module_version": manifest["module_version"],
+            "entry": manifest["entry"],
+            "lifecycle": manifest["status"].get("lifecycle", "candidate"),
+            "permissions": manifest["permissions"],
+            "features": manifest.get("features", []),
+        })
+        payload["modules"].append(enriched)
+    payload["evidence_level"] = "core_connected_user_verified"
+    payload["pm2_pass"] = True
+    return payload
+
+
+def apply_pm2_ui_action(v2_root, payload):
+    state, manifests = load_pm2_board_state(v2_root)
+    if payload.get("project_id") != state["project_id"]:
+        raise PermissionError("Project mismatch. No state was changed.")
+    action = payload.get("action")
+    if action not in state["allowed_actions"]:
+        raise PermissionError("Action is not allowed by V2 Core.")
+    module_id = payload.get("module_id")
+    module = next((item for item in state["modules"] if item["module_id"] == module_id), None)
+    if action != "layout.restore" and module is None:
+        raise ValueError("Registered Module not found.")
+
+    if action == "layout.restore":
+        restored = default_pm2_board_state()
+        restored["revision"] = int(state.get("revision", 1)) + 1
+        restored["last_action"] = action
+        state = restored
+    elif action == "module.enable":
+        module.update({"enabled": True, "failed": False})
+        state["active_module_id"] = module_id
+    elif action == "module.disable":
+        if not manifests[module_id]["permissions"].get("hideable"):
+            raise PermissionError("This Module cannot be disabled.")
+        module.update({"enabled": False, "failed": False})
+        if state.get("active_module_id") == module_id:
+            replacement = next((item for item in state["modules"] if item["module_id"] != module_id and item["enabled"] and not item["failed"]), None)
+            state["active_module_id"] = replacement["module_id"] if replacement else module_id
+    elif action == "module.simulate_failure":
+        module.update({"enabled": True, "failed": True})
+        if state.get("active_module_id") == module_id:
+            replacement = next((item for item in state["modules"] if item["module_id"] != module_id and item["enabled"] and not item["failed"]), None)
+            state["active_module_id"] = replacement["module_id"] if replacement else module_id
+    elif action == "module.select":
+        if not module["enabled"] or module["failed"]:
+            raise PermissionError("비활성 또는 오류 상태인 Module은 열 수 없습니다.")
+        state["active_module_id"] = module_id
+    elif action in {"module.move_up", "module.move_down"}:
+        if not manifests[module_id]["permissions"].get("movable"):
+            raise PermissionError("This Module cannot be moved.")
+        modules = sorted(state["modules"], key=lambda item: item["order"])
+        current = modules.index(module)
+        target = current - 1 if action == "module.move_up" else current + 1
+        if 0 <= target < len(modules):
+            modules[current], modules[target] = modules[target], modules[current]
+        for index, item in enumerate(modules, start=1):
+            item["order"] = index
+        state["modules"] = modules
+
+    if action != "layout.restore":
+        state["revision"] = int(state.get("revision", 1)) + 1
+        state["last_action"] = action
+    validate_pm2_board_state(state, manifests)
+    write_json_atomic(os.path.join(v2_root, PM2_STATE_RELATIVE_PATH), state)
+    return pm2_ui_state(v2_root)
+
+
+def resolve_pm2_product_asset(request_path):
+    products = {
+        "hospital": "/home/user/바탕화면/test_project/dist",
+        "pdf": "/home/user/바탕화면/test_project/m7-pdf-stamp/dist",
+    }
+    relative = request_path.removeprefix("/pm2-product-preview/")
+    product_id, separator, asset = relative.partition("/")
+    if not separator or product_id not in products:
+        raise ValueError("Unknown PM2 product preview.")
+    asset = asset or "index.html"
+    root = os.path.abspath(products[product_id])
+    target = os.path.abspath(os.path.join(root, asset))
+    if os.path.commonpath([root, target]) != root or not os.path.isfile(target):
+        raise ValueError("PM2 product asset is unavailable.")
+    return product_id, root, target
+
+
 class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         pass
 
     def do_GET(self):
         v2_root = os.path.dirname(os.path.abspath(__file__))
+        request = urlsplit(self.path)
+        request_path = request.path
+
+        if request_path == "/api/pm2/ui-state":
+            project_id = parse_qs(request.query).get("project_id", [""])[0]
+            if project_id != PM2_PROJECT_ID:
+                self.send_json(409, {"error": "Project mismatch."})
+                return
+            try:
+                self.send_json(200, pm2_ui_state(v2_root))
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"PM2 Core state unavailable: {exc}"})
+            return
+
+        if request_path.startswith("/pm2-product-preview/"):
+            try:
+                product_id, _, asset_path = resolve_pm2_product_asset(request_path)
+                with open(asset_path, "rb") as asset_file:
+                    body = asset_file.read()
+                content_type = mimetypes.guess_type(asset_path)[0] or "application/octet-stream"
+                if asset_path.endswith("index.html"):
+                    prefix = f"/pm2-product-preview/{product_id}"
+                    html = body.decode("utf-8")
+                    html = html.replace('src="/assets/', f'src="{prefix}/assets/')
+                    html = html.replace('href="/assets/', f'href="{prefix}/assets/')
+                    html = html.replace('href="/favicon.svg"', f'href="{prefix}/favicon.svg"')
+                    body = html.encode("utf-8")
+                    content_type = "text/html; charset=utf-8"
+            except (OSError, ValueError, UnicodeDecodeError) as exc:
+                self.send_json(404, {"error": str(exc)})
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", content_type)
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        if request_path in {
+            "/sample-floor-plan.pdf", "/icons.svg", "/favicon.svg",
+            "/assets/pdf.worker-CwUwjlJG.mjs",
+        }:
+            asset_path = os.path.join(
+                "/home/user/바탕화면/test_project/m7-pdf-stamp/dist",
+                request_path.lstrip("/"),
+            )
+            try:
+                with open(asset_path, "rb") as asset_file:
+                    body = asset_file.read()
+            except OSError:
+                self.send_json(404, {"error": "PM2 PDF preview asset is unavailable."})
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", mimetypes.guess_type(asset_path)[0] or "application/octet-stream")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        static_pm2 = {
+            "/pm2-module-test.html": "pm2-module-test.html",
+            "/pm2-workspace.html": "pm2-workspace.html",
+        }
+        if request_path in static_pm2:
+            html_path = os.path.join(v2_root, static_pm2[request_path])
+            with open(html_path, "rb") as html_file:
+                body = html_file.read()
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        if self.path == "/api/design-intelligence":
+            collection_path = os.path.join(
+                v2_root,
+                "pm1-artifacts",
+                "design-intelligence",
+                "collections",
+                "design-capabilities-2026-08-18",
+                "collection.json",
+            )
+            try:
+                with open(collection_path, "r", encoding="utf-8") as collection_file:
+                    collection = json.load(collection_file)
+            except (OSError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"Design Intelligence unavailable: {exc}"})
+                return
+            self.send_json(200, collection)
+            return
+
+        if self.path == "/api/visual-companion":
+            try:
+                manifest = load_visual_companion_manifest(v2_root)
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"Visual Companion unavailable: {exc}"})
+                return
+            self.send_json(200, manifest)
+            return
+
+        if self.path.startswith("/reference-images/"):
+            public_name = self.path.removeprefix("/reference-images/")
+            try:
+                image_path, content_type = resolve_visual_companion_image(v2_root, public_name)
+                with open(image_path, "rb") as image_file:
+                    body = image_file.read()
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(404, {"error": f"Reference image unavailable: {exc}"})
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", content_type)
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        if self.path == "/api/reference-board":
+            try:
+                manifest = load_reference_board_manifest(v2_root)
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"Reference Board unavailable: {exc}"})
+                return
+            self.send_json(200, manifest)
+            return
 
         # REST API: Fetch all Runs
         if self.path == "/api/runs":
@@ -2938,8 +3264,52 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
             return
 
         # Serve static html page
-        if self.path == "/" or self.path == "/index.html":
-            html_path = os.path.join(v2_root, "dashboard.html")
+        if self.path == "/visual-target-source":
+            source_path = os.path.join(v2_root, "pm1-artifacts", "visual-target-v1", "manifest.json")
+            try:
+                with open(source_path, "r", encoding="utf-8") as manifest_file:
+                    image_path = json.load(manifest_file)["image_path"]
+                with open(image_path, "rb") as image_file:
+                    body = image_file.read()
+            except (OSError, KeyError, json.JSONDecodeError):
+                self.send_response(404)
+                self.end_headers()
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "image/png")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        if self.path == "/finish-test-screenshot":
+            image_path = "/home/user/바탕화면/v2_ui_images/AI OS V2 PM1 Finish Test.jpg"
+            try:
+                with open(image_path, "rb") as image_file:
+                    body = image_file.read()
+            except OSError:
+                self.send_response(404)
+                self.end_headers()
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "image/jpeg")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        if self.path in {"/", "/index.html", "/reference-board", "/pilot-preview", "/visual-companion", "/pm1-finish-test", "/pm1-visual-comparison", "/design-intelligence"}:
+            html_name = {
+                "/reference-board": "reference-board.html",
+                "/pilot-preview": "pilot-preview.html",
+                "/visual-companion": "visual-companion.html",
+                "/pm1-finish-test": "pm1-finish-test.html",
+                "/pm1-visual-comparison": "pm1-visual-comparison.html",
+                "/design-intelligence": "design-intelligence.html",
+            }.get(self.path, "dashboard.html")
+            html_path = os.path.join(v2_root, html_name)
             if os.path.exists(html_path):
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html; charset=utf-8")
@@ -2951,10 +3321,257 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
         self.send_response(404)
         self.end_headers()
 
+    def send_json(self, status, payload):
+        body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def do_POST(self):
+        v2_root = os.path.dirname(os.path.abspath(__file__))
+        request_path = urlsplit(self.path).path
+        if request_path == "/api/pm2/ui-action":
+            try:
+                content_length = int(self.headers.get("Content-Length", "0"))
+                if content_length <= 0 or content_length > 4096:
+                    raise ValueError("Invalid request size.")
+                payload = json.loads(self.rfile.read(content_length).decode("utf-8"))
+                result = apply_pm2_ui_action(v2_root, payload)
+            except PermissionError as exc:
+                self.send_json(403, {"error": str(exc)})
+                return
+            except (OSError, ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                self.send_json(400, {"error": str(exc)})
+                return
+            self.send_json(200, {"message": "V2 Core가 상태를 저장했습니다.", "state": result})
+            return
+        if self.path not in {"/api/reference-board/selection", "/api/visual-companion/selection", "/api/design-intelligence/decision"}:
+            self.send_json(404, {"error": "Not found"})
+            return
+        try:
+            content_length = int(self.headers.get("Content-Length", "0"))
+            if content_length <= 0 or content_length > 8192:
+                raise ValueError("Invalid request size.")
+            payload = json.loads(self.rfile.read(content_length).decode("utf-8"))
+            if self.path == "/api/design-intelligence/decision":
+                candidate_id = payload.get("candidate_id")
+                decision = payload.get("decision")
+                if not isinstance(candidate_id, str) or not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,62}", candidate_id):
+                    raise ValueError("Invalid candidate id.")
+                if decision not in {"adopt", "hold", "discard"}:
+                    raise ValueError("Invalid decision.")
+                script_path = os.path.join(v2_root, "plugins", "v2-capability-lab", "scripts", "design_intelligence.py")
+                returncode, stdout, stderr = run_cmd([
+                    sys.executable,
+                    script_path,
+                    "decide",
+                    "--collection-id", "design-capabilities-2026-08-18",
+                    "--candidate-id", candidate_id,
+                    "--decision", decision,
+                    "--approved-by-user",
+                ], cwd=v2_root)
+                if returncode != 0:
+                    raise ValueError(stderr or "Decision could not be saved.")
+                artifact = json.loads(stdout)
+            elif self.path == "/api/visual-companion/selection":
+                artifact = save_visual_companion_selection(v2_root, payload)
+            else:
+                artifact = save_reference_board_selection(v2_root, payload)
+        except (ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+            self.send_json(400, {"error": str(exc)})
+            return
+        message = (
+            "선택을 저장했습니다. 채택 후보는 격리 시험 뒤 다시 확인합니다."
+            if self.path == "/api/design-intelligence/decision"
+            else "선택을 Draft로 저장했습니다. 아직 제품에는 적용되지 않았습니다."
+        )
+        self.send_json(200, {"message": message, "artifact": artifact})
+
+
+def load_visual_companion_manifest(v2_root):
+    manifest_path = os.path.join(v2_root, "pm1-artifacts", "visual-companion", "manifest.json")
+    with open(manifest_path, "r", encoding="utf-8") as manifest_file:
+        manifest = json.load(manifest_file)
+    required = {"schema_version", "board_id", "screen_type", "max_visible_references", "comparison_context", "references"}
+    if not required.issubset(manifest):
+        raise ValueError("Visual Companion manifest is incomplete.")
+    references = manifest["references"]
+    if not isinstance(references, list) or not 1 <= len(references) <= 5:
+        raise ValueError("Visual Companion must show between one and five references.")
+    if manifest["max_visible_references"] != 5:
+        raise ValueError("Visual Companion display limit must remain five.")
+    required_reference_fields = {
+        "reference_id", "name", "source_url", "image_path", "sha256", "access_checked_at",
+        "license_status", "reference_type", "screen_type", "summary", "do_not_copy", "regions"
+    }
+    required_region_fields = {"region_label", "normalized_bounds", "target_section_id"}
+    for reference in references:
+        if not isinstance(reference, dict) or not required_reference_fields.issubset(reference):
+            raise ValueError("A Visual Companion reference is incomplete.")
+        if reference["screen_type"] != manifest["screen_type"]:
+            raise ValueError("References from different screen types cannot be mixed.")
+        if not reference["regions"]:
+            raise ValueError("A Visual Companion reference has no selectable region.")
+        for region in reference["regions"]:
+            if not isinstance(region, dict) or not required_region_fields.issubset(region):
+                raise ValueError("A selectable region is incomplete.")
+            bounds = region["normalized_bounds"]
+            if not isinstance(bounds, dict) or set(bounds) != {"x", "y", "width", "height"}:
+                raise ValueError("Normalized region bounds are invalid.")
+            values = [bounds[key] for key in ("x", "y", "width", "height")]
+            if not all(isinstance(value, (int, float)) for value in values):
+                raise ValueError("Normalized region bounds must be numeric.")
+            if bounds["x"] < 0 or bounds["y"] < 0 or bounds["width"] <= 0 or bounds["height"] <= 0:
+                raise ValueError("Normalized region bounds are outside the image.")
+            if bounds["x"] + bounds["width"] > 1.001 or bounds["y"] + bounds["height"] > 1.001:
+                raise ValueError("Normalized region bounds exceed the image.")
+    return manifest
+
+
+def resolve_visual_companion_image(v2_root, public_name):
+    manifest = load_visual_companion_manifest(v2_root)
+    if not re.fullmatch(r"[A-Za-z0-9._-]+", public_name):
+        raise ValueError("Invalid reference image name.")
+    reference = next((item for item in manifest["references"] if item["image_path"] == public_name), None)
+    if not reference:
+        raise ValueError("Reference image is not registered.")
+    if public_name == "current-v2-workspace.png":
+        image_path = "/home/user/바탕화면/v2_ui_images/프로젝트 작업실 PC Visual Target.png"
+    else:
+        image_path = os.path.join("/home/user/바탕화면/v2_ui_images/pm1-reference-workspaces", public_name)
+    image = inspect_design_image(image_path)
+    if image["sha256"] != reference["sha256"]:
+        raise ValueError("Reference image checksum mismatch.")
+    return image_path, image["mime"]
+
+
+def save_visual_companion_selection(v2_root, payload):
+    manifest = load_visual_companion_manifest(v2_root)
+    reference = next((item for item in manifest["references"] if item["reference_id"] == payload.get("reference_id")), None)
+    if not reference:
+        raise ValueError("Select one validated visual reference.")
+    allowed_properties = {"layout", "spacing", "color", "typography", "content", "branding", "motion"}
+    selected_properties = payload.get("selected_properties")
+    apply = payload.get("apply")
+    regions = payload.get("regions")
+    if not isinstance(selected_properties, list) or not selected_properties or not set(selected_properties).issubset(allowed_properties):
+        raise ValueError("Select at least one supported property.")
+    if not isinstance(apply, dict) or set(apply) != allowed_properties or not all(isinstance(value, bool) for value in apply.values()):
+        raise ValueError("The apply lock is incomplete.")
+    if apply["content"] or apply["branding"]:
+        raise ValueError("Content and branding remain locked in PM1.")
+    if {key for key, value in apply.items() if value} != set(selected_properties):
+        raise ValueError("Selected properties and apply locks do not match.")
+    allowed_regions = {item["region_label"]: item for item in reference["regions"]}
+    if not isinstance(regions, list) or not regions:
+        raise ValueError("Select at least one reference region.")
+    region_labels = [item.get("region_label") for item in regions if isinstance(item, dict)]
+    if len(region_labels) != len(set(region_labels)) or not set(region_labels).issubset(allowed_regions):
+        raise ValueError("A selected region is invalid.")
+    canonical_regions = [allowed_regions[label] for label in region_labels]
+    if payload.get("comparison_context") != manifest["comparison_context"]:
+        raise ValueError("Reference comparison context changed.")
+    artifact = {
+        "schema_version": "1.0",
+        "board_id": manifest["board_id"],
+        "reference_id": reference["reference_id"],
+        "selection": canonical_regions,
+        "selected_properties": selected_properties,
+        "apply": apply,
+        "comparison_context": manifest["comparison_context"],
+        "status": "draft_not_applied",
+        "selected_by": "user",
+        "selected_at": datetime.now(timezone.utc).isoformat(),
+        "product_changed": False,
+        "core_state_changed": False,
+    }
+    artifact_dir = os.path.join(v2_root, "pm1-artifacts", "visual-companion")
+    os.makedirs(artifact_dir, exist_ok=True)
+    target = os.path.join(artifact_dir, "selection.json")
+    fd, temp_path = tempfile.mkstemp(prefix=".selection-", suffix=".json", dir=artifact_dir)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as temp_file:
+            json.dump(artifact, temp_file, ensure_ascii=False, indent=2)
+            temp_file.write("\n")
+        os.replace(temp_path, target)
+    finally:
+        if os.path.exists(temp_path):
+            os.unlink(temp_path)
+    return os.path.relpath(target, v2_root)
+
+
+def load_reference_board_manifest(v2_root):
+    manifest_path = os.path.join(v2_root, "pm1-artifacts", "reference-board", "manifest.json")
+    with open(manifest_path, "r", encoding="utf-8") as manifest_file:
+        manifest = json.load(manifest_file)
+    required = {"schema_version", "board_id", "current_design_id", "recommendations", "references"}
+    if not required.issubset(manifest):
+        raise ValueError("Reference Board manifest is incomplete.")
+    references = manifest["references"]
+    recommendations = manifest["recommendations"]
+    if not isinstance(references, list) or len(references) < 10:
+        raise ValueError("Reference Board requires at least 10 references.")
+    if not isinstance(recommendations, list) or len(recommendations) != 3:
+        raise ValueError("Reference Board requires exactly 3 recommendations.")
+    reference_ids = {item.get("id") for item in references if isinstance(item, dict)}
+    required_reference_fields = {"id", "name", "url", "reference_type", "license_status", "section_id", "dependencies", "responsive", "motion_level", "do_not_copy", "current_design"}
+    for reference in references:
+        if not isinstance(reference, dict) or not required_reference_fields.issubset(reference):
+            raise ValueError("A Reference entry is incomplete.")
+    if manifest["current_design_id"] not in reference_ids:
+        raise ValueError("Current design baseline is missing.")
+    for recommendation in recommendations:
+        if not set(recommendation.get("reference_ids", [])).issubset(reference_ids):
+            raise ValueError("A recommendation points to an unknown Reference.")
+    return manifest
+
+
+def save_reference_board_selection(v2_root, payload):
+    manifest = load_reference_board_manifest(v2_root)
+    allowed_choices = {"whole_structure", "selected_parts", "keep_current"}
+    allowed_motion = {"없음", "절제", "표현적"}
+    choice = payload.get("choice")
+    direction_id = payload.get("direction_id")
+    if choice not in allowed_choices:
+        raise ValueError("Unsupported selection.")
+    if payload.get("motion_level") not in allowed_motion:
+        raise ValueError("Unsupported motion level.")
+    valid_direction_ids = {item["id"] for item in manifest["recommendations"]}
+    if choice != "keep_current" and direction_id not in valid_direction_ids:
+        raise ValueError("Select one validated direction.")
+    if choice == "keep_current":
+        direction_id = manifest["current_design_id"]
+    artifact_dir = os.path.join(v2_root, "pm1-artifacts", "reference-board")
+    os.makedirs(artifact_dir, exist_ok=True)
+    artifact = {
+        "schema_version": "1.0",
+        "board_id": manifest["board_id"],
+        "choice": choice,
+        "direction_id": direction_id,
+        "motion_level": payload["motion_level"],
+        "selected_by": "user",
+        "status": "draft_not_applied",
+        "selected_at": datetime.now(timezone.utc).isoformat(),
+        "product_changed": False
+    }
+    target = os.path.join(artifact_dir, "selection.json")
+    fd, temp_path = tempfile.mkstemp(prefix=".selection-", suffix=".json", dir=artifact_dir)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as temp_file:
+            json.dump(artifact, temp_file, ensure_ascii=False, indent=2)
+            temp_file.write("\n")
+        os.replace(temp_path, target)
+    finally:
+        if os.path.exists(temp_path):
+            os.unlink(temp_path)
+    return os.path.relpath(target, v2_root)
+
 def cmd_dashboard(args):
     port = args.port
     server_address = ('127.0.0.1', port)
-    httpd = HTTPServer(server_address, DashboardHTTPRequestHandler)
+    httpd = ThreadingHTTPServer(server_address, DashboardHTTPRequestHandler)
     print(f"AI OS V2 Dashboard starting at http://127.0.0.1:{port} ...")
     print("Press Ctrl+C to stop.")
 

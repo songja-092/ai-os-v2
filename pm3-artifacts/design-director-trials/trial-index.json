@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "benchmark_brief_id": "v2-ui-project-workspace-v1",
+  "current_trial": "aceternity-react-bits-community-v1",
+  "preliminary_tests": [
+    {
+      "candidate_id": "figma-official",
+      "status": "connection_test_only",
+      "counts_toward_candidate_comparison": false,
+      "reason": "The first Figma run proved account, library and component search connectivity but did not transform the fixed V2 UI benchmark."
+    }
+  ],
+  "trial_order": [
+    {
+      "candidate_id": "design-director-control",
+      "status": "excluded_wrong_surface",
+      "purpose": "Prove that a fixed brief and an explicit director decision improve V2 without adding a new supplier."
+    },
+    {
+      "candidate_id": "public-korean-web",
+      "status": "adopted_design_direction",
+      "purpose": "Use accessible Korean production websites and GDWEB references."
+    },
+    {
+      "candidate_id": "figma-official",
+      "status": "adopted_design_direction",
+      "purpose": "Use actual Figma Community components on the fixed V2 benchmark."
+    },
+    {
+      "candidate_id": "21st-codex-plugin",
+      "status": "adopted_design_direction",
+      "purpose": "Test searchable implementation-ready components."
+    },
+    {
+      "candidate_id": "design-mcp",
+      "status": "adopted_design_direction",
+      "purpose": "Test local design pattern search."
+    },
+    {
+      "candidate_id": "framesmith",
+      "status": "held_design_direction",
+      "purpose": "Test an inspectable visual workbench instead of repeated raster generation."
+    },
+    {
+      "candidate_id": "ui-ux-pro-mcp",
+      "status": "adopted_with_adjustment",
+      "purpose": "Test whether searchable resources add value beyond the existing UI UX Pro."
+    },
+    {
+      "candidate_id": "mobbin-mcp",
+      "status": "optional_paid_hold",
+      "purpose": "Only test if free and local sources fail to provide product-flow references."
+    }
+    ,{
+      "candidate_id": "awesome-design-md-framesmith",
+      "status": "held_design_direction",
+      "purpose": "Test an established DESIGN.md preset on a fixed customer community benchmark."
+    },
+    {
+      "candidate_id": "creative-tim-ui",
+      "status": "adopted_design_direction",
+      "purpose": "Test implementation-ready community blocks on the same benchmark."
+    },
+    {
+      "candidate_id": "aceternity-react-bits",
+      "status": "adopted_design_direction",
+      "purpose": "Test motion-led visual differentiation on the same benchmark."
+    }
+  ],
+  "decision_owner": "user",
+  "allowed_decisions": ["adopt", "hold", "discard"]
+}

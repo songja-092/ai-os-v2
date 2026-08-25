@@ -1,0 +1,39 @@
+{
+  "manifest_version": "1.0",
+  "module_id": "daily-discovery-briefing",
+  "display_name": "예약 조사 브리핑",
+  "module_version": "0.2.0-draft",
+  "adapter_type": "internal",
+  "entry": "/pm4-modules/daily-discovery-briefing/index.html",
+  "features": [
+    {"feature_id": "briefing.read", "display_name": "원본 링크와 짧은 요약 보기", "status": "draft"},
+    {"feature_id": "briefing.topic", "display_name": "조사 주제 입력", "status": "draft"},
+    {"feature_id": "briefing.schedule", "display_name": "실행 시간 선택", "status": "draft"},
+    {"feature_id": "briefing.platforms", "display_name": "조사 플랫폼 선택", "status": "draft"},
+    {"feature_id": "briefing.collect", "display_name": "선택한 조건으로 자동 수집", "status": "not_yet_verified"}
+  ],
+  "allowed_slots": ["project_home", "background_capability"],
+  "required_state": ["allowed_actions", "briefing_topic", "briefing_schedule", "briefing_platforms", "briefing_items"],
+  "emitted_actions": [
+    {"action_type": "briefing.schedule.update", "required_core_permission": "briefing.schedule.update"},
+    {"action_type": "briefing.config.update", "required_core_permission": "briefing.config.update"},
+    {"action_type": "briefing.collect.more", "required_core_permission": "briefing.collect.more"},
+    {"action_type": "briefing.direction.change", "required_core_permission": "briefing.direction.change"},
+    {"action_type": "briefing.accept.current", "required_core_permission": "briefing.accept.current"}
+  ],
+  "permissions": {
+    "movable": true,
+    "resizable": false,
+    "hideable": true,
+    "removable": true,
+    "editable_properties": ["topic", "schedule_time", "platforms"]
+  },
+  "health": {"timeout_ms": 2000, "fallback_module_id": null},
+  "status": {"enabled": true, "lifecycle": "candidate"},
+  "origin": {
+    "type": "pm4_pilot",
+    "automation_id": "v2",
+    "license": "repository_owned",
+    "modifications": "사용자가 주제·시간·플랫폼을 정하는 범용 예약 조사 Module Draft. 개인용 Automation v2와 분리"
+  }
+}

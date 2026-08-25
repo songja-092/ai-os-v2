@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "trial_id": "design-director-control-v1",
+  "candidate_id": "design-director-control",
+  "candidate_role": "quality_guard",
+  "benchmark_brief_id": "v2-ui-project-workspace-v1",
+  "status": "held",
+  "source_commit_or_version": "repo-local-v1",
+  "queries": [],
+  "references": [],
+  "director_decision": {
+    "kept": [
+      "카톡형 요구사항 대화",
+      "크고 실제적인 고객 결과 Preview",
+      "수정 요청·통과·이전 상태 보기"
+    ],
+    "changed": [
+      "OS Dashboard 인상을 조립형 제작 작업공간으로 전환",
+      "Preview를 화면의 주인공으로 올리고 내부 상태는 접힌 상세로 이동"
+    ],
+    "rejected": [
+      "작은 상태 카드의 반복",
+      "운영체제처럼 보이기 위한 불필요한 시스템 장식",
+      "색상만 바꾼 후보"
+    ],
+    "reason": "외부 공급원을 추가하기 전에 디자인 총괄 단계 자체의 효과를 분리해 확인한다."
+  },
+  "visual_output": {
+    "url_or_path": "http://127.0.0.1:8206/",
+    "viewport": "1440x950",
+    "same_fixture": true
+  },
+  "implementation": {
+    "possible": true,
+    "dependencies": [],
+    "estimated_lock_in": "none",
+    "removal_steps": [
+      "시험 Artifact 폴더 제거",
+      "trial-index에서 control 결과 연결 해제"
+    ]
+  },
+  "comparison": {
+    "current_v2_strengths_preserved": [
+      "초보자용 쉬운 문구",
+      "한 프로젝트에 집중하는 작업실",
+      "사용자 승인 전 적용 차단"
+    ],
+    "improvements": [
+      "운영 Dashboard 대신 프로젝트 결과 확인 작업에 집중",
+      "요구사항 대화와 고객 Preview의 관계를 한 화면에서 확인",
+      "밝은 노랑·주황과 비대칭 면 분할로 기존 청록 Dashboard와 다른 시각 방향 제시",
+      "채택·보류·폐기를 화면에서 바로 판정"
+    ],
+    "regressions": [
+      "외부 Reference 공급원이 없어 디자인 다양성 자체는 아직 검증하지 못함",
+      "왼쪽 전역 메뉴는 시험용으로 동작하지 않음"
+    ],
+    "design_diversity_gain": "medium"
+  },
+  "user_decision": "hold",
+  "user_reason": "기존 흐름보다 나아졌지만 디자인 재료와 다양성이 부족해 품질 상한을 크게 넘지 못함"
+}

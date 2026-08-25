@@ -1,0 +1,17 @@
+{
+  "artifact_version": "1.0",
+  "artifact_type": "pm1_method_verdict",
+  "method": "search_select_local_apply_validate",
+  "verdict": "rejected_and_preserved",
+  "preserve": true,
+  "product_applied": false,
+  "registry_changed": false,
+  "pm2_started": false,
+  "reason": "The user found browsing five references and selecting regions and properties slower and less useful than the previous UI UX Pro-centered flow.",
+  "preserved_inputs": [
+    "visual-companion.html",
+    "pm1-artifacts/visual-companion/manifest.json"
+  ],
+  "selected_replacement_candidate": "single_visual_target_with_ui_ux_pro_guard",
+  "replacement_status": "preferred_candidate_for_validation"
+}

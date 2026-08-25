@@ -1,0 +1,4 @@
+  File "<string>", line 1
+    import os,socket; print({"private_repo_visible": os.path.exists("/home/user/바탕화면/ai_os_v2_pm1"), "home": os.environ.get("HOME"), "credential_names": [k for k in os.environ if any(x in k.upper() for x in ("TOKEN","KEY","SECRET","COOKIE"))]}); s=socket.socket(); s.settimeout(1); ok=True;\ntry: s.connect(("1.1.1.1",53))\nexcept Exception: ok=False\nprint({"network_reachable":ok})
+                                                                                                                                                                                                                                                                                                   ^
+SyntaxError: unexpected character after line continuation character

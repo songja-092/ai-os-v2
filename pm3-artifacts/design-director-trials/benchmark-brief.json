@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "brief_id": "v2-ui-project-workspace-v1",
+  "title": "온담 인테리어 고객 웹 디자인 다양성 시험",
+  "identity": {
+    "architecture": "OS-type modular production platform",
+    "visual_prompt": "premium Korean interior design studio website",
+    "forbidden_visual_shortcut": "Do not show AI OS V2, its dashboard, workspace, chat, approval UI, or internal status inside the candidate result."
+  },
+  "audience": "인테리어 시공 사례를 보고 상담 여부를 결정하는 모바일 중심 고객",
+  "primary_task": "완성 공간을 크게 보고 아파트·상가 사례를 탐색한 뒤 상담을 신청한다.",
+  "viewport": {
+    "surface": "customer_product",
+    "desktop": "1440x950",
+    "mobile_required": true,
+    "mobile_validation_widths": [390, 430]
+  },
+  "fixture": {
+    "project_name": "온담 인테리어",
+    "project_type": "웹사이트",
+    "current_stage": "고객용 웹사이트",
+    "user_request": "완성된 공간 사진을 크게 보여주고, 아파트·상가 사례를 쉽게 찾고, 상담 신청까지 자연스럽게 이어지게 해주세요.",
+    "preview_state": "온담 인테리어 실제 고객 웹",
+    "allowed_actions": ["프로젝트 보기", "아파트·상가 필터", "상담 신청"]
+  },
+  "required_sections": [
+    "온담 브랜드와 핵심 Navigation",
+    "대표 공간 Hero",
+    "아파트·상가 프로젝트 탐색",
+    "대표 시공 사례",
+    "상담 신청 행동",
+    "모바일 390·430 반응형"
+  ],
+  "diversity_axes": [
+    "정보 우선순위",
+    "작업공간과 Preview 비율",
+    "Navigation 방식",
+    "Section 배치",
+    "Typography 성격",
+    "Surface와 Border 표현",
+    "사진과 Media 사용",
+    "Motion 목적"
+  ],
+  "quality_gates": [
+    "초보자가 설명 없이 핵심 행동을 찾음",
+    "대표 공간 사진이 첫 화면의 주인공임",
+    "고객이 전문용어 없이 사례를 탐색함",
+    "후보의 시각 특징이 색상 변경 외 구조에서도 드러남",
+    "실제 Component 또는 명확한 구현 방법이 있음",
+    "후보 제거 후 Design Recipe와 기존 고객 프로젝트가 유지됨"
+  ]
+}

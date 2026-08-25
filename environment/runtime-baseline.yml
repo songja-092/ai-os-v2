@@ -1,0 +1,99 @@
+schema_version: 1
+recorded_at: "2026-08-15"
+status: audited_locally
+
+official_baseline:
+  repository: https://github.com/songja-092/ai-os-v2.git
+  remote_branch: main
+  remote_commit: 83ab8deaa504df6c1baf95a3a49ab1df05345653
+  local_planning_branch: antigravity/v2-m1-run-core
+  local_planning_commit: 822a218
+  or0_worktree_base_commit: a7bb70e297147b011bacd2fa5ea038313a2fd124
+  note: OR0 environment worktree base and the newer local design commit are intentionally recorded separately; neither value is the remote main HEAD
+
+operating_system:
+  name: Ubuntu
+  version: "26.04 LTS"
+  codename: resolute
+  kernel: 7.0.0-29-generic
+  architecture: x86_64
+
+runtimes:
+  python:
+    command: python3
+    path: /usr/bin/python3
+    version: 3.14.4
+    status: installed
+  node:
+    command: node
+    path: /opt/codex-desktop/resources/node-runtime/bin/node
+    version: 22.22.2
+    status: installed
+  npm:
+    command: npm
+    path: /opt/codex-desktop/resources/node-runtime/bin/npm
+    version: 10.9.7
+    status: installed
+  git:
+    command: git
+    path: /usr/bin/git
+    version: 2.53.0
+    status: installed_and_v2_verified
+  docker:
+    command: docker
+    path: /usr/bin/docker
+    version: 29.6.1
+    compose_version: 5.3.1
+    status: installed_not_required_for_or0
+  chrome:
+    command: google-chrome
+    path: /usr/bin/google-chrome
+    version: 150.0.7871.128
+    status: installed_and_browser_verification_used
+  codex:
+    command: codex
+    path: /home/user/.local/bin/codex
+    version: 0.147.0
+    status: installed_and_v2_verified
+  antigravity:
+    path: /home/user/바탕화면/antigravity_ide_2_5_5_audit/isolated/AntigravityIDE/antigravity-ide
+    version: 1.107.0
+    status: isolated_launch_verified
+    sandbox_owner: root:root
+    sandbox_mode: "4755"
+    no_sandbox_present: false
+    temporary_user_data_only: true
+    existing_install_modified: false
+  spec_kit:
+    command: specify
+    path: /home/user/.local/bin/specify
+    version: 0.16.1
+    status: installed_and_v2_verified
+
+design_and_browser_tools:
+  ui_ux_pro_max:
+    path: /home/user/바탕화면/test_project/.agents/skills/ui-ux-pro-max
+    installed_source_commit: 25543402bacf1e57dac797a8a66abad4498d97f0
+    product_validation_commit: 3b592c8037a276cb1eb0bf18bd27e3b49e9c3701
+    data_validation: PASS
+    domain_files: 12
+    stack_files: 22
+    status: installed_called_and_locally_validated
+  frontend_app_builder:
+    path: /home/user/.codex/plugins/cache/openai-curated-remote/build-web-apps/0.1.2/skills/frontend-app-builder/SKILL.md
+    status: installed_and_used_in_v2
+  frontend_testing_debugging:
+    path: /home/user/.codex/plugins/cache/openai-curated-remote/build-web-apps/0.1.2/skills/frontend-testing-debugging/SKILL.md
+    status: installed_and_used_in_v2
+  browser:
+    path: /home/user/.codex/plugins/cache/openai-bundled/browser/26.715.72359/skills/control-in-app-browser/SKILL.md
+    status: installed_and_used_in_v2
+  product_design:
+    path: /home/user/.codex/plugins/cache/openai-curated-remote/product-design/0.1.52/skills
+    status: installed_candidate_requires_role_specific_pilot
+
+update_policy:
+  automatic_updates_allowed: false
+  user_approval_required: true
+  record_version_before_update: true
+  rollback_path_required: true

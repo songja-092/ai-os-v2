@@ -1,0 +1,82 @@
+{
+  "registry_version": "1.0",
+  "required": [
+    {
+      "id": "ui-ux-pro-max",
+      "role": "design_rule_and_quality_guard",
+      "status": "available_external_local_skill",
+      "known_paths": [
+        "/home/user/바탕화면/test_project/.agents/skills/ui-ux-pro-max",
+        "/home/user/바탕화면/ai_os/.agents/skills/ui-ux-pro-max"
+      ],
+      "core_write_allowed": false
+    },
+    {
+      "id": "product-design",
+      "role": "visual_target_and_visual_audit_workflow",
+      "status": "provided_by_codex_plugin",
+      "core_write_allowed": false
+    },
+    {
+      "id": "shadcn",
+      "role": "implementation_component_source",
+      "status": "read_only_selection_in_pm1",
+      "install_gate": "PM2_and_user_approval",
+      "core_write_allowed": false
+    },
+    {
+      "id": "browser-playwright",
+      "role": "rendered_interaction_and_visual_verification",
+      "status": "use_existing_browser_first",
+      "core_write_allowed": false
+    }
+  ],
+  "optional_removable": [
+    {
+      "id": "impeccable",
+      "role": "second_opinion_design_finish_and_antipattern_review",
+      "status": "isolated_trial_pass_with_limits",
+      "source": "https://github.com/pbakaus/impeccable",
+      "license": "Apache-2.0",
+      "tested_version": "4.1.1",
+      "trial_result": "Detected flat type hierarchy and dark glow in the PM1 finish test; degraded detector without optional parser dependencies must not be treated as clean evidence.",
+      "default_execution": false,
+      "removal": "Remove the adapter entry and isolated skill copy; V2 artifacts and Recipe remain valid."
+    },
+    {
+      "id": "skillui",
+      "role": "selected_site_design_system_extraction",
+      "status": "conditional_public_only_trial_candidate",
+      "source": "https://github.com/amaancoderx/npxskillui",
+      "tested_version": "1.3.4_source_audit",
+      "reason": "Not allowed to see private projects or secrets. A public-URL trial may be permitted through V2 Capability Lab with a generated fixture and isolated HOME; direct execution remains disabled because URL mode uses api.microlink.io and copies generated skills to ~/.claude/skills.",
+      "default_execution": false
+    },
+    {
+      "id": "dembrandt",
+      "role": "selected_site_design_token_extraction",
+      "status": "candidate_not_installed",
+      "trigger": "user_selects_a_reference_url",
+      "default_execution": false
+    },
+    {
+      "id": "extract-design-system",
+      "role": "simple_design_token_extraction",
+      "status": "candidate_not_installed",
+      "trigger": "approved_extractor_trial",
+      "default_execution": false
+    },
+    {
+      "id": "motion",
+      "role": "purposeful_react_motion",
+      "status": "deferred_until_implementation_requires_motion",
+      "default_execution": false
+    },
+    {
+      "id": "storybook",
+      "role": "verified_component_state_catalog",
+      "status": "deferred_until_reusable_modules_exist",
+      "default_execution": false
+    }
+  ]
+}

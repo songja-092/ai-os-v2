@@ -1,0 +1,20 @@
+{
+  "trial_id": "creative-tim-ui-community-v1",
+  "candidate": "Creative Tim UI",
+  "candidate_number": 9,
+  "status": "adopted_design_direction",
+  "target_surface": "customer_community_website",
+  "benchmark": "ondam-home-community",
+  "source_commit": "20eb87b1f671a2ba778b435c53249522080e8f27",
+  "license": "MIT",
+  "source_blocks": ["large-blog-preview-01", "blog-post-preview-tags-01", "blog-cards-layout-01", "testimonials-02"],
+  "adaptation": "Community editorial feed using V2 benchmark content; original demo copy and branding excluded.",
+  "features_verified": ["category filter", "like", "save", "follow", "write feedback", "newsletter feedback", "mobile card grid"],
+  "decision_owner": "user",
+  "user_decision": {
+    "decision": "adopt",
+    "decided_at": "2026-08-20",
+    "reason": "사용자 채택"
+  },
+  "allowed_decisions": ["adopt", "hold", "discard"]
+}

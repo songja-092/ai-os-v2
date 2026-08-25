@@ -18,3 +18,7 @@ test-results/
 runs/
 specs/
 .specify/workflows/runs/
+# Capability Lab candidates are reproducible from pinned public commits. Keep evidence, not clones.
+pm1-artifacts/capability-lab/trials/*/source/
+__pycache__/
+*.pyc

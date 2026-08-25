@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>V2 디자인 총괄 기준안</title>
+  <style>
+    :root{--ink:#171814;--muted:#6d7067;--line:#d9ddd2;--paper:#fbfcf8;--panel:#fff;--accent:#ef5b2a;--accent-2:#ffe243;--ok:#16785b;--shadow:0 16px 45px rgba(35,40,27,.08);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Noto Sans KR",sans-serif;color:var(--ink)}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);font-size:14px}.app{min-height:100vh;display:grid;grid-template-columns:94px minmax(0,1fr)}
+    nav{border-right:1px solid var(--line);background:#f5f7f1;padding:24px 14px;display:flex;flex-direction:column;align-items:center;gap:24px}.mark{width:54px;height:54px;border-radius:17px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:900;letter-spacing:-1px}.nav-group{display:grid;gap:12px;width:100%}.nav-button{height:52px;border:0;border-radius:16px;background:transparent;color:#676b61;font-size:20px;cursor:pointer}.nav-button.active{background:var(--accent-2);color:var(--ink);box-shadow:inset 0 0 0 1px #e4ca15}.nav-label{font-size:10px;margin-top:2px;display:block;font-weight:700}.settings{margin-top:auto}
+    main{padding:24px 30px 28px;min-width:0}.top{height:58px;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid var(--line)}.crumb{color:var(--muted);font-size:12px}.top h1{font-size:19px;margin:5px 0}.state{display:flex;align-items:center;gap:9px;color:var(--ok);font-weight:700}.dot{width:9px;height:9px;background:var(--ok);border-radius:50%;box-shadow:0 0 0 4px #dff1e9}
+    .workspace{height:calc(100vh - 111px);min-height:720px;display:grid;grid-template-columns:minmax(290px,25%) minmax(0,1fr);gap:18px;padding-top:18px}.brief{min-width:0;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:22px;background:var(--panel);overflow:hidden}.brief-head{padding:22px 22px 17px;border-bottom:1px solid var(--line)}.brief-head small{color:var(--muted)}.brief-head h2{font-size:23px;letter-spacing:-.5px;margin:7px 0 5px}.stage{display:flex;align-items:center;gap:8px;color:var(--accent);font-weight:800;font-size:12px}.chat{flex:1;padding:18px;background:#f7f8f4;display:flex;flex-direction:column;gap:12px}.bubble{max-width:88%;padding:13px 15px;border-radius:15px;line-height:1.6}.ai{background:#fff;border:1px solid var(--line);border-top-left-radius:4px}.user{align-self:flex-end;background:#1d2019;color:#fff;border-bottom-right-radius:4px}.avatar{width:25px;height:25px;border-radius:9px;background:var(--accent-2);display:inline-grid;place-items:center;margin-right:8px;font-size:11px;font-weight:900;color:var(--ink)}.composer{padding:14px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 43px;gap:9px}.composer input{height:43px;border:1px solid #cfd4c7;border-radius:12px;padding:0 13px;background:#fff}.send{border:0;border-radius:12px;background:var(--accent);color:#fff;font-weight:900;font-size:18px;cursor:pointer}
+    .review{min-width:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:var(--shadow);overflow:hidden}.review-bar{height:66px;padding:0 19px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.review-bar strong{font-size:16px}.device{display:flex;padding:4px;border:1px solid var(--line);border-radius:12px;background:#f6f7f3}.device button{border:0;background:transparent;border-radius:8px;padding:8px 13px;cursor:pointer;color:var(--muted)}.device button.active{background:#fff;color:var(--ink);font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .canvas{min-height:0;background:#eef1e9;padding:26px;display:grid;place-items:center;overflow:auto}.phone{width:430px;min-height:620px;border:10px solid #20241e;border-radius:31px;background:#fff;box-shadow:0 24px 65px rgba(20,25,14,.18);overflow:hidden}.site-head{height:55px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eceee9;font-weight:900}.site-head button{border:0;background:none;font-size:20px}.hero{min-height:215px;padding:29px 25px;background:linear-gradient(135deg,#fff3a5 0 62%,#ff7144 62%);position:relative}.hero small{font-weight:800}.hero h3{font-size:31px;line-height:1.12;letter-spacing:-1.4px;margin:13px 0 11px;max-width:290px}.hero p{line-height:1.55;margin:0;max-width:270px}.hero .book{display:inline-block;margin-top:20px;padding:12px 16px;background:#181a16;color:#fff;border-radius:10px;font-weight:800}.doctor{padding:20px 22px}.doctor-title{display:flex;align-items:end;justify-content:space-between;margin-bottom:12px}.doctor-title h4{font-size:18px;margin:0}.doctor-title span{font-size:12px;color:var(--muted)}.doctor-card{display:grid;grid-template-columns:92px 1fr;gap:15px;border:1px solid var(--line);border-radius:16px;padding:12px}.portrait{border-radius:12px;background:linear-gradient(160deg,#c8d8cf,#f4c4a0);display:grid;place-items:end center;overflow:hidden;font-size:50px}.doctor-copy strong{font-size:17px}.doctor-copy p{font-size:12px;color:var(--muted);line-height:1.55}.doctor-copy button{border:0;background:var(--accent);color:#fff;border-radius:9px;padding:9px 12px;font-weight:800}
+    .review-foot{padding:14px 17px;display:flex;gap:10px;align-items:center;border-top:1px solid var(--line)}.review-foot .hint{margin-right:auto;color:var(--muted);font-size:12px}.action{height:42px;border:1px solid var(--line);background:#fff;border-radius:11px;padding:0 17px;font-weight:800;cursor:pointer}.action.primary{background:var(--ink);border-color:var(--ink);color:#fff}.action.danger{color:#b54121}.toast{position:fixed;right:30px;bottom:24px;background:#171814;color:#fff;border-radius:12px;padding:12px 16px;opacity:0;transform:translateY(10px);transition:.2s}.toast.show{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+<div class="app">
+  <nav aria-label="주 메뉴">
+    <div class="mark">V2</div>
+    <div class="nav-group">
+      <button class="nav-button" aria-label="대시보드">⌂<span class="nav-label">홈</span></button>
+      <button class="nav-button active" aria-label="프로젝트">▣<span class="nav-label">프로젝트</span></button>
+      <button class="nav-button" aria-label="자료 조사">⌕<span class="nav-label">자료</span></button>
+      <button class="nav-button" aria-label="스킬">✦<span class="nav-label">스킬</span></button>
+    </div>
+    <button class="nav-button settings" aria-label="설정">⚙<span class="nav-label">설정</span></button>
+  </nav>
+  <main>
+    <header class="top">
+      <div><div class="crumb">프로젝트 / 동네 병원 웹 개선</div><h1>결과 확인 작업실</h1></div>
+      <div class="state"><span class="dot"></span>변경 전 · 안전하게 확인 중</div>
+    </header>
+    <div class="workspace">
+      <section class="brief">
+        <header class="brief-head"><small>현재 단계</small><h2>디자인 결과 확인</h2><div class="stage">● 실제 적용 전입니다</div></header>
+        <div class="chat">
+          <div class="bubble ai"><span class="avatar">V2</span>의료진 소개와 예약 행동을 더 분명하게 만든 결과입니다. 오른쪽 화면에서 직접 확인해주세요.</div>
+          <div class="bubble user">실제 의사 사진이 들어가는 자리가 보이고 예약 버튼이 더 눈에 띄면 좋겠어.</div>
+          <div class="bubble ai"><span class="avatar">V2</span>요청을 반영한 미리보기입니다. 아직 제품에는 적용하지 않았습니다.</div>
+        </div>
+        <div class="composer"><input id="message" placeholder="추가로 바꿀 내용을 적어주세요"><button class="send" id="send" aria-label="보내기">↑</button></div>
+      </section>
+      <section class="review">
+        <header class="review-bar"><div><strong>고객 화면 미리보기</strong><div class="crumb">같은 모바일 규칙 · 390/430 확인</div></div><div class="device"><button>390</button><button class="active">430</button><button>PC</button></div></header>
+        <div class="canvas">
+          <article class="phone">
+            <div class="site-head"><span>우리동네의원</span><button aria-label="메뉴">☰</button></div>
+            <section class="hero"><small>오늘도 편안한 진료</small><h3>잘 듣고,<br>쉽게 설명합니다</h3><p>아이부터 부모님까지 일상의 건강을 가까이에서 살핍니다.</p><span class="book">예약 요청하기 →</span></section>
+            <section class="doctor"><div class="doctor-title"><h4>의료진 소개</h4><span>사진 적용 위치 확인</span></div><div class="doctor-card"><div class="portrait" aria-label="의료진 사진 자리">👨🏻‍⚕️</div><div class="doctor-copy"><strong>김해온 원장</strong><p>가정의학과 전문의<br>만성질환 · 건강검진 · 생활습관 관리</p><button>이 분으로 예약</button></div></div></section>
+          </article>
+        </div>
+        <footer class="review-foot"><span class="hint">기준안 1/8 · 외부 디자인 공급원 없음</span><button class="action danger" data-result="폐기">폐기</button><button class="action" data-result="보류">보류</button><button class="action primary" data-result="채택">채택</button></footer>
+      </section>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+  const toast=document.querySelector('#toast');let timer;
+  function notice(text){toast.textContent=text;toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1800)}
+  document.querySelectorAll('[data-result]').forEach(button=>button.addEventListener('click',()=>notice(`${button.dataset.result}은 사용자 판정 기록 단계에서 확정됩니다.`)));
+  document.querySelector('#send').addEventListener('click',()=>{const input=document.querySelector('#message');notice(input.value.trim()?'추가 요청 Draft를 만들었습니다.':'바꿀 내용을 먼저 적어주세요.');});
+</script>
+</body>
+</html>

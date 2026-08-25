@@ -1,0 +1,24 @@
+{
+  "trial_id": "public-korean-customer-web-v1",
+  "candidate_id": "public-korean-web",
+  "target_surface": "customer_product",
+  "status": "adopted_design_direction",
+  "subject": "온담 인테리어",
+  "fixed_asset": "../shared/ondam-interior-fixture.png",
+  "reference_flow": [
+    {"url":"https://stinterior.co.kr/project/","used_part":"프로젝트 사진 중심의 포트폴리오 탐색 구조","copy_code":false},
+    {"url":"https://webplanning.co.kr/interior/","used_part":"시공 사례에서 상담으로 이어지는 정보 흐름","copy_code":false},
+    {"url":"https://somtle.kr/service","used_part":"브랜드 철학과 포트폴리오를 웹진처럼 전달하는 방향","copy_code":false}
+  ],
+  "director_decision": {
+    "tone": "따뜻한 한국형 편집 디자인",
+    "layout": "비대칭 Hero와 사진 중심 포트폴리오",
+    "palette": ["#f4f0e7", "#161813", "#d8532b", "#687466"],
+    "do_not_copy": ["원본 브랜드", "원본 문구", "원본 이미지", "원본 코드"]
+  },
+  "implemented_interactions": ["프로젝트 필터", "상담 영역 이동", "상담 폼 상태 표시", "390·430 반응형"],
+  "decision_owner": "user",
+  "user_decision": "adopt",
+  "implementation_note": "Design direction adopted. Manual title line breaks remain an implementation issue and are not part of the design approval.",
+  "allowed_decisions": ["adopt", "hold", "discard"]
+}

@@ -1,0 +1,151 @@
+#!/usr/bin/env python3
+"""Read-only PM transition evidence checker.
+
+This tool never edits files, creates tags, or marks a PM as passed. It only
+checks the evidence contract declared in a JSON manifest and reports PASS or
+BLOCKED.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def git_output(repo: Path, *args: str) -> str | None:
+    result = subprocess.run(
+        ["git", *args],
+        cwd=repo,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        return None
+    return result.stdout.strip()
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--manifest",
+        default="state/pm-transition-evidence.json",
+        help="Evidence manifest path, relative to the repository by default.",
+    )
+    parser.add_argument("--repo", default=".")
+    args = parser.parse_args()
+
+    repo = Path(args.repo).resolve()
+    manifest_path = Path(args.manifest)
+    if not manifest_path.is_absolute():
+        manifest_path = repo / manifest_path
+
+    checks: list[dict[str, str]] = []
+
+    def record(status: str, kind: str, target: str, detail: str) -> None:
+        checks.append(
+            {"status": status, "kind": kind, "target": target, "detail": detail}
+        )
+
+    if not manifest_path.is_file():
+        record("missing", "manifest", str(manifest_path), "manifest file not found")
+        manifest: dict = {}
+    else:
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            record("pass", "manifest", str(manifest_path), "valid JSON")
+        except (OSError, json.JSONDecodeError) as error:
+            record("conflict", "manifest", str(manifest_path), str(error))
+            manifest = {}
+
+    for item in manifest.get("files", []):
+        relative = item.get("path", "")
+        path = repo / relative
+        if not path.is_file():
+            record("missing", "file", relative, "required file not found")
+            continue
+
+        expected_hash = item.get("sha256")
+        if expected_hash:
+            actual_hash = sha256(path)
+            if actual_hash != expected_hash:
+                record(
+                    "conflict",
+                    "sha256",
+                    relative,
+                    f"expected {expected_hash}, got {actual_hash}",
+                )
+                continue
+
+        text = path.read_text(encoding="utf-8", errors="replace")
+        missing_text = [
+            value for value in item.get("required_text", []) if value not in text
+        ]
+        if missing_text:
+            record(
+                "conflict",
+                "required_text",
+                relative,
+                "missing: " + " | ".join(missing_text),
+            )
+        else:
+            record("pass", "file", relative, "present and consistent")
+
+    tag = manifest.get("tag")
+    if tag:
+        actual_commit = git_output(repo, "rev-list", "-n", "1", tag.get("name", ""))
+        expected_commit = tag.get("commit")
+        if actual_commit is None:
+            record("missing", "tag", tag.get("name", ""), "tag not found")
+        elif expected_commit and actual_commit != expected_commit:
+            record(
+                "conflict",
+                "tag",
+                tag.get("name", ""),
+                f"expected {expected_commit}, got {actual_commit}",
+            )
+        else:
+            record("pass", "tag", tag.get("name", ""), actual_commit)
+
+    expected_branch = manifest.get("expected_branch")
+    if expected_branch:
+        actual_branch = git_output(repo, "branch", "--show-current")
+        if actual_branch != expected_branch:
+            record(
+                "conflict",
+                "branch",
+                expected_branch,
+                f"current branch is {actual_branch}",
+            )
+        else:
+            record("pass", "branch", expected_branch, "current branch matches")
+
+    blocking = [check for check in checks if check["status"] != "pass"]
+    verdict = "PASS" if not blocking else "BLOCKED"
+    output = {
+        "tool": "verify-pm-transition-evidence",
+        "mode": "read_only",
+        "manifest": str(manifest_path),
+        "verdict": verdict,
+        "pm_auto_passed": False,
+        "human_approval_required": True,
+        "checks": checks,
+    }
+    print(json.dumps(output, ensure_ascii=False, indent=2))
+    return 0 if verdict == "PASS" else 2
+
+
+if __name__ == "__main__":
+    sys.exit(main())

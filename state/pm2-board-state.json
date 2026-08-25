@@ -1,0 +1,31 @@
+{
+  "state_version": "1.0",
+  "revision": 18,
+  "project_id": "pdf-drawing-symbols",
+  "active_slot": "workspace_preview",
+  "active_module_id": "pdf-result-preview",
+  "allowed_actions": [
+    "module.enable",
+    "module.disable",
+    "module.move_up",
+    "module.move_down",
+    "module.simulate_failure",
+    "module.select",
+    "layout.restore"
+  ],
+  "modules": [
+    {
+      "module_id": "pdf-result-preview",
+      "order": 1,
+      "enabled": true,
+      "failed": false
+    },
+    {
+      "module_id": "hospital-web-result-preview",
+      "order": 2,
+      "enabled": true,
+      "failed": false
+    }
+  ],
+  "last_action": "layout.restore"
+}

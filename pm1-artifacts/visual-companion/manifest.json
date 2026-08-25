@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0",
+  "board_id": "pm1-visual-companion-v1",
+  "status": "candidate_selection",
+  "target_surface": "v2_board",
+  "screen_type": "visual_workspace",
+  "max_visible_references": 5,
+  "product_applied": false,
+  "comparison_context": {
+    "viewport": {"width": 1440, "height": 950},
+    "zoom": 1,
+    "data_fixture_id": "v2-pdf-symbol-workspace-v1",
+    "screen_state": "design_review",
+    "color_mode": "light",
+    "motion_capture": "paused"
+  },
+  "references": [
+    {
+      "reference_id": "current-v2-workspace",
+      "name": "현재 V2 작업실",
+      "source_url": "local://v2-ui-images/project-workspace-pc",
+      "image_path": "current-v2-workspace.png",
+      "sha256": "0588bb39aa3adef6b3bf35035ecc6cf82ac75d2af7bc741d5ac1240f252d1984",
+      "access_checked_at": "2026-08-17",
+      "license_status": "사용자 제공 자산",
+      "reference_type": "visual_reference",
+      "screen_type": "visual_workspace",
+      "summary": "요청·진행 정보와 큰 Preview를 함께 확인하는 현재 비교 기준",
+      "do_not_copy": ["작은 모바일 Preview", "과도한 기술 정보"],
+      "regions": [
+        {"region_label": "navigation", "normalized_bounds": {"x": 0, "y": 0, "width": 0.14, "height": 1}, "target_section_id": "workspace.navigation"},
+        {"region_label": "request_context", "normalized_bounds": {"x": 0.14, "y": 0.07, "width": 0.21, "height": 0.68}, "target_section_id": "workspace.context-panel"},
+        {"region_label": "main_preview", "normalized_bounds": {"x": 0.35, "y": 0.07, "width": 0.64, "height": 0.68}, "target_section_id": "workspace.preview"}
+      ]
+    },
+    {
+      "reference_id": "puck-editor",
+      "name": "Puck 편집 작업실",
+      "source_url": "https://demo.puckeditor.com/edit",
+      "image_path": "puck-editor.png",
+      "sha256": "53a0c27ba31788afcee63673207686687a09820b7849697a7d02e22003531aa9",
+      "access_checked_at": "2026-08-17",
+      "license_status": "MIT 코드; 화면은 참고 전용",
+      "reference_type": "visual_reference",
+      "screen_type": "visual_workspace",
+      "summary": "Block 목록·중앙 Canvas·속성 Panel이 분리된 조립형 구조",
+      "do_not_copy": ["브랜드", "Puck Data", "무제한 Component"],
+      "regions": [
+        {"region_label": "block_library", "normalized_bounds": {"x": 0, "y": 0.06, "width": 0.18, "height": 0.94}, "target_section_id": "workspace.module-library"},
+        {"region_label": "canvas", "normalized_bounds": {"x": 0.18, "y": 0.06, "width": 0.61, "height": 0.94}, "target_section_id": "workspace.preview"},
+        {"region_label": "property_panel", "normalized_bounds": {"x": 0.79, "y": 0.06, "width": 0.21, "height": 0.94}, "target_section_id": "workspace.property-panel"}
+      ]
+    },
+    {
+      "reference_id": "storybook-workspace",
+      "name": "Storybook 검증 작업실",
+      "source_url": "https://storybook.js.org/docs/writing-tests/visual-testing",
+      "image_path": "storybook-controls.png",
+      "sha256": "35bd1acaa3ad9d10b38b78a3dda65ddc717b3392d938603c29f795db65d58051",
+      "access_checked_at": "2026-08-17",
+      "license_status": "MIT 코드; 공식 문서 화면 참고",
+      "reference_type": "visual_reference",
+      "screen_type": "visual_workspace",
+      "summary": "왼쪽 항목 탐색·중앙 실제 Preview·오른쪽 검증 결과 구조",
+      "do_not_copy": ["Chromatic 유료 연결", "개발자 전문용어"],
+      "regions": [
+        {"region_label": "story_navigation", "normalized_bounds": {"x": 0, "y": 0, "width": 0.2, "height": 1}, "target_section_id": "workspace.navigation"},
+        {"region_label": "component_preview", "normalized_bounds": {"x": 0.2, "y": 0.08, "width": 0.52, "height": 0.72}, "target_section_id": "workspace.preview"},
+        {"region_label": "verification_panel", "normalized_bounds": {"x": 0.72, "y": 0.08, "width": 0.28, "height": 0.72}, "target_section_id": "workspace.verification"}
+      ]
+    },
+    {
+      "reference_id": "appsmith-editor",
+      "name": "Appsmith 앱 작업실",
+      "source_url": "https://dataos.info/learn/dp_consumer_learn_track/apps_consume_data_products/build_app_appsmith/",
+      "image_path": "appsmith-editor.png",
+      "sha256": "cbd88d181de6a32c41634971c97b0f87bc932d9aaabddcf05b29ced5fa595759",
+      "access_checked_at": "2026-08-17",
+      "license_status": "화면 참고 전용; 코드·브랜드 재사용 금지",
+      "reference_type": "visual_reference",
+      "screen_type": "visual_workspace",
+      "summary": "Component 선택·넓은 Canvas·속성 설정이 명확한 3단 작업 구조",
+      "do_not_copy": ["브랜드", "문구", "제품 Component", "Git 연결 UI"],
+      "regions": [
+        {"region_label": "component_library", "normalized_bounds": {"x": 0, "y": 0.08, "width": 0.22, "height": 0.84}, "target_section_id": "workspace.module-library"},
+        {"region_label": "app_canvas", "normalized_bounds": {"x": 0.22, "y": 0.08, "width": 0.56, "height": 0.84}, "target_section_id": "workspace.preview"},
+        {"region_label": "settings_panel", "normalized_bounds": {"x": 0.78, "y": 0.08, "width": 0.22, "height": 0.84}, "target_section_id": "workspace.property-panel"}
+      ]
+    },
+    {
+      "reference_id": "tooljet-editor",
+      "name": "ToolJet 앱 작업실",
+      "source_url": "https://dev.to/aviyel/creating-a-new-application-with-tooljet-step-by-step-guide-2hc8",
+      "image_path": "tooljet-editor.png",
+      "sha256": "ace0b95c7db6a6f0c95ca47e2de699391cbfee6aa877bcb76db3e9fd9dd23ec8",
+      "access_checked_at": "2026-08-17",
+      "license_status": "화면 참고 전용; 코드·브랜드 재사용 금지",
+      "reference_type": "visual_reference",
+      "screen_type": "visual_workspace",
+      "summary": "작업 Canvas를 중심으로 자료와 Component를 양옆에 배치한 구조",
+      "do_not_copy": ["브랜드", "문구", "데이터 연결 UI"],
+      "regions": [
+        {"region_label": "data_panel", "normalized_bounds": {"x": 0, "y": 0.1, "width": 0.2, "height": 0.7}, "target_section_id": "workspace.context-panel"},
+        {"region_label": "build_canvas", "normalized_bounds": {"x": 0.2, "y": 0.1, "width": 0.58, "height": 0.7}, "target_section_id": "workspace.preview"},
+        {"region_label": "component_panel", "normalized_bounds": {"x": 0.78, "y": 0.1, "width": 0.22, "height": 0.7}, "target_section_id": "workspace.module-library"}
+      ]
+    }
+  ]
+}

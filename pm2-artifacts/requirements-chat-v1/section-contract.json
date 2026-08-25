@@ -1,0 +1,23 @@
+{
+  "contract_version": "1.0",
+  "section_id": "workspace.requirements-chat",
+  "display_name": "요구사항 대화",
+  "parent_surface": "project_workspace",
+  "role": "사용자 요청을 대화로 정리하고 적용 전 변경 범위를 확인하는 화면 영역",
+  "inputs": [
+    "user_message",
+    "selected_files",
+    "current_project_context"
+  ],
+  "outputs": [
+    "intent_draft",
+    "change_scope_draft",
+    "preview_request_draft"
+  ],
+  "rules": [
+    "이 Section을 독립 Module로 분류하지 않는다.",
+    "사용자 승인 전 실제 제품이나 PM1 잠금 파일을 변경하지 않는다.",
+    "현재 AI 응답은 PM2 상호작용 검증용 Fixture이며 Core 연결 증거가 아니다."
+  ],
+  "status": "fixture_section"
+}

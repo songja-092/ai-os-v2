@@ -1,0 +1,29 @@
+{
+  "topic": "",
+  "schedule": {"hour": 9, "minute": 0, "timezone": "Asia/Seoul", "status": "draft"},
+  "selected_platforms": [],
+  "allowed_actions": [
+    "briefing.schedule.update",
+    "briefing.config.update",
+    "briefing.collect.more",
+    "briefing.direction.change",
+    "briefing.accept.current"
+  ],
+  "sources": [
+    {"id": "github", "name": "GitHub", "status": "public_metadata_available"},
+    {"id": "reddit", "name": "Reddit", "status": "planned_not_connected"},
+    {"id": "youtube", "name": "YouTube", "status": "planned_not_connected"},
+    {"id": "threads", "name": "Threads", "status": "user_browser_session_required"},
+    {"id": "instagram", "name": "Instagram", "status": "user_browser_session_required"}
+  ],
+  "items": [
+    {
+      "category": "V2 적용 후보",
+      "title": "예약 조사 결과 표시 예시",
+      "url": "https://github.com/",
+      "short_summary": "실제 자동 수집 결과가 아니라 원본 링크와 짧은 요약 표시를 검증하기 위한 Fixture입니다.",
+      "source": "GitHub",
+      "fixture_only": true
+    }
+  ]
+}

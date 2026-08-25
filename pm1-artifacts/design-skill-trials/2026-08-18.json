@@ -1,0 +1,47 @@
+{
+  "trial_date": "2026-08-18",
+  "target": "pm1-finish-test.html",
+  "current_skill": "v2-design-finish",
+  "candidates": [
+    {
+      "id": "impeccable",
+      "source": "https://github.com/pbakaus/impeccable",
+      "version": "4.1.1",
+      "license": "Apache-2.0",
+      "installation": "isolated_temp_only",
+      "execution": "static_detector_degraded_mode",
+      "findings": [
+        "flat-type-hierarchy",
+        "dark-glow"
+      ],
+      "decision": "adopt_as_optional_second_opinion",
+      "limitations": [
+        "not_a_reference_collector",
+        "not_a_design_diversity_generator",
+        "clean_detector_output_is_not_design_approval",
+        "full_parser_dependencies_not_installed_in_trial"
+      ]
+    },
+    {
+      "id": "skillui",
+      "source": "https://github.com/amaancoderx/npxskillui",
+      "version": "1.3.4",
+      "license": "MIT",
+      "installation": "not_installed",
+      "execution": "not_run",
+      "decision": "reject_for_default_use",
+      "reasons": [
+        "url_is_sent_to_api.microlink.io_for_screenshot",
+        "generated_skill_is_auto_copied_to_home_claude_skills",
+        "young_project_with_insufficient_independent_success_evidence"
+      ]
+    },
+    {
+      "id": "anthropic-frontend-design",
+      "source": "https://github.com/anthropics/skills/tree/main/skills/frontend-design",
+      "installation": "not_installed",
+      "decision": "do_not_duplicate",
+      "reason": "The tested Impeccable skill already builds on this approach and adds bounded commands and deterministic anti-pattern checks."
+    }
+  ]
+}

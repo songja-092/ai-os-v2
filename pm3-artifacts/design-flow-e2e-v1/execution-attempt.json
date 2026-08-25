@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "attempted_at": "2026-08-20",
+  "project_id": "ondam-home-community-e2e",
+  "implementation_handoff": "proven",
+  "isolated_repository": "/home/user/바탕화면/ondam_design_flow_e2e",
+  "base_commit": "eafcf3a55d8479b66b6189b365ab1c0ef5e827ec",
+  "antigravity_cli": {
+    "binary": "/home/user/바탕화면/antigravity_ide_2_5_5_audit/isolated/AntigravityIDE/bin/antigravity-ide",
+    "reported_version": "1.107.0",
+    "chat_command_available_in_help": true,
+    "workspace_opened": true,
+    "prompt_submitted_by_cli": false,
+    "product_files_created": 0,
+    "error": "command 'workbench.action.chat.newChat' not found"
+  },
+  "observed_secondary_error": "MCP config rejected unsupported dynamic_discovery value",
+  "antigravity_implementation": "blocked",
+  "actual_product_implementation": "not_proven",
+  "codex_fidelity_verification": "not_started",
+  "user_final_approval": "not_started",
+  "version_restore": "not_started",
+  "verdict": "BLOCKED"
+}

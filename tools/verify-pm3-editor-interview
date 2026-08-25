@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+"""Validate the PM3 editor interview receipt without changing state."""
+import json
+import sys
+from pathlib import Path
+
+path = Path(sys.argv[1] if len(sys.argv) > 1 else "pm3-artifacts/editor-interview-v1/interview-receipt.json")
+try:
+    data = json.loads(path.read_text(encoding="utf-8"))
+except (OSError, json.JSONDecodeError) as error:
+    print(json.dumps({"verdict": "BLOCKED", "error": str(error)}, ensure_ascii=False))
+    raise SystemExit(2)
+
+decisions = data.get("decisions", {})
+checks = {
+    "user_confirmed": data.get("status") == "user_confirmed",
+    "text_editing": set(decisions.get("text_editing", [])) == {"inline", "property_panel"},
+    "mouse_ordering": decisions.get("ordering") == "direct_mouse_drag",
+    "free_resize": decisions.get("resize") == "free_edge_and_corner_drag_with_extreme_only_block",
+    "image_boundary": set(decisions.get("image_editing", [])) == {"replace", "resize"},
+    "responsive_split": bool(decisions.get("responsive", {}).get("viewport_overrides")),
+    "undo_and_discard": set(decisions.get("undo", [])) == {"step_back", "discard_entire_draft"},
+    "customer_only": decisions.get("target_surface") == "customer_product",
+    "pm6_revalidation": len(decisions.get("pm6_revalidation", [])) >= 5,
+    "implementation_still_blocked": data.get("implementation_gate", {}).get("new_editor_implementation_allowed") is False
+}
+blocking = [name for name, passed in checks.items() if not passed]
+print(json.dumps({
+    "tool": "verify-pm3-editor-interview",
+    "mode": "read_only",
+    "verdict": "PASS" if not blocking else "BLOCKED",
+    "meaning": "인터뷰 계약 완결성만 검사하며 PM3 구현·PASS를 승인하지 않음",
+    "checks": checks,
+    "blocking": blocking,
+    "next_gate": data.get("implementation_gate", {}).get("next_gate")
+}, ensure_ascii=False, indent=2))
+raise SystemExit(0 if not blocking else 2)

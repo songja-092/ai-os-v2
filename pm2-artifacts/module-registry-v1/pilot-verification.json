@@ -1,0 +1,26 @@
+{
+  "verification_version": "1.0",
+  "verified_at": "2026-08-19",
+  "base_commit": "3561fc5",
+  "module_id": "pdf-result-preview",
+  "surface": "pm2-module-test.html",
+  "url": "http://127.0.0.1:8203/pm2-module-test.html",
+  "checks": {
+    "manifest_schema_parse": "pass",
+    "registry_parse": "pass",
+    "initial_mount": "pass",
+    "project_local_disable": "pass_fixture",
+    "error_isolation": "pass_fixture",
+    "layout_restore": "pass_fixture",
+    "pm1_lock_regression": "pass",
+    "relevant_browser_console_error": "none"
+  },
+  "limitations": [
+    "정적 Pilot이며 V2 Core ui-state·ui-action에 아직 연결되지 않았다.",
+    "Module 1개만 시험했으므로 PM2의 Module 2개 이동·비활성 PASS를 만족하지 않는다.",
+    "상태는 메모리에만 보존되며 프로젝트 별 영구 저장은 아직 구현되지 않았다.",
+    "사용자 PM2 PASS는 아직 아니다."
+  ],
+  "technical_verdict": "pilot_pass",
+  "user_verdict": "pending"
+}

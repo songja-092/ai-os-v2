@@ -1,0 +1,26 @@
+{
+  "recipe_id": "pm1-preview-workspace-pilot-v1",
+  "schema_version": "1.0",
+  "project_id": "v2-board-pm1-pilot",
+  "target_surface": "v2_board",
+  "version": 1,
+  "base_version": null,
+  "status": "draft",
+  "source_selection": "pm1-artifacts/reference-board/selection.json",
+  "direction_id": "preview-workspace",
+  "product_applied": false,
+  "references": [
+    {"reference_id":"storybook","used_part":"검색 가능한 Context Rail과 격리된 큰 Preview Canvas","applied_section_ids":["workspace.context-panel","workspace.preview"]},
+    {"reference_id":"current-v2","used_part":"PDF 도면 기호 프로젝트와 승인 흐름","applied_section_ids":["workspace.header","workspace.preview","workspace.actions"]},
+    {"reference_id":"motion-examples","used_part":"Tab·선택 상태의 짧은 Feedback","applied_section_ids":["workspace.preview-toolbar","workspace.actions"]}
+  ],
+  "sections": [
+    {"section_id":"workspace.header","order":1,"visible":true,"layout":{"width":"full","height":"compact"}},
+    {"section_id":"workspace.context-panel","order":2,"visible":true,"layout":{"width":"small","height":"expanded"}},
+    {"section_id":"workspace.preview","order":3,"visible":true,"layout":{"width":"large","height":"expanded"}},
+    {"section_id":"workspace.actions","order":4,"visible":true,"layout":{"width":"full","height":"compact"}}
+  ],
+  "changes": [
+    {"change_id":"pilot-001","command":"direction_adopt","target_section_id":"workspace.preview","property":"layout_emphasis","before":"mixed_dashboard_workspace","after":"preview_first_22_78","source":"direct_edit"}
+  ]
+}

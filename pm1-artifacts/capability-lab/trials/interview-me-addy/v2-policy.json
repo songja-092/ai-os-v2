@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "interview-me-addy",
+  "activation": {
+    "default": "off",
+    "run_when": [
+      "explicit_user_request",
+      "missing_user_or_outcome_or_success",
+      "high_cost_or_security_or_scope_decision",
+      "conflict_with_confirmed_project_decision"
+    ],
+    "skip_when": [
+      "clear_mechanical_change",
+      "pure_information_request",
+      "confirmed_intent_receipt_exists",
+      "user_requests_speed_over_interview"
+    ]
+  },
+  "interaction": {
+    "one_question_at_a_time": true,
+    "soft_question_budget": 3,
+    "budget_actions": [
+      "continue_interview",
+      "show_current_summary",
+      "stop_without_implementation"
+    ],
+    "user_can_stop_any_time": true,
+    "explicit_confirmation_required": true
+  },
+  "output": {
+    "type": "pm5_easy_intent_receipt",
+    "fields": [
+      "original_request",
+      "clarified_request",
+      "target_environment",
+      "build_scope",
+      "preserve_scope",
+      "excluded_scope",
+      "acceptance_checks",
+      "constraints",
+      "unresolved_questions",
+      "risk_classification",
+      "why_now",
+      "status"
+    ]
+  },
+  "permissions": {
+    "core_write": false,
+    "product_write": false,
+    "network": false,
+    "private_project_access": false,
+    "automatic_implementation": false
+  }
+}

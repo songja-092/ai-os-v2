@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-08-18",
+  "candidates": [
+    {
+      "id": "shadcn-ui",
+      "repo": "shadcn-ui/ui",
+      "role": "verified_component_and_block_registry",
+      "category": "implementation-block",
+      "reason": "Preview, source, dependency and registry metadata can be reviewed before project installation.",
+      "pm_stage": "PM1_read_only_then_PM2",
+      "current_decision": "approved_for_read_only_selection",
+      "install_allowed_now": false,
+      "activation_gate": "PM1_visual_target_approved"
+    },
+    {
+      "id": "kokonut-ui",
+      "repo": "kokonut-labs/kokonutui",
+      "role": "animated_shadcn_component_reference",
+      "category": "visual-and-motion-block",
+      "reason": "Motion-based shadcn components can extend a selected design without becoming the renderer owner.",
+      "pm_stage": "PM1_reference_then_PM3",
+      "current_decision": "hold_until_motion_need",
+      "install_allowed_now": false,
+      "activation_gate": "PM2_modular_board_pass_and_motion_required"
+    },
+    {
+      "id": "impeccable",
+      "repo": "pbakaus/impeccable",
+      "role": "design_finish_second_opinion",
+      "category": "design-skill",
+      "reason": "The isolated detector and finish workflow already produced useful findings on the PM1 finish test.",
+      "pm_stage": "PM1",
+      "current_decision": "approved_inactive_adapter",
+      "install_allowed_now": false,
+      "activation_gate": "per_run_user_or_recipe_choice"
+    },
+    {
+      "id": "taste-skill-v1",
+      "repo": "Leonxlnx/taste-skill",
+      "role": "design_variance_and_anti_slop_candidate",
+      "category": "design-skill",
+      "reason": "Useful concepts overlap with v2-design-finish and require a direct outcome comparison before adoption.",
+      "pm_stage": "PM1_optional",
+      "current_decision": "hold_for_comparison",
+      "install_allowed_now": false,
+      "activation_gate": "user_selects_after_visual_comparison"
+    },
+    {
+      "id": "stitch-skills",
+      "repo": "google-labs-code/stitch-skills",
+      "role": "stitch_design_workflow_candidate",
+      "category": "external-design-workflow",
+      "reason": "It depends on an external Stitch workflow that the user did not prefer in the PM1 comparison.",
+      "pm_stage": "PM1_fallback_only",
+      "current_decision": "discarded_as_default",
+      "install_allowed_now": false,
+      "activation_gate": "new_user_request_and_new_evidence"
+    },
+    {
+      "id": "motion",
+      "repo": "motiondivision/motion",
+      "role": "react_motion_engine",
+      "category": "animation-engine",
+      "reason": "Use only when the approved Visual Target needs React layout or state motion.",
+      "pm_stage": "PM3",
+      "current_decision": "gated_candidate",
+      "install_allowed_now": false,
+      "activation_gate": "PM2_modular_board_pass_and_motion_required"
+    },
+    {
+      "id": "auto-animate",
+      "repo": "formkit/auto-animate",
+      "role": "low_configuration_reorder_animation",
+      "category": "animation-engine",
+      "reason": "A narrow alternative for add, remove and reorder feedback when Motion is not installed.",
+      "pm_stage": "PM3",
+      "current_decision": "alternative_to_motion",
+      "install_allowed_now": false,
+      "activation_gate": "PM2_pass_and_reorder_only_need"
+    },
+    {
+      "id": "storybook",
+      "repo": "storybookjs/storybook",
+      "role": "component_state_catalog_and_test_workshop",
+      "category": "verification-environment",
+      "reason": "Adopt after reusable modules exist, then use again for PM6 state verification.",
+      "pm_stage": "PM2_then_PM6",
+      "current_decision": "gated_candidate",
+      "install_allowed_now": false,
+      "activation_gate": "reusable_modules_exist"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "V2 Spec Adapter"
+  short_description: "짧은 자연어를 안전한 제작 명세와 작업으로 변환"
+  default_prompt: "사용자의 짧은 요청을 원문 그대로 보존하고, 현재 화면·계약·잠금을 읽어 Spec Lite 또는 Spec Full로 변환하세요."

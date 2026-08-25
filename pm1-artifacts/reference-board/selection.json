@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "board_id": "pm1-reference-board-v1",
+  "choice": "selected_parts",
+  "direction_id": "professional-workroom",
+  "motion_level": "절제",
+  "selected_by": "user",
+  "status": "draft_not_applied",
+  "selected_at": "2026-08-17T12:39:51.233695+00:00",
+  "product_changed": false
+}

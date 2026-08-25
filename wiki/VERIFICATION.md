@@ -222,6 +222,17 @@ M7 판정은 `✅ 검증됨`이며, 이에 따라 V2 Core MVP 검증이 공식�
 
 ### POST-MVP 연속 실행
 
+#### PM1~PM6 결정 흐름 검증 계약
+
+- PM5 인터뷰·Spec Lite/Full·Scope Lock 없이 새 제작 또는 범위 확장 구현을 시작하지 않습니다.
+- PM4는 기존 Recipe·DNA·Block·Skill을 먼저 검색하고 부족할 때만 외부 조사합니다.
+- PM1은 같은 목적·데이터·Viewport에서 구조적으로 다른 낮은 비용의 방향 3개를 보여주고, 선택된 후보·부분에서만 7축 Design DNA를 추출합니다.
+- 완성 Code Preview와 Visual Target은 선택 조합 하나만 제작하며 사용자가 디자인을 승인하기 전 구현하지 않습니다.
+- 승인 Design Recipe의 Reference·DNA·Section·Component·Hash가 Antigravity Handoff와 실제 결과까지 이어지는지 확인합니다.
+- PM3 편집은 마우스 이동·Inline/Panel 글자·자유 Resize·이미지 교체/크기·Viewport Override를 같은 Recipe Diff에 기록하고 Core 승인·Version·Restore를 우회하지 않습니다.
+- PM6은 디자인 방향을 새로 결정하지 않고 Intent→조사→방향 선택→DNA→Visual Target→Recipe→구현→부분 수정→마감→최종 승인→복구의 증거 계보를 재검증합니다.
+- PM3의 사용자 조건부 통과는 기술 완료가 아니며 실제 고객 결과물·390/430·Undo·Draft 폐기·원본 보존·프로젝트 격리·접근성·회귀를 PM6에서 다시 확인합니다.
+
 - M7 PASS 후 `wiki/POST_MVP_ROADMAP.md`를 실제로 읽고 첫 미검증 후보 `direct_partial_edit_panel`을 선택합니다. `web_camera_capture`는 기능 후보로 유지합니다.
 - 기존 레시피·설치 도구·공식 문서·GitHub 사례를 조사하고 구현 가능성·위험·다음 선택지를 기록합니다.
 - 사용자에게 `[진행]`, `[나중에]`, `[다른 후보 보기]`를 제시하지만 구현을 자동 시작하지 않습니다.
