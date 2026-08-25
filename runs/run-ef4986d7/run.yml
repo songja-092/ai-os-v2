@@ -21,5 +21,15 @@ planning_artifact: "/home/user/바탕화면/V2_UI/pm1-clickable-preview/specs/00
 design_exploration: {"version": 1, "status": "selected_direction_ready_for_design_draft", "artifact_type": "imported_external_visual_exploration", "artifact_path": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-artifacts/run-ef4986d7/v1", "manifest_path": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-artifacts/run-ef4986d7/v1/manifest.json", "generated_inside_run": false, "selected_direction": "MIX-1", "selected_components": ["A", "B", "C"], "user_result": "approved_visual_direction", "reference_count": 6, "reference_library_registered": false, "design_draft": {"status": "ready_to_create", "next_version": 1}}
 design_draft: {"version": 1, "status": "structure_preserved_visual_target_required", "selected_direction": "MIX-1", "artifact_path": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-drafts/run-ef4986d7/v1", "draft_path": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-drafts/run-ef4986d7/v1/design-draft.json", "source_exploration_version": 1, "user_result": "approved_structure_only", "ui_implementation": "not_started"}
 design_preview: {"version": 1, "status": "rejected_visual_fidelity", "artifact_path": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-previews/run-ef4986d7/v1", "preview_url": "http://127.0.0.1:8200/design-previews/run-ef4986d7/v1/", "source_draft_version": 1, "section_id_count": 9, "reference_count": 6, "builder_evidence": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-previews/run-ef4986d7/v1/evidence/builder-invocation.json", "testing_evidence": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-previews/run-ef4986d7/v1/evidence/verification.json", "audit_evidence": "/home/user/바탕화면/V2_UI/pm1-clickable-preview/design-previews/run-ef4986d7/v1/evidence/product-design-audit.md", "functional_interaction": "pass", "responsive_structure": "pass", "visual_fidelity": "fail", "design_quality": "not_approved", "implementation_input": "prohibited", "artifact_status": "rejected_design_evidence", "user_result": "rejected_visual_fidelity", "ui_implementation": "not_started"}
-design_standard: {"method": "Hybrid_H", "selected_direction": "MIX-1", "visual_target_scope": "screen_and_key_state", "visual_target_status": "required", "design_source_of_truth": "not_established", "baseline_viewports": ["1440x950", "430px", "390px"]}
-implementation_gate: "blocked_visual_target_and_fidelity_required"
+design_standard: {"method": "Hybrid_H", "selected_direction": "MIX-1", "visual_target_scope": "screen_and_key_state", "visual_target_status": "awaiting_user_visual_selection", "design_source_of_truth": "not_established", "baseline_viewports": ["1440x950", "430px", "390px"]}
+visual_target_candidates:
+  status: "awaiting_user_visual_selection"
+  generated_inside_run: true
+  target_screen: "project_home"
+  candidates:
+    - {"id": 1, "path": "/home/user/바탕화면/V2_UI/MIX-1-visual-target-candidate-1.png", "sha256": "8188596435099382c0448baa0e259262a6a372dd285d1d53803748977e6c8277", "concept": "task_first"}
+    - {"id": 2, "path": "/home/user/바탕화면/V2_UI/MIX-1-visual-target-candidate-2.png", "sha256": "f8658388c7d68ca6fac56cb86585557e41bcebc6f0231a849d07b52d4044657f", "concept": "project_operations"}
+    - {"id": 3, "path": "/home/user/바탕화면/V2_UI/MIX-1-visual-target-candidate-3.png", "sha256": "79cedc464ed564b3d7045d9c25a73418016ebcd762c776a59c7962698824c728", "concept": "collaboration_preview"}
+  selected_candidate: null
+  user_result: "pending"
+implementation_gate: "blocked_user_visual_target_selection_required"

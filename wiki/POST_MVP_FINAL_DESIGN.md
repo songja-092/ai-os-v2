@@ -1,13 +1,15 @@
 # AI OS V2 Post-MVP 최종 설계 보고서
 
 작성일: 2026-08-16
-문서 상태: Final Design Baseline
+문서 상태: Superseded Numbering Baseline — 최신 기준은 [[POST_MVP_PM0_PM6_BASELINE]]
 대상: 단일 운영자가 로컬 환경에서 고객 프로젝트를 조사·설계·제작·검증·전달하는 AI OS V2
 구현 상태: 시작 전
 
 ---
 
 ## 1. 최종 결론
+
+> 2026-08-17 사용자 승인에 따라 Post-MVP 공식 순서는 `PM0~PM6`으로 재정리됐습니다. 이 문서의 기존 `PM0~PM7` 본문은 기능·의사결정의 역사적 상세 기록으로 보존하며, 최신 번호·Gate·PASS·증거 매핑은 [[POST_MVP_PM0_PM6_BASELINE]]을 단일 기준으로 사용합니다. Core MVP M1~M7과 기존 Run·Artifact·Commit은 변경하지 않습니다.
 
 AI OS V2 Post-MVP는 `PM0~PM7`의 8개 단계로 확정합니다.
 
@@ -30,6 +32,8 @@ PM0 운영환경 준비
 - 자동 배포와 무인 자동 승인도 제외합니다.
 - 기술정보를 모르는 사용자는 자연어·선택지·Preview 중심으로 사용합니다.
 - 실제 파일 변경·Commit·Rollback은 V2 Core가 통제합니다.
+- AI OS V2 운영 UI 자체는 PC 전용으로 완성하며 별도의 V2 모바일 UI를 만들지 않습니다.
+- V2가 제작하는 고객 웹·앱 결과물은 390px·430px 모바일 버전과 검증을 필수로 포함합니다.
 
 ---
 
@@ -354,11 +358,19 @@ PM0가 PASS하기 전에도 PM 설계와 Concept Sample은 가능하지만 실�
 - 프로젝트 홈과 부모 보드
 - 프로젝트별 자식 작업 보드
 - 최근 프로젝트와 현재 단계
+- Core 제작 흐름 기본 숨김·요청 시 펼치기
 - 현재 요청·막힌 이유·다음 행동
 - 실제 Preview 중심 작업실
 - 요청 25% / Preview 75% 기본 비율
 - Preview 크게·대화 보기 전환
-- 390px·430px·1440px
+- V2 운영 UI 기준 Viewport `1440×950` 이상 PC
+- 고객 결과물 단일 Mobile Preview와 390px·430px Viewport 전환
+- 기본 표시 430px, 동일 Preview 상태를 유지한 390px 전환
+- 표시하지 않은 Viewport까지 자동 회귀검사
+- 휴대폰 연결·동기화 Panel
+- Core `allowed_actions`의 `open_on_phone` 실행
+- USB + `adb reverse` 기본 연결과 연결 상태 표시
+- `scrcpy` 선택 실행 및 연결 실패 시 PC Preview 유지
 - 통과·수정 요청·중단
 - 프로젝트 전환
 - 저장되지 않은 변경 표시
@@ -374,6 +386,7 @@ PM0가 PASS하기 전에도 PM 설계와 Concept Sample은 가능하지만 실�
 - 복잡한 Dashboard Builder
 - 자유형 Canvas 편집
 - 팀 협업·사용자 권한
+- Cloud Sync와 무선 ADB 외부 공개
 - PM2 이후 기능의 실제 구현
 
 ### 대표 시나리오
@@ -393,7 +406,9 @@ PM0가 PASS하기 전에도 PM 설계와 Concept Sample은 가능하지만 실�
 - 초보자가 기술정보 없이 프로젝트와 다음 행동을 찾습니다.
 - 프로젝트 간 Run·Artifact·Preview 혼합이 0건입니다.
 - Preview 실패가 Shell과 다른 프로젝트에 전파되지 않습니다.
-- 390px·430px·1440px 핵심 흐름이 동작합니다.
+- V2 운영 UI의 1440px PC 핵심 흐름이 동작합니다.
+- V2가 제작한 고객 결과물의 390px·430px 모바일 흐름과 Reflow가 동작합니다.
+- 연결된 휴대폰에서 실제 고객 결과물을 열 수 있고, 연결 실패가 PC Preview와 다른 프로젝트에 전파되지 않습니다.
 - Keyboard 핵심 흐름, Focus, WCAG AA Contrast와 Reflow를 통과합니다.
 - 승인된 Visual Target과 동일 Viewport Fidelity를 통과합니다.
 
@@ -802,8 +817,13 @@ PM 완료 Commit 이후에만 `CURRENT_STATE`, Roadmap, Handoff와 다음 활성
 
 ```yaml
 responsive:
-  viewports: [390, 430, 1440]
-  horizontal_overflow: false
+  v2_operator_ui:
+    required_viewports: [1440]
+    mobile_variant_required: false
+  produced_customer_result:
+    required_mobile_viewports: [390, 430]
+    desktop_viewport: project_requirement
+    horizontal_overflow: false
 
 accessibility:
   keyboard_core_flow: pass

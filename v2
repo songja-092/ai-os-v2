@@ -709,6 +709,14 @@ def build_isolated_analysis_context(temp_root, args, source_type, source_value, 
 
 def cmd_analyze(args):
     project_path = os.path.abspath(args.project)
+    input_artifact = os.path.abspath(args.input_artifact) if args.input_artifact else None
+    if args.run_type == "feature":
+        if args.milestone != "M7":
+            print("Error: feature collection-analysis currently requires --milestone M7.", file=sys.stderr)
+            sys.exit(1)
+        if not input_artifact or not os.path.isfile(input_artifact):
+            print("Error: M7 feature analysis requires an existing --input-artifact.", file=sys.stderr)
+            sys.exit(1)
     try:
         source_type, source_value = classify_source(args.source_url, args.source_text, args.source_file)
     except ValueError as exc:
@@ -741,7 +749,8 @@ def cmd_analyze(args):
     input_type = "user_provided_source" if source_type else "natural_language_request"
     run_data = {
         "run_id": run_id,
-        "run_type": "analysis",
+        "run_type": args.run_type,
+        "milestone": args.milestone,
         "request": args.request,
         "user_request": args.request,
         "input_type": input_type,
@@ -763,6 +772,7 @@ def cmd_analyze(args):
         "collection_analysis": {
             "status": "in_progress",
             "analysis_kind": "user_provided_source" if source_type else "natural_request",
+            "source_input_artifact": None,
             "research_artifact": None,
             "analysis_artifact": None,
             "user_summary_artifact": None,
@@ -777,6 +787,11 @@ def cmd_analyze(args):
             },
         },
     }
+    if input_artifact:
+        run_data["input_artifact"] = {
+            "path": input_artifact,
+            "sha256": file_sha256(input_artifact),
+        }
     if source_type:
         run_data["source"] = {
             "type": source_type,
@@ -794,10 +809,29 @@ def cmd_analyze(args):
         })
     write_yaml(run_file, run_data)
 
-    source_input_path = None
+    source_input_path = os.path.join(run_dir, "source-input.md")
     if source_type:
-        source_input_path = os.path.join(run_dir, "source-input.md")
         write_source_input(source_input_path, source_type, source_value, args.request)
+    else:
+        input_lines = [
+            "# 입력 자료\n",
+            "## 사용자 원문 요청\n",
+            f"{args.request}\n",
+            "## 실행 분류\n",
+            f"- Run 종류: {args.run_type}",
+            f"- 마일스톤: {args.milestone or '미지정'}",
+            "- 분석 종류: natural_request",
+        ]
+        if input_artifact:
+            input_lines.extend([
+                "## 테스트 입력 Artifact\n",
+                f"- 경로: {input_artifact}",
+                f"- SHA256: {file_sha256(input_artifact)}",
+            ])
+        with open(source_input_path, "w", encoding="utf-8") as handle:
+            handle.write("\n".join(input_lines).rstrip() + "\n")
+    run_data["collection_analysis"]["source_input_artifact"] = source_input_path
+    write_yaml(run_file, run_data)
 
     before_project = get_git_changed_paths(project_path)
     before_v2 = get_git_changed_paths(v2_root)
@@ -835,10 +869,21 @@ Create exactly these three additional non-empty files:
 
 Do not install, execute discovered code, edit Wiki, register a candidate, implement/preview a feature, or write outside this temporary workspace. Only source-input.md and the three files inside output may change. Maximum result is researched. Finish after writing the files without questions."""
     else:
+        if args.run_type == "feature":
+            isolation = tempfile.TemporaryDirectory(prefix=f"ai-os-v2-m7-analysis-{run_id}-")
+            run_data["collection_analysis"]["isolation"] = {
+                "mode": "temporary_directory",
+                "temp_path": os.path.realpath(isolation.name),
+                "inside_parent_git": False,
+            }
+            write_yaml(run_file, run_data)
         prompt = f"""Perform one read-only collection and analysis task for AI OS V2 Run {run_id}.
 User request (preserve verbatim): {args.request}
 Target project: {project_path}
 Run directory: {run_dir}
+Milestone: {args.milestone or 'not_assigned'}
+Input test Artifact: {input_artifact or 'none'}
+Input Artifact SHA256: {file_sha256(input_artifact) if input_artifact else 'none'}
 
 Read the target project's actual files, Git state, installed tools, and existing V2 documentation. Determine whether a verified V2 recipe already exists. This request has no verified recipe, so research is required. Use current primary sources: one official approach and at most two maintained alternatives. Check official documentation, maintained GitHub repositories, and concrete success or failure evidence. General web sources are supporting evidence only. Do not install anything, implement the feature, create a Preview, alter the target project, edit run.yml, or write outside the Run directory.
 
@@ -849,12 +894,12 @@ Create exactly these three non-empty files:
 
 Maximum result status is researched. Do not claim implemented, verified, or reusable_recipe. Finish after writing the three files; do not ask questions."""
     try:
-        execution_cwd = isolation.name if source_type else v2_root
+        execution_cwd = isolation.name if isolation is not None else v2_root
         result = run_codex_task(
             execution_cwd,
             prompt,
             900,
-            skip_git_repo_check=bool(source_type),
+            skip_git_repo_check=isolation is not None,
         )
         run_data["collection_analysis"]["codex_call_count"] = 1
         write_codex_task_log(log_path, result)
@@ -952,6 +997,46 @@ Maximum result status is researched. Do not claim implemented, verified, or reus
     print(f"Selected Recipe: {selected_recipe}")
     print(f"Next Action: {next_action}")
     print(f"User Summary: {paths['user_summary']}")
+
+
+def cmd_approve_analysis(args):
+    """Record the user's approval of a researched recipe without starting implementation."""
+    v2_root = os.path.dirname(os.path.abspath(__file__))
+    run_file = os.path.join(v2_root, "runs", args.run_id, "run.yml")
+    if not os.path.isfile(run_file):
+        print(f"Error: Run ID '{args.run_id}' not found.", file=sys.stderr)
+        sys.exit(1)
+
+    run_data = read_yaml(run_file)
+    analysis = run_data.get("collection_analysis", {})
+    if run_data.get("status") != "awaiting_user_review" or analysis.get("status") != "awaiting_user_review":
+        print("Error: This Run is not awaiting collection-analysis review.", file=sys.stderr)
+        sys.exit(1)
+    if analysis.get("validation", {}).get("status") != "PASS":
+        print("Error: Collection-analysis validation has not passed.", file=sys.stderr)
+        sys.exit(1)
+    if not analysis.get("selected_recipe"):
+        print("Error: No researched recipe is available for approval.", file=sys.stderr)
+        sys.exit(1)
+
+    approved_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    analysis.update({
+        "status": "approved",
+        "user_result": "approved",
+        "approved_recipe": analysis.get("selected_recipe"),
+        "approved_at": approved_at,
+    })
+    run_data.update({
+        "stage": "preview_intake",
+        "status": "awaiting_preview",
+        "next_stage_allowed": True,
+        "preview_gate": "ready_for_preview",
+        "implementation_gate": "blocked_preview_required",
+    })
+    write_yaml(run_file, run_data)
+    print("추천 범위를 승인했습니다.")
+    print("현재 상태: 기능 Preview 준비 가능")
+    print("제품 구현: 아직 시작하지 않음")
 
 def cmd_create(args):
     project_path = os.path.abspath(args.project)
@@ -1175,18 +1260,24 @@ def cmd_show(args):
         print("Note: This run was created with an older schema and is not fully compatible.")
         return
 
-    if run_data.get("stage") == "collection_analysis":
+    if run_data.get("collection_analysis"):
         analysis = run_data.get("collection_analysis", {})
         status = analysis.get("status", "unknown")
-        completed = status == "awaiting_user_review"
+        completed = status in {"awaiting_user_review", "approved"}
+        approved = status == "approved"
+        handoff_ready = run_data.get("m7_handoff_gate") == "ready_for_antigravity"
         print("AI OS V2 — 기능 조사\n")
         print(f"Run ID: {run_data.get('run_id')}")
         print(f"요청: {run_data.get('user_request') or run_data.get('request')}\n")
         print(f"[{'완료' if completed else '진행 중'}] 요청 접수")
         print(f"[{'완료' if completed else '진행 중'}] 자료 수집")
         print(f"[{'완료' if completed else '대기'}] 제작 방식 분석")
-        print(f"[{'사용자 확인 대기' if completed else '차단'}] 추천 방식")
-        print("[차단] Preview 제작\n")
+        print(f"[{'승인 완료' if approved else ('사용자 확인 대기' if completed else '차단')}] 추천 방식")
+        print(f"[{'승인 완료' if run_data.get('preview_gate') == 'approved' else ('준비 가능' if approved else '차단')}] Preview 제작")
+        if handoff_ready:
+            print("[준비 완료] Antigravity Handoff\n")
+        else:
+            print()
         print(f"조사 필요성: {run_data.get('research_status')}")
         print(f"추천 레시피: {analysis.get('selected_recipe')}")
         print(f"레시피 상태: {analysis.get('recipe_status')}")
@@ -1197,13 +1288,25 @@ def cmd_show(args):
             print(f"후보 판정: {analysis.get('disposition')}")
             print(f"공식 출처 교차검증: {analysis.get('official_sources_verified')}")
         print(f"다음 작업: {analysis.get('next_action')}\n")
+        if handoff_ready:
+            print("확정 범위:")
+            print("- 여러 페이지 PDF 열기와 페이지 이동")
+            print("- 페이지마다 작은 기호 여러 개 배치")
+            print("- 기호별 문자·색상·테두리·위치·크기 설정")
+            print("- 슬라이더와 −/+ 크기 조절")
+            print("- 새 PDF 다운로드와 원본 보존")
+            print("\n현재 상태: Antigravity 구현 시작 가능")
+            return
         summary_path = analysis.get("user_summary_artifact")
         if summary_path and os.path.isfile(summary_path):
             with open(summary_path, "r", encoding="utf-8") as summary_file:
                 print(summary_file.read().strip())
         elif run_data.get("failure_reason"):
             print(f"문제: {run_data.get('failure_reason')}")
-        print("\n내가 할 일: 진행 / 다른 방식 / 나중에")
+        if approved:
+            print("\n현재 상태: 기능 Preview 준비 가능")
+        else:
+            print("\n내가 할 일: 진행 / 다른 방식 / 나중에")
         return
 
     if run_data.get("run_type") == "change" and run_data.get("execution_path") == "quick":
@@ -2871,6 +2974,14 @@ def main():
     analyze_parser = subparsers.add_parser("analyze", help="Create one collection-analysis Run")
     analyze_parser.add_argument("--project", required=True, help="Path to the target project directory")
     analyze_parser.add_argument("--request", required=True, help="Natural-language functional request")
+    analyze_parser.add_argument(
+        "--run-type",
+        choices=["analysis", "feature"],
+        default="analysis",
+        help="Create a standalone analysis Run or an M7 standard Feature Run at collection-analysis",
+    )
+    analyze_parser.add_argument("--milestone", choices=["M7"], help="Milestone linked to the Run")
+    analyze_parser.add_argument("--input-artifact", help="Read-only test input Artifact recorded on the Run")
     analyze_sources = analyze_parser.add_mutually_exclusive_group()
     analyze_sources.add_argument("--source-url", help="One public URL provided by the user")
     analyze_sources.add_argument("--source-text", help="One text body provided by the user")
@@ -2895,6 +3006,12 @@ def main():
     # v2 run show
     show_parser = run_subparsers.add_parser("show", help="Show details of a run")
     show_parser.add_argument("run_id", help="The Run ID to inspect")
+
+    approve_analysis_parser = run_subparsers.add_parser(
+        "approve-analysis",
+        help="Approve a researched recipe and allow Preview preparation",
+    )
+    approve_analysis_parser.add_argument("run_id", help="The Run ID awaiting analysis review")
 
     # v2 run pause
     pause_parser = run_subparsers.add_parser("pause", help="Pause a run")
@@ -3012,6 +3129,8 @@ def main():
             cmd_create(args)
         elif args.run_command == "show":
             cmd_show(args)
+        elif args.run_command == "approve-analysis":
+            cmd_approve_analysis(args)
         elif args.run_command == "pause":
             update_run_status(args.run_id, "paused")
         elif args.run_command == "resume":
