@@ -46,6 +46,8 @@ Codex는 승인 범위 안에서 해결 가능한 일반 코드 오류를 최대
 
 `tools/verify-work-item`은 새 Workflow 엔진이 아니라 기존 검증기를 호출하는 얇은 Dispatcher입니다. Route는 `verification-routing.json`, 증거 형식은 `schemas/work-evidence.schema.json`을 사용합니다.
 
+공통 작업 명세의 `original_request`와 `approved_scope.change/preserve`는 Dispatcher가 직접 확인합니다. PM 전용 `V2 Spec Adapter` 검사는 모든 작업에 강제하지 않고 해당 Artifact가 변경된 Route에서만 실행합니다.
+
 - Route 없는 작업은 검증 방법이 없으므로 BLOCKED입니다.
 - 잠긴 파일 Route를 다른 Route보다 먼저 검사합니다.
 - `contract_only` PASS는 계약만, `fixture_specific` PASS는 해당 Fixture만, `runtime` PASS는 실행한 Runtime 경로만 증명합니다.
