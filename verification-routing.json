@@ -70,13 +70,13 @@
     {
       "id": "pm4-core",
       "priority": 20,
-      "paths": ["state/pm4-research-state.json", "plugins/v2-capability-lab/scripts/pm4_core_state_builder.py"],
+      "paths": ["state/pm4-research-state.json", "state/pm4-channel-memory.json", "plugins/v2-capability-lab/scripts/pm4_core_state_builder.py", "plugins/v2-capability-lab/scripts/pm4_browser_platform_collector.mjs", "plugins/v2-capability-lab/scripts/pm4_feed_collector.py", "plugins/v2-capability-lab/scripts/pm4_github_collector.py", "plugins/v2-capability-lab/scripts/pm4_instagram_collector.mjs", "plugins/v2-capability-lab/scripts/pm4_social_*.mjs", "pm4-artifacts/ai-vibe-coding-social-2026-08-21/**", "pm4-artifacts/instagram-web-animation-2026-08-21/**", "pm4-artifacts/instagram-web-animation-ranked-2026-08-21/**", "pm4-artifacts/one-time-ai-income-2026-08-21/**", "tools/verify-pm4-core", "wiki/CURRENT_STATE.md", "wiki/DECISIONS.md", "wiki/PM_CODEX_TOOLCHAIN_ADOPTION_2026-08-24.md"],
       "commands": [{"id": "pm4-core", "command": ["tools/verify-pm4-core"], "classification": "runtime", "side_effect": "temporary_with_restore", "mutable_paths": ["state/pm4-research-state.json", "state/pm4-channel-memory.json"]}]
     },
     {
       "id": "pm4-project-fixture",
       "priority": 20,
-      "paths": ["plugins/v2-capability-lab/scripts/pm4_project_*.py", "pm4-artifacts/project-collector-mvp-v1/**", "state/pm4-project-collector-state.json"],
+      "paths": ["plugins/v2-capability-lab/scripts/pm4_project_*.py", "pm4-artifacts/project-collector-mvp-v1/**", "state/pm4-project-collector-state.json", "tools/verify-pm4-project-mvp", "tools/verify-pm4-project-selection"],
       "commands": [
         {"id": "pm4-project-mvp", "command": ["tools/verify-pm4-project-mvp"], "classification": "fixture_specific", "side_effect": "temporary_with_restore", "mutable_paths": ["state/pm4-project-collector-state.json"]},
         {"id": "pm4-project-selection", "command": ["tools/verify-pm4-project-selection"], "classification": "fixture_specific", "side_effect": "read_only"}

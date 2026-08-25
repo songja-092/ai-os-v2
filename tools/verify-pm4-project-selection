@@ -6,7 +6,7 @@ root = pathlib.Path(__file__).resolve().parents[1]
 state = json.loads((root / "state/pm4-project-collector-state.json").read_text())
 handoff = json.loads((root / "pm4-artifacts/project-collector-mvp-v1/selection-handoff.json").read_text())
 selected = state["selected_candidate_id"]
-assert selected == "direction-3"
+assert selected == handoff["selected_direction"]["candidate_id"]
 assert state["selection_record"]["selected_by"] == "user"
 assert state["selection_record"]["input_method"] == "mouse_button_next"
 assert state["selection_record"]["recommendation_was_automatic_selection"] is False
