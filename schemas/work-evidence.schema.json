@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-os-v2.local/schemas/work-evidence.schema.json",
+  "title": "AI OS V2 Work Evidence",
+  "type": "object",
+  "required": ["schema_version", "work_id", "user_request", "approved_scope", "repository_state", "dirty_preservation", "changed_files", "check_runs", "failures", "repairs", "revalidation", "recovery_check", "technical_verdict", "user_approval"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "work_id": {"type": "string", "minLength": 1},
+    "user_request": {"type": "object", "required": ["original_text", "spec_path"], "properties": {"original_text": {"type": "string"}, "spec_path": {"type": "string"}}, "additionalProperties": true},
+    "approved_scope": {"type": "object", "required": ["change", "preserve"], "properties": {"change": {"type": "array", "items": {"type": "string"}}, "preserve": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": true},
+    "repository_state": {"type": "object", "required": ["repo_path", "branch", "base_commit", "start_commit"], "properties": {"repo_path": {"type": "string"}, "branch": {"type": "string"}, "base_commit": {"type": "string"}, "start_commit": {"type": "string"}, "routing_manifest_sha256": {"type": "string"}}, "additionalProperties": true},
+    "dirty_preservation": {"type": "object", "required": ["baseline", "preserved"], "properties": {"baseline": {"type": "array", "items": {"type": "object"}}, "preserved": {"enum": [true, false, "NOT_PROVEN"]}, "conflicts": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": true},
+    "changed_files": {"type": "array", "items": {"type": "string"}},
+    "check_runs": {"type": "array", "items": {"$ref": "#/$defs/checkRun"}},
+    "failures": {"type": "array", "items": {"type": "object", "required": ["failure_id", "check_id", "status"], "properties": {"failure_id": {"type": "string"}, "check_id": {"type": "string"}, "status": {"enum": ["OPEN", "RESOLVED"]}}, "additionalProperties": true}},
+    "repairs": {"type": "array", "items": {"type": "object"}},
+    "revalidation": {"type": "array", "items": {"type": "object", "required": ["check_id", "same_command", "status"], "properties": {"check_id": {"type": "string"}, "same_command": {"type": "boolean"}, "status": {"enum": ["PASS", "FAIL", "ERROR"]}}, "additionalProperties": true}},
+    "recovery_check": {"type": "object", "required": ["status"], "properties": {"status": {"enum": ["PASS", "FAIL", "NOT_PROVEN", "NOT_APPLICABLE"]}, "reason": {"type": "string"}}, "additionalProperties": true},
+    "technical_verdict": {"enum": ["PASS", "BLOCKED", "RUNNER_ERROR", "NOT_PROVEN"]},
+    "user_approval": {"enum": ["pending", "approved", "rejected"]}
+  },
+  "$defs": {
+    "checkRun": {
+      "type": "object",
+      "required": ["run_id", "phase", "check_id", "command", "classification", "exit_code", "status", "stdout_sha256", "restore_verified"],
+      "properties": {
+        "run_id": {"type": "string"},
+        "phase": {"enum": ["precheck", "postcheck", "recheck"]},
+        "check_id": {"type": "string"},
+        "command": {"type": "array", "items": {"type": "string"}},
+        "classification": {"enum": ["contract_only", "fixture_specific", "runtime"]},
+        "exit_code": {"type": "integer"},
+        "status": {"enum": ["PASS", "FAIL", "ERROR"]},
+        "stdout_sha256": {"type": "string"},
+        "restore_verified": {"enum": [true, false, "NOT_APPLICABLE"]}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

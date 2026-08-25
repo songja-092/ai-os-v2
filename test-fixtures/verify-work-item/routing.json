@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "global_checks": {
+    "precheck": [
+      {"id": "fixture-precheck", "command": ["python3", "check.py", "pass"], "classification": "contract_only", "side_effect": "read_only"}
+    ],
+    "postcheck": [],
+    "recheck": []
+  },
+  "routes": [
+    {
+      "id": "locked",
+      "priority": 0,
+      "paths": ["locked/**"],
+      "commands": [{"id": "locked-check", "command": ["python3", "check.py", "pass"], "classification": "runtime", "side_effect": "read_only"}],
+      "block_change": true
+    },
+    {
+      "id": "normal",
+      "priority": 10,
+      "paths": ["src/**"],
+      "commands": [{"id": "normal-fixture", "command": ["python3", "check.py", "pass"], "classification": "fixture_specific", "side_effect": "read_only"}]
+    },
+    {
+      "id": "repair",
+      "priority": 10,
+      "paths": ["repair/**"],
+      "commands": [{"id": "repair-check", "command": ["python3", "check.py", "fail-until-flag"], "classification": "runtime", "side_effect": "read_only"}]
+    },
+    {
+      "id": "restore",
+      "priority": 10,
+      "paths": ["state/**"],
+      "commands": [{"id": "restore-check", "command": ["python3", "check.py", "mutate-restore"], "classification": "runtime", "side_effect": "temporary_with_restore", "mutable_paths": ["state/value.txt"]}]
+    }
+  ],
+  "unmatched_policy": {"verdict": "BLOCKED", "exit_code": 2, "reason": "no_verifier_for_changed_file"},
+  "generated_artifacts": {"exclude_exact_evidence_path_from_routing": true}
+}

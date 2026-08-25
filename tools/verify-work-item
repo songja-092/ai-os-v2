@@ -1,0 +1,386 @@
+#!/usr/bin/env python3
+"""Route one bounded V2 work item to existing repository verifiers."""
+
+from __future__ import annotations
+
+import argparse
+import fnmatch
+import hashlib
+import json
+import os
+import subprocess
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+
+PASS = 0
+BLOCKED = 2
+RUNNER_ERROR = 3
+
+
+def now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def sha_bytes(value: bytes) -> str:
+    return hashlib.sha256(value).hexdigest()
+
+
+def sha_file(path: Path) -> str | None:
+    if not path.is_file():
+        return None
+    return sha_bytes(path.read_bytes())
+
+
+def append_status_entry(entries: list[dict[str, Any]], repo: Path, status: str, relative: str) -> None:
+    path = repo / relative
+    if path.is_dir():
+        for child in sorted(item for item in path.rglob("*") if item.is_file()):
+            child_relative = str(child.relative_to(repo))
+            entries.append({"status": status, "path": child_relative, "sha256": sha_file(child), "kind": "file"})
+        return
+    entries.append(
+        {
+            "status": status,
+            "path": relative,
+            "sha256": sha_file(path),
+            "kind": "file" if path.is_file() else "missing",
+        }
+    )
+
+
+def run_git(repo: Path, *args: str) -> str:
+    result = subprocess.run(
+        ["git", *args], cwd=repo, check=False, capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        raise RuntimeError(result.stderr.strip() or f"git {' '.join(args)} failed")
+    return result.stdout.strip()
+
+
+def status_entries(repo: Path) -> list[dict[str, Any]]:
+    result = subprocess.run(
+        ["git", "status", "--porcelain=v1", "-z"],
+        cwd=repo,
+        check=True,
+        capture_output=True,
+    )
+    entries: list[dict[str, Any]] = []
+    for raw in result.stdout.split(b"\0"):
+        if not raw:
+            continue
+        status = raw[:2].decode("utf-8", "replace")
+        relative = raw[3:].decode("utf-8", "surrogateescape")
+        if " -> " in relative:
+            relative = relative.split(" -> ", 1)[1]
+        append_status_entry(entries, repo, status, relative)
+    return entries
+
+
+def path_matches(path: str, patterns: list[str]) -> bool:
+    return any(fnmatch.fnmatchcase(path, pattern) for pattern in patterns)
+
+
+def current_changed_files(repo: Path, base: str) -> list[str]:
+    tracked = run_git(repo, "diff", "--name-only", base, "--").splitlines()
+    untracked = run_git(repo, "ls-files", "--others", "--exclude-standard").splitlines()
+    return sorted(set(filter(None, tracked + untracked)))
+
+
+def validate_manifest(data: dict[str, Any]) -> None:
+    if data.get("schema_version") != "1.0":
+        raise ValueError("routing manifest schema_version must be 1.0")
+    if not isinstance(data.get("routes"), list):
+        raise ValueError("routing manifest routes must be an array")
+    route_ids = [route.get("id") for route in data["routes"]]
+    if not all(route_ids) or len(route_ids) != len(set(route_ids)):
+        raise ValueError("routing route ids must be present and unique")
+    for route in data["routes"]:
+        if not route.get("paths") or not route.get("commands"):
+            raise ValueError(f"route {route.get('id')} requires paths and commands")
+
+
+def validate_spec(data: dict[str, Any]) -> None:
+    required = ("original_request", "approved_scope")
+    missing = [key for key in required if not data.get(key)]
+    scope = data.get("approved_scope", {})
+    if not isinstance(scope.get("change"), list) or not isinstance(scope.get("preserve"), list):
+        missing.append("approved_scope.change/preserve")
+    if missing:
+        raise ValueError("invalid spec: " + ", ".join(missing))
+
+
+def changed_since_baseline(
+    repo: Path, all_changed: list[str], baseline: list[dict[str, Any]], evidence_path: Path
+) -> tuple[list[str], list[str]]:
+    baseline_map = {entry["path"]: entry for entry in baseline}
+    work_changes: list[str] = []
+    conflicts = sorted(
+        relative
+        for relative, before in baseline_map.items()
+        if sha_file(repo / relative) != before.get("sha256")
+    )
+    evidence_relative = None
+    try:
+        evidence_relative = str(evidence_path.resolve().relative_to(repo))
+    except ValueError:
+        pass
+    for relative in all_changed:
+        if relative == evidence_relative:
+            continue
+        before = baseline_map.get(relative)
+        if before is None:
+            work_changes.append(relative)
+    return work_changes, conflicts
+
+
+def select_routes(manifest: dict[str, Any], changed: list[str]) -> tuple[list[dict[str, Any]], list[str]]:
+    matches: list[dict[str, Any]] = []
+    unmatched: list[str] = []
+    for relative in changed:
+        found = [route for route in manifest["routes"] if path_matches(relative, route["paths"])]
+        if not found:
+            unmatched.append(relative)
+        for route in found:
+            if route not in matches:
+                matches.append(route)
+    locked = [route for route in matches if route.get("block_change")]
+    if locked:
+        return sorted(locked, key=lambda item: item.get("priority", 100)), unmatched
+    return sorted(matches, key=lambda item: item.get("priority", 100)), unmatched
+
+
+def substitute(command: list[str], spec: Path, matched_file: str | None) -> list[str]:
+    return [
+        token.replace("{spec}", str(spec)).replace("{matched_file}", matched_file or "")
+        for token in command
+    ]
+
+
+def mutable_hashes(repo: Path, paths: list[str]) -> dict[str, str | None]:
+    return {relative: sha_file(repo / relative) for relative in paths}
+
+
+def execute_check(
+    repo: Path,
+    phase: str,
+    check: dict[str, Any],
+    spec: Path,
+    matched_file: str | None,
+    run_number: int,
+) -> dict[str, Any]:
+    command = substitute(check["command"], spec, matched_file)
+    mutable = check.get("mutable_paths", [])
+    before = mutable_hashes(repo, mutable)
+    try:
+        result = subprocess.run(command, cwd=repo, check=False, capture_output=True, text=True)
+        output = (result.stdout or "") + (result.stderr or "")
+        status = "PASS" if result.returncode == 0 else "FAIL"
+        exit_code = result.returncode
+    except OSError as error:
+        output = str(error)
+        status = "ERROR"
+        exit_code = RUNNER_ERROR
+    after = mutable_hashes(repo, mutable)
+    restored: bool | str = "NOT_APPLICABLE" if not mutable else before == after
+    if restored is False:
+        status = "FAIL"
+        if exit_code == 0:
+            exit_code = BLOCKED
+    return {
+        "run_id": f"run-{run_number}",
+        "phase": phase,
+        "check_id": check["id"],
+        "route_id": check.get("route_id", "global"),
+        "command": command,
+        "classification": check.get("classification", "runtime"),
+        "side_effect": check.get("side_effect", "read_only"),
+        "mutable_paths": mutable,
+        "before_hashes": before,
+        "after_hashes": after,
+        "exit_code": exit_code,
+        "status": status,
+        "stdout_sha256": sha_bytes(output.encode("utf-8", "replace")),
+        "output_excerpt": output[-2000:],
+        "restore_verified": restored,
+        "completed_at": now(),
+    }
+
+
+def load_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def write_json_atomic(path: Path, data: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    os.replace(temporary, path)
+
+
+def initial_evidence(
+    repo: Path, base: str, spec_path: Path, spec: dict[str, Any], manifest_path: Path
+) -> dict[str, Any]:
+    return {
+        "schema_version": "1.0",
+        "work_id": spec.get("work_id") or f"work-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}",
+        "user_request": {"original_text": spec["original_request"], "spec_path": str(spec_path)},
+        "approved_scope": spec["approved_scope"],
+        "repository_state": {
+            "repo_path": str(repo),
+            "branch": run_git(repo, "branch", "--show-current") or "detached",
+            "base_commit": run_git(repo, "rev-parse", base),
+            "start_commit": run_git(repo, "rev-parse", "HEAD"),
+            "routing_manifest_sha256": sha_file(manifest_path),
+        },
+        "dirty_preservation": {"baseline": status_entries(repo), "preserved": "NOT_PROVEN", "conflicts": []},
+        "changed_files": [],
+        "check_runs": [],
+        "failures": [],
+        "repairs": [],
+        "revalidation": [],
+        "recovery_check": {"status": "NOT_PROVEN", "reason": "검증 전"},
+        "technical_verdict": "NOT_PROVEN",
+        "user_approval": "pending",
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--spec", required=True)
+    parser.add_argument("--base", required=True)
+    parser.add_argument("--phase", required=True, choices=("precheck", "postcheck", "recheck"))
+    parser.add_argument("--evidence", required=True)
+    parser.add_argument("--repo", default=".")
+    parser.add_argument("--routing", default="verification-routing.json")
+    args = parser.parse_args()
+
+    try:
+        repo = Path(args.repo).resolve()
+        if not (repo / ".git").exists() and not run_git(repo, "rev-parse", "--git-dir"):
+            raise ValueError("repo is not a git repository")
+        spec_path = Path(args.spec)
+        if not spec_path.is_absolute():
+            spec_path = repo / spec_path
+        evidence_path = Path(args.evidence)
+        if not evidence_path.is_absolute():
+            evidence_path = repo / evidence_path
+        manifest_path = Path(args.routing)
+        if not manifest_path.is_absolute():
+            manifest_path = repo / manifest_path
+        spec = load_json(spec_path)
+        manifest = load_json(manifest_path)
+        validate_spec(spec)
+        validate_manifest(manifest)
+    except Exception as error:
+        print(json.dumps({"tool": "verify-work-item", "verdict": "RUNNER_ERROR", "error": str(error)}, ensure_ascii=False))
+        return RUNNER_ERROR
+
+    if args.phase == "precheck":
+        evidence = initial_evidence(repo, args.base, spec_path, spec, manifest_path)
+        dirty_paths = [entry["path"] for entry in evidence["dirty_preservation"]["baseline"]]
+        overlaps = [path for path in dirty_paths if path_matches(path, spec["approved_scope"]["change"])]
+        if overlaps:
+            evidence["dirty_preservation"]["preserved"] = False
+            evidence["dirty_preservation"]["conflicts"] = overlaps
+            evidence["technical_verdict"] = "BLOCKED"
+            write_json_atomic(evidence_path, evidence)
+            print(json.dumps({"tool": "verify-work-item", "verdict": "BLOCKED", "reason": "approved_scope_overlaps_existing_dirty", "conflicts": overlaps}, ensure_ascii=False, indent=2))
+            return BLOCKED
+    else:
+        if not evidence_path.is_file():
+            print(json.dumps({"tool": "verify-work-item", "verdict": "RUNNER_ERROR", "error": "precheck evidence required"}, ensure_ascii=False))
+            return RUNNER_ERROR
+        evidence = load_json(evidence_path)
+        if evidence.get("repository_state", {}).get("routing_manifest_sha256") != sha_file(manifest_path):
+            print(json.dumps({"tool": "verify-work-item", "verdict": "RUNNER_ERROR", "error": "routing manifest changed after precheck"}, ensure_ascii=False))
+            return RUNNER_ERROR
+
+    all_changed = current_changed_files(repo, args.base)
+    changed, conflicts = changed_since_baseline(
+        repo, all_changed, evidence["dirty_preservation"]["baseline"], evidence_path
+    )
+    evidence["changed_files"] = changed
+    evidence["dirty_preservation"]["conflicts"] = conflicts
+    evidence["dirty_preservation"]["preserved"] = not conflicts
+
+    selected_checks: list[dict[str, Any]] = []
+    unmatched: list[str] = []
+    locked_change = False
+    if args.phase == "precheck":
+        selected_checks = [dict(item, route_id="global") for item in manifest["global_checks"]["precheck"]]
+    elif args.phase == "postcheck":
+        routes, unmatched = select_routes(manifest, changed)
+        locked_change = any(route.get("block_change") for route in routes)
+        for route in routes:
+            matched = next((path for path in changed if path_matches(path, route["paths"])), None)
+            for command in route["commands"]:
+                selected_checks.append(dict(command, route_id=route["id"], matched_file=matched))
+        selected_checks.extend(dict(item, route_id="global") for item in manifest["global_checks"]["postcheck"])
+    else:
+        failed_ids = {failure["check_id"] for failure in evidence.get("failures", []) if failure.get("status") == "OPEN"}
+        prior = {run["check_id"]: run for run in evidence.get("check_runs", []) if run["check_id"] in failed_ids}
+        for check_id in sorted(failed_ids):
+            run = prior.get(check_id)
+            if run:
+                selected_checks.append({"id": check_id, "command": run["command"], "classification": run["classification"], "side_effect": run.get("side_effect", "read_only"), "mutable_paths": run.get("mutable_paths", []), "route_id": run.get("route_id", "recheck"), "original_command": run["command"]})
+        selected_checks.extend(dict(item, route_id="global") for item in manifest["global_checks"]["recheck"] if item["id"] not in failed_ids)
+
+    synthetic_failures: list[dict[str, Any]] = []
+    if conflicts:
+        synthetic_failures.append({"failure_id": f"failure-{len(evidence['failures'])+1}", "check_id": "dirty-preservation", "status": "OPEN", "reason": "pre-existing dirty content changed", "files": conflicts})
+    if unmatched:
+        synthetic_failures.append({"failure_id": f"failure-{len(evidence['failures'])+len(synthetic_failures)+1}", "check_id": "routing", "status": "OPEN", "reason": manifest["unmatched_policy"]["reason"], "files": unmatched})
+    if locked_change:
+        synthetic_failures.append({"failure_id": f"failure-{len(evidence['failures'])+len(synthetic_failures)+1}", "check_id": "locked-change", "status": "OPEN", "reason": "locked PM result changed"})
+
+    run_results: list[dict[str, Any]] = []
+    for check in selected_checks:
+        result = execute_check(repo, args.phase, check, spec_path, check.get("matched_file"), len(evidence["check_runs"]) + len(run_results) + 1)
+        run_results.append(result)
+        if result["status"] != "PASS":
+            synthetic_failures.append({"failure_id": f"failure-{len(evidence['failures'])+len(synthetic_failures)+1}", "check_id": result["check_id"], "status": "OPEN", "reason": "verifier_failed", "exit_code": result["exit_code"]})
+        if args.phase == "recheck":
+            expected = check.get("original_command", result["command"])
+            evidence["revalidation"].append({"check_id": result["check_id"], "same_command": result["command"] == expected, "status": result["status"]})
+            if result["status"] == "PASS":
+                for failure in evidence["failures"]:
+                    if failure["check_id"] == result["check_id"] and failure["status"] == "OPEN":
+                        failure["status"] = "RESOLVED"
+
+    evidence["check_runs"].extend(run_results)
+    evidence["failures"].extend(synthetic_failures)
+    open_failures = [failure for failure in evidence["failures"] if failure.get("status") == "OPEN"]
+    runner_errors = [run for run in run_results if run["status"] == "ERROR"]
+    restore_failed = [run for run in run_results if run["restore_verified"] is False]
+    if runner_errors:
+        verdict, code = "RUNNER_ERROR", RUNNER_ERROR
+    elif open_failures:
+        verdict, code = "BLOCKED", BLOCKED
+    else:
+        verdict, code = "PASS", PASS
+    evidence["technical_verdict"] = verdict
+    any_mutable = any(run["mutable_paths"] for run in run_results)
+    evidence["recovery_check"] = {
+        "status": "FAIL" if restore_failed else "PASS" if any_mutable else "NOT_APPLICABLE",
+        "reason": "임시 변경 경로 전후 Hash 비교" if any_mutable else "임시 상태 변경 검사가 없음",
+    }
+    write_json_atomic(evidence_path, evidence)
+    output = {
+        "tool": "verify-work-item",
+        "phase": args.phase,
+        "verdict": verdict,
+        "selected_checks": [run["check_id"] for run in run_results],
+        "unmatched_files": unmatched,
+        "dirty_conflicts": conflicts,
+        "evidence_path": str(evidence_path),
+        "user_approval": evidence["user_approval"],
+    }
+    print(json.dumps(output, ensure_ascii=False, indent=2))
+    return code
+
+
+if __name__ == "__main__":
+    sys.exit(main())

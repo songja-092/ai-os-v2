@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "global_checks": {
+    "precheck": [
+      {"id": "session-preflight", "command": ["tools/session-preflight"], "classification": "runtime", "side_effect": "read_only"},
+      {"id": "ai-evidence-guard", "command": ["tools/verify-ai-evidence-guard"], "classification": "contract_only", "side_effect": "read_only"},
+      {"id": "pm-locks", "command": ["tools/verify-pm-locks"], "classification": "runtime", "side_effect": "read_only"},
+      {"id": "spec-contract", "command": ["tools/verify-v2-spec-adapter", "{spec}"], "classification": "contract_only", "side_effect": "read_only"}
+    ],
+    "postcheck": [
+      {"id": "pm-locks", "command": ["tools/verify-pm-locks"], "classification": "runtime", "side_effect": "read_only"},
+      {"id": "ai-evidence-guard", "command": ["tools/verify-ai-evidence-guard"], "classification": "contract_only", "side_effect": "read_only"}
+    ],
+    "recheck": [
+      {"id": "pm-locks", "command": ["tools/verify-pm-locks"], "classification": "runtime", "side_effect": "read_only"}
+    ]
+  },
+  "routes": [
+    {
+      "id": "locked-pm-results",
+      "priority": 0,
+      "paths": ["pm1-complete-review.html", "pm1-artifacts/visual-target-v1/**", "pm2-module-test.html", "pm2-artifacts/module-registry-v1/**", "wiki/PM1_COMPLETION_REPORT_2026-08-18.md", "wiki/PM2_FIRST_MODULE_PILOT_REPORT_2026-08-19.md"],
+      "commands": [{"id": "pm-locks", "command": ["tools/verify-pm-locks"], "classification": "runtime", "side_effect": "read_only"}],
+      "block_change": true
+    },
+    {
+      "id": "common-harness",
+      "priority": 10,
+      "paths": ["AGENTS.md", ".agents/rules/evidence-first.md", ".agents/rules/v2-memory.md", "wiki/SESSION_START_CONTRACT.md", "wiki/CODEX_COMMON_EXECUTION_CONTRACT.md", "verification-routing.json", "schemas/work-evidence.schema.json", "tools/verify-work-item", "tests/test-verify-work-item", "test-fixtures/verify-work-item/**"],
+      "commands": [{"id": "common-harness-fixtures", "command": ["tests/test-verify-work-item"], "classification": "fixture_specific", "side_effect": "temporary_with_restore", "mutable_paths": []}]
+    },
+    {
+      "id": "capability-registry",
+      "priority": 20,
+      "paths": ["plugins/v2-capability-lab/registry/**", "plugins/v2-capability-lab/.codex-plugin/**", "plugins/v2-capability-lab/skills/**"],
+      "commands": [{"id": "capability-preflight", "command": ["tools/pm-capability-preflight"], "classification": "contract_only", "side_effect": "read_only"}]
+    },
+    {
+      "id": "pm-transition",
+      "priority": 20,
+      "paths": ["state/pm-transition-evidence.json", "test-fixtures/pm-transition-evidence/**", "tools/verify-pm-transition-evidence", "tools/test-pm-transition-evidence"],
+      "commands": [
+        {"id": "pm-transition-evidence", "command": ["tools/verify-pm-transition-evidence"], "classification": "contract_only", "side_effect": "read_only"},
+        {"id": "pm-transition-fixtures", "command": ["tools/test-pm-transition-evidence"], "classification": "fixture_specific", "side_effect": "read_only"}
+      ]
+    },
+    {
+      "id": "pm2-core-board",
+      "priority": 20,
+      "paths": ["v2", "state/pm2-board-state.json", "pm2-product-preview/**"],
+      "commands": [{"id": "pm2-core-board", "command": ["tools/verify-pm2-core-board"], "classification": "runtime", "side_effect": "temporary_with_restore", "mutable_paths": ["state/pm2-board-state.json"]}]
+    },
+    {
+      "id": "pm3-interview",
+      "priority": 20,
+      "paths": ["pm3-artifacts/editor-interview-v1/interview-receipt.json"],
+      "commands": [{"id": "pm3-editor-interview", "command": ["tools/verify-pm3-editor-interview", "{matched_file}"], "classification": "contract_only", "side_effect": "read_only"}]
+    },
+    {
+      "id": "pm4-local-collector",
+      "priority": 20,
+      "paths": ["plugins/v2-capability-lab/scripts/pm4_collector.py", "plugins/v2-capability-lab/scripts/pm4_analyzer.py", "pm4-artifacts/local-first-pilot-v1/**"],
+      "commands": [{"id": "pm4-local-collector", "command": ["tools/verify-pm4-collector"], "classification": "fixture_specific", "side_effect": "temporary_with_restore", "mutable_paths": []}]
+    },
+    {
+      "id": "pm4-core",
+      "priority": 20,
+      "paths": ["state/pm4-research-state.json", "plugins/v2-capability-lab/scripts/pm4_core_state_builder.py"],
+      "commands": [{"id": "pm4-core", "command": ["tools/verify-pm4-core"], "classification": "runtime", "side_effect": "temporary_with_restore", "mutable_paths": ["state/pm4-research-state.json", "state/pm4-channel-memory.json"]}]
+    },
+    {
+      "id": "pm4-project-fixture",
+      "priority": 20,
+      "paths": ["plugins/v2-capability-lab/scripts/pm4_project_*.py", "pm4-artifacts/project-collector-mvp-v1/**", "state/pm4-project-collector-state.json"],
+      "commands": [
+        {"id": "pm4-project-mvp", "command": ["tools/verify-pm4-project-mvp"], "classification": "fixture_specific", "side_effect": "temporary_with_restore", "mutable_paths": ["state/pm4-project-collector-state.json"]},
+        {"id": "pm4-project-selection", "command": ["tools/verify-pm4-project-selection"], "classification": "fixture_specific", "side_effect": "read_only"}
+      ]
+    },
+    {
+      "id": "pm4-briefing",
+      "priority": 20,
+      "paths": ["pm4-modules/daily-discovery-briefing/**", "tools/verify-pm4-briefing-module"],
+      "commands": [{"id": "pm4-briefing-module", "command": ["tools/verify-pm4-briefing-module"], "classification": "contract_only", "side_effect": "read_only"}]
+    }
+  ],
+  "unmatched_policy": {"verdict": "BLOCKED", "exit_code": 2, "reason": "no_verifier_for_changed_file"},
+  "generated_artifacts": {"exclude_exact_evidence_path_from_routing": true},
+  "status_semantics": {
+    "contract_only": "계약 구조만 검증하며 Runtime PASS가 아님",
+    "fixture_specific": "해당 Fixture만 검증하며 범용 기능 PASS가 아님",
+    "runtime": "실행한 Runtime 경로만 검증"
+  }
+}

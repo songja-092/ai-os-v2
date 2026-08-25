@@ -1,6 +1,6 @@
 # AI OS V2 공용 기억 Load
 
-새 작업 또는 새 세션에서 사용자의 첫 요청을 처리하기 전에 @../../wiki/SESSION_START_CONTRACT.md를 가장 먼저 읽고, 저장소의 `AGENTS.md`에 정의된 공용 기억 Load 절차를 수행한다.
+새 작업 또는 새 세션에서 사용자의 첫 요청을 처리하기 전에 @../../wiki/SESSION_START_CONTRACT.md를 가장 먼저 읽고, 이어서 @../../wiki/CODEX_COMMON_EXECUTION_CONTRACT.md와 저장소의 `AGENTS.md`에 정의된 공용 기억 Load 절차를 수행한다.
 
 다음 문서를 기억이나 이전 대화가 아닌 실제 파일에서 읽는다.
 

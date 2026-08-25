@@ -2,6 +2,8 @@
 
 이 문서는 Codex·Antigravity·기타 AI가 새 세션에서 **가장 먼저 읽는 공식 진입점**입니다.
 
+새 세션은 이 문서를 읽은 직후 `wiki/CODEX_COMMON_EXECUTION_CONTRACT.md`를 읽습니다. 이 공통 실행계약은 Codex만의 설정이 아니라 웹 GPT·Antigravity를 포함해 저장소를 작업하는 모든 AI가 사용하는 작업·검증·복구 기준입니다.
+
 ## 가장 중요한 규칙
 
 > 직접 확인하지 않은 기능·상태·PASS·동기화·복구를 된다고 말하지 않습니다.
@@ -33,6 +35,7 @@ Obsidian은 문서를 보여주는 도구일 뿐 별도의 최신 상태 보증 
 3. Obsidian Vault 경로와 그 저장소 HEAD를 확인합니다. 접근하지 못하면 `not_checked`로 표시합니다.
 4. 이 문서를 읽은 다음 아래 문서를 실제 파일에서 읽습니다.
    - `AGENTS.md`
+   - `wiki/CODEX_COMMON_EXECUTION_CONTRACT.md`
    - `wiki/GOAL.md`
    - `wiki/CURRENT_STATE.md`
    - `wiki/DECISIONS.md`
@@ -116,6 +119,34 @@ session_preflight:
 - `V2 Spec Adapter` (`v2-spec-adapter`): 사용자의 짧은 자연어를 원문 그대로 보존하고 현재 화면·Section·잠금 계약을 읽어 작은 수정용 `Spec Lite` 또는 새 프로젝트·큰 기능용 `Spec Full`로 변환하는 Repo-local Skill입니다. `요구사항 창을 늘려줘` 수준의 요청도 변경 범위·보존 범위·완료 기준·회귀검사로 정리하며, 사용자는 쉬운 확인만 봅니다. Skill 구조와 가짜 요청 Pilot은 PASS했지만 V2 Core Runtime 자동 연결은 아직 구현되지 않았습니다.
 - `V2 Design Director` (`v2-design-director`): 후보별 Reference 탐색·시각 결과·사용자 채택/보류/폐기를 기록하고, 채택 공급원을 역할별 Section에 연결한 Draft Design Recipe와 HTML 추적 상태를 자동 검사합니다. 사용자 결정을 대신하거나 Core·제품에 자동 적용하지 않습니다.
 
+## PM별 Codex 기본 도구 계약
+
+- PM1은 현재 Codex 환경의 `Product Design`을 디자인 탐색·Visual Target·Screenshot 기반 디자인 감사의 기본 작업 Adapter로 사용합니다.
+- PM2는 `Build Web Apps`를 승인된 Visual Target·Design Recipe의 실제 화면 구현 Adapter로 사용합니다.
+- PM6은 `Frontend Testing`으로 실행 화면·상호작용·Console·반응형·회귀를 검사하고, `Product Design Audit`으로 디자인 마감 품질을 별도로 검사합니다.
+- 위 도구는 Codex 작업 환경에 이미 존재하므로 새 Package 설치가 필요하지 않습니다. V2 Core Runtime에 자동 연결됐다는 의미는 아닙니다.
+- 도구는 Core 상태·승인·Version·복구를 소유하지 않으며, 사용자 승인과 PM PASS를 대신하지 않습니다.
+- 기능 PASS와 디자인 PASS를 분리하고 실제 고객 결과물의 PM1→PM2→PM3→PM6 E2E가 재현되기 전에는 통합 완료로 표현하지 않습니다.
+- 상세 계약과 현재 증거 상태는 `wiki/PM_CODEX_TOOLCHAIN_ADOPTION_2026-08-24.md`를 사용합니다.
+
+## Codex Sites 고객 웹 적용 계약
+
+- `Codex Sites`는 고객용 랜딩페이지·병원·인테리어·포트폴리오·소개 웹처럼 개인정보·결제·중요 데이터가 없는 낮은 위험 프로젝트의 조건부 제작·배포 Adapter로 우선 사용합니다.
+- 로그인이나 간단한 데이터 저장이 포함되면 격리 Pilot에서 권한·데이터 보존·배포·복구를 먼저 확인한 뒤 적용 여부를 결정합니다.
+- 결제·민감정보·복잡한 사용자 권한·관리자 기능·Migration·여러 사용자 동시 작업·V2 Core 상태 연결이 포함되면 `회의할 항목이 있습니다`라고 사용자에게 먼저 알립니다.
+- 위 복잡한 요구가 발견되면 Codex Sites로 바로 구현하거나 자동 배포하지 않고, `Sites 범위 확장 시험`과 `기존 Antigravity 구현 + Codex 검증` 중 안전한 경로를 사용자에게 쉬운 말로 비교합니다.
+- 단순 웹 우선은 영구 제한이 아닙니다. 실제 프로젝트에서 구현·기능·보안·복구·사용자 승인까지 반복 검증된 범위만 단계적으로 확대합니다.
+- Codex Sites는 V2 Core, Design Recipe, Module Registry, 승인, Version 또는 Restore의 원본이 될 수 없습니다.
+
+## PM Codex 도구 첫 통합검증 결정
+
+- 첫 통합검증 대상은 사용자가 승인한 `기존 병원 웹`입니다.
+- 기존 원본과 증거를 보존한 격리 복사본에서 `PM1 Product Design → PM2 Build Web Apps → PM3 부분 수정 → PM6 Frontend Testing + Product Design Audit` 흐름을 검증합니다.
+- 이번 Pilot에는 실제 배포를 포함하지 않습니다.
+- 실행 전 기존 잠금·Recipe·Visual Target을 확인하고 변경 범위만 짧은 인터뷰로 확정합니다.
+- 기능·디자인·모바일·접근성·회귀·Version Restore와 사용자 최종 승인이 모두 확인되기 전에는 통합검증 완료 또는 PASS라고 표현하지 않습니다.
+- 상세 범위와 상태는 `wiki/PM_CODEX_TOOLCHAIN_ADOPTION_2026-08-24.md`를 사용합니다.
+
 Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLATOR_RESEARCH_2026-08-19.md`에서 확인합니다. 문서에 이름만 있다고 Runtime에 자동 연결됐다고 판단하지 않습니다.
 
 ## 이 문서 작성 시점의 정확한 상태
@@ -141,6 +172,42 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
   실제 조사 요청·출처 검증·사용자 판정·Capability Lab 연결 전에는
   PM4 전체 PASS라고 말하지 않습니다. 새 세션은
   `wiki/PM4_LOCAL_FIRST_COLLECTOR_PILOT_2026-08-21.md`를 먼저 읽습니다.
+- 2026-08-24 사용자는 PM4 MVP를 `인터뷰 → Spec Lite 제작 범위 확인서 → 명세 기반
+  프로젝트 자료 수집 → 제작 가능한 서로 다른 후보 3개 → 사용자 선택`으로 확정했습니다.
+  현재 뉴스·도구 브리핑은 제거하지 않고 선택형 Module로 분리하며, 새 프로젝트 제작의
+  기본 수집기로 간주하지 않습니다. PM4 MVP에서는 Preview 제작·외부 도구 설치·제품 적용·
+  배포를 하지 않습니다. Workflow는 새 엔진을 만들지 않고 기존 V2 Spec Adapter와 격리
+  Spec Kit 방식으로 위 단계만 연결하며 사용자 선택에서 반드시 멈춥니다.
+- PM4 MVP의 첫 실제 검증 대상은 `전자명함`입니다. PASS 조건은 확인된 인터뷰 결과가
+  검색 조건에 보존되고, 전자명함과 직접 관련된 출처·원문 Link·선정 이유를 가진 서로 다른
+  후보가 표시되며, 중복 제거·출처 실패 격리·사용자 선택 저장/복원·중단 시 제품 무변경이
+  실제로 확인되는 것입니다. 이 E2E 증거와 사용자 PASS 전에는 `spec_based_project_collector`,
+  `pm4_workflow_connection`, `PM4 완료`를 모두 `not_proven`으로 기록합니다.
+- 기본 후보 수는 3개이지만 작은 결과물은 인터뷰에서 사용자가 늘릴 수 있습니다. 첫 전자명함
+  시험은 사용자의 2026-08-24 결정에 따라 같은 필수 기능을 유지한 서로 다른 시각 방향 5개로
+  검증합니다.
+- PM4 프로젝트 수집은 `인터뷰에서 기능 확정 → Reddit·YouTube·Instagram·Threads에서 실제 사용·불편·표현 방식 탐색
+  → 디자인·사용 방향 정리 → 그 방향을 구현할 GitHub 코드·기능·라이선스 확인 → 출처별 조사 상태 공개
+  → 참고 후보 선택`으로 분리합니다. GitHub가 먼저 후보 방향을 결정하거나 GitHub 저장소 5개를
+  곧바로 시안 5개로 취급하지 않습니다. 기능을 후보 카드마다
+  다시 고르게 하거나 디자인 선택과 기술 선택을 한 버튼으로 합치지 않습니다.
+- GitHub는 국가별 디자인 공급원이 아니라 구현 코드·기능·라이선스 증거 공급원입니다. 한국
+  시각·문구·시장 적합성은 한국 실제 웹·Figma·Instagram·Threads 등에서 보완하고, 구현 후보에는
+  국가 혼합 조건을 강제하지 않습니다.
+- Core는 확정된 인터뷰·수집 근거·구현 가능성을 기준으로 후보 하나를 `추천`할 수 있지만 자동
+  선택·채택·설치하지 않습니다. 사용자가 선택하지 않은 후보도 즉시 폐기하지 않고 비교·거절
+  기록으로 보존하며, 사용자가 폐기하거나 새 후보가 대체할 때만 상태를 변경합니다.
+- 첫 전자명함 시험에서 사용자는 2026-08-24 마우스 `다음` 버튼으로 3번 `신뢰와 경력을
+  보여주는 소개 명함`을 선택했습니다. 추천과 사용자 선택을 별도 기록하고 나머지 네 후보는
+  `candidate_preserved`로 보존합니다. 선택 결과는 `selection-handoff.json`으로 전달하되 실제
+  설치·구현·제품 적용·배포는 다음 승인 전까지 금지합니다.
+- 출처 Adapter가 존재한다는 사실과 해당 요청에서 실제 실행됐다는 사실을 분리해 표시합니다.
+  첫 전자명함 시험은 Reddit 3건·YouTube 2건·Threads 3건과 GitHub 구현 재료 5건을 실제 Link로
+  연결했습니다. Instagram은 수집 브라우저의 로그인 세션 미연결로 0건이며 PM4 마지막 검증으로
+  미뤘습니다. 이 상태에서 Instagram 수집 완료 또는 5개 출처 전체 PASS라고 표현하지 않습니다.
+- 사용자의 3번 시험 선택은 Core 재시작 뒤에도 복원됐고 `다음 → 선택 기록 → 제작 가능 확인서`
+  자동 생성이 검증됐습니다. 추가 사용자 선택·로그인 세션 관리·후보 최종 채택/폐기·PM4 최종
+  PASS는 PM4 마지막으로 미뤘습니다.
 - PM4 일일 탐색 브리핑은 Codex App Automation `v2`로 매일 오전 7시에 실행됩니다.
   Reddit·GitHub·YouTube·Threads·Instagram의 Link와 짧은 요약만 수집하며 충분성·채택을
   자동 판정하지 않습니다. Automation 존재를 각 공급원 Adapter 접근 PASS로 표현하지 않습니다.

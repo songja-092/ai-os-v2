@@ -1,0 +1,8 @@
+{
+  "work_id": "fixture-work",
+  "original_request": "정상 Fixture 파일을 확인해줘",
+  "approved_scope": {
+    "change": ["src/**", "repair/**", "state/**", "locked/**"],
+    "preserve": ["user.txt"]
+  }
+}
