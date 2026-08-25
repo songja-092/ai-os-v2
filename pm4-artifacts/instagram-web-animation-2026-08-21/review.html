@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PM4 · Instagram 수집기 결과</title>
+<style>:root{--bg:#f5f8f6;--card:#fff;--ink:#14231d;--muted:#68766f;--line:#cad8d2;--green:#00a86b;--soft:#e7f7f0;--warn:#fff2cf}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Inter,Pretendard,"Noto Sans KR",system-ui,sans-serif}main{max-width:1180px;margin:auto;padding:36px 28px 70px}.top{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:20px}h1{font-size:28px;margin:0 0 5px}.sub{color:var(--muted);margin:0}.badge{align-self:start;background:var(--soft);color:#00794f;padding:8px 11px;border-radius:999px;font-weight:800}.notice{margin:20px 0;background:var(--warn);border:1px solid #e5cf91;padding:15px 17px;border-radius:11px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px}.card h2{font-size:19px;margin:0 0 4px}.profile{color:#0671ce;font-weight:800;text-decoration:none}.label{color:var(--muted);margin:7px 0 12px}.posts{display:grid;gap:7px}.post{display:block;border:1px solid var(--line);border-radius:8px;padding:10px 11px;color:#33463e;text-decoration:none}.post:hover{border-color:var(--green);background:var(--soft)}.decision{margin-top:18px;background:#152720;color:#fff;padding:18px;border-radius:12px}.decision b{font-size:18px}.decision p{margin:5px 0 0;color:#bdd0c8}.error{color:#a00000;background:#ffe8e8;padding:14px;border-radius:10px}@media(max-width:760px){.grid{grid-template-columns:1fr}.top{flex-direction:column}}</style>
+</head><body><main><section class="top"><div><h1>Instagram · 웹 디자인 애니메이션</h1><p class="sub">V2 PM4 Instagram Adapter가 만든 실제 수집 Artifact</p></div><span class="badge">백그라운드 수집 완료</span></section><div class="notice"><b>주의:</b> 현재 단계는 검색 결과 수집입니다. ‘인기 있음’, ‘좋은 디자인’, ‘V2에 채택’은 아직 판정하지 않았습니다.</div><section id="results" class="grid" aria-live="polite"></section><section class="decision"><b>다음 판정은 사용자가 합니다</b><p>자료 더 찾기 · 이 정도면 충분 · 조사 방향 수정</p></section></main>
+<script>
+fetch('./collection.json').then(r=>r.json()).then(data=>{
+ const root=document.querySelector('#results');
+ for(const item of data.items){
+  const card=document.createElement('article');card.className='card';
+  const posts=item.posts.map((p,i)=>`<a class="post" href="${p.url}" target="_blank" rel="noreferrer">게시물 ${i+1} 열기${p.label?` · ${p.label.slice(0,90)}`:''}</a>`).join('')||'<span class="label">공개 게시물 링크 없음</span>';
+  card.innerHTML=`<h2>${item.username}</h2><a class="profile" href="${item.profile_url}" target="_blank" rel="noreferrer">프로필 열기 →</a><p class="label">${item.search_label||'검색 결과'}</p><div class="posts">${posts}</div>`;root.appendChild(card);
+ }
+}).catch(()=>{document.querySelector('#results').innerHTML='<p class="error">수집 결과를 불러오지 못했습니다.</p>'});
+</script></body></html>

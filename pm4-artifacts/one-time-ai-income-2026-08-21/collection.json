@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "collected_at": "2026-08-21T00:00:00+09:00",
+  "topic": "AI를 활용한 수익 아이템",
+  "items": [
+    {
+      "platform": "Reddit",
+      "title": "10개월 만에 누적 매출 2만 달러를 넘겼다는 Micro-SaaS 사례",
+      "url": "https://www.reddit.com/r/micro_saas/comments/1urupu5/i_just_crossed_20000_revenue_within_10_months_of/",
+      "summary": "Reddit에서 구매 의도가 드러난 글을 찾아주는 도구를 월 29달러 단일 요금제로 운영했다는 작성자 사례입니다. 수익 수치는 작성자 주장으로, 채택 전 별도 검증이 필요합니다.",
+      "evidence_status": "author_claim_unverified"
+    },
+    {
+      "platform": "Reddit",
+      "title": "출시 17일·72회 설치·매출 0달러 공개 사례",
+      "url": "https://www.reddit.com/r/microsaas/comments/1ttogay/17_days_postlaunch_on_ios_72_installs_0_in/",
+      "summary": "성공담뿐 아니라 실패에 가까운 초기 수치도 공개한 사례입니다. 진솔한 Reddit 활동과 화면 비평 글이 설치 증가에 영향을 줬다는 작성자 관찰을 확인할 수 있습니다.",
+      "evidence_status": "author_claim_unverified"
+    },
+    {
+      "platform": "GitHub",
+      "title": "Open SaaS",
+      "url": "https://github.com/wasp-lang/open-saas",
+      "summary": "인증·결제·백그라운드 작업·파일 업로드를 포함한 공개 SaaS 시작 코드입니다. 실제 수익 아이템 자체가 아니라 빠르게 제품을 시험하기 위한 MIT 기반 구현 재료입니다.",
+      "evidence_status": "public_repository"
+    },
+    {
+      "platform": "GitHub",
+      "title": "SaaS GenAI Starter",
+      "url": "https://github.com/delmalih/saas-genai-starter",
+      "summary": "조직별 사용량·LLM 비용 추적·RAG·평가 도구를 포함한 GenAI SaaS 시작 코드입니다. 공개 저장소와 MIT 라이선스는 확인됐지만 V2 도입 여부는 별도 판정 대상입니다.",
+      "evidence_status": "public_repository"
+    },
+    {
+      "platform": "YouTube",
+      "title": "Safebooks AI 창업자 인터뷰",
+      "url": "https://www.youtube.com/watch?v=JQA3RX9PsHw",
+      "summary": "기업 재무 데이터의 수작업 검증을 AI로 대체하는 고가 B2B 사례입니다. 인터뷰에서 언급된 ARR·고객 수는 창업자 보고 수치이며 현재 수치로 간주하면 안 됩니다.",
+      "evidence_status": "founder_interview_claim"
+    }
+  ],
+  "decision": {
+    "status": "waiting_for_user",
+    "allowed_choices": ["자료 더 찾기", "이 정도면 충분", "조사 방향 수정"]
+  }
+}

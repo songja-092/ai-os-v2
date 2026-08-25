@@ -89,6 +89,50 @@
       "current_decision": "gated_candidate",
       "install_allowed_now": false,
       "activation_gate": "reusable_modules_exist"
+    },
+    {
+      "id": "21st-codex-plugin",
+      "repo": "21st-dev/codex-plugin",
+      "role": "searchable_component_reference_gateway",
+      "category": "reference-and-implementation-block",
+      "reason": "Its remote search can surface implementation-ready components before V2 creates a new design from scratch.",
+      "pm_stage": "PM1_reference_then_PM2",
+      "current_decision": "prepared_for_isolated_review",
+      "install_allowed_now": false,
+      "activation_gate": "static_audit_then_user_selected_trial"
+    },
+    {
+      "id": "design-mcp",
+      "repo": "chrismicah/design-mcp",
+      "role": "local_design_pattern_search",
+      "category": "visual-reference-index",
+      "reason": "It claims local structured search over real-world design patterns without requiring an API key and can be removed independently.",
+      "pm_stage": "PM1_reference",
+      "current_decision": "prepared_for_isolated_review",
+      "install_allowed_now": false,
+      "activation_gate": "static_audit_then_public_fixture_trial"
+    },
+    {
+      "id": "framesmith",
+      "repo": "vicmaster/framesmith",
+      "role": "visual_canvas_and_reference_export",
+      "category": "visual-target-workbench",
+      "reason": "It may replace repeated image generation with a local inspectable HTML/CSS canvas and deterministic image export.",
+      "pm_stage": "PM1_visual_target",
+      "current_decision": "prepared_for_isolated_review",
+      "install_allowed_now": false,
+      "activation_gate": "static_audit_then_visual_fixture_trial"
+    },
+    {
+      "id": "ui-ux-pro-mcp",
+      "repo": "redf0x1/ui-ux-pro-mcp",
+      "role": "searchable_ui_ux_resource_extension",
+      "category": "design-rule-and-reference-search",
+      "reason": "It may extend the existing UI UX Pro role with searchable resources, but must prove non-duplication and source quality first.",
+      "pm_stage": "PM1_reference_and_finish",
+      "current_decision": "prepared_for_isolated_review",
+      "install_allowed_now": false,
+      "activation_gate": "static_audit_then_overlap_comparison"
     }
   ]
 }

@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-electronic-business-card-mvp-v1",
+  "collected_at": "2026-08-24T13:03:41.680297+00:00",
+  "mode": "spec_based_project_collection",
+  "source": "github_public_api",
+  "queries": [
+    "topic:digital-business-card"
+  ],
+  "deduplicated_repository_count": 11,
+  "eligible_candidate_count": 6,
+  "source_failures": [],
+  "items": [
+    {
+      "candidate_id": "project-8108ff50480b",
+      "name": "vishnuraghavb/EnBizCard",
+      "url": "https://github.com/vishnuraghavb/EnBizCard",
+      "preview_url": "https://enbizcard.vishnuraghav.com",
+      "description": "EnBizCard helps you create interactive and responsive HTML-based digital business cards that can be hosted with your website.",
+      "license": "AGPL-3.0",
+      "license_evidence": "github_repository_metadata",
+      "stars": 704,
+      "updated_at": "2026-08-23T15:12:03Z",
+      "capabilities": [
+        "qr",
+        "vcard_contact_save",
+        "call_or_message_links",
+        "theme_customization",
+        "privacy_or_local_processing",
+        "team_or_crm"
+      ],
+      "direction": "team_or_management",
+      "selection_reason": "전자명함·QR 또는 연락처 저장 근거와 공개 라이선스가 확인된 저장소",
+      "source_region": "global",
+      "adoption_status": "candidate_not_adopted"
+    },
+    {
+      "candidate_id": "project-c1d64e4cbcc0",
+      "name": "arpixnet/digital-business-card",
+      "url": "https://github.com/arpixnet/digital-business-card",
+      "preview_url": "https://arpixnet.com",
+      "description": "A modern, responsive digital business card built with Nuxt 3, Tailwind CSS 4, and PrimeVue 4. This application serves as a digital alternative to traditional business cards, allowing professionals to share their contact information and professional profile through a web interface.",
+      "license": "MIT",
+      "license_evidence": "github_repository_metadata",
+      "stars": 2,
+      "updated_at": "2025-10-11T23:25:42Z",
+      "capabilities": [
+        "qr",
+        "vcard_contact_save",
+        "call_or_message_links",
+        "theme_customization",
+        "pwa_or_offline"
+      ],
+      "direction": "installable_self_hosted",
+      "selection_reason": "전자명함·QR 또는 연락처 저장 근거와 공개 라이선스가 확인된 저장소",
+      "source_region": "global",
+      "adoption_status": "candidate_not_adopted"
+    },
+    {
+      "candidate_id": "project-9465132edec4",
+      "name": "r10d1nsec/open-CV-Web",
+      "url": "https://github.com/r10d1nsec/open-CV-Web",
+      "preview_url": "https://github.com/r10d1nsec/open-CV-Web",
+      "description": "Open-source self-hostable portfolio + animated digital card (QR/vCard/WhatsApp) + booking. Next.js 15 + Supabase. Deploy on Vercel or self-host.",
+      "license": "MIT",
+      "license_evidence": "github_repository_metadata",
+      "stars": 0,
+      "updated_at": "2026-05-25T21:57:51Z",
+      "capabilities": [
+        "qr",
+        "vcard_contact_save",
+        "call_or_message_links",
+        "theme_customization",
+        "privacy_or_local_processing"
+      ],
+      "direction": "privacy_first_static",
+      "selection_reason": "전자명함·QR 또는 연락처 저장 근거와 공개 라이선스가 확인된 저장소",
+      "source_region": "global",
+      "adoption_status": "candidate_not_adopted"
+    },
+    {
+      "candidate_id": "project-c76d4220679d",
+      "name": "MrCrin/swiish",
+      "url": "https://github.com/MrCrin/swiish",
+      "preview_url": null,
+      "description": "Open-source digital business card platform with QR codes and PWA support",
+      "license": "AGPL-3.0",
+      "license_evidence": "repository_file:LICENSE",
+      "stars": 79,
+      "updated_at": "2026-08-23T15:11:45Z",
+      "capabilities": [
+        "qr",
+        "vcard_contact_save",
+        "theme_customization",
+        "privacy_or_local_processing",
+        "pwa_or_offline",
+        "team_or_crm"
+      ],
+      "direction": "team_or_management",
+      "selection_reason": "전자명함·QR 또는 연락처 저장 근거와 공개 라이선스가 확인된 저장소",
+      "source_region": "global",
+      "adoption_status": "candidate_not_adopted"
+    },
+    {
+      "candidate_id": "project-a21fea2090f6",
+      "name": "mfahadiqbalofcl/Digital-Business-Card",
+      "url": "https://github.com/mfahadiqbalofcl/Digital-Business-Card",
+      "preview_url": "https://mfahadiqbalofcl.github.io/Digital-Business-Card/",
+      "description": "A digital business card / vCard — share your contact details from one clean page.",
+      "license": "MIT",
+      "license_evidence": "github_repository_metadata",
+      "stars": 2,
+      "updated_at": "2026-08-11T12:16:12Z",
+      "capabilities": [
+        "vcard_contact_save",
+        "call_or_message_links",
+        "theme_customization",
+        "privacy_or_local_processing"
+      ],
+      "direction": "privacy_first_static",
+      "selection_reason": "전자명함·QR 또는 연락처 저장 근거와 공개 라이선스가 확인된 저장소",
+      "source_region": "global",
+      "adoption_status": "candidate_not_adopted"
+    }
+  ],
+  "user_decisions": {},
+  "product_changed": false,
+  "installation_performed": false
+}

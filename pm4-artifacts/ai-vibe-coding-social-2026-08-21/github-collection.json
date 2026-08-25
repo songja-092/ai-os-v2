@@ -1,0 +1,225 @@
+{
+  "schema_version": "1.0",
+  "platform": "github",
+  "collected_at": "2026-08-21T13:30:33.933616+00:00",
+  "period_days": 30,
+  "queries": [
+    "\"vibe coding\" pushed:>=2026-07-22",
+    "codex claude pushed:>=2026-07-22",
+    "AI web design pushed:>=2026-07-22"
+  ],
+  "role": "collection_only",
+  "items": [
+    {
+      "platform": "github",
+      "channel_name": "affaan-m",
+      "channel_url": "https://github.com/affaan-m",
+      "title": "affaan-m/ECC",
+      "url": "https://github.com/affaan-m/ECC",
+      "short_summary": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+      "published_at": "2026-01-18T00:51:51Z",
+      "updated_at": "2026-08-21T03:02:03Z",
+      "public_metrics": {
+        "stars": 241615,
+        "forks": 36627,
+        "open_issues": 144
+      },
+      "license": "MIT",
+      "cost": "open_source_or_repository_specific",
+      "project_ready_evidence": {
+        "clone_url": "https://github.com/affaan-m/ECC.git",
+        "default_branch": "main"
+      }
+    },
+    {
+      "platform": "github",
+      "channel_name": "NousResearch",
+      "channel_url": "https://github.com/NousResearch",
+      "title": "NousResearch/hermes-agent",
+      "url": "https://github.com/NousResearch/hermes-agent",
+      "short_summary": "The agent that grows with you",
+      "published_at": "2025-07-22T22:22:28Z",
+      "updated_at": "2026-08-21T12:52:56Z",
+      "public_metrics": {
+        "stars": 233808,
+        "forks": 46892,
+        "open_issues": 34146
+      },
+      "license": "MIT",
+      "cost": "open_source_or_repository_specific",
+      "project_ready_evidence": {
+        "clone_url": "https://github.com/NousResearch/hermes-agent.git",
+        "default_branch": "main"
+      }
+    },
+    {
+      "platform": "github",
+      "channel_name": "farion1231",
+      "channel_url": "https://github.com/farion1231",
+      "title": "farion1231/cc-switch",
+      "url": "https://github.com/farion1231/cc-switch",
+      "short_summary": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode, OpenClaw, Grok Build & Hermes Agent. Only official website: ccswitch.io",
+      "published_at": "2025-08-04T14:16:16Z",
+      "updated_at": "2026-08-20T18:35:38Z",
+      "public_metrics": {
+        "stars": 128658,
+        "forks": 8799,
+        "open_issues": 2333
+      },
+      "license": "MIT",
+      "cost": "open_source_or_repository_specific",
+      "project_ready_evidence": {
+        "clone_url": "https://github.com/farion1231/cc-switch.git",
+        "default_branch": "main"
+      }
+    },
+    {
+      "platform": "github",
+      "channel_name": "nextlevelbuilder",
+      "channel_url": "https://github.com/nextlevelbuilder",
+      "title": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "short_summary": "An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.",
+      "published_at": "2025-11-30T11:36:31Z",
+      "updated_at": "2026-08-20T11:49:07Z",
+      "public_metrics": {
+        "stars": 119137,
+        "forks": 12799,
+        "open_issues": 83
+      },
+      "license": "MIT",
+      "cost": "open_source_or_repository_specific",
+      "project_ready_evidence": {
+        "clone_url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+        "default_branch": "main"
+      }
+    },
+    {
+      "platform": "github",
+      "channel_name": "Graphify-Labs",
+      "channel_url": "https://github.com/Graphify-Labs",
+      "title": "Graphify-Labs/graphify",
+      "url": "https://github.com/Graphify-Labs/graphify",
+      "short_summary": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, every edge explained, no vector store.",
+      "published_at": "2026-04-03T15:49:07Z",
+      "updated_at": "2026-08-20T16:39:37Z",
+      "public_metrics": {
+        "stars": 108967,
+        "forks": 10585,
+        "open_issues": 1029
+      },
+      "license": "Apache-2.0",
+      "cost": "open_source_or_repository_specific",
+      "project_ready_evidence": {
+        "clone_url": "https://github.com/Graphify-Labs/graphify.git",
+        "default_branch": "v8"
+      }
+    },
+    {
+      "platform": "github",
+      "channel_name": "thedotmack",
+      "channel_url": "https://github.com/thedotmack",
+      "title": "thedotmack/claude-mem",
+      "url": "https://github.com/thedotmack/claude-mem",
+      "short_summary": "Persistent Context Across Sessions for Every Agent –  Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More",
+      "published_at": "2025-08-31T20:50:03Z",
+      "updated_at": "2026-08-20T16:23:20Z",
+      "public_metrics": {
+        "stars": 91412,
+        "forks": 8003,
+        "open_issues": 255
+      },
+      "license": "Apache-2.0",
+      "cost": "open_source_or_repository_specific",
+      "project_ready_evidence": {
+        "clone_url": "https://github.com/thedotmack/claude-mem.git",
+        "default_branch": "main"
+      }
+    },
+    {
+      "platform": "github",
+      "channel_name": "nexu-io",
+      "channel_url": "https://github.com/nexu-io",
+      "title": "nexu-io/open-design",
+      "url": "https://github.com/nexu-io/open-design",
+      "short_summary": "🎨 Best DeepSeek Harness Design Plugin. The open-source Claude Design alternative. 🖥️ Local-first desktop app. 🖼️ Your coding agent becomes the design engine: prototypes, landing pages, dashboards, slides, images & video — real files, HTML/PDF/PPTX/MP4 export. 🤖 Claude Code / Codex / Cursor / DeepSeek Harness / OpenCode & 20+ CLIs via BYOK.",
+      "published_at": "2026-04-28T04:25:20Z",
+      "updated_at": "2026-08-21T12:06:47Z",
+      "public_metrics": {
+        "stars": 90038,
+        "forks": 10382,
+        "open_issues": 810
+      },
+      "license": "Apache-2.0",
+      "cost": "open_source_or_repository_specific",
+      "project_ready_evidence": {
+        "clone_url": "https://github.com/nexu-io/open-design.git",
+        "default_branch": "main"
+      }
+    },
+    {
+      "platform": "github",
+      "channel_name": "Egonex-AI",
+      "channel_url": "https://github.com/Egonex-AI",
+      "title": "Egonex-AI/Understand-Anything",
+      "url": "https://github.com/Egonex-AI/Understand-Anything",
+      "short_summary": "Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, and more.",
+      "published_at": "2026-03-15T02:30:51Z",
+      "updated_at": "2026-08-11T14:13:37Z",
+      "public_metrics": {
+        "stars": 79994,
+        "forks": 6712,
+        "open_issues": 287
+      },
+      "license": "MIT",
+      "cost": "open_source_or_repository_specific",
+      "project_ready_evidence": {
+        "clone_url": "https://github.com/Egonex-AI/Understand-Anything.git",
+        "default_branch": "main"
+      }
+    },
+    {
+      "platform": "github",
+      "channel_name": "Leonxlnx",
+      "channel_url": "https://github.com/Leonxlnx",
+      "title": "Leonxlnx/taste-skill",
+      "url": "https://github.com/Leonxlnx/taste-skill",
+      "short_summary": "Taste-Skill - gives your AI good taste. stops the AI from generating boring, generic slop ",
+      "published_at": "2026-02-19T21:44:05Z",
+      "updated_at": "2026-08-21T10:24:06Z",
+      "public_metrics": {
+        "stars": 78846,
+        "forks": 5382,
+        "open_issues": 56
+      },
+      "license": "MIT",
+      "cost": "open_source_or_repository_specific",
+      "project_ready_evidence": {
+        "clone_url": "https://github.com/Leonxlnx/taste-skill.git",
+        "default_branch": "main"
+      }
+    },
+    {
+      "platform": "github",
+      "channel_name": "ComposioHQ",
+      "channel_url": "https://github.com/ComposioHQ",
+      "title": "ComposioHQ/awesome-claude-skills",
+      "url": "https://github.com/ComposioHQ/awesome-claude-skills",
+      "short_summary": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows",
+      "published_at": "2025-10-17T07:15:01Z",
+      "updated_at": "2026-08-10T21:45:44Z",
+      "public_metrics": {
+        "stars": 72950,
+        "forks": 8349,
+        "open_issues": 1301
+      },
+      "license": null,
+      "cost": "open_source_or_repository_specific",
+      "project_ready_evidence": {
+        "clone_url": "https://github.com/ComposioHQ/awesome-claude-skills.git",
+        "default_branch": "master"
+      }
+    }
+  ],
+  "adoption_decision": null
+}

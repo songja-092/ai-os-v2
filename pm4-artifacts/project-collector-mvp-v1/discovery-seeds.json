@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-electronic-business-card-mvp-v1",
+  "discovery_mode": "public_web_search_then_official_repository_verification",
+  "repositories": [
+    "MrCrin/swiish",
+    "sarahevansai/digital-business-card",
+    "r10d1nsec/open-CV-Web",
+    "vishnuraghavb/EnBizCard",
+    "ideaseek-zh/card-studio"
+  ]
+}

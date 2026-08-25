@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "verified_at": "2026-08-21T22:06:00+09:00",
+  "login_access": "PASS",
+  "background_execution_while_browser_unfocused": "PASS",
+  "query_application": "PASS",
+  "profile_link_collection": "PASS",
+  "public_post_link_collection": "PASS",
+  "home_feed_excluded": "PASS",
+  "direct_messages_excluded": "PASS",
+  "popularity_evaluation": "NOT_IMPLEMENTED",
+  "core_action_connection": "NOT_IMPLEMENTED",
+  "scheduled_execution": "NOT_CONFIGURED",
+  "threads_adapter": "NOT_IMPLEMENTED"
+}

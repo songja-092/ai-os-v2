@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""Verify PM4 Core state/action connection without changing the saved decision state."""
+
+import importlib.machinery
+import importlib.util
+import json
+import tempfile
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+loader = importlib.machinery.SourceFileLoader("v2_core", str(ROOT / "v2"))
+spec = importlib.util.spec_from_loader(loader.name, loader)
+core = importlib.util.module_from_spec(spec)
+loader.exec_module(core)
+
+original = json.loads((ROOT / core.PM4_STATE_RELATIVE_PATH).read_text(encoding="utf-8"))
+memory_path = ROOT / core.PM4_CHANNEL_MEMORY_RELATIVE_PATH
+original_memory = memory_path.read_text(encoding="utf-8") if memory_path.exists() else None
+checks = {}
+try:
+    state = core.pm4_ui_state(str(ROOT))
+    checks["confirmed 30-day request"] = state["period_days"] == 30 and state["request_id"] == core.PM4_REQUEST_ID
+    checks["algorithm is discovery-only"] = state["algorithm_policy"]["platform_recommendation_use"] == "discovery_seed_only"
+    checks["missing metrics are not inferred"] = state["algorithm_policy"]["never_infer_missing_metrics"] is True
+    checks["five source adapters connected"] = len(state["sources"]) == 5 and all(s["items"] > 0 and s["status"].startswith("connected_") for s in state["sources"])
+    checks["ten results cover five platforms"] = len(state["items"]) == 10 and len({item["platform"] for item in state["items"]}) == 5
+    checks["Korean role summaries present"] = all(any("\uac00" <= char <= "\ud7a3" for char in item["short_summary"]) for item in state["items"])
+    checks["PM4 not falsely passed"] = state["pm4_pass"] is False
+    first = state["items"][0]["item_id"]
+    updated = core.apply_pm4_ui_action(str(ROOT), {"request_id": core.PM4_REQUEST_ID, "action": "research.decision.set", "item_id": first, "decision": "hold"})
+    checks["decision persisted through Core"] = updated["decisions"].get(first) == "hold"
+    adopted = core.apply_pm4_ui_action(str(ROOT), {"request_id": core.PM4_REQUEST_ID, "action": "research.decision.set", "item_id": first, "decision": "adopt"})
+    checks["adopted channel becomes preferred"] = any(channel.get("source_item_id") == first for channel in adopted["preferred_channels"])
+    try:
+        core.apply_pm4_ui_action(str(ROOT), {"request_id": core.PM4_REQUEST_ID, "action": "research.accept.current", "item_id": first})
+        checks["forbidden action blocked"] = False
+    except PermissionError:
+        checks["forbidden action blocked"] = True
+finally:
+    core.write_json_atomic(str(ROOT / core.PM4_STATE_RELATIVE_PATH), original)
+    if original_memory is None:
+        memory_path.unlink(missing_ok=True)
+    else:
+        memory_path.write_text(original_memory, encoding="utf-8")
+
+failed = [name for name, passed in checks.items() if not passed]
+print(json.dumps({"status": "PASS" if not failed else "FAIL", "checks": checks, "failed": failed}, ensure_ascii=False, indent=2))
+raise SystemExit(1 if failed else 0)

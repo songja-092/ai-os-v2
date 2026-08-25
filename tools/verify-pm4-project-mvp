@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+import json, pathlib, subprocess, sys
+root=pathlib.Path(__file__).resolve().parents[1]; art=root/'pm4-artifacts/project-collector-mvp-v1'; scripts=root/'plugins/v2-capability-lab/scripts'
+receipt=json.loads((art/'interview-receipt.json').read_text())
+assert receipt['status']=='user_confirmed' and receipt['answers']['candidate_count']==5
+subprocess.run([sys.executable,str(scripts/'pm4_project_analyzer.py'),'--receipt',str(art/'interview-receipt.json'),'--collection',str(art/'collection.json'),'--social-evidence',str(art/'social-use-cases.json'),'--output',str(root/'state/pm4-project-collector-state.json')],check=True)
+state=json.loads((root/'state/pm4-project-collector-state.json').read_text())
+assert len(state['items'])==5 and len({x['candidate_id'] for x in state['items']})==5
+assert len({x['direction_label'] for x in state['items']})==5
+assert all(len(x['evidence_links'])>=2 for x in state['items'])
+assert all(x['implementation_match_verified'] is True for x in state['items'])
+all_evidence=json.loads((art/'social-use-cases.json').read_text())
+urls=[item['url'] for source in ('reddit','youtube','threads','instagram') for item in all_evidence[source]['items']]
+assert len(urls)==len(set(urls))
+assert all(x['candidate_id'].startswith('direction-') for x in state['items'])
+assert state['recommendation']['candidate_id'] in {x['candidate_id'] for x in state['items']}
+assert state['recommendation']['auto_selected'] is False
+assert state['selected_candidate_id'] is None
+assert all(x['lifecycle_status']=='candidate_preserved' for x in state['items'])
+assert state['source_coverage'][-1]['source']=='GitHub'
+assert next(x for x in state['source_coverage'] if x['source']=='Instagram')['status']=='blocked_login_session'
+assert len(state['items'])==5  # one failed source must not block the other source lanes
+assert all(x['license_evidence']!='not_verified' for x in state['items'])
+assert state['product_changed'] is False and state['installation_performed'] is False
+assert state['region_contract']['status']=='unmet'
+assert (art/'review.html').exists()
+print('PASS: PM4 project collector MVP evidence, five distinct choices, safety boundary, and review UI')

@@ -6,11 +6,12 @@
   "adapter_type": "internal",
   "entry": "/pm4-modules/daily-discovery-briefing/index.html",
   "features": [
-    {"feature_id": "briefing.read", "display_name": "원본 링크와 짧은 요약 보기", "status": "draft"},
+    {"feature_id": "briefing.read", "display_name": "원본 링크와 짧은 요약 보기", "status": "verified_with_partial_sources"},
     {"feature_id": "briefing.topic", "display_name": "조사 주제 입력", "status": "draft"},
     {"feature_id": "briefing.schedule", "display_name": "실행 시간 선택", "status": "draft"},
     {"feature_id": "briefing.platforms", "display_name": "조사 플랫폼 선택", "status": "draft"},
-    {"feature_id": "briefing.collect", "display_name": "선택한 조건으로 자동 수집", "status": "not_yet_verified"}
+    {"feature_id": "briefing.collect", "display_name": "선택한 조건으로 5개 플랫폼 수집", "status": "verified_five_source_pilot"},
+    {"feature_id": "briefing.decision", "display_name": "채택·보류·폐기 Core 저장", "status": "verified"}
   ],
   "allowed_slots": ["project_home", "background_capability"],
   "required_state": ["allowed_actions", "briefing_topic", "briefing_schedule", "briefing_platforms", "briefing_items"],
@@ -19,7 +20,9 @@
     {"action_type": "briefing.config.update", "required_core_permission": "briefing.config.update"},
     {"action_type": "briefing.collect.more", "required_core_permission": "briefing.collect.more"},
     {"action_type": "briefing.direction.change", "required_core_permission": "briefing.direction.change"},
-    {"action_type": "briefing.accept.current", "required_core_permission": "briefing.accept.current"}
+    {"action_type": "briefing.accept.current", "required_core_permission": "briefing.accept.current"},
+    {"action_type": "research.decision.set", "required_core_permission": "research.decision.set"},
+    {"action_type": "research.decision.clear", "required_core_permission": "research.decision.clear"}
   ],
   "permissions": {
     "movable": true,

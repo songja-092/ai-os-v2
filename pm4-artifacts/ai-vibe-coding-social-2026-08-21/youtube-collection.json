@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "platform": "youtube",
+  "collected_at": "2026-08-21T13:32:45.572Z",
+  "query": "AI 바이브코딩 Codex Claude GPT 웹디자인",
+  "period_days": 30,
+  "discovery_strategy": "channel_first_search_result",
+  "role": "collection_only",
+  "items": [],
+  "adoption_decision": null
+}

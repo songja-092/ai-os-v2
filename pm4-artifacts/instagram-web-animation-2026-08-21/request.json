@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-instagram-web-animation-2026-08-21",
+  "topic": "요즘 인기 있는 웹 디자인 애니메이션",
+  "query": "webanimation",
+  "platform": "instagram",
+  "execution": "one_time_background_pilot",
+  "user_decision_required": true
+}

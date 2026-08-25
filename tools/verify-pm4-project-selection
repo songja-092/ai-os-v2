@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+import json
+import pathlib
+
+root = pathlib.Path(__file__).resolve().parents[1]
+state = json.loads((root / "state/pm4-project-collector-state.json").read_text())
+handoff = json.loads((root / "pm4-artifacts/project-collector-mvp-v1/selection-handoff.json").read_text())
+selected = state["selected_candidate_id"]
+assert selected == "direction-3"
+assert state["selection_record"]["selected_by"] == "user"
+assert state["selection_record"]["input_method"] == "mouse_button_next"
+assert state["selection_record"]["recommendation_was_automatic_selection"] is False
+assert sum(item["lifecycle_status"] == "user_selected" for item in state["items"]) == 1
+assert sum(item["lifecycle_status"] == "candidate_preserved" for item in state["items"]) == 4
+assert handoff["selected_direction"]["candidate_id"] == selected
+assert handoff["implementation_evidence"]["adoption_status"] == "not_installed_not_adopted"
+assert handoff["product_changed"] is False
+assert len(handoff["preserved_candidate_ids"]) == 4
+assert {"install", "implement", "apply_to_product", "deploy"}.issubset(handoff["forbidden_before_next_approval"])
+print("PASS: user selection audit, preserved alternatives, non-executing PM4 handoff")

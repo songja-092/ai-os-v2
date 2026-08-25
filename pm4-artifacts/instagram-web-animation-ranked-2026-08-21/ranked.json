@@ -1,0 +1,322 @@
+{
+  "schema_version": "1.0",
+  "request": "요즘 인기 있는 웹 디자인 애니메이션",
+  "platform": "instagram",
+  "ranking_policy": "platform_local_public_metrics_only",
+  "weights": {
+    "views": 0.5,
+    "likes": 0.3,
+    "comments": 0.15,
+    "reposts": 0.05
+  },
+  "items": [
+    {
+      "username": "web.animation",
+      "profile_url": "https://www.instagram.com/web.animation/",
+      "post_url": "https://www.instagram.com/web.animation/p/DbuDf1ggYlu/",
+      "source_label": "Photo by 𝐀𝐍𝐈𝐂𝐇𝐈 on August 06, 2026. May be an image of one or more people, speaker, crowd, concert and text.",
+      "published_at": "2026-08-07T00:58:00.000Z",
+      "public_text": "web.animation 팔로우 web.animation 2주 terakhir banget🥲🤍 아직 댓글이 없습니다. 댓글을 남겨보세요. 31 2 8월 7일 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "31\n2",
+        "comment_context": "31\n2"
+      },
+      "metrics": {
+        "views": null,
+        "likes": 31,
+        "comments": 2,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer",
+      "metric_confidence": "low_instagram_action_order_heuristic",
+      "popularity": {
+        "score": 100,
+        "basis": [
+          "likes",
+          "comments"
+        ],
+        "scope": "instagram_result_set_only",
+        "warning": "공개된 수치의 상대 순위이며 절대 인기나 품질을 뜻하지 않음"
+      },
+      "v2_feedback": "반응 수치는 비교할 수 있지만 요청과의 관련성은 사용자가 원문에서 확인해야 합니다.",
+      "user_decision": null
+    },
+    {
+      "username": "webanimationstudio",
+      "profile_url": "https://www.instagram.com/webanimationstudio/",
+      "post_url": "https://www.instagram.com/webanimationstudio/reel/C9YaSieCPkz/",
+      "source_label": "I recently came across this content and would love to hear your feedback on it. \n\n#3DModeling #3DRendering #ProductVisualization\n#3DAnimation #3DArt #DigitalArt #ProductDesign #MotionGraphics #VisualStorytelling #3DDesign #CreativeDesign #CGI #VisualEffects #3DArtist #3DVisuals",
+      "published_at": "2024-07-13T23:32:15.000Z",
+      "public_text": "webanimationstudio Original audio 팔로우 webanimationstudio 109주 I recently came across this content and would love to hear your feedback on it. #3DModeling #3DRendering #ProductVisualization #3DAnimation #3DArt #DigitalArt #ProductDesign #MotionGraphics #VisualStorytelling #3DDesign #CreativeDesign #CGI #VisualEffects #3DArtist #3DVisuals 아직 댓글이 없습니다. 댓글을 남겨보세요. 22 2024년 7월 14일 webanimationstudio님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "22",
+        "comment_context": "22"
+      },
+      "metrics": {
+        "views": null,
+        "likes": 22,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer",
+      "metric_confidence": "low_instagram_action_order_heuristic",
+      "popularity": {
+        "score": 88,
+        "basis": [
+          "likes"
+        ],
+        "scope": "instagram_result_set_only",
+        "warning": "공개된 수치의 상대 순위이며 절대 인기나 품질을 뜻하지 않음"
+      },
+      "v2_feedback": "반응 수치는 비교할 수 있지만 요청과의 관련성은 사용자가 원문에서 확인해야 합니다.",
+      "user_decision": null
+    },
+    {
+      "username": "webanimationstudio",
+      "profile_url": "https://www.instagram.com/webanimationstudio/",
+      "post_url": "https://www.instagram.com/webanimationstudio/p/C_OhnzDzQWA/",
+      "source_label": "Photo by Web Animation Studio on August 28, 2024.",
+      "published_at": "2024-08-28T20:26:29.000Z",
+      "public_text": "webanimationstudio 팔로우 webanimationstudio 103주 #bottledesign #3ddesign 아직 댓글이 없습니다. 댓글을 남겨보세요. 18 2024년 8월 29일 webanimationstudio님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "18",
+        "comment_context": "18"
+      },
+      "metrics": {
+        "views": null,
+        "likes": 18,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer",
+      "metric_confidence": "low_instagram_action_order_heuristic",
+      "popularity": {
+        "score": 75,
+        "basis": [
+          "likes"
+        ],
+        "scope": "instagram_result_set_only",
+        "warning": "공개된 수치의 상대 순위이며 절대 인기나 품질을 뜻하지 않음"
+      },
+      "v2_feedback": "반응 수치는 비교할 수 있지만 요청과의 관련성은 사용자가 원문에서 확인해야 합니다.",
+      "user_decision": null
+    },
+    {
+      "username": "webanimationstudio",
+      "profile_url": "https://www.instagram.com/webanimationstudio/",
+      "post_url": "https://www.instagram.com/webanimationstudio/p/C_JLmYGzI6y/",
+      "source_label": "Photo by Web Animation Studio on August 26, 2024.",
+      "published_at": "2024-08-26T18:37:51.000Z",
+      "public_text": "webanimationstudio 팔로우 webanimationstudio 103주 #3D Jam Bottle Design for Taste by Naomi #productdesign #3dproducts #rendering #animation #productrendering 아직 댓글이 없습니다. 댓글을 남겨보세요. 14 2024년 8월 27일 webanimationstudio님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "14",
+        "comment_context": "14"
+      },
+      "metrics": {
+        "views": null,
+        "likes": 14,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer",
+      "metric_confidence": "low_instagram_action_order_heuristic",
+      "popularity": {
+        "score": 63,
+        "basis": [
+          "likes"
+        ],
+        "scope": "instagram_result_set_only",
+        "warning": "공개된 수치의 상대 순위이며 절대 인기나 품질을 뜻하지 않음"
+      },
+      "v2_feedback": "반응 수치는 비교할 수 있지만 요청과의 관련성은 사용자가 원문에서 확인해야 합니다.",
+      "user_decision": null
+    },
+    {
+      "username": "webanimationstudio",
+      "profile_url": "https://www.instagram.com/webanimationstudio/",
+      "post_url": "https://www.instagram.com/webanimationstudio/p/C9N0Z2Bz5zb/",
+      "source_label": "Photo by Web Animation Studio on July 09, 2024.",
+      "published_at": "2024-07-09T20:49:25.000Z",
+      "public_text": "webanimationstudio 팔로우 webanimationstudio 수정됨 • 110주 Elevate your brand identity with an impactful package design. 🤹‍♂️🤹‍♂️ The way your product is presented can make a lasting impression on consumers and differentiate you from competitors. 👌👌 #3DModeling #3DRendering #ProductVisualization #3DAnimation #3DArt #DigitalArt #ProductDesign #MotionGraphics #VisualStorytelling #3DDesign #CreativeDesign #CGI #VisualEffects #3DArtist #3DVisuals 아직 댓글이 없습니다. 댓글을 남겨보세요. 9 2024년 7월 10일 webanimationstudio님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "9",
+        "comment_context": "9"
+      },
+      "metrics": {
+        "views": null,
+        "likes": 9,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer",
+      "metric_confidence": "low_instagram_action_order_heuristic",
+      "popularity": {
+        "score": 50,
+        "basis": [
+          "likes"
+        ],
+        "scope": "instagram_result_set_only",
+        "warning": "공개된 수치의 상대 순위이며 절대 인기나 품질을 뜻하지 않음"
+      },
+      "v2_feedback": "반응 수치는 비교할 수 있지만 요청과의 관련성은 사용자가 원문에서 확인해야 합니다.",
+      "user_decision": null
+    },
+    {
+      "username": "su2animation",
+      "profile_url": "https://www.instagram.com/su2animation/",
+      "post_url": "https://www.instagram.com/su2animation/p/Da2lxsVD5tS/",
+      "source_label": "Photo by 에스유투 SU2 웹툰만화 학원 on July 16, 2026. May be an image of poster and text.",
+      "published_at": "2026-07-16T12:00:04.000Z",
+      "public_text": "su2animation 인천 에스유투 만화학원 팔로우 su2animation 5주 송도💖SU2 웹툰만화학원 ▶️ 고3전임 손샘 #상황표현 시범작 ▶️ 25학년도 고3입시생 전원합격! #인천만화학원 #송도만화학원 #송도웹툰학원 송도입시미술 상황표현 일러스트 칸만화 한국애니고 스토리보드 포트폴리오 애니고 한국애니메이션고 애니고합격 한애고 clipstudio cintiq 경기예고 인천애니학원 송도애니학원 드로잉 신티크 게임일러스트 webtoon 2페이지만화 번역 보기 아직 댓글이 없습니다. 댓글을 남겨보세요. 8 7월 16일 su2animation님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "8",
+        "comment_context": "8"
+      },
+      "metrics": {
+        "views": null,
+        "likes": 8,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer",
+      "metric_confidence": "low_instagram_action_order_heuristic",
+      "popularity": {
+        "score": 38,
+        "basis": [
+          "likes"
+        ],
+        "scope": "instagram_result_set_only",
+        "warning": "공개된 수치의 상대 순위이며 절대 인기나 품질을 뜻하지 않음"
+      },
+      "v2_feedback": "반응 수치는 비교할 수 있지만 요청과의 관련성은 사용자가 원문에서 확인해야 합니다.",
+      "user_decision": null
+    },
+    {
+      "username": "su2animation",
+      "profile_url": "https://www.instagram.com/su2animation/",
+      "post_url": "https://www.instagram.com/su2animation/p/Db5EWDpD7Aj/",
+      "source_label": "Photo by 에스유투 SU2 웹툰만화 학원 on August 11, 2026. May be an image of text.",
+      "published_at": "2026-08-11T07:37:02.000Z",
+      "public_text": "su2animation 인천 에스유투 만화학원 팔로우 su2animation 1주 송도💖SU2 웹툰만화학원 ▶️ #수능100일 ▶️ 27학년도 전원합격! 기원🙏 #인천만화학원 #송도만화학원 #송도웹툰학원 송도입시미술 상황표현 일러스트 칸만화 한국애니고 스토리보드 포트폴리오 애니고 한국애니메이션고 애니고합격 한애고 clipstudio cintiq 경기예고 인천애니학원 송도애니학원 드로잉 신티크 게임일러스트 webtoon 2페이지만화 번역 보기 아직 댓글이 없습니다. 댓글을 남겨보세요. 4 8월 11일 su2animation님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "4",
+        "comment_context": "4"
+      },
+      "metrics": {
+        "views": null,
+        "likes": 4,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer",
+      "metric_confidence": "low_instagram_action_order_heuristic",
+      "popularity": {
+        "score": 25,
+        "basis": [
+          "likes"
+        ],
+        "scope": "instagram_result_set_only",
+        "warning": "공개된 수치의 상대 순위이며 절대 인기나 품질을 뜻하지 않음"
+      },
+      "v2_feedback": "반응 수치는 비교할 수 있지만 요청과의 관련성은 사용자가 원문에서 확인해야 합니다.",
+      "user_decision": null
+    },
+    {
+      "username": "su2animation",
+      "profile_url": "https://www.instagram.com/su2animation/",
+      "post_url": "https://www.instagram.com/su2animation/p/DcQzc1Ij733/",
+      "source_label": "Photo by 에스유투 SU2 웹툰만화 학원 on August 20, 2026. May be an image of text that says '26년 인천금융고 웹툰공모전 대상 文文 송도에스유투웰툰만화학원 송도 에스유투 웹툰만화학원 능허대중학교 능허대중학교3학년 3학년 대상신서 대상 신ㅇ서'.",
+      "published_at": "2026-08-20T12:51:11.000Z",
+      "public_text": "su2animation 인천 에스유투 만화학원 팔로우 su2animation 1일 송도 에스유투SU2만화학원 💖 SU2 예고반 #인천금융고 웹툰공모전 🤩 대상 능허대중3학년 ✨️ 신O서 🤩 금상 예송중3학년 ✨️ 황O연 🤩 동상 인천여중3학년 ✨️ 조O현 #송도만화학원 #인천웹툰학원 #송도웹툰학원 #연수동만화학원 칸만화 이미지보드 포트폴리오 스토리보드 손그림 CG 만화입시 인천웹툰학원 송도웹툰학원 그림스타그램 일러스트 웹툰 만화그리기 송도입시미술학원 illust portfolio illustration webtoon draw drawing paint painting anime animation 인스타툰 동춘동만화학원 번역 보기 아직 댓글이 없습니다. 댓글을 남겨보세요. 3 1일 전 su2animation님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "3",
+        "comment_context": "3"
+      },
+      "metrics": {
+        "views": null,
+        "likes": 3,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer",
+      "metric_confidence": "low_instagram_action_order_heuristic",
+      "popularity": {
+        "score": 13,
+        "basis": [
+          "likes"
+        ],
+        "scope": "instagram_result_set_only",
+        "warning": "공개된 수치의 상대 순위이며 절대 인기나 품질을 뜻하지 않음"
+      },
+      "v2_feedback": "반응 수치는 비교할 수 있지만 요청과의 관련성은 사용자가 원문에서 확인해야 합니다.",
+      "user_decision": null
+    },
+    {
+      "username": "web.animation",
+      "profile_url": "https://www.instagram.com/web.animation/",
+      "post_url": "https://www.instagram.com/web.animation/p/DbsPZk8gUFH/",
+      "source_label": "Photo by 𝐀𝐍𝐈𝐂𝐇𝐈 on August 06, 2026. May be an image of tree, outdoors and text.",
+      "published_at": "2026-08-06T08:03:33.000Z",
+      "public_text": "web.animation 팔로우 web.animation 2주 sudut” sekolah yg bikin ngangenin🤘🏻 _f1d0oo 1주 sepuh 답글 달기 답글 1개 모두 보기 142 2 1 8월 6일 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "",
+        "comment_context": "142\n2\n1"
+      },
+      "metrics": {
+        "views": null,
+        "likes": null,
+        "comments": 2,
+        "reposts": 1
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer",
+      "metric_confidence": "low_instagram_action_order_heuristic",
+      "popularity": {
+        "score": null,
+        "basis": [
+          "comments",
+          "reposts"
+        ],
+        "scope": "instagram_result_set_only",
+        "warning": "조회수·좋아요 중 하나가 없어 인기 순위를 매기지 않음"
+      },
+      "v2_feedback": "반응 수치는 비교할 수 있지만 요청과의 관련성은 사용자가 원문에서 확인해야 합니다.",
+      "user_decision": null
+    },
+    {
+      "username": "webanimationstudio",
+      "profile_url": "https://www.instagram.com/webanimationstudio/",
+      "post_url": "https://www.instagram.com/webanimationstudio/p/C9NzFmNh7be/",
+      "source_label": "Photo by Web Animation Studio on July 09, 2024.",
+      "published_at": "2024-07-09T20:37:04.000Z",
+      "public_text": "webanimationstudio 팔로우 webanimationstudio 110주 🌟 Why 3D Rendering Beats Photography! 🌟 Check out this stunning 3D rendering of our Liceria & Co Olive Oil! 😍 Why we love 3D rendering: 1. Flexibility: Perfect lighting and angles without studio limits. 2. Consistency: Uniform look across all marketing materials. 3. Cost-Effective: High-quality images, lower cost. 4. Creativity: Endless possibilities for unique backgrounds. 5. Precision: Highlight every detail with clarity. In a visual world, 3D rendering sets your brand apart. What do you think about the future of 3D in marketing? Let us know! 💬👇 #3drendering #visualmarketing #Innovation #liceriaandco #oliveoil atromancie 86주 Nice lightning 🔥 답글 달기 번역 보기 ligayd_art 87주 Beautiful shot!!!! 🔥🔥🔥 답글 달기 번역 보기 13 2 2024년 7월 10일 webanimationstudio님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "",
+        "comment_context": "13\n2"
+      },
+      "metrics": {
+        "views": null,
+        "likes": null,
+        "comments": 2,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer",
+      "metric_confidence": "low_instagram_action_order_heuristic",
+      "popularity": {
+        "score": null,
+        "basis": [
+          "comments"
+        ],
+        "scope": "instagram_result_set_only",
+        "warning": "조회수·좋아요 중 하나가 없어 인기 순위를 매기지 않음"
+      },
+      "v2_feedback": "반응 수치는 비교할 수 있지만 요청과의 관련성은 사용자가 원문에서 확인해야 합니다.",
+      "user_decision": null
+    }
+  ],
+  "final_decision_owner": "user",
+  "allowed_decisions": [
+    "adopt",
+    "hold",
+    "discard"
+  ]
+}

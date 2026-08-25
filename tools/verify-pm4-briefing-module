@@ -20,7 +20,7 @@ checks={
   'platforms start unselected':fixture['selected_platforms']==[],
   'five source labels present':{item['id'] for item in fixture['sources']}=={'github','reddit','youtube','threads','instagram'},
   'output has link and summary':all(item.get('url') and item.get('short_summary') for item in fixture['items']),
-  'external collection not falsely verified':next(x for x in manifest['features'] if x['feature_id']=='briefing.collect')['status']=='not_yet_verified',
+  'five-source pilot collection is recorded':next(x for x in manifest['features'] if x['feature_id']=='briefing.collect')['status']=='verified_five_source_pilot',
   'lifecycle remains candidate':manifest['status']['lifecycle']=='candidate',
 }
 print(json.dumps({'checks':[{'name':k,'status':'PASS' if v else 'FAIL'} for k,v in checks.items()],'verdict':'PASS' if all(checks.values()) else 'FAIL'},ensure_ascii=False,indent=2))

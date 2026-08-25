@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "status": "temporary_observation",
+  "topic": "AI·바이브코딩 수익·신규 업데이트",
+  "final_decision_owner": "user",
+  "channels": [
+    {"platform":"youtube","channel":"조코딩 JoCoding","url":"https://www.youtube.com/channel/UCQNE2JmbasNYbjGAcuBiRRg","feed":"https://www.youtube.com/feeds/videos.xml?channel_id=UCQNE2JmbasNYbjGAcuBiRRg","reason":"한국어 AI·코딩 업데이트가 잦음"},
+    {"platform":"reddit","channel":"r/vibecoding","url":"https://www.reddit.com/r/vibecoding/","feed":"https://www.reddit.com/r/vibecoding/new/.rss","reason":"바이브코딩 실제 제작·배포 사례"},
+    {"platform":"reddit","channel":"r/ClaudeAI","url":"https://www.reddit.com/r/ClaudeAI/","feed":"https://www.reddit.com/r/ClaudeAI/new/.rss","reason":"Claude 활용·업데이트"},
+    {"platform":"instagram","channel":"mia.aimaker","url":"https://www.instagram.com/mia.aimaker/","reason":"한국어 AI·바이브기획 콘텐츠가 잦음"},
+    {"platform":"threads","channel":"daon_k","url":"https://www.threads.com/@daon_k","reason":"AI 도구 구독·실제 작업 시스템 비교"},
+    {"platform":"threads","channel":"ezbuilder","url":"https://www.threads.com/@ezbuilder","reason":"Codex·ChatGPT·자동화 실험 사례"},
+    {"platform":"threads","channel":"reframe77","url":"https://www.threads.com/@reframe77","reason":"Codex 사용량·비용·실사용 경험"},
+    {"platform":"github","channel":"affaan-m","url":"https://github.com/affaan-m","reason":"Agent Harness·Codex 관련 저장소가 최근 활발"},
+    {"platform":"github","channel":"nextlevelbuilder","url":"https://github.com/nextlevelbuilder","reason":"AI UI·UX Skill 업데이트"}
+  ]
+}

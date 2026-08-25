@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "platform": "reddit",
+  "collected_at": "2026-08-22T10:40:40.650Z",
+  "query": "AI vibe coding",
+  "channel_url": "https://www.reddit.com/r/vibecoding/new/",
+  "requested_period_days": 30,
+  "used_period_days": 30,
+  "period_expanded": false,
+  "discovery_strategy": "direct_professional_channel",
+  "preferred_channels_applied": [],
+  "role": "collection_only",
+  "items": [
+    {
+      "platform": "reddit",
+      "channel_name": "vibecoding",
+      "channel_url": "https://www.reddit.com/r/vibecoding",
+      "title": "Come hang on the official r/vibecoding Discord 🤙\n          \n    \n      \n    \n    \n    \n  \n    \n  \n          98 votes • 55 comments",
+      "url": "https://www.reddit.com/r/vibecoding/comments/1k7mcub/come_hang_on_the_official_rvibecoding_discord/",
+      "published_at": null,
+      "public_text": "Come hang on the official r/vibecoding Discord 🤙\n98 votes • 55 comments"
+    },
+    {
+      "platform": "reddit",
+      "channel_name": "vibecoding",
+      "channel_url": "https://www.reddit.com/r/vibecoding",
+      "title": "I love seeing what my MVP would look like. But then I keep burning credits because I notice something isn’t working and I try to fix it.Anyone else feel that? It can be addicting but not in the way I would like, so I don’t use it as much an",
+      "url": "https://www.reddit.com/r/vibecoding/comments/1vv8xwl/anyone_else_notice_how_vibe_coding_can_be/",
+      "published_at": null,
+      "public_text": "Anyone else notice how vibe coding can be addicting?\nu/solvixai\n•\n5 min. ago\nAnyone else notice how vibe coding can be addicting?\n\nI love seeing what my MVP would look like. But then I keep burning credits because I notice something isn’t working and I try to fix it.\nAnyone else feel that? It can be addicting but not in the way I would like, so I don’t use it as much anymore"
+    },
+    {
+      "platform": "reddit",
+      "channel_name": "vibecoding",
+      "channel_url": "https://www.reddit.com/r/vibecoding",
+      "title": "Hi, r/vibecoding I vibecoded an interesting project, tested it for three months, and built something that should make life easier for every vibe coder.\n    \n      Great.  Many of you have probably already hidden this post or downvoted it. B",
+      "url": "https://www.reddit.com/r/vibecoding/comments/1vv8x9x/claude_code_kanban/",
+      "published_at": null,
+      "public_text": "Claude Code = Kanban\nu/mikomiko224\n•\n6 min. ago\nClaude Code = Kanban\n\nHi, r/vibecoding I vibecoded an interesting project, tested it for three months, and built something that should make life easier for every vibe coder. \n\nGreat. Many of you have probably already hidden this post or downvoted it. But if you want to manage your projects and tasks more intelligently and speed up service development, this post is for you. \n\nLet me introduce…\n\nLOCAL KANBAN\n\nA local Kanban board for managing project tasks. \n\nAre you also annoyed by how difficult it is to keep track of what was done across different sessions? And do you keep future tasks in random notes? You’ve come to the right place. I’m here to improve your life both before and after each coding session.\n\nHow it all started\n\nI use Claude Code Max Turbo x500 every day. I wake up, add a few tasks, write future project tasks in my notes, and "
+    },
+    {
+      "platform": "reddit",
+      "channel_name": "vibecoding",
+      "channel_url": "https://www.reddit.com/r/vibecoding",
+      "title": "Built a leaderboard for all your controversial opinions and hot takes 🌶️ controversial.lol",
+      "url": "https://www.reddit.com/r/vibecoding/comments/1vv8gkg/built_a_leaderboard_for_all_your_controversial/",
+      "published_at": null,
+      "public_text": "Built a leaderboard for all your controversial opinions and hot takes 🌶️ controversial.lol\nu/Opposite-Emergency64\n•\n32 min. ago\nBuilt a leaderboard for all your controversial opinions and hot takes 🌶️ controversial.lol\nhttps://controversial.lol/"
+    }
+  ],
+  "adoption_decision": null
+}

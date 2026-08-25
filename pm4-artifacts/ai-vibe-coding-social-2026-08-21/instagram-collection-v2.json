@@ -1,0 +1,322 @@
+{
+  "schema_version": "1.0",
+  "collected_at": "2026-08-21T13:31:16.116Z",
+  "platform": "instagram",
+  "adapter": "authenticated_chrome_cdp",
+  "query": "바이브코딩",
+  "role": "collection_only_no_popularity_or_adoption_judgment",
+  "discovery_strategy": "topic_channel_first_then_public_posts",
+  "login_status": "verified",
+  "profiles": [
+    {
+      "username": "mia.aimaker",
+      "profile_url": "https://www.instagram.com/mia.aimaker/",
+      "search_label": "mia.aimaker • AI 크리에이터mia | 바이브코딩 ❋ AI ❋ PM",
+      "profile_text": "mia.aimaker\nmia | 바이브코딩 ❋ AI ❋ PM\n게시물 33\n팔로워 4234\n팔로우 997\nDigital creator • \nAI 크리에이터\n🧚 Let’s play with AI 🤸‍♀️\n👩‍💻 바이브코딩 공장 가동중•• #010/100\n✨ 개발 1도 모르는 디자이너 출신 현직 PM\n✉️ work.miachoi@gmail.com\nlitt.ly/miachoi\nmia.aimaker\n팔로우\n메시지 보내기\nSpotted!\n2026.08\n2026.07\nEngagement\n‘정보’ 🙋‍♀️\n2026.06\n올다무픽\n2026.05\n2026.04\nPOPnPOP\nlove\nStudy\nWork\n🤹‍♀️생파 후기🦜\nMeta\n소개\n블로그\n채용 정보\n도움말\nAPI\n개인정보처리방침\n약관\n위치\n인기\nInstagram Lite\nMeta AI\nThreads\n연락처 업로드 & 비사용자\nMeta Verified\n한국어\nAfrikaans\nالعربية\nČeština\nDansk\nDeutsch\nΕλληνικά\nEnglish\nEnglish (UK)\nEspañol (España)\nEspañol\nفارسی\nSuomi\nFrançais\nעברית\nBahasa Indonesia\nItaliano\n日本語\n한국어\nBahasa Melayu\nNorsk\nNederlands\nPolski\nPortuguês (Brasil)\nPortuguês (Portugal)\nРусский\nS",
+      "posts": [
+        {
+          "url": "https://www.instagram.com/mia.aimaker/p/DZqs0G-kugu/",
+          "label": "Photo shared by mia | 바이브코딩 ❋ AI ❋ PM on June 16, 2026 tagging @github, @linkedin, @slackhq, @notionhq, @openai, @claudeai, @lovable.dev, and @lovable.community. May be a Twitter screenshot of phone and text that says '요즘내세상: 내 세상: 요즘 ர. 蜗 in @mia.aimaker'."
+        },
+        {
+          "url": "https://www.instagram.com/mia.aimaker/p/DNyCKIQZIA2/",
+          "label": "Photo by mia | 바이브코딩 ❋ AI ❋ PM on August 25, 2025."
+        },
+        {
+          "url": "https://www.instagram.com/mia.aimaker/reel/DNQQsGXyt-l/",
+          "label": "저는 디자이너 출신의 빅데이터 분석 능력을 가진 Product MASTER 입니다•• 어그로였습니다 죄송합니다👽👽👽\n서비스 기획/ PM 여러분.,, 다들 데이터 다루실 수 있으신가요?? 일단 전 아니에요 🥵"
+        },
+        {
+          "url": "https://www.instagram.com/mia.aimaker/reel/DcLvEf9gWbN/",
+          "label": "#광고 바이브코딩말고\n바이브기획부터 해보셔잉\n\n클로드한테\n”아 ㅋㅋ개쩌는 사이트\n만들어줘“ 하면\n\n높은 확률로\nAI 티 팍팍나는\n결과물 나온다죠?\n\n왜냐면\n정확한 요구사항 없이\n딸깍 만들어져서\n그렇습니다\n당연한거에유\n\n그래서\n아마존 같은\n실리콘밸리 회사들은\n\n서비스 만들기 전\n무조건 문서부터 써요\n(국내도 그렇지만!)\n\n이게 바로\n’Working Backwards‘\n아마존 성공 비결로도 유명한\n\n[고객 경험을\n먼저 정의하고\n거꾸로 설계하는 방식]\n\n이 과정에서\nPRD, 즉\n요구사항정의서를 \n쓰는데요\n\n뭘 만들지\n왜 만들지\n명확히 정리하는 문서예요\n\n이게 없으면\nAI도 사람도\n같은 그림 못 그려요\n\n이걸 AI가\n질문 던지면서\n대신 정리해주는 게\n\n바로\n매니패스트입니다\n@manyfast.io 💜\n\n아이디어 하나만\n던지면\n\n질문 몇 개로\n요구사항 구체화해서\n\nPRD →\n기능명세서 →\n유저플로우 →\n와이어프레임까지\n\n쭉 뽑아주고\n\n이 산출물을\n그대로 클로드에 연결하면\n(클로드말고 기존에\n"
+        },
+        {
+          "url": "https://www.instagram.com/mia.aimaker/reel/DcAAz3VS7iA/",
+          "label": "태극기, 정확하게 그릴 수 있나요?\n\n일상속에서 자주 보면서도\n막상 그리라면\n다들 헷갈리실거예요\n\n4괘를 각각 배치하고\n태극 문양까지\n직접 색칠도 해봤어요!\n\n결과는 저도\n좀 놀랐어요\n\n당연하게 여긴 순서가\n아니더라구요,,\n\n외우실 때\n\n3  5\n4  6\n이렇게 외워보세용\n(저는 3456을\n’n‘순서로 쓴다고\n외우고 있어요)\n\n저두 이번에\n이 사이트 만들면서\n태극기에 대해\n그리고 광복절에 대해\n다시금 배우는 계기가\n되어 뜻깊은 시간을\n보냈습니당\n\n저도 자취를 시작하면서\n태극기를 계양하기 \n어려웠는데\n\n일상 속에서 이런\n작은 실천으로\n태극기를 한 번쯤\n직접 그려보면서\n광복절의 의미를\n되새겨봐요 🇰🇷\n\n링크는\n고정댓글에\n남겨둘게요!\n\n꾹 눌러서 공유하시거나\n캡쳐해서 갤러리에서\n텍스트 복사하셔도 돼요!\n\n정확도 몇 %\n나오는지\n댓글로 알려주세여\n\n#대한민국 #광복절"
+        }
+      ]
+    },
+    {
+      "username": "vibe_coding_school",
+      "profile_url": "https://www.instagram.com/vibe_coding_school/",
+      "search_label": "vibe_coding_school바이브코딩 스쿨",
+      "profile_text": "vibe_coding_school\n바이브코딩 스쿨\n게시물 0\n팔로워 36\n팔로우 3\n💻 코딩의 새로운 패러다임\n🚀 나만의 SaaS MVP\n🌟 200명 이상의 수료생\nvibe.isbest.bio\nvibe_coding_school\n팔로우\n게시물 없음\nMeta\n소개\n블로그\n채용 정보\n도움말\nAPI\n개인정보처리방침\n약관\n위치\n인기\nInstagram Lite\nMeta AI\nThreads\n연락처 업로드 & 비사용자\nMeta Verified\n한국어\nAfrikaans\nالعربية\nČeština\nDansk\nDeutsch\nΕλληνικά\nEnglish\nEnglish (UK)\nEspañol (España)\nEspañol\nفارسی\nSuomi\nFrançais\nעברית\nBahasa Indonesia\nItaliano\n日本語\n한국어\nBahasa Melayu\nNorsk\nNederlands\nPolski\nPortuguês (Brasil)\nPortuguês (Portugal)\nРусский\nSvenska\nภาษาไทย\nFilipino\nTürkçe\n中文(简体)\n中文(台灣)\nবাংলা\nગુજરાતી\nहिन्दी\nHrvatski\nMagyar\nಕನ್ನಡ\nമലയാളം\nमराठी\nनेपाली\nਪੰਜਾਬੀ\nසිංහල\nSlovenčina\nதமிழ்\nతెలుగు\nاردو\nTiếng Việt\n中文(香港)\nБългарски\nFrançais (Canada)\nRomână\nСрпск",
+      "posts": []
+    },
+    {
+      "username": "siyoon.flowlog",
+      "profile_url": "https://www.instagram.com/siyoon.flowlog/",
+      "search_label": "siyoon.flowlog시윤ㅣ빌더 • 바이브코딩",
+      "profile_text": "siyoon.flowlog\n시윤ㅣ빌더 • 바이브코딩\n게시물 30\n팔로워 353\n팔로우 354\n🌊 흘러가되, 선택은 내가\n🏄‍♀️ 서비스 기획자에서 AX 팀장까지\n✨ 비로소 시 始, 윤택할 윤潤 이름대로\n-\n📩 협업/문의: DM\n팔로우\n메시지 보내기\n프리랜서 생존기\n배움 기록📝\n매월 목표\nMeta\n소개\n블로그\n채용 정보\n도움말\nAPI\n개인정보처리방침\n약관\n위치\n인기\nInstagram Lite\nMeta AI\nThreads\n연락처 업로드 & 비사용자\nMeta Verified\n한국어\nAfrikaans\nالعربية\nČeština\nDansk\nDeutsch\nΕλληνικά\nEnglish\nEnglish (UK)\nEspañol (España)\nEspañol\nفارسی\nSuomi\nFrançais\nעברית\nBahasa Indonesia\nItaliano\n日本語\n한국어\nBahasa Melayu\nNorsk\nNederlands\nPolski\nPortuguês (Brasil)\nPortuguês (Portugal)\nРусский\nSvenska\nภาษาไทย\nFilipino\nTürkçe\n中文(简体)\n中文(台灣)\nবাংলা\nગુજરાતી\nहिन्दी\nHrvatski\nMagyar\nಕನ್ನಡ\nമലയാളം\nमराठी\nनेपाली\nਪੰਜਾਬੀ\nසිංහල\nSlovenčina\nதமிழ்\nతెలుగు\nاردو\nTiếng Việt\n中文(香港)\nБългарски\nFrança",
+      "posts": [
+        {
+          "url": "https://www.instagram.com/siyoon.flowlog/p/DPL3238kgVW/",
+          "label": "Photo by 시윤ㅣ빌더 • 바이브코딩 on September 29, 2025."
+        },
+        {
+          "url": "https://www.instagram.com/siyoon.flowlog/p/DRHgHAeEl_H/",
+          "label": "Photo by 시윤ㅣ빌더 • 바이브코딩 on November 16, 2025."
+        },
+        {
+          "url": "https://www.instagram.com/siyoon.flowlog/p/DQCDpUeEshm/",
+          "label": "Photo by 시윤ㅣ빌더 • 바이브코딩 on October 20, 2025."
+        },
+        {
+          "url": "https://www.instagram.com/siyoon.flowlog/p/DP_mczRkubs/",
+          "label": "Photo by 시윤ㅣ빌더 • 바이브코딩 on October 19, 2025."
+        },
+        {
+          "url": "https://www.instagram.com/siyoon.flowlog/p/DP32zJpEsRd/",
+          "label": "Photo by 시윤ㅣ빌더 • 바이브코딩 on October 16, 2025."
+        }
+      ]
+    },
+    {
+      "username": "gwonvibe_ai",
+      "profile_url": "https://www.instagram.com/gwonvibe_ai/",
+      "search_label": "gwonvibe_ai권바이브 | 바이브코딩•AI",
+      "profile_text": "gwonvibe_ai\n권바이브 | 바이브코딩•AI\n게시물 1\n팔로워 40\n팔로우 0\n👨🏻‍💼바이브코딩에 빠져 사는 사람입니다.\ngwonvibe_ai\n팔로우\n메시지 보내기\nMeta\n소개\n블로그\n채용 정보\n도움말\nAPI\n개인정보처리방침\n약관\n위치\n인기\nInstagram Lite\nMeta AI\nThreads\n연락처 업로드 & 비사용자\nMeta Verified\n한국어\nAfrikaans\nالعربية\nČeština\nDansk\nDeutsch\nΕλληνικά\nEnglish\nEnglish (UK)\nEspañol (España)\nEspañol\nفارسی\nSuomi\nFrançais\nעברית\nBahasa Indonesia\nItaliano\n日本語\n한국어\nBahasa Melayu\nNorsk\nNederlands\nPolski\nPortuguês (Brasil)\nPortuguês (Portugal)\nРусский\nSvenska\nภาษาไทย\nFilipino\nTürkçe\n中文(简体)\n中文(台灣)\nবাংলা\nગુજરાતી\nहिन्दी\nHrvatski\nMagyar\nಕನ್ನಡ\nമലയാളം\nमराठी\nनेपाली\nਪੰਜਾਬੀ\nසිංහල\nSlovenčina\nதமிழ்\nతెలుగు\nاردو\nTiếng Việt\n中文(香港)\nБългарски\nFrançais (Canada)\nRomână\nСрпски\nУкраїнська\n© 2026 Instagram from Meta\n메시지",
+      "posts": [
+        {
+          "url": "https://www.instagram.com/gwonvibe_ai/p/DR6iC85Dy9h/",
+          "label": "Photo by 권바이브 | 바이브코딩•AI on December 06, 2025."
+        }
+      ]
+    },
+    {
+      "username": "_gomdol_ssam",
+      "profile_url": "https://www.instagram.com/_gomdol_ssam/",
+      "search_label": "_gomdol_ssam곰돌쌤🧸|유아교육 •바이브코딩 •자료공유|",
+      "profile_text": "_gomdol_ssam\n곰돌쌤🧸|유아교육 •바이브코딩 •자료공유|\n게시물 20\n팔로워 2178\n팔로우 56\n🤖AI와 바이브코딩으로 놀이자료를 만들어요.\n🌈놀이와 디지털 기술이 만나는 교실➿\n👇 공유 마감된 자료는 하단 링크 곰돌쌤 채널로 문의🧸\npf.kakao.com/_qwpnX/chat\n팔로우\n메시지 보내기\n💌\n👼🏻\nMeta\n소개\n블로그\n채용 정보\n도움말\nAPI\n개인정보처리방침\n약관\n위치\n인기\nInstagram Lite\nMeta AI\nThreads\n연락처 업로드 & 비사용자\nMeta Verified\n한국어\nAfrikaans\nالعربية\nČeština\nDansk\nDeutsch\nΕλληνικά\nEnglish\nEnglish (UK)\nEspañol (España)\nEspañol\nفارسی\nSuomi\nFrançais\nעברית\nBahasa Indonesia\nItaliano\n日本語\n한국어\nBahasa Melayu\nNorsk\nNederlands\nPolski\nPortuguês (Brasil)\nPortuguês (Portugal)\nРусский\nSvenska\nภาษาไทย\nFilipino\nTürkçe\n中文(简体)\n中文(台灣)\nবাংলা\nગુજરાતી\nहिन्दी\nHrvatski\nMagyar\nಕನ್ನಡ\nമലയാളം\nमराठी\nनेपाली\nਪੰਜਾਬੀ\nසිංහල\nSlovenčina\nதமிழ்\nతెలుగు\nاردو\nTiếng Việt\n中",
+      "posts": [
+        {
+          "url": "https://www.instagram.com/_gomdol_ssam/p/DZzhayiD022/",
+          "label": "Photo by 곰돌쌤🧸|유아교육 •바이브코딩 •자료공유| on June 20, 2026. May be an illustration of poster and text that says '교사의 아이디어에 AI를 더하다! 바이 바이브코딩으로 만드는 우리 반 디지털 도구 바이브 코딩 강의를 신청하시겠습니까? Yea .I와 대화하는 와대화하는법 법 No No 아이디어 노트 곰돌쌤 농돌샵@_gomdol_ssam @ _ssam'."
+        },
+        {
+          "url": "https://www.instagram.com/_gomdol_ssam/p/DaFjf6Hj4L_/",
+          "label": "Photo by 곰돌쌤🧸|유아교육 •바이브코딩 •자료공유| on June 27, 2026. May be an image of pie and text."
+        },
+        {
+          "url": "https://www.instagram.com/_gomdol_ssam/p/Db5VpbjjxL9/",
+          "label": "Photo by 곰돌쌤🧸|유아교육 •바이브코딩 •자료공유| on August 11, 2026. May be an image of ‎suitcase and ‎text that says '‎이 상자를 열어보시겠습니까? 앗,, 눈부셔 맛,눈부셔: ت 여즈,초성키즈,렛매 루레야 0x퀴즈 초성퀴즈 3종 至se set‎'‎‎."
+        },
+        {
+          "url": "https://www.instagram.com/_gomdol_ssam/p/Db2wG2IDwhq/",
+          "label": "Photo by 곰돌쌤🧸|유아교육 •바이브코딩 •자료공유| on August 10, 2026. May be a doodle of ‎parrot, macaw, poster and ‎text that says '‎단어탐험: 보물지도의 비밀 가로세로 단어퀴즈 단 手 TREASURE بع TREASURE‎'‎‎."
+        },
+        {
+          "url": "https://www.instagram.com/_gomdol_ssam/p/DbUE2Cekvv5/",
+          "label": "Photo by 곰돌쌤🧸|유아교육 •바이브코딩 •자료공유| on July 27, 2026. May be an illustration of poster and text."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "username": "mia.aimaker",
+      "profile_url": "https://www.instagram.com/mia.aimaker/",
+      "post_url": "https://www.instagram.com/mia.aimaker/p/DZqs0G-kugu/",
+      "source_label": "Photo shared by mia | 바이브코딩 ❋ AI ❋ PM on June 16, 2026 tagging @github, @linkedin, @slackhq, @notionhq, @openai, @claudeai, @lovable.dev, and @lovable.community. May be a Twitter screenshot of phone and text that says '요즘내세상: 내 세상: 요즘 ர. 蜗 in @mia.aimaker'.",
+      "published_at": "2026-06-17T00:39:16.000Z",
+      "public_text": "mia.aimaker AI 크리에이터 Seoul, South Korea 팔로우 mia.aimaker 9주 디스플레이는 더 작아지고 스크린타임은 더 늘어나고•• 번역 보기 marinechu_ishigaki 7주 👏👏👏 답글 달기 dlcoghk_ain 9주 미녀의 어린 시절 귀하다. 답글 달기 u.racha 9주 정말 예쁘게 잘 컸다~~^^ 기여버라 좋아요 2개 답글 달기 91 4 1 6월 17일 mia.aimaker님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "",
+        "comment_context": "91\n4\n1"
+      },
+      "metrics": {
+        "views": null,
+        "likes": null,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer"
+    },
+    {
+      "username": "mia.aimaker",
+      "profile_url": "https://www.instagram.com/mia.aimaker/",
+      "post_url": "https://www.instagram.com/mia.aimaker/p/DNyCKIQZIA2/",
+      "source_label": "Photo by mia | 바이브코딩 ❋ AI ❋ PM on August 25, 2025.",
+      "published_at": "2025-08-25T14:43:44.000Z",
+      "public_text": "mia.aimaker AI 크리에이터 팔로우 mia.aimaker 51주 드디어~.. 제 개인적인 이야기를 꺼내보려 해요. 제품디자이너에서 uiux기획자, 서비스기획자를 지나 PM까지! 이제부턴 제가 어떻게 살아왔고, 지금 무엇을 만들고 있는지, 그리고 어디로 가고 싶은지까지 기록하려고 합니다 이 계정은 이제 제 여정을 담는 공간이 될 거예요 1인기업(아이 부끄러워)이자 크리에이터로서, 저 스스로가 하나의 브랜드가 되는 그 과정까지!.!.! 아직은 많이 서툴고 부끄럽지만, 앞으로 올릴 이야기들도 함께 지켜봐 주시면 정말 감사하겠습니다 잘 부탁드리겠습니다!!!!!!!!!!! + 지난번에 어떤 콘텐츠가 궁금한지 무물받았는데,, 혹시 추가로 궁금한 내용이 있다면 언제든지 댓글이나 디엠주십쇼 👽 번역 보기 nin_ggoo 42주 머쪄용 답글 달기 답글 1개 모두 보기 hip_teamjang 42주 멋있는 그녀의 일대기.. 앞날이 너무너무 기대돼요..❤️ 응원합니다☺️🫶🏻 좋아요 1개 답글 달기 답글 1개 모두 보기 sogam_note 49주 글만 봐도 열정 만수르 몸이 세개이신가요…❤️ 앞으로도 글 잘 보겠습니다>.< 좋아요 1개 답글 달기 답글 2개 모두 보기 livelaughs2 50주 나만의 특별한 스토리를 꿈꿔오곤 했는데 미아님이 겪으신 에피소드를 쭉 보니, 인생이 계획처럼 흘러가지 않아도 그때 그때마다 본인이 가장 에너지를 쏟을 수 있는 것들에 집중하면 되는군요..✨ 풀어주실 이야기들이 너무 기대돼요!!! 🙌 좋아요 1개 답글 달기 답글 1개 모두 보기 grimssi_1grim 51주 진짜 멋있어요!! 앞으로의 콘텐츠도 기대됩니다🫢🙌 좋아요 1개 답글 달기 답글 3개 모두 보기 itiaaati 51주 열심히 하는 모습 멋있으세요!!! 좋아요 1개 답글 달기 답글 1개 모두 보기 kim_jisun___ 51주 머싯당,,,,,,!! 기대 중 ❤️‍🔥🍀 좋아요 1개 답글 달기 답글 1개 모두 보기 minutedev 51주 선생님 멋있어요 좋아요 2개 답글 달기 답글 1개 모두 보기 149 23 2 2025년 8월 25일 mia.aimaker님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "",
+        "comment_context": "149\n23\n2"
+      },
+      "metrics": {
+        "views": null,
+        "likes": null,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer"
+    },
+    {
+      "username": "mia.aimaker",
+      "profile_url": "https://www.instagram.com/mia.aimaker/",
+      "post_url": "https://www.instagram.com/mia.aimaker/reel/DNQQsGXyt-l/",
+      "source_label": "저는 디자이너 출신의 빅데이터 분석 능력을 가진 Product MASTER 입니다•• 어그로였습니다 죄송합니다👽👽👽\n서비스 기획/ PM 여러분.,, 다들 데이터 다루실 수 있으신가요?? 일단 전 아니에요 🥵",
+      "published_at": "2025-08-12T12:03:53.000Z",
+      "public_text": "mia.aimaker AI 크리에이터 Young Jeezy•Soul Survivor (feat. Akon) 팔로우 mia.aimaker 수정됨 • 53주 저는 디자이너 출신의 빅데이터 분석 능력을 가진 Product MASTER 입니다•• 어그로였습니다 죄송합니다👽👽👽 서비스 기획/ PM 여러분.,, 다들 데이터 다루실 수 있으신가요?? 일단 전 아니에요 🥵 번역 보기 lumpen.tsx 5주 레전드 답글 달기 inthe913_ 49주 ㅇㅁㅇ!! 디자인과 다니고있는 학생입니다! IT PM으로 넘어가기 위해 프론트엔드 ARVR유니티 아두이노부터 바이브코딩으로 백엔드랑 머신러닝까지 천천히 들춰보고 있네여.. 더불어서 데이터사이언스쪽으로 부전공 공부도 해보려고 하고있습니다!! 항상 디자인베이스를 어떻게 잘 살리고 홯용할 수 있을까, 데이터란 무엇이고 어떻게 활용해야 하는가 고민하는데, 현업에서 디자이너 베이스로 PM을 하시면서 데이터까지 관심두시는 미아님의 커리어와 관점이 너무 궁금하네요..🔥🔥 응원하고 지켜보겠습니디 너무 이뿌시고 멋있으세요!!❤️ 답글 달기 janvhi_vibe 51주 😍😍😍 좋아요 1개 답글 달기 답글 2개 모두 보기 itiaaati 52주 데이터 공부해보려다가 빠빠이 했습니다.. 좋아요 1개 답글 달기 답글 1개 모두 보기 jihae.choe 52주 우왕 sql 👏 답글 달기 답글 1개 모두 보기 216 10 5 2025년 8월 12일 mia.aimaker님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "",
+        "comment_context": "216\n10\n5"
+      },
+      "metrics": {
+        "views": null,
+        "likes": null,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer"
+    },
+    {
+      "username": "mia.aimaker",
+      "profile_url": "https://www.instagram.com/mia.aimaker/",
+      "post_url": "https://www.instagram.com/mia.aimaker/reel/DcLvEf9gWbN/",
+      "source_label": "#광고 바이브코딩말고\n바이브기획부터 해보셔잉\n\n클로드한테\n”아 ㅋㅋ개쩌는 사이트\n만들어줘“ 하면\n\n높은 확률로\nAI 티 팍팍나는\n결과물 나온다죠?\n\n왜냐면\n정확한 요구사항 없이\n딸깍 만들어져서\n그렇습니다\n당연한거에유\n\n그래서\n아마존 같은\n실리콘밸리 회사들은\n\n서비스 만들기 전\n무조건 문서부터 써요\n(국내도 그렇지만!)\n\n이게 바로\n’Working Backwards‘\n아마존 성공 비결로도 유명한\n\n[고객 경험을\n먼저 정의하고\n거꾸로 설계하는 방식]\n\n이 과정에서\nPRD, 즉\n요구사항정의서를 \n쓰는데요\n\n뭘 만들지\n왜 만들지\n명확히 정리하는 문서예요\n\n이게 없으면\nAI도 사람도\n같은 그림 못 그려요\n\n이걸 AI가\n질문 던지면서\n대신 정리해주는 게\n\n바로\n매니패스트입니다\n@manyfast.io 💜\n\n아이디어 하나만\n던지면\n\n질문 몇 개로\n요구사항 구체화해서\n\nPRD →\n기능명세서 →\n유저플로우 →\n와이어프레임까지\n\n쭉 뽑아주고\n\n이 산출물을\n그대로 클로드에 연결하면\n(클로드말고 기존에\n",
+      "published_at": "2026-08-18T13:40:54.000Z",
+      "public_text": "mia.aimaker AI 크리에이터 Original audio 팔로우 mia.aimaker 2일 #광고 바이브코딩말고 바이브기획부터 해보셔잉 클로드한테 ”아 ㅋㅋ개쩌는 사이트 만들어줘“ 하면 높은 확률로 AI 티 팍팍나는 결과물 나온다죠? 왜냐면 정확한 요구사항 없이 딸깍 만들어져서 그렇습니다 당연한거에유 그래서 아마존 같은 실리콘밸리 회사들은 서비스 만들기 전 무조건 문서부터 써요 (국내도 그렇지만!) 이게 바로 ’Working Backwards‘ 아마존 성공 비결로도 유명한 [고객 경험을 먼저 정의하고 거꾸로 설계하는 방식] 이 과정에서 PRD, 즉 요구사항정의서를 쓰는데요 뭘 만들지 왜 만들지 명확히 정리하는 문서예요 이게 없으면 AI도 사람도 같은 그림 못 그려요 이걸 AI가 질문 던지면서 대신 정리해주는 게 바로 매니패스트입니다 @manyfast.io 💜 아이디어 하나만 던지면 질문 몇 개로 요구사항 구체화해서 PRD → 기능명세서 → 유저플로우 → 와이어프레임까지 쭉 뽑아주고 이 산출물을 그대로 클로드에 연결하면 (클로드말고 기존에 사용하던 ai도 가능) 훨씬 정교한 산출물이 나와요 바이브코딩 전 바이브기획 한 번 해보세요 👇 댓글에 ”기획“ 남겨주시면 사용 가이드북 + 링크 DM으로 보내드릴게요! 번역 보기 bolly_wheat 2일 기획 답글 달기 답글 1개 모두 보기 ing_ggu 10시간 기획 답글 달기 답글 1개 모두 보기 summersunsetlover 7시간 기획 답글 달기 답글 1개 모두 보기 oq__oq__ 3시간 기획 답글 달기 답글 1개 모두 보기 wooggc 13시간 기획 답글 달기 답글 1개 모두 보기 gslee_patrick 13시간 기획 답글 달기 답글 1개 모두 보기 8282keto_recipe 13시간 기획 답글 달기 답글 1개 모두 보기 linjive 14시간 기획 답글 달기 답글 1개 모두 보기 zidolee 14시간 기획 답글 달기 답글 1개 모두 보기 junwoo____h 4시간 기획 답글 달기 답글 1개 모두 보기 yeontan_daengdaeng 14시간 기획 답글 달기 답글 1개 모두 보기 leee_ji 14시간 기획 답글 달기 답글 1개 모두 보기 hanjw84 15시간 기획 답글 달기 답글 1개 모두 보기 omeassur 14시간 기획 답글 달기 답글 1개 모두 보기 feacesmail 7시간 기획 답글 달기 답글 1개 모두 보기 346 1.7천 57 2일 전 mia.aimaker님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "",
+        "comment_context": "346\n1.7천\n57"
+      },
+      "metrics": {
+        "views": null,
+        "likes": null,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer"
+    },
+    {
+      "username": "mia.aimaker",
+      "profile_url": "https://www.instagram.com/mia.aimaker/",
+      "post_url": "https://www.instagram.com/mia.aimaker/reel/DcAAz3VS7iA/",
+      "source_label": "태극기, 정확하게 그릴 수 있나요?\n\n일상속에서 자주 보면서도\n막상 그리라면\n다들 헷갈리실거예요\n\n4괘를 각각 배치하고\n태극 문양까지\n직접 색칠도 해봤어요!\n\n결과는 저도\n좀 놀랐어요\n\n당연하게 여긴 순서가\n아니더라구요,,\n\n외우실 때\n\n3  5\n4  6\n이렇게 외워보세용\n(저는 3456을\n’n‘순서로 쓴다고\n외우고 있어요)\n\n저두 이번에\n이 사이트 만들면서\n태극기에 대해\n그리고 광복절에 대해\n다시금 배우는 계기가\n되어 뜻깊은 시간을\n보냈습니당\n\n저도 자취를 시작하면서\n태극기를 계양하기 \n어려웠는데\n\n일상 속에서 이런\n작은 실천으로\n태극기를 한 번쯤\n직접 그려보면서\n광복절의 의미를\n되새겨봐요 🇰🇷\n\n링크는\n고정댓글에\n남겨둘게요!\n\n꾹 눌러서 공유하시거나\n캡쳐해서 갤러리에서\n텍스트 복사하셔도 돼요!\n\n정확도 몇 %\n나오는지\n댓글로 알려주세여\n\n#대한민국 #광복절",
+      "published_at": "2026-08-14T00:23:08.000Z",
+      "public_text": "mia.aimaker AI 크리에이터 Original audio 팔로우 mia.aimaker 1주 태극기, 정확하게 그릴 수 있나요? 일상속에서 자주 보면서도 막상 그리라면 다들 헷갈리실거예요 4괘를 각각 배치하고 태극 문양까지 직접 색칠도 해봤어요! 결과는 저도 좀 놀랐어요 당연하게 여긴 순서가 아니더라구요,, 외우실 때 3 5 4 6 이렇게 외워보세용 (저는 3456을 ’n‘순서로 쓴다고 외우고 있어요) 저두 이번에 이 사이트 만들면서 태극기에 대해 그리고 광복절에 대해 다시금 배우는 계기가 되어 뜻깊은 시간을 보냈습니당 저도 자취를 시작하면서 태극기를 계양하기 어려웠는데 일상 속에서 이런 작은 실천으로 태극기를 한 번쯤 직접 그려보면서 광복절의 의미를 되새겨봐요 🇰🇷 링크는 고정댓글에 남겨둘게요! 꾹 눌러서 공유하시거나 캡쳐해서 갤러리에서 텍스트 복사하셔도 돼요! 정확도 몇 % 나오는지 댓글로 알려주세여 #대한민국 #광복절 번역 보기 _mmn.i 1주 앱 이름이 뭐에요? 좋아요 2개 답글 달기 답글 1개 모두 보기 mini_6130 1주 . 좋아요 1개 답글 달기 song_160403 1주 저 안들어가져요ㅛㅛ 좋아요 2개 답글 달기 답글 4개 모두 보기 enjoytuna 1주 건곤감리!! 좋아요 1개 답글 달기 답글 1개 모두 보기 mia.aimaker 1주 지금까지 일등은 86퍼시네용 좋아요 4개 답글 달기 답글 1개 모두 보기 imraonhi 1주 태극기 건곤감리 비율 다아는데요 답글 달기 답글 1개 모두 보기 jiwoo.dogs 1주 해와 바다 좋아요 1개 답글 달기 답글 1개 모두 보기 po_22119 1주 3456으로 기억하면 됨 좋아요 12개 답글 달기 답글 3개 모두 보기 fuvduddujwufvjdgjjdhzg 1주 · 수정됨 3456외우고 위치 헷갈리시면 좌우반전된 N 위치대로 쓰시면 외우기 좋아요 그리고 태양이 위쪽이니 빨, 아래는 바다니까 파랑으로 외우는 것도 좋아용 좋아요 1개 답글 달기 답글 1개 모두 보기 00nm__mn00 1주 1 좋아요 6개 답글 달기 mia.aimaker 6일 사이트 터졌어요 돈없어서 못늘립니다 ㅠ유감이네요 좋아요 3개 답글 달기 답글 1개 모두 보기 whxy.ye 1주 · 수정됨 3 5 빨갱이 파랭이 4 6 좋아요 96개 답글 달기 답글 1개 모두 보기 chubb_079 1주 S 반듯하게 그리고 눕혀 위 태양 아래 바다 생각하고 건곤감리 3.4.5.6 생각하면 조금이라도 쉽게 알수 있어요 좋아요 166개 답글 달기 답글 1개 모두 보기 hamaseo809 6일 태극기를 왜 알아야함 좋아요 1개 답글 달기 답글 3개 모두 보기 mia.aimaker 1주 미국 누구니 좋아요 38개 답글 달기 950 67 49 7일 전 mia.aimaker님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "",
+        "comment_context": "950\n67\n49"
+      },
+      "metrics": {
+        "views": null,
+        "likes": null,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer"
+    },
+    {
+      "username": "siyoon.flowlog",
+      "profile_url": "https://www.instagram.com/siyoon.flowlog/",
+      "post_url": "https://www.instagram.com/siyoon.flowlog/p/DPL3238kgVW/",
+      "source_label": "Photo by 시윤ㅣ빌더 • 바이브코딩 on September 29, 2025.",
+      "published_at": "2025-09-29T12:05:22.000Z",
+      "public_text": "siyoon.flowlog 팔로우 siyoon.flowlog 46주 안녕하세요 여러분 🌿 새로운 계정을 열면서 제 소개를 담아봤어요! 저는 건축공학 전공에서 시작해 운영과 기획을 거쳐 프리랜서로 전환했고 늘 스스로를 탐구하고 괴로워하는 사람이랍니다😂 앞으로는 프리랜서 생존기, 기획자의 일하는 방식, 일상과 배움, 수익화 아이템 탐구까지 제가 겪고 배우는 것들을 솔직하게 나눌 예정이에요 ✨ 앞으로 잘 부탁드려요! 함께 걸어가 주시면 정말 든든할 것 같아요 💓 저도 필요할 때 도움이 될 수 있도록 노력할게요! #프리랜서 #프리랜서기획자 #기획자 #프리랜서생존기 #브랜딩기록 번역 보기 jyunnynote 29주 ❤️❤️❤️❤️화이티이이잉❤️❤️❤️❤️ 좋아요 1개 답글 달기 wanny_highoutputclub 46주 파이탱! 좋아요 1개 답글 달기 답글 1개 모두 보기 trend.connector 46주 🔥🔥🔥 좋아요 1개 답글 달기 답글 1개 모두 보기 snngyeon 46주 머싯다 ... 😵 저 슌님 전공 처음 알았어요 좋아요 1개 답글 달기 답글 1개 모두 보기 42 7 2025년 9월 29일 siyoon.flowlog님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "",
+        "comment_context": "42\n7"
+      },
+      "metrics": {
+        "views": null,
+        "likes": null,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer"
+    },
+    {
+      "username": "siyoon.flowlog",
+      "profile_url": "https://www.instagram.com/siyoon.flowlog/",
+      "post_url": "https://www.instagram.com/siyoon.flowlog/p/DRHgHAeEl_H/",
+      "source_label": "Photo by 시윤ㅣ빌더 • 바이브코딩 on November 16, 2025.",
+      "published_at": "2025-11-16T12:23:41.000Z",
+      "public_text": "siyoon.flowlog 팔로우 siyoon.flowlog 39주 <2025년 10월 월말정산> 11월 중순에 남겨보는... 10월 정산과 11월 계획! 10월은 환경의 변화가 너무 커서 계획했던걸 다 지키지 못했어요 🥹🥹 왜이럴까 생각해보니 제가 변화와 제 리소소는 고려하지 못한채 이전 기준으로 계획을 세웠더라고요 결과가 뻔했던거였습니다 ㅋㅋㅋㅋ 그래서 11월에는 환경을 먼저 진단하고 목표를 유연하게 가져가며 스스로의 리소스를 파악한 계획을 세웠어요!! 이전에는 더 빨리 더 많이!를 고집했다면 해야할 일들을 잘 컨트롤하는 방향으로 가볼게요 더불어서 일정관리 GPT도 구축해놨는데... 바쁠때는 스스로 우선순위가 안서서 일을 눈에 보이는대로 해내기 바쁘더라고요 이럴 때 우선순위를 상기시켜주고 일정과 할일을 조율해주는데 도움을 받고있어요! 이건 다음에 공유해볼게요! #프리랜서 #프리랜서기획자 #기획자 #프리랜서생존기 #퇴사일기 #월말정산 #한달회고 번역 보기 아직 댓글이 없습니다. 댓글을 남겨보세요. 19 2025년 11월 16일 siyoon.flowlog님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "19",
+        "comment_context": "19"
+      },
+      "metrics": {
+        "views": null,
+        "likes": null,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer"
+    },
+    {
+      "username": "siyoon.flowlog",
+      "profile_url": "https://www.instagram.com/siyoon.flowlog/",
+      "post_url": "https://www.instagram.com/siyoon.flowlog/p/DQCDpUeEshm/",
+      "source_label": "Photo by 시윤ㅣ빌더 • 바이브코딩 on October 20, 2025.",
+      "published_at": "2025-10-20T13:07:22.000Z",
+      "public_text": "siyoon.flowlog 팔로우 siyoon.flowlog 43주 <가볍지만, 단단한 개인> 드디어 2장과 3장을 다 읽었습니다! 누군가는 이 책이 조금 무섭다고 하던데, 저는 오히려 읽을수록 따뜻함이 느껴졌어요. 사람들이 각자의 고유한 성질로 빛날 수 있는 시대라는 생각이 들었거든요. 물론, 빠르게 흘러가는 시대 속에서도 자신의 뿌리를 지키는 건 쉽지 않겠지만요. 그리고 요즘은 비교군이 너무 많고 다양하잖아요. 그래서 오히려 ‘나 자신을 비교군으로 두겠다’ 라는 생각을 했습니다. 그 안에서 나만의 속도와 깊이가 만들어지겠죠. 그런 의미에서 이 대목이 참 와닿더라고요. “경량문명의 주인공들은 자신의 삶을 위해 하루를 온전히 보내고 묵묵히 살아가다, 뒤돌아 보면 그 흔적이 자연스레 스스로를 설명하는 삶을 원하고 있습니다. 그리고 그 경기는 언제 멈추어도 무방합니다. 혼자 뛰는 경기의 승자는 언제나 나이기 때문입니다.” 여러분은 어떤 이야기를 갖고 계신가요? 오늘은 어제보다 어떤 나은 삶을 사셨나요? #경량문명의탄생 #프리랜서 번역 보기 아직 댓글이 없습니다. 댓글을 남겨보세요. 12 2025년 10월 20일 siyoon.flowlog님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "12",
+        "comment_context": "12"
+      },
+      "metrics": {
+        "views": null,
+        "likes": null,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer"
+    },
+    {
+      "username": "siyoon.flowlog",
+      "profile_url": "https://www.instagram.com/siyoon.flowlog/",
+      "post_url": "https://www.instagram.com/siyoon.flowlog/p/DP_mczRkubs/",
+      "source_label": "Photo by 시윤ㅣ빌더 • 바이브코딩 on October 19, 2025.",
+      "published_at": "2025-10-19T14:13:46.000Z",
+      "public_text": "siyoon.flowlog 팔로우 siyoon.flowlog 43주 <하고싶은거 다~ 하려면 에너지 관리는 필수> 이번주 회고를 하는데 아주 처참했습니다🥹🥹 아무래도 첫 출근+새로운 생활환경이 겹치다보니 퇴근하면 그냥 늘어져쉬기 바빴어요 그러다보니 계획들은 다 주말로 미뤘지만 주말에는 못 잔 잠을 자겠다며 쉬겠다며 또 미뤘어요 끄악! 그리고 지금은 해야할 것들 하고싶은 것들이 머리에 쌓여 아주 머리가 지끈지끈합니다🤪 그렇지만 이번주는 이번주고 다음주에 좀 더 나아지면 되니까요! 다음주부터는... - 저는 쉽게 지치는 타입이라서 에너지 분배를 잘 해보려구요 - 정해진 시간안에 자고, 수면의 질을 높여볼거에요 - 퇴근 후에 운동을 해서 뇌를 쉬게하고, 이후 시간에 하고싶은 것들을 할거에요 - 퇴근 시간에 유튜브를 보지않고 그냥 뇌를 쉬어줄거에요 과연 다음주에는 루틴을 잘 지켜낼 수 있을까요?!?🔥 번역 보기 아직 댓글이 없습니다. 댓글을 남겨보세요. 9 2025년 10월 19일 siyoon.flowlog님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "9",
+        "comment_context": "9"
+      },
+      "metrics": {
+        "views": null,
+        "likes": null,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer"
+    },
+    {
+      "username": "siyoon.flowlog",
+      "profile_url": "https://www.instagram.com/siyoon.flowlog/",
+      "post_url": "https://www.instagram.com/siyoon.flowlog/p/DP32zJpEsRd/",
+      "source_label": "Photo by 시윤ㅣ빌더 • 바이브코딩 on October 16, 2025.",
+      "published_at": "2025-10-16T14:02:42.000Z",
+      "public_text": "siyoon.flowlog 팔로우 siyoon.flowlog 44주 <남기고 싶은 하루> 오늘은 일의 속도가 정말 빨랐다 예전 같으면 따라가기 바빴을 텐데 이제는 흐름을 읽고 먼저 움직이고 있었다 논의도, 방향도 빠르게 돌아가는 느낌! 그리고 팀이 그걸 믿어주는 느낌 결국 나는 내가 스스로 일을 이끌어가고 믿어줄 때 가장 행복하다는 걸 다시 한 번 느꼈다🔥 번역 보기 아직 댓글이 없습니다. 댓글을 남겨보세요. 11 2025년 10월 16일 siyoon.flowlog님의 게시물 더 보기 Meta 소개 블로그 채용 정보 도움말 API 개인정보처리방침 약관 위치 인기 Instagram Lite Meta AI Threads 연락처 업로드 & 비사용자 Meta Verified 한국어 Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta 메시지",
+      "metric_evidence": {
+        "like_context": "11",
+        "comment_context": "11"
+      },
+      "metrics": {
+        "views": null,
+        "likes": null,
+        "comments": null,
+        "reposts": null
+      },
+      "metric_status": "raw_ui_evidence_requires_analyzer"
+    }
+  ],
+  "collection_scope": [
+    "search_result_profiles",
+    "public_profile_post_links"
+  ],
+  "excluded_scope": [
+    "home_feed",
+    "direct_messages",
+    "contacts",
+    "private_project_data"
+  ],
+  "popularity_judgment": null,
+  "metric_warning": "공개 화면에서 보이는 수치만 원문 증거로 저장하며, 보이지 않는 조회수나 좋아요를 추정하지 않음",
+  "sufficiency_judgment": null,
+  "adoption_decision": null,
+  "next_owner": "user"
+}

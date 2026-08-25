@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-electronic-business-card-mvp-v1",
+  "status": "user_selected_ready_for_next_stage",
+  "selected_direction": {
+    "candidate_id": "direction-1",
+    "label": "QR·NFC로 바로 연결하는 명함",
+    "summary_ko": "휴대폰을 대거나 QR을 비추면 앱 설치 없이 연락처 저장·전화·문자·SNS가 바로 열리는 방식입니다.",
+    "evidence_links": [
+      {
+        "source": "Reddit",
+        "url": "https://www.reddit.com/r/smallbusiness/comments/1dk05ln/digital_business_card_recommendations/",
+        "summary_ko": "NFC를 지원하지 않거나 사용하기 어려운 휴대폰을 위해 QR을 함께 제공하고, 받는 사람이 앱이나 회원가입 없이 연락처를 저장할 수 있어야 한다는 요구가 확인됐습니다."
+      },
+      {
+        "source": "Threads",
+        "url": "https://www.threads.com/@tepekofficial/post/Dbw2Uj5CJqg",
+        "summary_ko": "NFC를 휴대폰에 대면 WhatsApp, SNS, 웹사이트, 포트폴리오와 연락처를 한 번에 엽니다."
+      }
+    ]
+  },
+  "implementation_evidence": {
+    "repository": "vishnuraghavb/EnBizCard",
+    "url": "https://github.com/vishnuraghavb/EnBizCard",
+    "license": "AGPL-3.0",
+    "capabilities": [
+      "qr",
+      "vcard_contact_save",
+      "call_or_message_links",
+      "theme_customization",
+      "privacy_or_local_processing",
+      "team_or_crm"
+    ],
+    "adoption_status": "not_installed_not_adopted"
+  },
+  "confirmed_scope": {
+    "product_scope": "simple_single_card",
+    "qr_destination": "web_card_with_vcard_download",
+    "required_actions": [
+      "save_contact",
+      "call",
+      "send_sms",
+      "send_email",
+      "open_kakao_or_social",
+      "open_website"
+    ],
+    "visual_identity": "person_photo_and_company_brand",
+    "profession": "social_worker",
+    "real_personal_data_allowed_in_research": false,
+    "candidate_count": 5,
+    "visual_direction_policy": "five_distinct_directions_same_required_actions",
+    "reference_region": "korea_and_global",
+    "tool_cost_policy": "free_and_open_source_only"
+  },
+  "selection_record": {
+    "candidate_id": "direction-1",
+    "selected_by": "user",
+    "selected_at": "2026-08-24T13:52:31Z",
+    "input_method": "mouse_button_next",
+    "recommendation_was_automatic_selection": false
+  },
+  "preserved_candidate_ids": [
+    "direction-2",
+    "direction-3",
+    "direction-4",
+    "direction-5"
+  ],
+  "unverified": [
+    "Instagram authenticated collection",
+    "actual preview",
+    "implementation",
+    "deployment"
+  ],
+  "forbidden_before_next_approval": [
+    "install",
+    "implement",
+    "apply_to_product",
+    "deploy"
+  ],
+  "product_changed": false
+}

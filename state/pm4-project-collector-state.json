@@ -1,0 +1,314 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-electronic-business-card-mvp-v1",
+  "revision": 4,
+  "project_summary": "사회복지사용 웹 전자명함: QR 접속, vCard 저장, 전화·문자·이메일·SNS·웹사이트 연결",
+  "items": [
+    {
+      "candidate_id": "direction-1",
+      "name": "vishnuraghavb/EnBizCard",
+      "url": "https://github.com/vishnuraghavb/EnBizCard",
+      "preview_url": "https://enbizcard.vishnuraghav.com",
+      "description": "EnBizCard helps you create interactive and responsive HTML-based digital business cards that can be hosted with your website.",
+      "license": "AGPL-3.0",
+      "license_evidence": "github_repository_metadata",
+      "stars": 704,
+      "updated_at": "2026-08-23T15:12:03Z",
+      "capabilities": [
+        "qr",
+        "vcard_contact_save",
+        "call_or_message_links",
+        "theme_customization",
+        "privacy_or_local_processing",
+        "team_or_crm"
+      ],
+      "direction": "team_or_management",
+      "selection_reason": "전자명함·QR 또는 연락처 저장 근거와 공개 라이선스가 확인된 저장소",
+      "source_region": "global",
+      "adoption_status": "candidate_not_adopted",
+      "implementation_candidate_id": "project-8108ff50480b",
+      "lifecycle_status": "user_selected",
+      "direction_label": "QR·NFC로 바로 연결하는 명함",
+      "direction_summary_ko": "휴대폰을 대거나 QR을 비추면 앱 설치 없이 연락처 저장·전화·문자·SNS가 바로 열리는 방식입니다.",
+      "evidence_links": [
+        {
+          "source": "Reddit",
+          "url": "https://www.reddit.com/r/smallbusiness/comments/1dk05ln/digital_business_card_recommendations/",
+          "summary_ko": "NFC를 지원하지 않거나 사용하기 어려운 휴대폰을 위해 QR을 함께 제공하고, 받는 사람이 앱이나 회원가입 없이 연락처를 저장할 수 있어야 한다는 요구가 확인됐습니다."
+        },
+        {
+          "source": "Threads",
+          "url": "https://www.threads.com/@tepekofficial/post/Dbw2Uj5CJqg",
+          "summary_ko": "NFC를 휴대폰에 대면 WhatsApp, SNS, 웹사이트, 포트폴리오와 연락처를 한 번에 엽니다."
+        }
+      ],
+      "implementation_match_ko": "선택한 방향에 필요한 기능과 공개 라이선스가 확인된 제작 재료입니다.",
+      "required_capabilities": [
+        "qr",
+        "vcard_contact_save",
+        "call_or_message_links"
+      ],
+      "implementation_match_verified": true,
+      "visual_evidence_url": "/pm4-project-images/enbiz.png",
+      "visual_evidence_kind": "live_site_capture",
+      "fit_notice": "기능·라이선스 근거가 확인된 참고 후보이며, 아직 설치하거나 채택하지 않았습니다."
+    },
+    {
+      "candidate_id": "direction-2",
+      "name": "arpixnet/digital-business-card",
+      "url": "https://github.com/arpixnet/digital-business-card",
+      "preview_url": "https://arpixnet.com",
+      "description": "A modern, responsive digital business card built with Nuxt 3, Tailwind CSS 4, and PrimeVue 4. This application serves as a digital alternative to traditional business cards, allowing professionals to share their contact information and professional profile through a web interface.",
+      "license": "MIT",
+      "license_evidence": "github_repository_metadata",
+      "stars": 2,
+      "updated_at": "2025-10-11T23:25:42Z",
+      "capabilities": [
+        "qr",
+        "vcard_contact_save",
+        "call_or_message_links",
+        "theme_customization",
+        "pwa_or_offline"
+      ],
+      "direction": "installable_self_hosted",
+      "selection_reason": "전자명함·QR 또는 연락처 저장 근거와 공개 라이선스가 확인된 저장소",
+      "source_region": "global",
+      "adoption_status": "candidate_not_adopted",
+      "implementation_candidate_id": "project-c1d64e4cbcc0",
+      "lifecycle_status": "candidate_preserved",
+      "direction_label": "깔끔하고 빠른 한 화면 명함",
+      "direction_summary_ko": "이름·직업·사진과 핵심 연락 버튼을 먼저 보여주고, 처음 보는 사람도 설명 없이 바로 사용하는 방식입니다.",
+      "evidence_links": [
+        {
+          "source": "YouTube",
+          "url": "https://www.youtube.com/watch?v=IL53hi7Z2Vc",
+          "summary_ko": "복잡한 앱보다 짧은 시간 안에 QR 기반 연락처 명함을 만들고 바로 공유하는 간단한 제작 방식입니다."
+        },
+        {
+          "source": "Threads",
+          "url": "https://www.threads.com/@kenrthomas/post/DcX7mnnCOhD",
+          "summary_ko": "기술에 익숙하지 않은 개인도 자신의 소개 링크를 전자명함처럼 공유합니다."
+        }
+      ],
+      "implementation_match_ko": "선택한 방향에 필요한 기능과 공개 라이선스가 확인된 제작 재료입니다.",
+      "required_capabilities": [
+        "vcard_contact_save",
+        "call_or_message_links"
+      ],
+      "implementation_match_verified": true,
+      "visual_evidence_url": "/pm4-project-images/arpix.png",
+      "visual_evidence_kind": "live_site_capture",
+      "fit_notice": "기능·라이선스 근거가 확인된 참고 후보이며, 아직 설치하거나 채택하지 않았습니다."
+    },
+    {
+      "candidate_id": "direction-3",
+      "name": "r10d1nsec/open-CV-Web",
+      "url": "https://github.com/r10d1nsec/open-CV-Web",
+      "preview_url": "https://github.com/r10d1nsec/open-CV-Web",
+      "description": "Open-source self-hostable portfolio + animated digital card (QR/vCard/WhatsApp) + booking. Next.js 15 + Supabase. Deploy on Vercel or self-host.",
+      "license": "MIT",
+      "license_evidence": "github_repository_metadata",
+      "stars": 0,
+      "updated_at": "2026-05-25T21:57:51Z",
+      "capabilities": [
+        "qr",
+        "vcard_contact_save",
+        "call_or_message_links",
+        "theme_customization",
+        "privacy_or_local_processing"
+      ],
+      "direction": "privacy_first_static",
+      "selection_reason": "전자명함·QR 또는 연락처 저장 근거와 공개 라이선스가 확인된 저장소",
+      "source_region": "global",
+      "adoption_status": "candidate_not_adopted",
+      "implementation_candidate_id": "project-9465132edec4",
+      "lifecycle_status": "candidate_preserved",
+      "direction_label": "신뢰와 경력을 보여주는 소개 명함",
+      "direction_summary_ko": "사회복지사의 경력·활동 분야·소개를 연락 기능과 함께 보여줘, 저장하기 전에도 누구인지 이해하게 하는 방식입니다.",
+      "evidence_links": [
+        {
+          "source": "Threads",
+          "url": "https://www.threads.com/@promptsource/post/DKfkIgdpVQO",
+          "summary_ko": "LinkedIn 같은 프로필을 단순 명함이 아니라 신뢰와 영업을 돕는 소개 수단으로 활용합니다."
+        },
+        {
+          "source": "Reddit",
+          "url": "https://www.reddit.com/r/smallbusiness/comments/1mj3ex8/i_still_swap_paper_business_cards_at_events_i/",
+          "summary_ko": "행사 뒤 연락처가 잊히는 문제가 있어 사진·메모·후속 연락을 돕는 화면과, 기술에 익숙하지 않은 사람을 위한 대체 전달 방법이 필요하다는 의견이 확인됐습니다."
+        }
+      ],
+      "implementation_match_ko": "선택한 방향에 필요한 기능과 공개 라이선스가 확인된 제작 재료입니다.",
+      "required_capabilities": [
+        "call_or_message_links",
+        "theme_customization"
+      ],
+      "implementation_match_verified": true,
+      "visual_evidence_url": "/pm4-project-images/opencv.png",
+      "visual_evidence_kind": "repository_page_capture",
+      "fit_notice": "기능·라이선스 근거가 확인된 참고 후보이며, 아직 설치하거나 채택하지 않았습니다."
+    },
+    {
+      "candidate_id": "direction-4",
+      "name": "MrCrin/swiish",
+      "url": "https://github.com/MrCrin/swiish",
+      "preview_url": null,
+      "description": "Open-source digital business card platform with QR codes and PWA support",
+      "license": "AGPL-3.0",
+      "license_evidence": "repository_file:LICENSE",
+      "stars": 79,
+      "updated_at": "2026-08-23T15:11:45Z",
+      "capabilities": [
+        "qr",
+        "vcard_contact_save",
+        "theme_customization",
+        "privacy_or_local_processing",
+        "pwa_or_offline",
+        "team_or_crm"
+      ],
+      "direction": "team_or_management",
+      "selection_reason": "전자명함·QR 또는 연락처 저장 근거와 공개 라이선스가 확인된 저장소",
+      "source_region": "global",
+      "adoption_status": "candidate_not_adopted",
+      "implementation_candidate_id": "project-c76d4220679d",
+      "lifecycle_status": "candidate_preserved",
+      "direction_label": "종이와 디지털을 함께 쓰는 명함",
+      "direction_summary_ko": "종이 명함의 기억하기 쉬운 장점은 유지하고, QR로 최신 연락처와 소개 화면을 연결하는 방식입니다.",
+      "evidence_links": [
+        {
+          "source": "Reddit",
+          "url": "https://www.reddit.com/r/smallbusiness/comments/1e1k9z5/what_are_some_platforms_you_guys_use_for_digital/",
+          "summary_ko": "QR·NFC를 함께 사용하고 정보를 나중에 수정할 수 있다는 점이 장점이지만, 종이 명함을 완전히 없애기보다 상황에 따라 함께 쓰는 사례도 확인됐습니다."
+        },
+        {
+          "source": "YouTube",
+          "url": "https://www.youtube.com/watch?v=oSzaxOFA99c",
+          "summary_ko": "QR을 스캔하면 vCard 연락처를 저장하고, 로고·색상·브랜드를 조정해 온라인과 인쇄물에서 함께 사용하는 제작 흐름입니다."
+        }
+      ],
+      "implementation_match_ko": "선택한 방향에 필요한 기능과 공개 라이선스가 확인된 제작 재료입니다.",
+      "required_capabilities": [
+        "qr",
+        "vcard_contact_save",
+        "theme_customization"
+      ],
+      "implementation_match_verified": true,
+      "visual_evidence_url": "/pm4-project-images/swiish.png",
+      "visual_evidence_kind": "repository_page_capture",
+      "fit_notice": "기능·라이선스 근거가 확인된 참고 후보이며, 아직 설치하거나 채택하지 않았습니다."
+    },
+    {
+      "candidate_id": "direction-5",
+      "name": "mfahadiqbalofcl/Digital-Business-Card",
+      "url": "https://github.com/mfahadiqbalofcl/Digital-Business-Card",
+      "preview_url": "https://mfahadiqbalofcl.github.io/Digital-Business-Card/",
+      "description": "A digital business card / vCard — share your contact details from one clean page.",
+      "license": "MIT",
+      "license_evidence": "github_repository_metadata",
+      "stars": 2,
+      "updated_at": "2026-08-11T12:16:12Z",
+      "capabilities": [
+        "vcard_contact_save",
+        "call_or_message_links",
+        "theme_customization",
+        "privacy_or_local_processing"
+      ],
+      "direction": "privacy_first_static",
+      "selection_reason": "전자명함·QR 또는 연락처 저장 근거와 공개 라이선스가 확인된 저장소",
+      "source_region": "global",
+      "adoption_status": "candidate_not_adopted",
+      "implementation_candidate_id": "project-a21fea2090f6",
+      "lifecycle_status": "candidate_preserved",
+      "direction_label": "구독 없이 직접 관리하는 명함",
+      "direction_summary_ko": "외부 서비스의 월 구독에 의존하지 않고 공개 라이선스 코드로 운영하며, 연락처가 바뀌면 직접 수정하는 방식입니다.",
+      "evidence_links": [
+        {
+          "source": "Reddit",
+          "url": "https://www.reddit.com/r/smallbusiness/comments/1dk05ln/digital_business_card_recommendations/",
+          "summary_ko": "NFC를 지원하지 않거나 사용하기 어려운 휴대폰을 위해 QR을 함께 제공하고, 받는 사람이 앱이나 회원가입 없이 연락처를 저장할 수 있어야 한다는 요구가 확인됐습니다."
+        },
+        {
+          "source": "Reddit",
+          "url": "https://www.reddit.com/r/smallbusiness/comments/1e1k9z5/what_are_some_platforms_you_guys_use_for_digital/",
+          "summary_ko": "QR·NFC를 함께 사용하고 정보를 나중에 수정할 수 있다는 점이 장점이지만, 종이 명함을 완전히 없애기보다 상황에 따라 함께 쓰는 사례도 확인됐습니다."
+        }
+      ],
+      "implementation_match_ko": "선택한 방향에 필요한 기능과 공개 라이선스가 확인된 제작 재료입니다.",
+      "required_capabilities": [
+        "privacy_or_local_processing",
+        "theme_customization"
+      ],
+      "implementation_match_verified": true,
+      "visual_evidence_url": "/pm4-project-images/fahad.png",
+      "visual_evidence_kind": "live_site_capture",
+      "fit_notice": "기능·라이선스 근거가 확인된 참고 후보이며, 아직 설치하거나 채택하지 않았습니다."
+    }
+  ],
+  "selected_candidate_id": "direction-1",
+  "last_action": "project.candidate.select",
+  "recommendation": {
+    "candidate_id": "direction-3",
+    "label": "Core 추천",
+    "reason_ko": "사회복지사는 연락 기능뿐 아니라 누구에게 어떤 도움을 제공하는지 신뢰감 있게 설명하는 것이 중요하므로, 경력·활동 분야와 연락 기능을 함께 보여주는 방향을 추천합니다.",
+    "basis": [
+      "사용자 직업: 사회복지사",
+      "필수 연락 기능 6개",
+      "Threads의 전문성·신뢰 활용 사례",
+      "Reddit의 기억·후속 연락 문제"
+    ],
+    "auto_selected": false
+  },
+  "discovery_order": [
+    "Reddit·YouTube·Instagram·Threads에서 실제 사용 사례와 불편을 먼저 탐색",
+    "디자인·사용 방향을 서로 다르게 정리",
+    "각 방향을 구현할 GitHub 코드·기능·라이선스를 나중에 연결"
+  ],
+  "github_role": "direction_source가 아니라 implementation_evidence",
+  "non_selected_candidate_policy": "preserve_until_user_discards_or_supersedes",
+  "region_contract": {
+    "requested": "korea_and_global",
+    "status": "unmet",
+    "reason": "라이선스까지 확인된 한국 오픈소스 후보를 확보하지 못해 해외 후보 5개만 표시합니다."
+  },
+  "source_failures": [],
+  "product_changed": false,
+  "installation_performed": false,
+  "source_coverage": [
+    {
+      "source": "Reddit",
+      "role": "실제 사용자 불만·필요 기능 확인",
+      "status": "collected",
+      "count": 3
+    },
+    {
+      "source": "YouTube",
+      "role": "제작·사용 흐름 확인",
+      "status": "collected",
+      "count": 2
+    },
+    {
+      "source": "Instagram",
+      "role": "최신 시각 사례 탐색",
+      "status": "blocked_login_session",
+      "count": 0
+    },
+    {
+      "source": "Threads",
+      "role": "실제 사용 문구·활용 상황 확인",
+      "status": "collected",
+      "count": 3
+    },
+    {
+      "source": "GitHub",
+      "role": "정리된 방향을 구현할 코드·라이선스·기능 확인",
+      "status": "collected",
+      "count": 5
+    }
+  ],
+  "selection_record": {
+    "candidate_id": "direction-1",
+    "selected_by": "user",
+    "selected_at": "2026-08-24T13:52:31Z",
+    "input_method": "mouse_button_next",
+    "recommendation_was_automatic_selection": false
+  }
+}

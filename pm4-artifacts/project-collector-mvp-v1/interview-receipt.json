@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-electronic-business-card-mvp-v1",
+  "original_request": "전자명함을 만들 거야",
+  "project_type": "electronic_business_card",
+  "answers": {
+    "product_scope": "simple_single_card",
+    "qr_destination": "web_card_with_vcard_download",
+    "required_actions": [
+      "save_contact",
+      "call",
+      "send_sms",
+      "send_email",
+      "open_kakao_or_social",
+      "open_website"
+    ],
+    "visual_identity": "person_photo_and_company_brand",
+    "profession": "social_worker",
+    "real_personal_data_allowed_in_research": false,
+    "candidate_count": 5,
+    "visual_direction_policy": "five_distinct_directions_same_required_actions",
+    "reference_region": "korea_and_global",
+    "tool_cost_policy": "free_and_open_source_only"
+  },
+  "status": "user_confirmed",
+  "user_confirmed": true,
+  "confirmed_at": "2026-08-24",
+  "implementation_allowed": false
+}

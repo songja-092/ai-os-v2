@@ -2801,6 +2801,20 @@ PM2_REQUIRED_MANIFEST_FIELDS = {
     "entry", "allowed_slots", "required_state", "emitted_actions", "permissions", "health", "status",
 }
 
+PM3_STATE_RELATIVE_PATH = os.path.join("state", "pm3-editor-state.json")
+PM3_CARD_IDS = {"pdf-result-preview", "hospital-web-result-preview"}
+PM3_SECTION_IDS = {"project-list", "preview"}
+PM3_FONT_SIZES = {"xsmall", "small", "medium", "large", "xlarge"}
+PM3_CARD_SIZES = {"xsmall", "small", "medium", "large", "xlarge"}
+
+PM4_STATE_RELATIVE_PATH = os.path.join("state", "pm4-research-state.json")
+PM4_CHANNEL_MEMORY_RELATIVE_PATH = os.path.join("state", "pm4-channel-memory.json")
+PM4_REQUEST_ID = "pm4-ai-vibe-coding-social-2026-08-21"
+PM4_DECISIONS = {"adopt", "hold", "discard"}
+PM4_PROJECT_STATE_RELATIVE_PATH = os.path.join("state", "pm4-project-collector-state.json")
+PM4_PROJECT_REQUEST_ID = "pm4-electronic-business-card-mvp-v1"
+PM4_PROJECT_DECISIONS = {"select", "retry", "stop"}
+
 
 def load_json_file(path):
     with open(path, "r", encoding="utf-8") as source_file:
@@ -2814,6 +2828,18 @@ def write_json_atomic(path, payload):
         with os.fdopen(fd, "w", encoding="utf-8") as target_file:
             json.dump(payload, target_file, ensure_ascii=False, indent=2)
             target_file.write("\n")
+        os.replace(temp_path, path)
+    finally:
+        if os.path.exists(temp_path):
+            os.unlink(temp_path)
+
+
+def write_text_atomic(path, content):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    fd, temp_path = tempfile.mkstemp(prefix=".v2-text-", suffix=".tmp", dir=os.path.dirname(path))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as target_file:
+            target_file.write(content)
         os.replace(temp_path, path)
     finally:
         if os.path.exists(temp_path):
@@ -2915,6 +2941,328 @@ def pm2_ui_state(v2_root):
     return payload
 
 
+def validate_pm3_design(design):
+    if set(design.get("layout_order", [])) != PM3_SECTION_IDS:
+        raise ValueError("PM3 layout must contain the two approved Sections exactly once.")
+    if set(design.get("card_order", [])) != PM3_CARD_IDS:
+        raise ValueError("PM3 card order must contain the two approved cards exactly once.")
+    cards = design.get("cards", {})
+    if set(cards) != PM3_CARD_IDS:
+        raise ValueError("PM3 card style records are incomplete.")
+    for card_id, style in cards.items():
+        color = style.get("color", "")
+        if not isinstance(color, str) or not re.fullmatch(r"#[0-9a-fA-F]{6}", color):
+            raise ValueError(f"Invalid card color: {card_id}")
+        if style.get("font_size") not in PM3_FONT_SIZES or style.get("size") not in PM3_CARD_SIZES:
+            raise ValueError(f"Invalid card size preset: {card_id}")
+    return design
+
+
+def default_pm3_editor_state():
+    design = {
+        "layout_order": ["project-list", "preview"],
+        "card_order": ["pdf-result-preview", "hospital-web-result-preview"],
+        "cards": {
+            "pdf-result-preview": {"color": "#00a86b", "font_size": "medium", "size": "medium"},
+            "hospital-web-result-preview": {"color": "#2563eb", "font_size": "medium", "size": "medium"},
+        },
+    }
+    return {
+        "state_version": "1.0", "revision": 1, "project_id": PM2_PROJECT_ID,
+        "design_version": 1, "selected_card_id": "pdf-result-preview",
+        "allowed_actions": [
+            "section.select", "layout.move", "card.move", "style.set_color",
+            "style.set_font_size", "card.set_size", "draft.undo", "draft.redo",
+            "draft.discard", "draft.apply", "version.restore",
+        ],
+        "applied": json.loads(json.dumps(design)), "draft": json.loads(json.dumps(design)),
+        "past": [], "future": [], "dirty": False, "last_action": "editor.initialized",
+    }
+
+
+def validate_pm3_editor_state(state):
+    if state.get("project_id") != PM2_PROJECT_ID:
+        raise ValueError("PM3 editor state belongs to another project.")
+    if state.get("selected_card_id") not in PM3_CARD_IDS:
+        raise ValueError("PM3 selected card is invalid.")
+    validate_pm3_design(state.get("applied", {}))
+    validate_pm3_design(state.get("draft", {}))
+    if not isinstance(state.get("past"), list) or not isinstance(state.get("future"), list):
+        raise ValueError("PM3 Draft history is invalid.")
+    return state
+
+
+def load_pm3_editor_state(v2_root):
+    state_path = os.path.join(v2_root, PM3_STATE_RELATIVE_PATH)
+    state = load_json_file(state_path) if os.path.exists(state_path) else default_pm3_editor_state()
+    return validate_pm3_editor_state(state)
+
+
+def pm3_ui_state(v2_root):
+    state = load_pm3_editor_state(v2_root)
+    state["pm2_locked_base"] = True
+    state["editor_mode"] = "v2_owned_recipe_draft"
+    return state
+
+
+def load_pm4_research_state(v2_root):
+    state_path = os.path.join(v2_root, PM4_STATE_RELATIVE_PATH)
+    if not os.path.exists(state_path):
+        raise ValueError("PM4 Core state has not been built yet.")
+    state = load_json_file(state_path)
+    if state.get("request_id") != PM4_REQUEST_ID:
+        raise ValueError("PM4 research request does not match the confirmed interview.")
+    if state.get("period_days") != 30:
+        raise ValueError("PM4 research period must be the confirmed recent 30 days.")
+    if not isinstance(state.get("items"), list) or not isinstance(state.get("decisions"), dict):
+        raise ValueError("PM4 research state is incomplete.")
+    item_ids = {item.get("item_id") for item in state["items"]}
+    if None in item_ids or len(item_ids) != len(state["items"]):
+        raise ValueError("PM4 result ids are invalid or duplicated.")
+    if not set(state["decisions"]).issubset(item_ids):
+        raise ValueError("PM4 decision points to an unknown result.")
+    if not set(state["decisions"].values()).issubset(PM4_DECISIONS):
+        raise ValueError("PM4 decision contains an unsupported value.")
+    return state
+
+
+def pm4_ui_state(v2_root):
+    state = load_pm4_research_state(v2_root)
+    payload = json.loads(json.dumps(state))
+    payload["allowed_actions"] = ["research.decision.set", "research.decision.clear"]
+    payload["evidence_level"] = "core_connected_partial_source_evidence"
+    payload["pm4_pass"] = False
+    memory_path = os.path.join(v2_root, PM4_CHANNEL_MEMORY_RELATIVE_PATH)
+    memory = load_json_file(memory_path) if os.path.exists(memory_path) else {"channels": []}
+    payload["preferred_channels"] = memory.get("channels", [])
+    return payload
+
+
+def apply_pm4_ui_action(v2_root, payload):
+    state = load_pm4_research_state(v2_root)
+    if payload.get("request_id") != state["request_id"]:
+        raise PermissionError("조사 요청이 다릅니다. 아무 내용도 변경하지 않았습니다.")
+    action = payload.get("action")
+    if action not in {"research.decision.set", "research.decision.clear"}:
+        raise PermissionError("현재 PM4 Core에서 저장할 수 없는 행동입니다.")
+    item_id = payload.get("item_id")
+    if item_id not in {item.get("item_id") for item in state["items"]}:
+        raise ValueError("알 수 없는 조사 결과입니다.")
+    if action == "research.decision.set":
+        decision = payload.get("decision")
+        if decision not in PM4_DECISIONS:
+            raise ValueError("채택·보류·폐기 중 하나를 선택해주세요.")
+        state["decisions"][item_id] = decision
+    else:
+        state["decisions"].pop(item_id, None)
+    selected = next(item for item in state["items"] if item["item_id"] == item_id)
+    memory_path = os.path.join(v2_root, PM4_CHANNEL_MEMORY_RELATIVE_PATH)
+    memory = load_json_file(memory_path) if os.path.exists(memory_path) else {"schema_version": "1.0", "channels": []}
+    key = (selected.get("platform"), selected.get("channel"))
+    memory["channels"] = [record for record in memory.get("channels", []) if (record.get("platform"), record.get("channel")) != key]
+    if state["decisions"].get(item_id) == "adopt" and selected.get("channel"):
+        memory["channels"].append({
+            "platform": selected["platform"], "channel": selected["channel"],
+            "channel_url": selected.get("channel_url"), "source_item_id": item_id,
+            "priority": "adopted_first", "approved_by": "user",
+        })
+    write_json_atomic(memory_path, memory)
+    state["revision"] = int(state.get("revision", 1)) + 1
+    state["last_action"] = action
+    write_json_atomic(os.path.join(v2_root, PM4_STATE_RELATIVE_PATH), state)
+    return pm4_ui_state(v2_root)
+
+
+def load_pm4_project_state(v2_root):
+    state_path = os.path.join(v2_root, PM4_PROJECT_STATE_RELATIVE_PATH)
+    if not os.path.exists(state_path):
+        raise ValueError("PM4 project collector state has not been built yet.")
+    state = load_json_file(state_path)
+    if state.get("request_id") != PM4_PROJECT_REQUEST_ID:
+        raise ValueError("PM4 project request does not match the confirmed interview.")
+    items = state.get("items")
+    if not isinstance(items, list) or len(items) != 5:
+        raise ValueError("PM4 project collector must expose five candidates for this approved MVP.")
+    ids = {item.get("candidate_id") for item in items}
+    if None in ids or len(ids) != len(items):
+        raise ValueError("PM4 project candidate ids are invalid or duplicated.")
+    selected = state.get("selected_candidate_id")
+    if selected is not None and selected not in ids:
+        raise ValueError("PM4 project selection points to an unknown candidate.")
+    return state
+
+
+def pm4_project_ui_state(v2_root):
+    state = load_pm4_project_state(v2_root)
+    payload = json.loads(json.dumps(state))
+    payload["allowed_actions"] = ["project.candidate.select", "project.candidate.clear"]
+    payload["pm4_mvp_pass"] = False
+    payload["implementation_allowed"] = False
+    handoff_path = os.path.join(v2_root, "pm4-artifacts", "project-collector-mvp-v1", "selection-handoff.json")
+    payload["handoff_ready"] = bool(state.get("selected_candidate_id") and os.path.exists(handoff_path))
+    return payload
+
+
+def write_pm4_project_handoff(v2_root, state):
+    receipt_path = os.path.join(v2_root, "pm4-artifacts", "project-collector-mvp-v1", "interview-receipt.json")
+    receipt = load_json_file(receipt_path)
+    selected_id = state.get("selected_candidate_id")
+    selected = next((item for item in state.get("items", []) if item.get("candidate_id") == selected_id), None)
+    record = state.get("selection_record") or {}
+    if not selected or record.get("selected_by") != "user":
+        raise ValueError("사용자 선택 기록이 없어 제작 가능 확인서를 만들 수 없습니다.")
+    handoff = {
+        "schema_version": "1.0",
+        "request_id": state["request_id"],
+        "status": "user_selected_ready_for_next_stage",
+        "selected_direction": {
+            "candidate_id": selected["candidate_id"],
+            "label": selected["direction_label"],
+            "summary_ko": selected["direction_summary_ko"],
+            "evidence_links": selected["evidence_links"],
+        },
+        "implementation_evidence": {
+            "repository": selected["name"], "url": selected["url"], "license": selected["license"],
+            "capabilities": selected["capabilities"], "adoption_status": "not_installed_not_adopted",
+        },
+        "confirmed_scope": receipt["answers"],
+        "selection_record": record,
+        "preserved_candidate_ids": [item["candidate_id"] for item in state["items"] if item["candidate_id"] != selected_id],
+        "unverified": ["Instagram authenticated collection", "actual preview", "implementation", "deployment"],
+        "forbidden_before_next_approval": ["install", "implement", "apply_to_product", "deploy"],
+        "product_changed": False,
+    }
+    artifact_dir = os.path.join(v2_root, "pm4-artifacts", "project-collector-mvp-v1")
+    write_json_atomic(os.path.join(artifact_dir, "selection-handoff.json"), handoff)
+    evidence_lines = [f"- [{item['source']}]({item['url']}): {item['summary_ko']}" for item in selected["evidence_links"]]
+    markdown = "\n".join([
+        "# PM4 선택 결과 제작 가능 확인서", "", f"- 선택 방향: {selected['direction_label']}",
+        f"- 선택 방식: {record['input_method']}", f"- 선택 시각: {record['selected_at']}",
+        f"- 구현 참고: {selected['name']} ({selected['license']})", "", "## 선택 근거", "",
+        *evidence_lines, "", "## 현재 경계", "", "- 실제 설치·구현·제품 적용·배포는 하지 않았습니다.",
+        "- 나머지 네 방향은 비교 후보로 보존합니다.", "- Instagram 로그인 수집과 실제 Preview는 아직 검증되지 않았습니다.", ""
+    ])
+    write_text_atomic(os.path.join(artifact_dir, "selection-handoff.md"), markdown)
+
+
+def apply_pm4_project_ui_action(v2_root, payload):
+    state = load_pm4_project_state(v2_root)
+    if payload.get("request_id") != state["request_id"]:
+        raise PermissionError("프로젝트 조사 요청이 다릅니다. 아무 내용도 변경하지 않았습니다.")
+    action = payload.get("action")
+    if action not in {"project.candidate.select", "project.candidate.clear"}:
+        raise PermissionError("현재 PM4 MVP에서 허용되지 않은 행동입니다.")
+    if action == "project.candidate.select":
+        candidate_id = payload.get("candidate_id")
+        if candidate_id not in {item["candidate_id"] for item in state["items"]}:
+            raise ValueError("알 수 없는 프로젝트 조사 후보입니다.")
+        state["selected_candidate_id"] = candidate_id
+        state["selection_record"] = {
+            "candidate_id": candidate_id,
+            "selected_by": "user",
+            "selected_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "input_method": "mouse_button_next",
+            "recommendation_was_automatic_selection": False,
+        }
+        for item in state["items"]:
+            item["lifecycle_status"] = "user_selected" if item["candidate_id"] == candidate_id else "candidate_preserved"
+    else:
+        state["selected_candidate_id"] = None
+        state.pop("selection_record", None)
+        for item in state["items"]:
+            item["lifecycle_status"] = "candidate_preserved"
+    state["revision"] = int(state.get("revision", 1)) + 1
+    state["last_action"] = action
+    write_json_atomic(os.path.join(v2_root, PM4_PROJECT_STATE_RELATIVE_PATH), state)
+    if action == "project.candidate.select":
+        write_pm4_project_handoff(v2_root, state)
+    return pm4_project_ui_state(v2_root)
+
+
+def swap_order(values, source_id, target_id):
+    result = list(values)
+    source = result.index(source_id)
+    target = result.index(target_id)
+    result[source], result[target] = result[target], result[source]
+    return result
+
+
+def apply_pm3_ui_action(v2_root, payload):
+    state = load_pm3_editor_state(v2_root)
+    if payload.get("project_id") != state["project_id"]:
+        raise PermissionError("Project mismatch. No Draft was changed.")
+    action = payload.get("action")
+    if action not in state["allowed_actions"]:
+        raise PermissionError("Action is not allowed by V2 Core.")
+
+    if action == "section.select":
+        card_id = payload.get("card_id")
+        if card_id not in PM3_CARD_IDS:
+            raise ValueError("Unknown card selection.")
+        state["selected_card_id"] = card_id
+    elif action in {"draft.undo", "draft.redo"}:
+        source_key, target_key = ("past", "future") if action == "draft.undo" else ("future", "past")
+        if state[source_key]:
+            entry = state[source_key].pop()
+            state[target_key].append({"design": json.loads(json.dumps(state["draft"])), "label": entry["label"]})
+            state["draft"] = entry["design"]
+    elif action == "draft.discard":
+        state["draft"] = json.loads(json.dumps(state["applied"]))
+        state["past"], state["future"] = [], []
+    elif action == "draft.apply":
+        state["applied"] = json.loads(json.dumps(state["draft"]))
+        state["design_version"] = int(state.get("design_version", 1)) + 1
+        state["past"], state["future"] = [], []
+    elif action == "version.restore":
+        fresh = default_pm3_editor_state()["applied"]
+        state["past"].append({"design": json.loads(json.dumps(state["draft"])), "label": "초기 배치로 복원"})
+        state["draft"] = fresh
+        state["future"] = []
+    else:
+        before = json.loads(json.dumps(state["draft"]))
+        label = "화면 수정"
+        if action == "layout.move":
+            source_id, target_id = payload.get("source_id"), payload.get("target_id")
+            if source_id not in PM3_SECTION_IDS or target_id not in PM3_SECTION_IDS:
+                raise ValueError("Unknown layout Section.")
+            state["draft"]["layout_order"] = swap_order(state["draft"]["layout_order"], source_id, target_id)
+            label = "패널 레이아웃 순서 변경"
+        elif action == "card.move":
+            source_id, target_id = payload.get("source_id"), payload.get("target_id")
+            if source_id not in PM3_CARD_IDS or target_id not in PM3_CARD_IDS:
+                raise ValueError("Unknown project card.")
+            state["draft"]["card_order"] = swap_order(state["draft"]["card_order"], source_id, target_id)
+            label = "프로젝트 카드 순서 변경"
+        else:
+            card_id = state["selected_card_id"]
+            value = payload.get("value")
+            if action == "style.set_color":
+                if not isinstance(value, str) or not re.fullmatch(r"#[0-9a-fA-F]{6}", value):
+                    raise ValueError("Choose a valid color.")
+                state["draft"]["cards"][card_id]["color"] = value.lower()
+                label = f"{card_id} 색상 변경"
+            elif action == "style.set_font_size":
+                if value not in PM3_FONT_SIZES:
+                    raise ValueError("Choose an allowed font size.")
+                state["draft"]["cards"][card_id]["font_size"] = value
+                label = f"{card_id} 글씨 크기 변경"
+            elif action == "card.set_size":
+                if value not in PM3_CARD_SIZES:
+                    raise ValueError("Choose an allowed card size.")
+                state["draft"]["cards"][card_id]["size"] = value
+                label = f"{card_id} 카드 크기 변경"
+        if state["draft"] != before:
+            state["past"].append({"design": before, "label": label})
+            state["future"] = []
+
+    state["dirty"] = state["draft"] != state["applied"]
+    state["revision"] = int(state.get("revision", 1)) + 1
+    state["last_action"] = action
+    validate_pm3_editor_state(state)
+    write_json_atomic(os.path.join(v2_root, PM3_STATE_RELATIVE_PATH), state)
+    return pm3_ui_state(v2_root)
+
+
 def apply_pm2_ui_action(v2_root, payload):
     state, manifests = load_pm2_board_state(v2_root)
     if payload.get("project_id") != state["project_id"]:
@@ -3008,6 +3356,39 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
                 self.send_json(500, {"error": f"PM2 Core state unavailable: {exc}"})
             return
 
+        if request_path == "/api/pm3/ui-state":
+            project_id = parse_qs(request.query).get("project_id", [""])[0]
+            if project_id != PM2_PROJECT_ID:
+                self.send_json(409, {"error": "Project mismatch."})
+                return
+            try:
+                self.send_json(200, pm3_ui_state(v2_root))
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"PM3 Core state unavailable: {exc}"})
+            return
+
+        if request_path == "/api/pm4/ui-state":
+            request_id = parse_qs(request.query).get("request_id", [""])[0]
+            if request_id != PM4_REQUEST_ID:
+                self.send_json(409, {"error": "Research request mismatch."})
+                return
+            try:
+                self.send_json(200, pm4_ui_state(v2_root))
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"PM4 Core state unavailable: {exc}"})
+            return
+
+        if request_path == "/api/pm4/project-ui-state":
+            request_id = parse_qs(request.query).get("request_id", [""])[0]
+            if request_id != PM4_PROJECT_REQUEST_ID:
+                self.send_json(409, {"error": "Project research request mismatch."})
+                return
+            try:
+                self.send_json(200, pm4_project_ui_state(v2_root))
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"PM4 project state unavailable: {exc}"})
+            return
+
         if request_path.startswith("/pm2-product-preview/"):
             try:
                 product_id, _, asset_path = resolve_pm2_product_asset(request_path)
@@ -3027,6 +3408,26 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
                 return
             self.send_response(200)
             self.send_header("Content-Type", content_type)
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        if request_path.startswith("/pm4-project-images/"):
+            public_name = request_path.removeprefix("/pm4-project-images/")
+            if not re.fullmatch(r"[a-z0-9-]+\.png", public_name):
+                self.send_json(404, {"error": "Invalid PM4 image name."})
+                return
+            image_path = os.path.join(v2_root, "pm4-artifacts", "project-collector-mvp-v1", "images", public_name)
+            try:
+                with open(image_path, "rb") as image_file:
+                    body = image_file.read()
+            except OSError:
+                self.send_json(404, {"error": "PM4 evidence image unavailable."})
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "image/jpeg")
             self.send_header("Content-Length", str(len(body)))
             self.send_header("Cache-Control", "no-store")
             self.end_headers()
@@ -3058,6 +3459,9 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
         static_pm2 = {
             "/pm2-module-test.html": "pm2-module-test.html",
             "/pm2-workspace.html": "pm2-workspace.html",
+            "/pm3-editor.html": "pm3-editor.html",
+            "/pm4-briefing.html": "pm4-modules/daily-discovery-briefing/index.html",
+            "/pm4-project-review.html": "pm4-artifacts/project-collector-mvp-v1/review.html",
         }
         if request_path in static_pm2:
             html_path = os.path.join(v2_root, static_pm2[request_path])
@@ -3243,6 +3647,51 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
                 self.send_json(400, {"error": str(exc)})
                 return
             self.send_json(200, {"message": "V2 Core가 상태를 저장했습니다.", "state": result})
+            return
+        if request_path == "/api/pm3/ui-action":
+            try:
+                content_length = int(self.headers.get("Content-Length", "0"))
+                if content_length <= 0 or content_length > 8192:
+                    raise ValueError("Invalid request size.")
+                payload = json.loads(self.rfile.read(content_length).decode("utf-8"))
+                result = apply_pm3_ui_action(v2_root, payload)
+            except PermissionError as exc:
+                self.send_json(403, {"error": str(exc)})
+                return
+            except (OSError, ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                self.send_json(400, {"error": str(exc)})
+                return
+            self.send_json(200, {"message": "PM3 Draft에 안전하게 저장했습니다.", "state": result})
+            return
+        if request_path == "/api/pm4/ui-action":
+            try:
+                content_length = int(self.headers.get("Content-Length", "0"))
+                if content_length <= 0 or content_length > 8192:
+                    raise ValueError("Invalid request size.")
+                payload = json.loads(self.rfile.read(content_length).decode("utf-8"))
+                result = apply_pm4_ui_action(v2_root, payload)
+            except PermissionError as exc:
+                self.send_json(403, {"error": str(exc)})
+                return
+            except (OSError, ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                self.send_json(400, {"error": str(exc)})
+                return
+            self.send_json(200, {"message": "PM4 판정을 Core에 저장했습니다.", "state": result})
+            return
+        if request_path == "/api/pm4/project-ui-action":
+            try:
+                content_length = int(self.headers.get("Content-Length", "0"))
+                if content_length <= 0 or content_length > 8192:
+                    raise ValueError("Invalid request size.")
+                payload = json.loads(self.rfile.read(content_length).decode("utf-8"))
+                result = apply_pm4_project_ui_action(v2_root, payload)
+            except PermissionError as exc:
+                self.send_json(403, {"error": str(exc)})
+                return
+            except (OSError, ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                self.send_json(400, {"error": str(exc)})
+                return
+            self.send_json(200, {"message": "전자명함 후보 선택을 Core에 저장했습니다.", "state": result})
             return
         if self.path not in {"/api/reference-board/selection", "/api/visual-companion/selection", "/api/design-intelligence/decision"}:
             self.send_json(404, {"error": "Not found"})

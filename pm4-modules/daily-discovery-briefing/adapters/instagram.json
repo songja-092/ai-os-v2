@@ -1,0 +1,26 @@
+{
+  "adapter_version": "0.1.0-pilot",
+  "adapter_id": "instagram-authenticated-browser",
+  "platform": "instagram",
+  "status": "pilot",
+  "execution": "background_while_authenticated_chrome_is_running",
+  "entry": "plugins/v2-capability-lab/scripts/pm4_instagram_collector.mjs",
+  "inputs": ["query", "limit", "output"],
+  "outputs": ["profile_url", "public_post_url", "short_source_label", "public_metric_evidence"],
+  "privacy": {
+    "stores_password": false,
+    "stores_auth_code": false,
+    "uploads_private_project": false,
+    "excluded": ["home_feed", "direct_messages", "contacts"]
+  },
+  "failure_policy": "stop_and_report_login_required",
+  "automatic_adoption": false,
+  "ranking": {
+    "owner": "separate_analyzer",
+    "default_result_count": 10,
+    "public_metrics_only": true,
+    "missing_metric_policy": "show_unavailable_never_infer",
+    "cross_platform_merge": false
+  },
+  "user_decisions": ["adopt", "hold", "discard"]
+}

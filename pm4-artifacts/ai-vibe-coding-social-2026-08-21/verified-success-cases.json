@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "cases": [
+    {
+      "organization": "DB Schenker",
+      "verified_pattern": "주제별 AI Feed → 사람이 Board에 선별 → 자동 Newsletter → 팀별 재사용",
+      "evidence": "18개 이상의 Newsletter와 2,000명 이상의 내부 구독으로 확장",
+      "url": "https://feedly.com/customers/posts/db-schenker-case-study"
+    },
+    {
+      "organization": "Cambrex",
+      "verified_pattern": "사용자별 정보 필요 확인 → 맞춤 AI Feed → 자동 브리핑 → 경쟁정보 AI Agent의 최신 데이터",
+      "evidence": "수동 조사 시간을 줄이고 영업·리더십에 실시간 정보 제공",
+      "url": "https://feedly.com/customers/posts/scaling-competitive-intelligence"
+    },
+    {
+      "organization": "Grammarly",
+      "verified_pattern": "소셜 메시지 수집 → 제품 주제별 Tag → 월간 보고서 → 제품·UX 팀 공유",
+      "evidence": "우선 플랫폼의 사용자 사례를 제품 통찰로 연결",
+      "url": "https://sproutsocial.com/insights/case-studies/grammarly/"
+    },
+    {
+      "organization": "Monzo",
+      "verified_pattern": "대량 소셜 자료 → Dashboard·Alert·주제 분석 → 근거 기반 제품 판단",
+      "evidence": "소셜 대화를 제품팀의 실행 가능한 통찰로 전환",
+      "url": "https://www.brandwatch.com/case-studies/monzo/"
+    }
+  ],
+  "v2_adopted_pattern": "전문 채널 우선 → 자동 수집 → 한글 요약 → 사용자 판정 → 채택 채널 재사용"
+}

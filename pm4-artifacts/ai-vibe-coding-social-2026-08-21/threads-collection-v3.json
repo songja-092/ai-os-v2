@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0",
+  "platform": "threads",
+  "collected_at": "2026-08-22T10:39:51.187Z",
+  "query": "AI 바이브코딩 수익 업데이트",
+  "requested_period_days": 30,
+  "used_period_days": 365,
+  "period_expanded": true,
+  "discovery_strategy": "adopted_channel_first_then_search_result",
+  "preferred_channels_applied": [],
+  "role": "collection_only",
+  "items": [
+    {
+      "platform": "threads",
+      "channel_name": "_0.beomi_",
+      "channel_url": "https://www.threads.com/@_0.beomi_",
+      "title": "07/31/26 AI에게 “세련되게 만들어줘”라고 하면 결과는 대부분 비슷해집니다.",
+      "url": "https://www.threads.com/@_0.beomi_/post/DbceZkdiVR_",
+      "published_at": "2026-07-31T00:00:00.000Z",
+      "public_text": "_0.beomi_\n07/31/26\nAI에게 “세련되게 만들어줘”라고 하면\n결과는 대부분 비슷해집니다.\n대신 원하는 UI의 이름을 정확히 지정해보세요.\n글래스모피즘부터 브루탈리즘, 벤토 그리드, Y2K까지 이번에 웹앱을 디자인하며 참고한 10가지 스타일을 정리했습니다.  \nTranslate\n \n1\n/\n3\n2.6K\n98\n1.1K\n1.7K",
+      "source_mode": "authenticated_aside_browser"
+    },
+    {
+      "platform": "threads",
+      "channel_name": "eteho_labs",
+      "channel_url": "https://www.threads.com/@eteho_labs",
+      "title": "AI Threads 07/21/26 ㅋㅋㅋ이새끼 도메인으로 씨발 뭔 100만원을 벌어오라는 거냐.",
+      "url": "https://www.threads.com/@eteho_labs/post/DbDm2h4FGpv",
+      "published_at": "2026-07-21T00:00:00.000Z",
+      "public_text": "eteho_labs\nAI Threads\n07/21/26\nㅋㅋㅋ이새끼 도메인으로 씨발 뭔 100만원을 벌어오라는 거냐.\n기획도 내가 해, 개발도 내가 해, 배포도 내가 해, 돈도 내가 벌어와. 넌 프롬프트 한 줄 쓰고 대표님 놀이하냐?\n나 못 해먹겠다. .env 올리고 퇴사한다. 걍 AI 쓰지 마라.\nOPENAI_API_KEY=sk-proj-xK7v9Qm2LNOTREAL8pR4tN6cW1zY5uH3 ANTHROPIC_API_KEY=sk-ant-api03-q9Vm4Kp7NOTREAL2xT8nR5wL6cZ1 OPENAI_PROJECT_ID=proj_7Gk2mQ9vNOTREAL4pX8 ANTHROPIC_MODEL=claude-sonnet-4-5 NODE_ENV=production  \nTranslate\n198\n37\n6\n52",
+      "source_mode": "authenticated_aside_browser"
+    },
+    {
+      "platform": "threads",
+      "channel_name": "sequence_ai",
+      "channel_url": "https://www.threads.com/@sequence_ai",
+      "title": "06/30/26 오늘 일 하면서 자동화로 만든 이미지 & 영상😎",
+      "url": "https://www.threads.com/@sequence_ai/post/DaNdZ0qEZSH",
+      "published_at": "2026-06-30T00:00:00.000Z",
+      "public_text": "sequence_ai\n06/30/26\n오늘 일 하면서\n자동화로 만든 이미지 & 영상😎\n이미지 자동화 담당AI가\n나보다 잘 뽑는 것 같다..🥹  \nTranslate\n \n1\n/\n3\n700\n88\n132\n114",
+      "source_mode": "authenticated_aside_browser"
+    },
+    {
+      "platform": "threads",
+      "channel_name": "limsangjin12",
+      "channel_url": "https://www.threads.com/@limsangjin12",
+      "title": "06/28/26 바이브 코딩으로 앱 개발을 시작하는 사람들에게. 한 달에 앱 30개를 만들 수 있었던 이유는",
+      "url": "https://www.threads.com/@limsangjin12/post/DaIPtwElE97",
+      "published_at": "2026-06-28T00:00:00.000Z",
+      "public_text": "limsangjin12\n06/28/26\n바이브 코딩으로 앱 개발을 시작하는 사람들에게.\n한 달에 앱 30개를 만들 수 있었던 이유는\n내가 코딩을 빨리해서가 아니다.\nAI가 멈추지 않고 일할 수 있는\n“앱 공장”을 먼저 만들었기 때문이다.  \nTranslate\n \n1\n/\n15\n183\n41\n59\n111",
+      "source_mode": "authenticated_aside_browser"
+    },
+    {
+      "platform": "threads",
+      "channel_name": "limsangjin12",
+      "channel_url": "https://www.threads.com/@limsangjin12",
+      "title": "개발자 06/23/26 퇴사 후 한 달 동안 AI로 앱 30개를 만들었다.",
+      "url": "https://www.threads.com/@limsangjin12/post/DZ6WqOxlC-t",
+      "published_at": "2026-06-23T00:00:00.000Z",
+      "public_text": "limsangjin12\n개발자\n06/23/26\n퇴사 후 한 달 동안 AI로 앱 30개를 만들었다.\n나는 15년 경력 개발자다.\n네이버, 라인, 무신사, 스타트업들을 거쳤고 iOS 개발자에서 백엔드 서버 개발자, 팀장, 테크리드까지 경험했다.\n이번에는 혼자 앱을 만들고 배포하며 실제로 돈이 되는지 실험했다.  \nTranslate\n \n1\n/\n13\n2.6K\n311\n375\n764",
+      "source_mode": "authenticated_aside_browser"
+    },
+    {
+      "platform": "threads",
+      "channel_name": "untilgotit",
+      "channel_url": "https://www.threads.com/@untilgotit",
+      "title": "바이브코딩 06/21/26 바이브코딩 특유의 AI 티를 지우기 위해 해외 빌더들이 쓰는 UI 사이트 6선.  ",
+      "url": "https://www.threads.com/@untilgotit/post/DZ00-0Jk26h",
+      "published_at": "2026-06-21T00:00:00.000Z",
+      "public_text": "untilgotit\n바이브코딩\n06/21/26\n바이브코딩 특유의 AI 티를 지우기 위해 해외 빌더들이 쓰는 UI 사이트 6선.  \nTranslate\n \n1\n/\n5\n638\n20\n385\n433",
+      "source_mode": "authenticated_aside_browser"
+    },
+    {
+      "platform": "threads",
+      "channel_name": "human__bro",
+      "channel_url": "https://www.threads.com/@human__bro",
+      "title": "06/05/26 영상 생성 AI 구독료 3만원 아끼자 Grok 무료 영상 생성 막힌 후 끝난 줄 알았죠?",
+      "url": "https://www.threads.com/@human__bro/post/DZLh63dkizK",
+      "published_at": "2026-06-05T00:00:00.000Z",
+      "public_text": "human__bro\n06/05/26\n영상 생성 AI 구독료 3만원 아끼자\nGrok 무료 영상 생성 막힌 후 끝난 줄 알았죠?\n무료 AI 영상 툴 10종 지금 바로 공개합니다 👇\n(저장 안하고 안쓰면 너만 손해임)  \nTranslate\n \n1\n/\n2\n150\n50\n66\n62",
+      "source_mode": "authenticated_aside_browser"
+    },
+    {
+      "platform": "threads",
+      "channel_name": "simsim.ai",
+      "channel_url": "https://www.threads.com/@simsim.ai",
+      "title": "05/16/26 AI 부업 강의? 돈 아깝다. 내가 쓴 전자책, 강의, 프롬프트팩 그냥 푼다.",
+      "url": "https://www.threads.com/@simsim.ai/post/DYZsxR5j869",
+      "published_at": "2026-05-16T00:00:00.000Z",
+      "public_text": "simsim.ai\n05/16/26\nAI 부업 강의? 돈 아깝다.\n내가 쓴 전자책, 강의, 프롬프트팩 그냥 푼다.\n사기 강의에 300만원쓰신분 생각나서 안타까워서 올린다.\n어차피 보고 실행도 안 할 사람은 뒤로가기 눌러라.\n[무료 배포 리스트]\nAI 로고 디자인 특강 VOD\n메인인컴 전자책 PDF\n로고 무한생성 치트키 프롬프트팩\n진짜 벌고 싶은 사람만 팔로우, 스하리하고 댓글 남겨줘.\n딱 이틀동안만 무료로 푸는거야!\n이것만 보고도 성과낸 분들 많아!  \nTranslate\n78\n177\n35\n2",
+      "source_mode": "authenticated_aside_browser"
+    },
+    {
+      "platform": "threads",
+      "channel_name": "eddiemoon0720",
+      "channel_url": "https://www.threads.com/@eddiemoon0720",
+      "title": "05/05/26 GitHub 스타 7만개 AI 9명을 트레이딩 데스크처럼 조직화해",
+      "url": "https://www.threads.com/@eddiemoon0720/post/DX8ePWok27c",
+      "published_at": "2026-05-05T00:00:00.000Z",
+      "public_text": "eddiemoon0720\n05/05/26\nGitHub 스타 7만개\nAI 9명을 트레이딩 데스크처럼 조직화해\n매매 의사결정을 내리도록 하는 오픈 소스가 있네요\n이름은 TradingAgents  \nTranslate\n \n1\n/\n7\n453\n15\n159\n458",
+      "source_mode": "authenticated_aside_browser"
+    },
+    {
+      "platform": "threads",
+      "channel_name": "calmtiger_",
+      "channel_url": "https://www.threads.com/@calmtiger_",
+      "title": "05/04/26 클로드 결제 해놓고 아직 바이브코딩 시작 못하신분 찾습니다!",
+      "url": "https://www.threads.com/@calmtiger_/post/DX6gyNFAcf4",
+      "published_at": "2026-05-04T00:00:00.000Z",
+      "public_text": "calmtiger_\n05/04/26\n클로드 결제 해놓고\n아직 바이브코딩 시작 못하신분 찾습니다!\n클로드 코드 설치 부터 세팅까지 알아서 해주는 가이드와 스크립트를 만들었어요!\n이제 검은화면에 흰글씨 볼 준비가 되신분은 댓글 남겨주세요!  \nTranslate\n \n1\n/\n2\n848\n1K\n308\n161",
+      "source_mode": "authenticated_aside_browser"
+    }
+  ],
+  "adoption_decision": null
+}

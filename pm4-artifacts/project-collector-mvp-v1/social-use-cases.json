@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-electronic-business-card-mvp-v1",
+  "checked_at": "2026-08-24",
+  "topic": "digital business card",
+  "reddit": {
+    "status": "collected",
+    "items": [
+      {
+        "url": "https://www.reddit.com/r/smallbusiness/comments/1dk05ln/digital_business_card_recommendations/",
+        "summary_ko": "NFC를 지원하지 않거나 사용하기 어려운 휴대폰을 위해 QR을 함께 제공하고, 받는 사람이 앱이나 회원가입 없이 연락처를 저장할 수 있어야 한다는 요구가 확인됐습니다.",
+        "use_case": "앱 없이 QR·NFC로 즉시 연락처 저장"
+      },
+      {
+        "url": "https://www.reddit.com/r/smallbusiness/comments/1e1k9z5/what_are_some_platforms_you_guys_use_for_digital/",
+        "summary_ko": "QR·NFC를 함께 사용하고 정보를 나중에 수정할 수 있다는 점이 장점이지만, 종이 명함을 완전히 없애기보다 상황에 따라 함께 쓰는 사례도 확인됐습니다.",
+        "use_case": "수정 가능한 디지털 명함과 종이 명함 병행"
+      },
+      {
+        "url": "https://www.reddit.com/r/smallbusiness/comments/1mj3ex8/i_still_swap_paper_business_cards_at_events_i/",
+        "summary_ko": "행사 뒤 연락처가 잊히는 문제가 있어 사진·메모·후속 연락을 돕는 화면과, 기술에 익숙하지 않은 사람을 위한 대체 전달 방법이 필요하다는 의견이 확인됐습니다.",
+        "use_case": "기억과 후속 연락을 돕는 소개"
+      }
+    ]
+  },
+  "youtube": {
+    "status": "collected",
+    "items": [
+      {
+        "url": "https://www.youtube.com/watch?v=oSzaxOFA99c",
+        "summary_ko": "QR을 스캔하면 vCard 연락처를 저장하고, 로고·색상·브랜드를 조정해 온라인과 인쇄물에서 함께 사용하는 제작 흐름입니다.",
+        "use_case": "QR vCard 제작과 브랜드 적용"
+      },
+      {
+        "url": "https://www.youtube.com/watch?v=IL53hi7Z2Vc",
+        "summary_ko": "복잡한 앱보다 짧은 시간 안에 QR 기반 연락처 명함을 만들고 바로 공유하는 간단한 제작 방식입니다.",
+        "use_case": "빠른 QR 명함 제작"
+      }
+    ]
+  },
+  "threads": {
+    "status": "collected",
+    "search_url": "https://www.threads.com/search?q=digital%20business%20card&serp_type=default",
+    "items": [
+      {
+        "url": "https://www.threads.com/@kenrthomas/post/DcX7mnnCOhD",
+        "summary_ko": "기술에 익숙하지 않은 개인도 자신의 소개 링크를 전자명함처럼 공유합니다.",
+        "use_case": "개인 소개와 링크 공유"
+      },
+      {
+        "url": "https://www.threads.com/@tepekofficial/post/Dbw2Uj5CJqg",
+        "summary_ko": "NFC를 휴대폰에 대면 WhatsApp, SNS, 웹사이트, 포트폴리오와 연락처를 한 번에 엽니다.",
+        "use_case": "NFC로 즉시 연결"
+      },
+      {
+        "url": "https://www.threads.com/@promptsource/post/DKfkIgdpVQO",
+        "summary_ko": "LinkedIn 같은 프로필을 단순 명함이 아니라 신뢰와 영업을 돕는 소개 수단으로 활용합니다.",
+        "use_case": "전문성과 신뢰 표현"
+      }
+    ]
+  },
+  "instagram": {
+    "status": "blocked_login_session",
+    "reason": "현재 Codex 인앱 브라우저에는 사용자가 완료한 별도 브라우저 로그인 세션이 전달되지 않아 로그인 화면으로 이동했습니다.",
+    "bypass_attempted": false,
+    "items": []
+  }
+}

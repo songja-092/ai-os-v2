@@ -2,6 +2,17 @@
 
 표준 사용자 제작 흐름은 [[V2_STANDARD_USER_FLOW]] · [GitHub 링크](V2_STANDARD_USER_FLOW.md)를 따릅니다. 이 문서와 충돌하면 표준 흐름을 우선하고 충돌을 보고합니다.
 
+디자인 규칙과 흐름의 단일 공식 원본은 [[DESIGN_SYSTEM]] · [GitHub 링크](DESIGN_SYSTEM.md)입니다. 과거 디자인 조사·Pilot·보고서는 증거로 보존하며 새 디자인 결정을 별도 원본으로 만들지 않습니다.
+
+## 디자인 시스템
+
+- V2 운영 화면과 고객 결과물은 공통 품질 규칙만 공유하고 시각 방향은 분리합니다.
+- Reference는 한국 실제 사례를 우선하고 해외 사례로 보완하며, 기본 산출물은 비교 이미지 한 장과 원본 링크입니다.
+- Codex가 디자인 총괄 절차·작업 지시·독립 검증을 담당하고 Antigravity가 승인된 실제 제품을 구현하며 사용자가 최종 판정합니다.
+- UI Craft는 원형 우선 격리 감사 후보이며 아직 설치·채택·검증 완료가 아닙니다.
+- 에반 DESIGN.md Skill은 실제 파일 감사 전 Runtime에 채택하지 않습니다. 한 장의 YAML+Markdown으로 규칙을 고정하는 개념은 참고하되, DESIGN.md가 필요하면 V2 Design Recipe에서 생성하는 선택형 파생 형식으로 사용합니다.
+- 고유한 시각 요소의 최소 개수를 강제하지 않습니다.
+
 - GitHub 저장소와 Git commit을 공식 기록으로 사용합니다.
 - Obsidian은 Wiki를 읽고 편집하는 인터페이스로 사용합니다.
 - Archify 결과는 Source of Truth가 아닌 commit 기반 파생 시각화로 취급합니다.

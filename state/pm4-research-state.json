@@ -1,0 +1,223 @@
+{
+  "state_version": "1.0",
+  "revision": 6,
+  "request_id": "pm4-ai-vibe-coding-social-2026-08-21",
+  "topic": "AI·바이브코딩·코딩·웹디자인과 Codex·Claude·GPT 관련 자료",
+  "period_days": 30,
+  "algorithm_policy": {
+    "platform_recommendation_use": "discovery_seed_only",
+    "channel_first": true,
+    "deduplicate": true,
+    "ranking": "platform_local_public_metrics_then_relevance_review",
+    "never_infer_missing_metrics": true,
+    "final_decision_owner": "user"
+  },
+  "sources": [
+    {
+      "id": "github",
+      "status": "connected_public_api",
+      "items": 10
+    },
+    {
+      "id": "instagram",
+      "status": "connected_logged_in_browser_partial",
+      "items": 2
+    },
+    {
+      "id": "youtube",
+      "status": "connected_official_atom_feed",
+      "items": 8,
+      "used_period_days": 365
+    },
+    {
+      "id": "reddit",
+      "status": "connected_authenticated_aside_browser",
+      "items": 4,
+      "used_period_days": 30
+    },
+    {
+      "id": "threads",
+      "status": "connected_authenticated_aside_browser",
+      "items": 10,
+      "used_period_days": 365
+    }
+  ],
+  "items": [
+    {
+      "item_id": "github-edb3a6268757",
+      "platform": "github",
+      "channel": "affaan-m",
+      "channel_url": "https://github.com/affaan-m",
+      "title": "affaan-m/ECC",
+      "url": "https://github.com/affaan-m/ECC",
+      "short_summary": "AI 코딩에 스킬·기억·보안·조사 절차를 묶어 작업 품질을 높이는 도구입니다.",
+      "observed_at": "2026-08-21T03:02:03Z",
+      "popularity": {
+        "stars": 241615,
+        "forks": 36627
+      },
+      "cost": "open_source_or_repository_specific",
+      "license": "MIT",
+      "project_ready": true,
+      "ranking_basis": "recently_updated_then_github_public_stars"
+    },
+    {
+      "item_id": "github-ec2b8bd43eef",
+      "platform": "github",
+      "channel": "NousResearch",
+      "channel_url": "https://github.com/NousResearch",
+      "title": "NousResearch/hermes-agent",
+      "url": "https://github.com/NousResearch/hermes-agent",
+      "short_summary": "AI 제작·자동화에 시험해볼 수 있는 오픈소스 도구입니다.",
+      "observed_at": "2026-08-21T12:52:56Z",
+      "popularity": {
+        "stars": 233808,
+        "forks": 46892
+      },
+      "cost": "open_source_or_repository_specific",
+      "license": "MIT",
+      "project_ready": true,
+      "ranking_basis": "recently_updated_then_github_public_stars"
+    },
+    {
+      "item_id": "youtube-612c1acce70b",
+      "platform": "youtube",
+      "channel": "조코딩 JoCoding",
+      "channel_url": "https://www.youtube.com/channel/UCQNE2JmbasNYbjGAcuBiRRg",
+      "title": "AI 시대, 기업은 어떤 인재를 뽑을까? AX 인재전쟁 본선 스케치 | OpenAI × 조코딩AX파트너스",
+      "url": "https://www.youtube.com/watch?v=IoI3LQUctkM",
+      "short_summary": "한국어 AI·코딩 채널의 최근 영상입니다. 주제는 ‘AI 시대, 기업은 어떤 인재를 뽑을까? AX 인재전쟁 본선 스케치 | OpenAI × 조코딩AX파트너스’입니다.",
+      "observed_at": "2026-08-21T09:00:10+00:00",
+      "popularity": null,
+      "cost": "무료 웹 열람",
+      "license": "reference_only_check_before_reuse",
+      "project_ready": true,
+      "ranking_basis": "channel_first_recent_content_platform_local"
+    },
+    {
+      "item_id": "youtube-2c12e2885355",
+      "platform": "youtube",
+      "channel": "조코딩 JoCoding",
+      "channel_url": "https://www.youtube.com/channel/UCQNE2JmbasNYbjGAcuBiRRg",
+      "title": "미친 속도로 결과물이 나온다는 GPT 근황",
+      "url": "https://www.youtube.com/shorts/YvzcLPUTrOg",
+      "short_summary": "한국어 AI·코딩 채널의 최근 영상입니다. 주제는 ‘미친 속도로 결과물이 나온다는 GPT 근황’입니다.",
+      "observed_at": "2026-08-20T10:00:02+00:00",
+      "popularity": null,
+      "cost": "무료 웹 열람",
+      "license": "reference_only_check_before_reuse",
+      "project_ready": true,
+      "ranking_basis": "channel_first_recent_content_platform_local"
+    },
+    {
+      "item_id": "reddit-40c6892a725f",
+      "platform": "reddit",
+      "channel": "vibecoding",
+      "channel_url": "https://www.reddit.com/r/vibecoding",
+      "title": "Come hang on the official r/vibecoding Discord 🤙\n          \n    \n      \n    \n    \n    \n  \n    \n  \n          98 votes • 55 comments",
+      "url": "https://www.reddit.com/r/vibecoding/comments/1k7mcub/come_hang_on_the_official_rvibecoding_discord/",
+      "short_summary": "AI 코딩 사용자가 겪은 비용·배포·작업 방법을 비교할 수 있는 커뮤니티 사례입니다.",
+      "observed_at": null,
+      "popularity": null,
+      "cost": "무료 웹 열람",
+      "license": "reference_only_check_before_reuse",
+      "project_ready": true,
+      "ranking_basis": "channel_first_recent_content_platform_local"
+    },
+    {
+      "item_id": "reddit-ee9ca731e5b3",
+      "platform": "reddit",
+      "channel": "vibecoding",
+      "channel_url": "https://www.reddit.com/r/vibecoding",
+      "title": "I love seeing what my MVP would look like. But then I keep burning credits because I notice something isn’t working and I try to fix it.Anyone else feel that? It can be addicting but not in the way I would like, so I don’t use it as much an",
+      "url": "https://www.reddit.com/r/vibecoding/comments/1vv8xwl/anyone_else_notice_how_vibe_coding_can_be/",
+      "short_summary": "AI 코딩 사용자가 겪은 비용·배포·작업 방법을 비교할 수 있는 커뮤니티 사례입니다.",
+      "observed_at": null,
+      "popularity": null,
+      "cost": "무료 웹 열람",
+      "license": "reference_only_check_before_reuse",
+      "project_ready": true,
+      "ranking_basis": "channel_first_recent_content_platform_local"
+    },
+    {
+      "item_id": "threads-537ace0c7104",
+      "platform": "threads",
+      "channel": "_0.beomi_",
+      "channel_url": "https://www.threads.com/@_0.beomi_",
+      "title": "07/31/26 AI에게 “세련되게 만들어줘”라고 하면 결과는 대부분 비슷해집니다.",
+      "url": "https://www.threads.com/@_0.beomi_/post/DbceZkdiVR_",
+      "short_summary": "AI 도구 조합·구독 비용·Codex 활용법을 빠르게 파악하는 한국어 실사용 사례입니다.",
+      "observed_at": "2026-07-31T00:00:00.000Z",
+      "popularity": null,
+      "cost": "무료 웹 열람",
+      "license": "reference_only_check_before_reuse",
+      "project_ready": true,
+      "ranking_basis": "channel_first_recent_content_platform_local"
+    },
+    {
+      "item_id": "threads-1181ac6cf72a",
+      "platform": "threads",
+      "channel": "eteho_labs",
+      "channel_url": "https://www.threads.com/@eteho_labs",
+      "title": "AI Threads 07/21/26 ㅋㅋㅋ이새끼 도메인으로 씨발 뭔 100만원을 벌어오라는 거냐.",
+      "url": "https://www.threads.com/@eteho_labs/post/DbDm2h4FGpv",
+      "short_summary": "AI 도구 조합·구독 비용·Codex 활용법을 빠르게 파악하는 한국어 실사용 사례입니다.",
+      "observed_at": "2026-07-21T00:00:00.000Z",
+      "popularity": null,
+      "cost": "무료 웹 열람",
+      "license": "reference_only_check_before_reuse",
+      "project_ready": true,
+      "ranking_basis": "channel_first_recent_content_platform_local"
+    },
+    {
+      "item_id": "instagram-e0d97aa313f2",
+      "platform": "instagram",
+      "channel": "mia.aimaker",
+      "channel_url": "https://www.instagram.com/mia.aimaker/",
+      "title": "Instagram 채널의 최근 콘텐츠",
+      "url": "https://www.instagram.com/mia.aimaker/reel/DcLvEf9gWbN/",
+      "short_summary": "AI·바이브코딩 기획과 제작 흐름을 참고할 수 있는 한국어 콘텐츠입니다.",
+      "observed_at": "2026-08-18T13:40:54.000Z",
+      "popularity": {
+        "score": null,
+        "basis": [
+          "comments",
+          "reposts"
+        ],
+        "scope": "instagram_result_set_only",
+        "warning": "조회수·좋아요 중 하나가 없어 인기 순위를 매기지 않음"
+      },
+      "cost": "무료 웹 열람",
+      "license": "reference_only_check_before_reuse",
+      "project_ready": false,
+      "ranking_basis": "channel_first_recent_content_platform_local"
+    },
+    {
+      "item_id": "instagram-8191665ccdae",
+      "platform": "instagram",
+      "channel": "mia.aimaker",
+      "channel_url": "https://www.instagram.com/mia.aimaker/",
+      "title": "Instagram 채널의 최근 콘텐츠",
+      "url": "https://www.instagram.com/mia.aimaker/reel/DcAAz3VS7iA/",
+      "short_summary": "AI·바이브코딩 기획과 제작 흐름을 참고할 수 있는 한국어 콘텐츠입니다.",
+      "observed_at": "2026-08-14T00:23:08.000Z",
+      "popularity": {
+        "score": null,
+        "basis": [
+          "comments",
+          "reposts"
+        ],
+        "scope": "instagram_result_set_only",
+        "warning": "조회수·좋아요 중 하나가 없어 인기 순위를 매기지 않음"
+      },
+      "cost": "무료 웹 열람",
+      "license": "reference_only_check_before_reuse",
+      "project_ready": false,
+      "ranking_basis": "channel_first_recent_content_platform_local"
+    }
+  ],
+  "decisions": {
+    "youtube-2c12e2885355": "discard"
+  },
+  "last_action": "research.decision.set"
+}
