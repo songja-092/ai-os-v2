@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "revision": 3,
+  "request_id": "pm4-evidence-router-ai-vibe-design-v1",
+  "items": [
+    {
+      "reference_id": "21a7ff417d4ad591",
+      "title": "바이브 코딩 도구를 생각·코드·저장·배포 순서로 설명하는 자료",
+      "summary_ko": "바이브 코딩 도구를 생각·코드·저장·배포 순서로 설명하는 자료 참고할 부분은 복잡한 제작 흐름을 단계별 카드로 설명하는 구성입니다.",
+      "url": "https://www.instagram.com/p/DbxqUOQBQEh/",
+      "platform": "instagram",
+      "evidence_type": "visual_reference"
+    },
+    {
+      "reference_id": "fd1584c5358a7dad",
+      "title": "OpenAI의 Codex 안전 운영 방식",
+      "summary_ko": "Coding Agent가 저장소와 개발 도구를 다룰 때 접근 경계, 사람 승인, 실행 기록과 감사를 함께 운영하는 공식 사례다.",
+      "url": "https://openai.com/index/running-codex-safely/",
+      "platform": "official_web",
+      "evidence_type": "official_fact"
+    },
+    {
+      "reference_id": "751f9e0f4c250c7b",
+      "title": "바이브 코딩에서 기획과 개발을 함께 다뤄야 한다는 짧은 메시지",
+      "summary_ko": "바이브 코딩에서 기획과 개발을 함께 다뤄야 한다는 짧은 메시지 참고할 부분은 강한 한 문장 중심 표지 구성입니다.",
+      "url": "https://www.instagram.com/p/DVcQHXLku5O/",
+      "platform": "instagram",
+      "evidence_type": "visual_reference"
+    },
+    {
+      "reference_id": "23c031a294786aeb",
+      "title": "Codex Agent Loop 설명",
+      "summary_ko": "Codex CLI가 로컬에서 지시를 해석하고 도구를 사용해 작업을 반복하는 구조를 설명하는 공식 기술 자료다.",
+      "url": "https://openai.com/index/unrolling-the-codex-agent-loop/",
+      "platform": "official_web",
+      "evidence_type": "official_fact"
+    }
+  ],
+  "adopted_reference_ids": [],
+  "last_action": "evidence-reference.clear",
+  "product_changed": false
+}

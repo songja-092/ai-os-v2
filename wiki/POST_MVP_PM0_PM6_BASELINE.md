@@ -617,19 +617,34 @@ PM6 FAIL → Post-MVP 완료 선언 금지
 
 ## 5. 현재 상태
 
+### 2026-08-25 공통 Harness 정합성
+
+| 단계 | 바뀐 방식 적용 결과 | 현재 판정 |
+|---|---|---|
+| PM0 | 작업 전 저장소·Dirty·잠금·증거를 먼저 확인하며 외부 Backup·표본 Restore 유예를 숨기지 않음 | `pass_with_user_deferred_backup` |
+| PM1 | 기술 검사와 사용자 디자인 승인을 분리하고 승인 결과물은 잠금. 이후 승인된 Design DNA 흐름은 다음 작업 계약이며 과거 PASS를 소급 변경하지 않음 | `pass_and_locked` |
+| PM2 | Module·단일 Preview·격리·복원 Runtime 증거를 유지하고 잠긴 결과를 후속 PM이 직접 수정하지 않음 | `completed_and_locked` |
+| PM3 | 사용자의 `일단 통과`와 기술 완료를 분리하며 실제 고객 결과물의 접근성·회귀·복원은 PM6에서 재검증 | `user_pass_with_pm6_revalidation` |
+| PM4 | 전자명함의 인터뷰·자료 수집·Reference 추가 탐색·사용자 선택·Design DNA·8개 화면 Visual Target 인계를 검증하고 사용자 최종 PASS. 장기 로그인과 범용 주제 자동화는 제외 | `completed_and_user_approved` |
+
+모든 단계의 새 변경은 `precheck → 변경 영향별 기존 검사 → 실패 기록 → 수정 → 동일 검사 재실행`을 사용합니다. 이 표는 과거 Artifact나 잠긴 PM 결과를 다시 작성하지 않고 현재 진행 판단만 정렬합니다.
+
 ```yaml
 core_mvp_m1_m7: completed_and_frozen
 post_mvp_design: completed
 design_completion_scope: contracts_only
 official_post_mvp_sequence: PM0_to_PM6
-active_gate: PM3
+active_gate: PM5
 pm1_design_exploration: pass
 pm2_modular_board: completed_and_locked
-pm3_to_pm6: not_started
+pm3_partial_edit: user_pass_with_pm6_revalidation
+pm4_design_intelligence: completed_and_user_approved
+pm5_intent_consistency: ready_to_start
+pm6: not_started
 pm1_adoption_method: single_visual_target_with_ui_ux_pro_guard
 pm0_operational_readiness: pass_with_user_deferred_backup
 ```
 
-Post-MVP 설계 계약은 완료됐습니다. PM0는 사용자가 외부 Backup·표본 Restore를 후속으로 유예한 조건으로 통과했습니다. PM1에서는 실패 Pilot을 보존한 상태로 `single_visual_target_with_ui_ux_pro_guard`와 PC 운영 UI를 검증했고 사용자가 PASS했습니다. 이후 사용자는 기존 성공 자산 우선·서로 다른 방향 3개·선택 후 Design DNA·Visual Target 하나를 다음 개선 계약으로 승인했으며 이는 아직 Core 자동 기능 PASS가 아닙니다. PM2는 두 프로젝트 결과 Module과 단일 선택 Preview, 프로젝트별 기능 목록, Module 격리·복원을 사용자·기술 검증으로 완료했습니다. PM3은 사용자 조건부 통과로 범위를 잠갔지만 기술 완료는 `not_proven`이고 PM6 재검증이 필수입니다. 다음 진행 가능 단계는 PM4입니다.
+Post-MVP 설계 계약은 완료됐습니다. PM0는 사용자가 외부 Backup·표본 Restore를 후속으로 유예한 조건으로 통과했습니다. PM1에서는 실패 Pilot을 보존한 상태로 `single_visual_target_with_ui_ux_pro_guard`와 PC 운영 UI를 검증했고 사용자가 PASS했습니다. PM2는 두 프로젝트 결과 Module과 단일 선택 Preview, 프로젝트별 기능 목록, Module 격리·복원을 사용자·기술 검증으로 완료했습니다. PM3은 사용자 조건부 통과로 범위를 잠갔지만 기술 완료는 `not_proven`이고 PM6 재검증이 필수입니다. PM4는 전자명함 실제 요청에서 인터뷰·수집·Reference 보충·사용자 선택·Design DNA·전체 화면 Visual Target 인계까지 사용자·Runtime 검증으로 통과했습니다. 현재 로그인 세션은 확인했지만 장기 유지와 임의 주제 범용 자동화는 PM4 완료 범위가 아닙니다. 다음 활성 단계는 PM5입니다.
 
 생산 배포·운영 관찰과 10년차 전문가 수준 판정은 PM0~PM6 완료만으로 선언하지 않습니다. 배포 가능한 프로젝트에서 별도 승인된 Deployment·Monitoring Adapter와 여러 프로젝트 재현 증거를 축적하는 `Professional Capability Program`의 후속 범위입니다.

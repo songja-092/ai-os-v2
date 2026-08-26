@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "status": "selected_direction_dna_extracted_visual_target_ready",
+  "target": "social_worker_mobile_electronic_business_card",
+  "primary_goal": "신뢰할 수 있는 인물 소개 후 연락처 저장·전화·문자·이메일·카카오 또는 SNS·웹사이트 이동",
+  "reference_ids": [
+    "ref-discovered-01",
+    "ref-discovered-05",
+    "ref-gcard-social",
+    "ref-slice",
+    "ref-refill-r01-02",
+    "ref-refill-r01-03"
+  ],
+  "design_dna": {
+    "structure": "인물 중심 첫 화면, 핵심 소개, 즉시 연락 행동, 상세 경력과 활동은 아래로 이어지는 모바일 단일 흐름",
+    "information_density": "첫 화면은 낮고 명확하게, 상세 영역은 접거나 아래로 분리",
+    "typography": "한국어 가독성이 높은 산세리프 중심, 이름과 역할의 위계가 뚜렷함",
+    "color": "정치 명함으로 오해할 수 있는 강한 단일 정당색을 피하고 중립 바탕과 제한된 강조색 사용",
+    "space": "인물과 핵심 행동 주변에 충분한 여백, 카드 중첩 최소화",
+    "component_shape": "모바일 친화적 큰 터치 영역, 버튼·행동 묶음은 단순하고 즉시 이해 가능",
+    "motion": "연락 행동 피드백과 섹션 전환에만 짧고 절제된 모션"
+  },
+  "selected_direction": {
+    "direction_id": "direction-2",
+    "concept": "editorial_professional",
+    "use": [
+      "인물 중심의 강한 첫 화면",
+      "검정·백색 기반의 높은 대비",
+      "제한된 형광 연두 강조색",
+      "큰 이름과 명확한 직업 위계",
+      "비대칭 편집형 구도",
+      "크고 단순한 연락 행동"
+    ],
+    "exclude": [
+      "정치 홍보물처럼 보이는 단일 정당색",
+      "원본 인물·문구·브랜드",
+      "외부 전화·문자·메일 앱 화면 복제",
+      "과도한 배지·장식·중첩 카드"
+    ]
+  },
+  "required_screens_and_states": [
+    "main_profile",
+    "introduction_and_career",
+    "qr_nfc_share",
+    "contact_save_preview_success_failure",
+    "external_contact_handoff_success_unavailable",
+    "owner_profile_editor",
+    "portrait_auto_correction_and_manual_crop",
+    "theme_and_action_order_editor"
+  ],
+  "portrait_processing_contract": {
+    "original_preserved": true,
+    "supported_input_types": ["id_portrait", "upper_body", "full_body", "landscape_portrait"],
+    "automatic": ["exif_rotation", "subject_type_detection", "type_specific_layout_suggestion", "face_or_body_safe_crop_suggestion", "brightness_adjustment", "quality_warning"],
+    "manual": ["zoom", "position", "crop", "reset"],
+    "layout_rules": {
+      "id_portrait": "얼굴과 어깨를 중심으로 배치",
+      "upper_body": "얼굴을 위쪽에 두고 몸통 일부를 유지",
+      "full_body": "인물을 자르지 않고 전신 구도 또는 넓은 인물 영역 사용",
+      "landscape_portrait": "인물 위치에 따라 좌우 분할형 구도 추천",
+      "subject_not_detected": "자동 적용을 중단하고 수동 위치 조정 요청"
+    },
+    "separate_output_crop": ["mobile", "desktop"],
+    "default_face_alteration": false,
+    "non_destructive": true
+  },
+  "required_actions": [
+    "save_contact",
+    "call",
+    "send_sms",
+    "send_email",
+    "open_kakao_or_social",
+    "open_website",
+    "show_qr_or_nfc"
+  ],
+  "must_not_copy": [
+    "원본 브랜드",
+    "원본 인물과 이미지",
+    "원본 문구",
+    "원본 고유 레이아웃 전체"
+  ],
+  "human_decision_required": "completed_visual_target_approved_by_user",
+  "visual_target": {
+    "path": "design-candidates/direction-2-full-flow-visual-target.png",
+    "sha256": "053735a40d6cf9c65396ba871885409e6c0a30cf963591512267524dbcd40748",
+    "generation_tool": "OpenAI ImageGen",
+    "core_generated": false,
+    "core_connected": true,
+    "product_implemented": false,
+    "user_approval": {
+      "status": "approved",
+      "approved_at": "2026-08-26",
+      "evidence": "user said 아주 만족스럽고 then 오케이 after photo-type clarification"
+    }
+  },
+  "implementation_approved": false
+}

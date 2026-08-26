@@ -1,0 +1,624 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-electronic-business-card-mvp-v1",
+  "collector_mode": "visual_reference_seed_capture",
+  "evidence_scope": "electronic_business_card",
+  "items": [
+    {
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-01",
+      "source_name": "Business card site for digital agency / web-site",
+      "source_url": "https://www.behance.net/gallery/237957235/Business-card-site-for-digital-agency-web-site",
+      "natural_summary_ko": "‘digital business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "digital business card",
+        "search_url": "https://www.behance.net/search/projects?search=digital+business+card"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-discovered-01-8d5d803deebb.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/568f11237957235.Y3JvcCwyNTE4LDE5NzAsMzQyLDA.png",
+      "content_type": "image/png",
+      "byte_size": 58214,
+      "sha256": "8d5d803deebb36035679fb4560c3bc0466dfd071d912d6d28a5d42696c87204d",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:19Z"
+    },
+    {
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-02",
+      "source_name": "Luxury NFC Metal Business Card Template .",
+      "source_url": "https://www.behance.net/gallery/235332073/Luxury-NFC-Metal-Business-Card-Template-",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-discovered-02-1826791e97ba.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/6dc771235332073.Y3JvcCwxNDAwLDEwOTUsMCwxNTI.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 34852,
+      "sha256": "1826791e97ba6293c6cb4154cc491d11b1fc553f5bcb60284a4c4d9293314b3c",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:20Z"
+    },
+    {
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-03",
+      "source_name": "NEXORA DIGITAL | Modern Corporate Business Card",
+      "source_url": "https://www.behance.net/gallery/253511451/NEXORA-DIGITAL-Modern-Corporate-Business-Card",
+      "natural_summary_ko": "‘digital business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "digital business card",
+        "search_url": "https://www.behance.net/search/projects?search=digital+business+card"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-discovered-03-9a7f5477552e.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/14f6e7253511451.Y3JvcCwxMDAyLDc4NCw2OSww.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 54154,
+      "sha256": "9a7f5477552e549ba440caad3c2e6be8791f479b08ab743c66b766ecd612e27d",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:20Z"
+    },
+    {
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-04",
+      "source_name": "NFC BUSINESS CARD PROMO",
+      "source_url": "https://www.behance.net/gallery/170676167/NFC-BUSINESS-CARD-PROMO",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-discovered-04-e4106ec39ae4.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/97a03e170676167.Y3JvcCwxMjAxLDk0MCw0NCww.png",
+      "content_type": "image/png",
+      "byte_size": 49110,
+      "sha256": "e4106ec39ae458580f57120f77965429ba5bf1b7feca47af7c025a5ce3529b1a",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:20Z"
+    },
+    {
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-05",
+      "source_name": "NFC Business Card | FMO Agency",
+      "source_url": "https://www.behance.net/gallery/191193109/NFC-Business-Card-FMO-Agency",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-discovered-05-a891406ac2ed.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/350bc4191193109.Y3JvcCwyNDAwLDE4NzcsMCwxNzE2.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 64007,
+      "sha256": "a891406ac2ed8b941cbf811845d9c6311bc9e90d25a714ce05d32ca0e010c0ff",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:20Z"
+    },
+    {
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-06",
+      "source_name": "PromBiz: NFC Business Card Website Design",
+      "source_url": "https://www.behance.net/gallery/245853675/PromBiz-NFC-Business-Card-Website-Design",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-discovered-06-7a98e09ea7cc.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/3697b5245853675.Y3JvcCw1NDAyLDQyMjYsNTc1LDA.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 52664,
+      "sha256": "7a98e09ea7cc19398628d0a64818af6c62abe2d746c8c94c5d213ab12819449c",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:20Z"
+    },
+    {
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-07",
+      "source_name": "Social Media | Digital Business Card | eKartvizit",
+      "source_url": "https://www.behance.net/gallery/248226677/Social-Media-Digital-Business-Card-eKartvizit",
+      "natural_summary_ko": "‘digital business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "digital business card",
+        "search_url": "https://www.behance.net/search/projects?search=digital+business+card"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-discovered-07-fe80a7c78fed.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/5dbf4e248226677.Y3JvcCw4MDgsNjMyLDAsMA.png",
+      "content_type": "image/png",
+      "byte_size": 153938,
+      "sha256": "fe80a7c78fed70a7095589f8685701368eb13f39abe6e5df04071219d75ee7c4",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:20Z"
+    },
+    {
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-08",
+      "source_name": "Wave Cards - A Digital NFC Business Card",
+      "source_url": "https://www.behance.net/gallery/178125501/Wave-Cards-A-Digital-NFC-Business-Card",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-discovered-08-9570b02265ba.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/4065d4178125501.Y3JvcCw4NzgsNjg3LDczLDA.png",
+      "content_type": "image/png",
+      "byte_size": 127348,
+      "sha256": "9570b02265ba3dad51926e4634f4eeebd2a2e3e9f6b0eb40f51ab2447e6d71ff",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:20Z"
+    },
+    {
+      "region": "korea",
+      "do_not_copy": [
+        "실제 인물",
+        "법률 브랜드",
+        "원문 문구"
+      ],
+      "traits": [
+        "큰 인물 사진",
+        "전문 분야 강조",
+        "연락 채널 묶음",
+        "어두운 편집형 구성"
+      ],
+      "source_type": "user_provided",
+      "reference_id": "ref-user-lawyer-card",
+      "source_name": "사용자 제공 한국 변호사 전자명함",
+      "source_url": "user-provided://electronic-card-lawyer-example",
+      "natural_summary_ko": "인물 사진을 크게 보여주고 전문 분야, 소개, 연락 채널을 한 화면 흐름으로 연결한 한국형 전자명함입니다.",
+      "discovery_evidence": {
+        "provider": "registered_korean_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "user-provided://electronic-card-lawyer-example"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-user-lawyer-card-3cc41f1caec3.png",
+      "image_url": null,
+      "content_type": "image/png",
+      "byte_size": 148617,
+      "sha256": "3cc41f1caec38ece30e13115b526770c6e2ecf8d75ee7576c499249df2b98ede",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:20Z"
+    },
+    {
+      "region": "korea",
+      "do_not_copy": [
+        "GCARD 브랜드",
+        "템플릿 문구",
+        "원본 이미지"
+      ],
+      "traits": [
+        "모바일 단일 화면",
+        "연락 행동 우선",
+        "한국 서비스 문법"
+      ],
+      "source_type": "korean_actual_service",
+      "reference_id": "ref-gcard-social",
+      "source_name": "GCARD 사회복지·NGO 템플릿",
+      "source_url": "https://gcard.kr/vcard-templates#vcard25",
+      "natural_summary_ko": "한국 전자명함 서비스가 사회복지·NGO 용도로 제공하는 실제 모바일 템플릿입니다.",
+      "discovery_evidence": {
+        "provider": "registered_korean_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "https://gcard.kr/vcard-templates#vcard25"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-gcard-social-f343f821ccfc.png",
+      "image_url": "https://gcard.kr/assets/img/templates/vcard25.png",
+      "content_type": "image/png",
+      "byte_size": 954346,
+      "sha256": "f343f821ccfc0aa0b3c202ae818e470c9a48fd9216475d733b7fa0f3e4287307",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:21Z"
+    },
+    {
+      "region": "korea",
+      "do_not_copy": [
+        "GCARD 브랜드",
+        "직업별 원문",
+        "원본 인물"
+      ],
+      "traits": [
+        "전문직 신뢰감",
+        "명확한 정보 계층",
+        "연락 버튼"
+      ],
+      "source_type": "korean_actual_service",
+      "reference_id": "ref-gcard-professional",
+      "source_name": "GCARD 전문가 템플릿",
+      "source_url": "https://gcard.kr/vcard-templates#vcard16",
+      "natural_summary_ko": "전문직의 신뢰와 연락 기능을 한 화면에 정리한 국내 상용 전자명함 사례입니다.",
+      "discovery_evidence": {
+        "provider": "registered_korean_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "https://gcard.kr/vcard-templates#vcard16"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-gcard-professional-f8dbb2eba92a.png",
+      "image_url": "https://gcard.kr/assets/img/templates/vcard16.png",
+      "content_type": "image/png",
+      "byte_size": 641701,
+      "sha256": "f8dbb2eba92a2aa0697f6cdc4107a3d7f0b2fc9c2a9784265c875a4758865be1",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:21Z"
+    },
+    {
+      "region": "korea",
+      "do_not_copy": [
+        "Slice 브랜드",
+        "제품 사진",
+        "원문 카피"
+      ],
+      "traits": [
+        "NFC·QR 연결",
+        "프로필 공유",
+        "간결한 모바일 UI"
+      ],
+      "source_type": "korean_actual_service",
+      "reference_id": "ref-slice",
+      "source_name": "Slice 디지털 명함",
+      "source_url": "https://home.myslice.is/",
+      "natural_summary_ko": "국내 NFC·QR 전자명함 서비스의 실제 제품 화면으로, 프로필 공유와 연락처 저장을 짧은 흐름으로 제공합니다.",
+      "discovery_evidence": {
+        "provider": "registered_korean_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "https://home.myslice.is/"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-slice-4647d4018f3e.png",
+      "image_url": "https://cdn.imweb.me/thumbnail/20250826/7e5c9f8f338d4.png",
+      "content_type": "image/png",
+      "byte_size": 345246,
+      "sha256": "4647d4018f3e2b002769716ba43b5bcab77f2040aca6258dc2bba048fe1ac348",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:21Z"
+    },
+    {
+      "source_name": "Personal portfolio ( click the link in caption)",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/236639101/Personal-portfolio-(-click-the-link-in-caption)",
+      "natural_summary_ko": "‘personal link page portfolio’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "reference_id": "ref-refill-r01-01",
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "personal link page portfolio",
+        "search_url": "https://www.behance.net/search/projects?search=personal+link+page+portfolio"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/refill-r01-01-5be625a3bcea.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/d3f896236639101.Y3JvcCwxNDQwLDExMjYsMCww.png",
+      "content_type": "image/png",
+      "byte_size": 24526,
+      "sha256": "5be625a3bcea7ed884462a6d3466a4be747424972a0b2f45cc43ab344a84b6c0",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:43:07Z",
+      "refill_round": 1
+    },
+    {
+      "source_name": "web Design & mobile - link Portfolio personal",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/126299161/web-Design-mobile-link-Portfolio-personal",
+      "natural_summary_ko": "‘personal link page portfolio’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "reference_id": "ref-refill-r01-02",
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "personal link page portfolio",
+        "search_url": "https://www.behance.net/search/projects?search=personal+link+page+portfolio"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/refill-r01-02-1d6e88e954da.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/40e372126299161.Y3JvcCwyNjE4LDIwNDgsMTI5LDA.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 47807,
+      "sha256": "1d6e88e954da06f2c35f1f459aebf43f871c013987032c40686848f4ef0ee3b3",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:43:07Z",
+      "refill_round": 1
+    },
+    {
+      "source_name": "AZENTOS® — Branding Agency Landing Page",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/253480109/AZENTOS-Branding-Agency-Landing-Page",
+      "natural_summary_ko": "‘contact profile landing page’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "reference_id": "ref-refill-r01-03",
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "contact profile landing page",
+        "search_url": "https://www.behance.net/search/projects?search=contact+profile+landing+page"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/refill-r01-03-4cfaee5f0461.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/5a8df1253480109.Y3JvcCwxMzk5LDEwOTUsMCww.png",
+      "content_type": "image/png",
+      "byte_size": 80184,
+      "sha256": "4cfaee5f0461907a8de63ee683d88e509ca772c3d97989c2fa6df1ce5fc0b498",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:43:08Z",
+      "refill_round": 1
+    },
+    {
+      "source_name": "Arabic Company Profile – Digital Marketing Agency",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/227193255/Arabic-Company-Profile-Digital-Marketing-Agency",
+      "natural_summary_ko": "‘digital vcard profile’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "reference_id": "ref-refill-r01-04",
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "digital vcard profile",
+        "search_url": "https://www.behance.net/search/projects?search=digital+vcard+profile"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/refill-r01-04-bee6802e5652.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/8becc0227193255.Y3JvcCw0ODQ4LDM3OTIsMCww.png",
+      "content_type": "image/png",
+      "byte_size": 75982,
+      "sha256": "bee6802e5652090487ec08564a771e4526ebd8a8e64251f1557974b3b2a99fa9",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:43:08Z",
+      "refill_round": 1
+    },
+    {
+      "source_name": "Company Profile | Digital Marketing Agency",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/254808421/Company-Profile-Digital-Marketing-Agency",
+      "natural_summary_ko": "‘digital vcard profile’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "reference_id": "ref-refill-r01-05",
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "digital vcard profile",
+        "search_url": "https://www.behance.net/search/projects?search=digital+vcard+profile"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/refill-r01-05-117caf1fc20c.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/f6d28e240296295.Y3JvcCwyMDQ1LDE2MDAsMjI3LDA.png",
+      "content_type": "image/png",
+      "byte_size": 78602,
+      "sha256": "117caf1fc20c29937a22674069d171abc820a81bf53d391b5cd7f15a2b1605bb",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:43:08Z",
+      "refill_round": 1
+    }
+  ],
+  "source_failures": [
+    {
+      "reference_id": "ref-refill-r01-06",
+      "reason": "중복 이미지입니다."
+    }
+  ],
+  "coverage": {
+    "total": 17,
+    "korean": 4,
+    "actual_service": 3,
+    "user_provided": 1
+  },
+  "decisions": {},
+  "visual_target_created": false,
+  "implementation_allowed": false,
+  "product_changed": false,
+  "limitations": [
+    "후보 발견은 이번 실제 요청에서 사람이 고정한 Seed를 사용했습니다.",
+    "이 실행은 범용 자동 Reference 검색을 증명하지 않습니다.",
+    "화면은 참고 전용이며 원본 브랜드·문구·인물을 복제하지 않습니다."
+  ],
+  "revision": 2,
+  "last_action": "visual-reference.refill",
+  "refill": {
+    "round": 1,
+    "added_count": 5,
+    "added_reference_ids": [
+      "ref-refill-r01-01",
+      "ref-refill-r01-02",
+      "ref-refill-r01-03",
+      "ref-refill-r01-04",
+      "ref-refill-r01-05"
+    ],
+    "queries": [
+      "professional mobile profile",
+      "personal link page portfolio",
+      "digital vcard profile",
+      "contact profile landing page",
+      "professional bio link page"
+    ],
+    "provider_failures": [],
+    "deduplicated": [],
+    "dedup_methods": [
+      "source_url",
+      "sha256",
+      "dhash_visual_similarity"
+    ],
+    "decision_influence": {
+      "adopted_traits": [],
+      "discarded_traits": [],
+      "excluded_url_count": 12
+    },
+    "completed_at": "2026-08-26T11:43:13Z"
+  },
+  "refill_history": [
+    {
+      "round": 1,
+      "added_count": 5,
+      "added_reference_ids": [
+        "ref-refill-r01-01",
+        "ref-refill-r01-02",
+        "ref-refill-r01-03",
+        "ref-refill-r01-04",
+        "ref-refill-r01-05"
+      ],
+      "queries": [
+        "professional mobile profile",
+        "personal link page portfolio",
+        "digital vcard profile",
+        "contact profile landing page",
+        "professional bio link page"
+      ],
+      "provider_failures": [],
+      "deduplicated": [],
+      "dedup_methods": [
+        "source_url",
+        "sha256",
+        "dhash_visual_similarity"
+      ],
+      "decision_influence": {
+        "adopted_traits": [],
+        "discarded_traits": [],
+        "excluded_url_count": 12
+      },
+      "completed_at": "2026-08-26T11:43:13Z"
+    }
+  ]
+}

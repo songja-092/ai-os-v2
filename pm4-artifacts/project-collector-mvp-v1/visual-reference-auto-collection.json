@@ -1,0 +1,232 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-electronic-business-card-mvp-v1",
+  "collector_mode": "visual_reference_seed_capture",
+  "evidence_scope": "electronic_business_card",
+  "items": [
+    {
+      "source_name": "Business card site for digital agency / web-site",
+      "reference_id": "ref-discovered-01",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/237957235/Business-card-site-for-digital-agency-web-site",
+      "source_type": "design_gallery",
+      "natural_summary_ko": "‘digital business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "region": "global",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references-auto/ref-discovered-01-8d5d803deebb.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/568f11237957235.Y3JvcCwyNTE4LDE5NzAsMzQyLDA.png",
+      "content_type": "image/png",
+      "byte_size": 58214,
+      "sha256": "8d5d803deebb36035679fb4560c3bc0466dfd071d912d6d28a5d42696c87204d",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:20Z"
+    },
+    {
+      "source_name": "NEXORA DIGITAL | Modern Corporate Business Card",
+      "reference_id": "ref-discovered-02",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/253511451/NEXORA-DIGITAL-Modern-Corporate-Business-Card",
+      "source_type": "design_gallery",
+      "natural_summary_ko": "‘digital business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "region": "global",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references-auto/ref-discovered-02-9a7f5477552e.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/14f6e7253511451.Y3JvcCwxMDAyLDc4NCw2OSww.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 54154,
+      "sha256": "9a7f5477552e549ba440caad3c2e6be8791f479b08ab743c66b766ecd612e27d",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:20Z"
+    },
+    {
+      "source_name": "NFC BUSINESS CARD PROMO",
+      "reference_id": "ref-discovered-03",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/170676167/NFC-BUSINESS-CARD-PROMO",
+      "source_type": "design_gallery",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "region": "global",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references-auto/ref-discovered-03-e4106ec39ae4.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/97a03e170676167.Y3JvcCwxMjAxLDk0MCw0NCww.png",
+      "content_type": "image/png",
+      "byte_size": 49110,
+      "sha256": "e4106ec39ae458580f57120f77965429ba5bf1b7feca47af7c025a5ce3529b1a",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:20Z"
+    },
+    {
+      "source_name": "NFC Business Card Ecommerce Landing page",
+      "reference_id": "ref-discovered-04",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/223654287/NFC-Business-Card-Ecommerce-Landing-page",
+      "source_type": "design_gallery",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "region": "global",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references-auto/ref-discovered-04-5a89262d30d0.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/34c7d0223654287.Y3JvcCwxMDgwLDg0NCwwLDIzMg.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 66889,
+      "sha256": "5a89262d30d0a0b99a25229c4f12c358f08fac64600dff9a9979dbad70922008",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:21Z"
+    },
+    {
+      "source_name": "NFC Business Card | FMO Agency",
+      "reference_id": "ref-discovered-05",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/191193109/NFC-Business-Card-FMO-Agency",
+      "source_type": "design_gallery",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "region": "global",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references-auto/ref-discovered-05-a891406ac2ed.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/350bc4191193109.Y3JvcCwyNDAwLDE4NzcsMCwxNzE2.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 64007,
+      "sha256": "a891406ac2ed8b941cbf811845d9c6311bc9e90d25a714ce05d32ca0e010c0ff",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:21Z"
+    },
+    {
+      "source_name": "PromBiz: NFC Business Card Website Design",
+      "reference_id": "ref-discovered-06",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/245853675/PromBiz-NFC-Business-Card-Website-Design",
+      "source_type": "design_gallery",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "region": "global",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references-auto/ref-discovered-06-7a98e09ea7cc.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/3697b5245853675.Y3JvcCw1NDAyLDQyMjYsNTc1LDA.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 52664,
+      "sha256": "7a98e09ea7cc19398628d0a64818af6c62abe2d746c8c94c5d213ab12819449c",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:22Z"
+    },
+    {
+      "source_name": "Social Media | Digital Business Card | eKartvizit",
+      "reference_id": "ref-discovered-07",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/248226677/Social-Media-Digital-Business-Card-eKartvizit",
+      "source_type": "design_gallery",
+      "natural_summary_ko": "‘digital business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "region": "global",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references-auto/ref-discovered-07-fe80a7c78fed.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/5dbf4e248226677.Y3JvcCw4MDgsNjMyLDAsMA.png",
+      "content_type": "image/png",
+      "byte_size": 153938,
+      "sha256": "fe80a7c78fed70a7095589f8685701368eb13f39abe6e5df04071219d75ee7c4",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:22Z"
+    },
+    {
+      "source_name": "Wave Cards - A Digital NFC Business Card",
+      "reference_id": "ref-discovered-08",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_url": "https://www.behance.net/gallery/178125501/Wave-Cards-A-Digital-NFC-Business-Card",
+      "source_type": "design_gallery",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "region": "global",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references-auto/ref-discovered-08-9570b02265ba.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/4065d4178125501.Y3JvcCw4NzgsNjg3LDczLDA.png",
+      "content_type": "image/png",
+      "byte_size": 127348,
+      "sha256": "9570b02265ba3dad51926e4634f4eeebd2a2e3e9f6b0eb40f51ab2447e6d71ff",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:23Z"
+    }
+  ],
+  "source_failures": [],
+  "coverage": {
+    "total": 8,
+    "korean": 0,
+    "actual_service": 0,
+    "user_provided": 0
+  },
+  "decisions": {},
+  "visual_target_created": false,
+  "implementation_allowed": false,
+  "product_changed": false,
+  "limitations": [
+    "후보 발견은 이번 실제 요청에서 사람이 고정한 Seed를 사용했습니다.",
+    "이 실행은 범용 자동 Reference 검색을 증명하지 않습니다.",
+    "화면은 참고 전용이며 원본 브랜드·문구·인물을 복제하지 않습니다."
+  ]
+}

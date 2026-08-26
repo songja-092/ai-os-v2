@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.1",
+  "platform": "youtube",
+  "mode": "reference_default",
+  "collected_at": "2026-08-26T12:33:50.145932+00:00",
+  "requested_period_days": 30,
+  "used_period_days": 30,
+  "period_expanded": false,
+  "discovery_strategy": "adopted_channel_first_then_temporary_channel",
+  "selection_strategy": "one_per_connected_relevant_channel_then_recent",
+  "preferred_channels_applied": [],
+  "source_summary": [
+    {
+      "channel": "AI Jason",
+      "status": "CONNECTED",
+      "entries": 15
+    },
+    {
+      "channel": "Cole Medin",
+      "status": "CONNECTED",
+      "entries": 15
+    },
+    {
+      "channel": "Fireship",
+      "status": "CONNECTED",
+      "entries": 15
+    },
+    {
+      "channel": "IndyDevDan",
+      "status": "CONNECTED",
+      "entries": 15
+    },
+    {
+      "channel": "노마드 코더 Nomad Coders",
+      "status": "CONNECTED",
+      "entries": 15
+    },
+    {
+      "channel": "조코딩 JoCoding",
+      "status": "CONNECTED",
+      "entries": 15
+    },
+    {
+      "channel": "코딩애플",
+      "status": "CONNECTED",
+      "entries": 15
+    }
+  ],
+  "items": [
+    {
+      "platform": "youtube",
+      "channel_name": "조코딩 JoCoding",
+      "channel_url": "https://www.youtube.com/@jocoding",
+      "title": "미국의 노션 본사, 직접 다녀왔습니다 - AI로 일하는 실리콘밸리 회사는 뭐가 다를까",
+      "url": "https://www.youtube.com/watch?v=3flfON7F8hU",
+      "published_at": "2026-08-26T10:00:04+00:00",
+      "public_text": "",
+      "source_mode": "official_or_public_atom_feed"
+    },
+    {
+      "platform": "youtube",
+      "channel_name": "Cole Medin",
+      "channel_url": "https://www.youtube.com/@ColeMedin",
+      "title": "BMAD's Founder on the Future of AI Coding (And the Slop Apocalypse)",
+      "url": "https://www.youtube.com/watch?v=6XgSpFdD3EU",
+      "published_at": "2026-08-25T16:54:48+00:00",
+      "public_text": "",
+      "source_mode": "official_or_public_atom_feed"
+    },
+    {
+      "platform": "youtube",
+      "channel_name": "AI Jason",
+      "channel_url": "https://www.youtube.com/@AIJasonZ",
+      "title": "I don't prompt agents anymore...",
+      "url": "https://www.youtube.com/watch?v=_9OT25ZvrWs",
+      "published_at": "2026-08-25T10:51:06+00:00",
+      "public_text": "",
+      "source_mode": "official_or_public_atom_feed"
+    },
+    {
+      "platform": "youtube",
+      "channel_name": "IndyDevDan",
+      "channel_url": "https://www.youtube.com/@indydevdan",
+      "title": "Intelligence EXPLOSION: Harness Engineering with Pi Agent, Deepseek, and Gemini",
+      "url": "https://www.youtube.com/watch?v=rqZHR-hRllI",
+      "published_at": "2026-08-24T13:00:24+00:00",
+      "public_text": "",
+      "source_mode": "official_or_public_atom_feed"
+    },
+    {
+      "platform": "youtube",
+      "channel_name": "코딩애플",
+      "channel_url": "https://www.youtube.com/@codingapple",
+      "title": "AI 냄새가 싫다는 사람들",
+      "url": "https://www.youtube.com/watch?v=p5FzBvDvt8A",
+      "published_at": "2026-08-12T03:00:38+00:00",
+      "public_text": "",
+      "source_mode": "official_or_public_atom_feed"
+    },
+    {
+      "platform": "youtube",
+      "channel_name": "노마드 코더 Nomad Coders",
+      "channel_url": "https://www.youtube.com/@nomadcoders",
+      "title": "구글이 웹사이트를 AI용으로 바꾸기 시작했다",
+      "url": "https://www.youtube.com/watch?v=tfrDp6FnhZc",
+      "published_at": "2026-08-09T12:15:39+00:00",
+      "public_text": "",
+      "source_mode": "official_or_public_atom_feed"
+    },
+    {
+      "platform": "youtube",
+      "channel_name": "조코딩 JoCoding",
+      "channel_url": "https://www.youtube.com/@jocoding",
+      "title": "AI뉴스 - ox-alpha 열풍, 오픈AI RL 중지, Mythos 5 개방, Gemini 하입과 무료, 모더나 머크, 독파모, 통속의 뇌, 로봇 올림픽 등",
+      "url": "https://www.youtube.com/watch?v=i1FoKc5X4_8",
+      "published_at": "2026-08-24T13:00:39+00:00",
+      "public_text": "",
+      "source_mode": "official_or_public_atom_feed"
+    },
+    {
+      "platform": "youtube",
+      "channel_name": "조코딩 JoCoding",
+      "channel_url": "https://www.youtube.com/@jocoding",
+      "title": "IT뉴스 - ox-alpha, 오픈AI 트레이닝 중지, Mythos 5 개방, Gemini 하입과 무료, 모더나 머크, 통속의 뇌 등",
+      "url": "https://www.youtube.com/watch?v=iP5RUzXhWoc",
+      "published_at": "2026-08-23T11:18:01+00:00",
+      "public_text": "",
+      "source_mode": "official_or_public_atom_feed"
+    },
+    {
+      "platform": "youtube",
+      "channel_name": "조코딩 JoCoding",
+      "channel_url": "https://www.youtube.com/@jocoding",
+      "title": "AI 시대, 기업은 어떤 인재를 뽑을까? AX 인재전쟁 본선 스케치 | OpenAI × 조코딩AX파트너스",
+      "url": "https://www.youtube.com/watch?v=IoI3LQUctkM",
+      "published_at": "2026-08-21T09:00:10+00:00",
+      "public_text": "",
+      "source_mode": "official_or_public_atom_feed"
+    },
+    {
+      "platform": "youtube",
+      "channel_name": "Cole Medin",
+      "channel_url": "https://www.youtube.com/@ColeMedin",
+      "title": "DeepSeek Just Built the Next Generation of Coding Agents",
+      "url": "https://www.youtube.com/watch?v=yipfaA-GXPg",
+      "published_at": "2026-08-20T00:00:01+00:00",
+      "public_text": "",
+      "source_mode": "official_or_public_atom_feed"
+    }
+  ],
+  "source_failures": [],
+  "adoption_decision": null
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "status": "direction_2_visual_target_user_approved_ready_for_handoff",
+  "target": "social_worker_mobile_electronic_business_card",
+  "source_design_dna": "electronic-card-design-dna.json",
+  "directions": [
+    {
+      "display_order": 1,
+      "concept": "warm_human_trust",
+      "image_path": "design-candidates/direction-1.png",
+      "sha256": "be236b523869796e7ffc9df8e2c47ed7432d5eda32714a091c7698d841527190"
+    },
+    {
+      "display_order": 2,
+      "concept": "editorial_professional",
+      "image_path": "design-candidates/direction-2.png",
+      "sha256": "cfece8648acc22f65cd5134ae9653e558d6f3d96451225b3d3f8f03d8e12aa4f"
+    },
+    {
+      "display_order": 3,
+      "concept": "documentary_community",
+      "image_path": "design-candidates/direction-3.png",
+      "sha256": "fb0aa974de624fb73056a5adbe2faec4d36f3ffd32dfce9f9e4bf62a228523ae"
+    },
+    {
+      "display_order": 4,
+      "concept": "nfc_object_interface",
+      "image_path": "design-candidates/direction-4.png",
+      "sha256": "fea662e1880005cf98d08d25fb451b0d4812c1eff7377a662e82ebd706113bda"
+    },
+    {
+      "display_order": 5,
+      "concept": "cultural_poster",
+      "image_path": "design-candidates/direction-5.png",
+      "sha256": "a783c40fff575622c24dc577c50a834e386cc01d397205b3f9c610579fcae707"
+    }
+  ],
+  "selected_display_order": 2,
+  "selected_visual_target": {
+    "image_path": "design-candidates/direction-2-full-flow-visual-target.png",
+    "sha256": "053735a40d6cf9c65396ba871885409e6c0a30cf963591512267524dbcd40748",
+    "screen_count": 8,
+    "includes_owner_editor": true,
+    "includes_portrait_auto_correction": true
+  },
+  "generation_provenance": {
+    "generated_by": "Codex Product Design ideate workflow",
+    "generation_tool": "OpenAI ImageGen",
+    "core_generated": false,
+    "core_connected_after_generation": true
+  },
+  "editable_product_data_contract": {
+    "identity": ["name", "portrait", "role", "organization", "introduction"],
+    "contact": ["phone", "sms", "email", "kakao_or_social", "website", "qr_destination"],
+    "theme": ["primary_color", "secondary_color", "background_color"],
+    "layout": ["portrait_crop", "portrait_position", "visible_actions", "action_order"]
+  },
+  "implementation_approved": false,
+  "next_action": "write_pm4_design_handoff_without_implementing_product"
+}

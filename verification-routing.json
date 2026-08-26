@@ -43,7 +43,7 @@
     {
       "id": "pm-transition",
       "priority": 20,
-      "paths": ["state/pm-transition-evidence.json", "test-fixtures/pm-transition-evidence/**", "tools/verify-pm-transition-evidence", "tools/test-pm-transition-evidence"],
+      "paths": ["state/pm-transition-evidence.json", "wiki/POST_MVP_PM0_PM6_BASELINE.md", "wiki/PM_LOCK_POLICY.md", "test-fixtures/pm-transition-evidence/**", "tools/verify-pm-transition-evidence", "tools/test-pm-transition-evidence"],
       "commands": [
         {"id": "pm-transition-evidence", "command": ["tools/verify-pm-transition-evidence"], "classification": "contract_only", "side_effect": "read_only"},
         {"id": "pm-transition-fixtures", "command": ["tools/test-pm-transition-evidence"], "classification": "fixture_specific", "side_effect": "read_only"}
@@ -81,6 +81,24 @@
         {"id": "pm4-project-mvp", "command": ["tools/verify-pm4-project-mvp"], "classification": "fixture_specific", "side_effect": "temporary_with_restore", "mutable_paths": ["state/pm4-project-collector-state.json"]},
         {"id": "pm4-project-selection", "command": ["tools/verify-pm4-project-selection"], "classification": "fixture_specific", "side_effect": "read_only"}
       ]
+    },
+    {
+      "id": "pm4-visual-reference",
+      "priority": 20,
+      "paths": ["plugins/v2-capability-lab/scripts/pm4_visual_reference_collector.py", "plugins/v2-capability-lab/scripts/pm4_visual_reference_discovery.py", "plugins/v2-capability-lab/scripts/pm4_visual_reference_refill.py", "plugins/v2-capability-lab/scripts/pm4_visual_reference_handoff.py", "pm4-artifacts/project-collector-mvp-v1/visual-reference-*.json", "pm4-artifacts/project-collector-mvp-v1/visual-references*/**", "pm4-artifacts/project-collector-mvp-v1/visual-reference-*.html", "test-fixtures/pm4-visual-reference/**", "state/pm4-visual-reference-state.json", "tools/verify-pm4-visual-reference"],
+      "commands": [{"id": "pm4-visual-reference", "command": ["tools/verify-pm4-visual-reference"], "classification": "runtime", "side_effect": "temporary_with_restore", "mutable_paths": ["state/pm4-visual-reference-state.json"]}]
+    },
+    {
+      "id": "pm4-design-ideation",
+      "priority": 20,
+      "paths": ["state/pm4-design-ideation-state.json", "pm4-artifacts/project-collector-mvp-v1/electronic-card-design-dna.json", "pm4-artifacts/project-collector-mvp-v1/electronic-card-visual-directions.json", "pm4-artifacts/project-collector-mvp-v1/design-candidates/**", "pm4-artifacts/project-collector-mvp-v1/design-candidates-review.html", "tools/verify-pm4-design-ideation"],
+      "commands": [{"id": "pm4-design-ideation", "command": ["tools/verify-pm4-design-ideation"], "classification": "runtime", "side_effect": "temporary_with_restore", "mutable_paths": ["state/pm4-design-ideation-state.json"]}]
+    },
+    {
+      "id": "v2-content-reference-radar",
+      "priority": 20,
+      "paths": [".agents/skills/v2-content-reference-radar/**", "plugins/v2-capability-lab/scripts/pm4_evidence_router.py", "plugins/v2-capability-lab/scripts/pm4_evidence_review.py", "tools/verify-v2-content-reference-radar", "pm4-artifacts/content-reference-radar-v1/**", "state/pm4-evidence-reference-state.json"],
+      "commands": [{"id": "v2-content-reference-radar", "command": ["tools/verify-v2-content-reference-radar"], "classification": "fixture_specific", "side_effect": "read_only"}]
     },
     {
       "id": "pm4-briefing",

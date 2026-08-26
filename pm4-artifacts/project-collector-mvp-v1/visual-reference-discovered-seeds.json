@@ -1,0 +1,319 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-electronic-business-card-mvp-v1",
+  "discovery_mode": "request_terms_to_public_visual_gallery",
+  "queries": [
+    "digital business card",
+    "mobile profile card",
+    "NFC business card"
+  ],
+  "references": [
+    {
+      "reference_id": "ref-discovered-01",
+      "source_name": "Business card site for digital agency / web-site",
+      "source_url": "https://www.behance.net/gallery/237957235/Business-card-site-for-digital-agency-web-site",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/568f11237957235.Y3JvcCwyNTE4LDE5NzAsMzQyLDA.png",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘digital business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "digital business card",
+        "search_url": "https://www.behance.net/search/projects?search=digital+business+card"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-02",
+      "source_name": "Luxury NFC Metal Business Card Template .",
+      "source_url": "https://www.behance.net/gallery/235332073/Luxury-NFC-Metal-Business-Card-Template-",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/6dc771235332073.Y3JvcCwxNDAwLDEwOTUsMCwxNTI.jpg",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-03",
+      "source_name": "NEXORA DIGITAL | Modern Corporate Business Card",
+      "source_url": "https://www.behance.net/gallery/253511451/NEXORA-DIGITAL-Modern-Corporate-Business-Card",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/14f6e7253511451.Y3JvcCwxMDAyLDc4NCw2OSww.jpg",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘digital business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "digital business card",
+        "search_url": "https://www.behance.net/search/projects?search=digital+business+card"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-04",
+      "source_name": "NFC BUSINESS CARD PROMO",
+      "source_url": "https://www.behance.net/gallery/170676167/NFC-BUSINESS-CARD-PROMO",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/97a03e170676167.Y3JvcCwxMjAxLDk0MCw0NCww.png",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-05",
+      "source_name": "NFC Business Card | FMO Agency",
+      "source_url": "https://www.behance.net/gallery/191193109/NFC-Business-Card-FMO-Agency",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/350bc4191193109.Y3JvcCwyNDAwLDE4NzcsMCwxNzE2.jpg",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-06",
+      "source_name": "PromBiz: NFC Business Card Website Design",
+      "source_url": "https://www.behance.net/gallery/245853675/PromBiz-NFC-Business-Card-Website-Design",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/3697b5245853675.Y3JvcCw1NDAyLDQyMjYsNTc1LDA.jpg",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-07",
+      "source_name": "Social Media | Digital Business Card | eKartvizit",
+      "source_url": "https://www.behance.net/gallery/248226677/Social-Media-Digital-Business-Card-eKartvizit",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/5dbf4e248226677.Y3JvcCw4MDgsNjMyLDAsMA.png",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘digital business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "digital business card",
+        "search_url": "https://www.behance.net/search/projects?search=digital+business+card"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-08",
+      "source_name": "Wave Cards - A Digital NFC Business Card",
+      "source_url": "https://www.behance.net/gallery/178125501/Wave-Cards-A-Digital-NFC-Business-Card",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/4065d4178125501.Y3JvcCw4NzgsNjg3LDczLDA.png",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘NFC business card’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card"
+      }
+    },
+    {
+      "reference_id": "ref-user-lawyer-card",
+      "source_name": "사용자 제공 한국 변호사 전자명함",
+      "source_url": "user-provided://electronic-card-lawyer-example",
+      "local_image_path": "/tmp/codex-clipboard-dc0b293f-41b3-41db-84d4-b3304da05767.png",
+      "source_type": "user_provided",
+      "region": "korea",
+      "natural_summary_ko": "인물 사진을 크게 보여주고 전문 분야, 소개, 연락 채널을 한 화면 흐름으로 연결한 한국형 전자명함입니다.",
+      "traits": [
+        "큰 인물 사진",
+        "전문 분야 강조",
+        "연락 채널 묶음",
+        "어두운 편집형 구성"
+      ],
+      "do_not_copy": [
+        "실제 인물",
+        "법률 브랜드",
+        "원문 문구"
+      ],
+      "discovery_evidence": {
+        "provider": "registered_korean_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "user-provided://electronic-card-lawyer-example"
+      }
+    },
+    {
+      "reference_id": "ref-gcard-social",
+      "source_name": "GCARD 사회복지·NGO 템플릿",
+      "source_url": "https://gcard.kr/vcard-templates#vcard25",
+      "image_url": "https://gcard.kr/assets/img/templates/vcard25.png",
+      "source_type": "korean_actual_service",
+      "region": "korea",
+      "natural_summary_ko": "한국 전자명함 서비스가 사회복지·NGO 용도로 제공하는 실제 모바일 템플릿입니다.",
+      "traits": [
+        "모바일 단일 화면",
+        "연락 행동 우선",
+        "한국 서비스 문법"
+      ],
+      "do_not_copy": [
+        "GCARD 브랜드",
+        "템플릿 문구",
+        "원본 이미지"
+      ],
+      "discovery_evidence": {
+        "provider": "registered_korean_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "https://gcard.kr/vcard-templates#vcard25"
+      }
+    },
+    {
+      "reference_id": "ref-gcard-professional",
+      "source_name": "GCARD 전문가 템플릿",
+      "source_url": "https://gcard.kr/vcard-templates#vcard16",
+      "image_url": "https://gcard.kr/assets/img/templates/vcard16.png",
+      "source_type": "korean_actual_service",
+      "region": "korea",
+      "natural_summary_ko": "전문직의 신뢰와 연락 기능을 한 화면에 정리한 국내 상용 전자명함 사례입니다.",
+      "traits": [
+        "전문직 신뢰감",
+        "명확한 정보 계층",
+        "연락 버튼"
+      ],
+      "do_not_copy": [
+        "GCARD 브랜드",
+        "직업별 원문",
+        "원본 인물"
+      ],
+      "discovery_evidence": {
+        "provider": "registered_korean_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "https://gcard.kr/vcard-templates#vcard16"
+      }
+    },
+    {
+      "reference_id": "ref-slice",
+      "source_name": "Slice 디지털 명함",
+      "source_url": "https://home.myslice.is/",
+      "image_url": "https://cdn.imweb.me/thumbnail/20250826/7e5c9f8f338d4.png",
+      "source_type": "korean_actual_service",
+      "region": "korea",
+      "natural_summary_ko": "국내 NFC·QR 전자명함 서비스의 실제 제품 화면으로, 프로필 공유와 연락처 저장을 짧은 흐름으로 제공합니다.",
+      "traits": [
+        "NFC·QR 연결",
+        "프로필 공유",
+        "간결한 모바일 UI"
+      ],
+      "do_not_copy": [
+        "Slice 브랜드",
+        "제품 사진",
+        "원문 카피"
+      ],
+      "discovery_evidence": {
+        "provider": "registered_korean_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "https://home.myslice.is/"
+      }
+    }
+  ],
+  "source_failures": [],
+  "discovered_at": "2026-08-26T11:30:19Z",
+  "automatic_selection": false,
+  "implementation_allowed": false,
+  "limitations": [
+    "현재 무료 Runtime 공급원은 Behance 공개 검색 한 곳입니다.",
+    "한국 실제 서비스는 접근 확인된 등록 공급원을 요청 유형에 맞을 때만 보충합니다.",
+    "검색 결과는 시각 방향 참고용이며 구현 가능성이나 재사용 라이선스를 증명하지 않습니다.",
+    "검색어 생성은 확정된 인터뷰 명세와 명시된 Reference 검색어를 사용합니다."
+  ]
+}

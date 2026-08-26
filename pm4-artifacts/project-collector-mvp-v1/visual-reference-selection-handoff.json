@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-electronic-business-card-mvp-v1",
+  "status": "user_visual_reference_selection_confirmed",
+  "selected_count": 6,
+  "selected_references": [
+    {
+      "reference_id": "ref-discovered-01",
+      "source_name": "Business card site for digital agency / web-site",
+      "source_url": "https://www.behance.net/gallery/237957235/Business-card-site-for-digital-agency-web-site",
+      "region": "global",
+      "source_type": "design_gallery",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-discovered-01-8d5d803deebb.png",
+      "sha256": "8d5d803deebb36035679fb4560c3bc0466dfd071d912d6d28a5d42696c87204d"
+    },
+    {
+      "reference_id": "ref-discovered-05",
+      "source_name": "NFC Business Card | FMO Agency",
+      "source_url": "https://www.behance.net/gallery/191193109/NFC-Business-Card-FMO-Agency",
+      "region": "global",
+      "source_type": "design_gallery",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-discovered-05-a891406ac2ed.jpg",
+      "sha256": "a891406ac2ed8b941cbf811845d9c6311bc9e90d25a714ce05d32ca0e010c0ff"
+    },
+    {
+      "reference_id": "ref-gcard-social",
+      "source_name": "GCARD 사회복지·NGO 템플릿",
+      "source_url": "https://gcard.kr/vcard-templates#vcard25",
+      "region": "korea",
+      "source_type": "korean_actual_service",
+      "traits": [
+        "모바일 단일 화면",
+        "연락 행동 우선",
+        "한국 서비스 문법"
+      ],
+      "do_not_copy": [
+        "GCARD 브랜드",
+        "템플릿 문구",
+        "원본 이미지"
+      ],
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-gcard-social-f343f821ccfc.png",
+      "sha256": "f343f821ccfc0aa0b3c202ae818e470c9a48fd9216475d733b7fa0f3e4287307"
+    },
+    {
+      "reference_id": "ref-slice",
+      "source_name": "Slice 디지털 명함",
+      "source_url": "https://home.myslice.is/",
+      "region": "korea",
+      "source_type": "korean_actual_service",
+      "traits": [
+        "NFC·QR 연결",
+        "프로필 공유",
+        "간결한 모바일 UI"
+      ],
+      "do_not_copy": [
+        "Slice 브랜드",
+        "제품 사진",
+        "원문 카피"
+      ],
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-slice-4647d4018f3e.png",
+      "sha256": "4647d4018f3e2b002769716ba43b5bcab77f2040aca6258dc2bba048fe1ac348"
+    },
+    {
+      "reference_id": "ref-refill-r01-02",
+      "source_name": "web Design & mobile - link Portfolio personal",
+      "source_url": "https://www.behance.net/gallery/126299161/web-Design-mobile-link-Portfolio-personal",
+      "region": "global",
+      "source_type": "design_gallery",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/refill-r01-02-1d6e88e954da.jpg",
+      "sha256": "1d6e88e954da06f2c35f1f459aebf43f871c013987032c40686848f4ef0ee3b3"
+    },
+    {
+      "reference_id": "ref-refill-r01-03",
+      "source_name": "AZENTOS® — Branding Agency Landing Page",
+      "source_url": "https://www.behance.net/gallery/253480109/AZENTOS-Branding-Agency-Landing-Page",
+      "region": "global",
+      "source_type": "design_gallery",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/refill-r01-03-4cfaee5f0461.png",
+      "sha256": "4cfaee5f0461907a8de63ee683d88e509ca772c3d97989c2fa6df1ce5fc0b498"
+    }
+  ],
+  "user_approval": {
+    "decision": "채택완료",
+    "approved_at": "2026-08-26",
+    "source": "current_user_conversation"
+  },
+  "source_state": {
+    "path": "/home/user/바탕화면/ai_os_v2_pm3/state/pm4-visual-reference-state.json",
+    "sha256": "7ce16d355e854da1544a3b09626f86ad09a68ea87933961d48e596d30ca2e862",
+    "refill_round": 1
+  },
+  "next_stage": "pm1_design_direction_grouping",
+  "next_stage_input": "selected_references_only",
+  "design_dna_extracted": false,
+  "visual_target_created": false,
+  "product_changed": false,
+  "implementation_allowed": false,
+  "created_at": "2026-08-26T11:53:43Z"
+}

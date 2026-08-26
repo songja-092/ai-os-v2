@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-interior-community-fixture-v1",
+  "original_request": "인테리어 사진과 시공 경험을 공유하는 커뮤니티 웹을 만들고 싶다",
+  "project_type": "interior_community",
+  "reference_search_terms": [
+    "interior design community website",
+    "interior social platform",
+    "home renovation community"
+  ],
+  "answers": {
+    "primary_users": "인테리어 사례를 찾는 사용자와 시공 경험을 공유하는 사용자",
+    "core_actions": ["사례 탐색", "사진 저장", "경험 공유", "전문가 확인"]
+  },
+  "status": "user_confirmed",
+  "user_confirmed": true,
+  "fixture_only": true,
+  "implementation_allowed": false
+}

@@ -1,0 +1,211 @@
+#!/usr/bin/env python3
+"""Verify deterministic boundaries of the V2 content reference radar."""
+
+import json
+import subprocess
+import tempfile
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+SKILL = ROOT / ".agents/skills/v2-content-reference-radar"
+SCRIPT = SKILL / "scripts/rank_candidates.py"
+RUNTIME_EVIDENCE = ROOT / "pm4-artifacts/content-reference-radar-v1/runtime-evidence.json"
+INSTAGRAM_RANKED = ROOT / "pm4-artifacts/content-reference-radar-v1/instagram-ranked.json"
+THREADS_EVIDENCE = ROOT / "pm4-artifacts/content-reference-radar-v1/threads-runtime-evidence.json"
+CARDNEWS_CANDIDATES = ROOT / "pm4-artifacts/content-reference-radar-v1/instagram-cardnews-candidates.json"
+CHANNEL_SEEDS = ROOT / "pm4-artifacts/content-reference-radar-v1/coding-channel-seeds.json"
+CHANNEL_RUNTIME = ROOT / "pm4-artifacts/content-reference-radar-v1/coding-channel-runtime.json"
+EVIDENCE_ROUTER = ROOT / "plugins/v2-capability-lab/scripts/pm4_evidence_router.py"
+EVIDENCE_ROUTER_RUNTIME = ROOT / "pm4-artifacts/content-reference-radar-v1/evidence-router-runtime.json"
+EVIDENCE_ROUTER_REVIEW = ROOT / "pm4-artifacts/content-reference-radar-v1/evidence-router-review.html"
+EVIDENCE_REFERENCE_STATE = ROOT / "state/pm4-evidence-reference-state.json"
+CORE_SELECTION_EVIDENCE = ROOT / "pm4-artifacts/content-reference-radar-v1/core-selection-runtime-evidence.json"
+
+fixture = {
+    "request": "AI 바이브 코딩 콘텐츠",
+    "items": [
+        {"platform": "youtube", "url": "https://youtube.example/a", "author": "a", "published_at": "2026-08-25T00:00:00Z", "title": "A", "summary_ko": "요약", "format_ko": "설명형 쇼츠", "metrics": {"views": 10000, "likes": 300, "comments": 20, "reposts": None}, "relevance": 90},
+        {"platform": "youtube", "url": "https://youtube.example/b", "author": "b", "published_at": None, "title": "B", "summary_ko": "요약", "format_ko": "사례형 쇼츠", "metrics": {"views": None, "likes": None, "comments": None, "reposts": None}, "relevance": 100},
+        {"platform": "instagram", "url": "https://instagram.example/c", "author": "c", "published_at": "2026-08-24T00:00:00Z", "title": "C", "summary_ko": "요약", "format_ko": "화면 시연 릴스", "metrics": {"views": None, "likes": 500, "comments": 12, "reposts": 3}, "relevance": 80},
+        {"platform": "threads", "url": "https://threads.example/d", "author": "d", "published_at": "2026-08-23T00:00:00Z", "title": "D", "summary_ko": "요약", "format_ko": "짧은 사례 글", "metrics": {"views": None, "likes": None, "comments": None, "reposts": None}, "relevance": 70},
+    ],
+}
+
+checks = {
+    "skill exists": (SKILL / "SKILL.md").exists(),
+    "contract exists": (SKILL / "references/candidate-contract.md").exists(),
+    "ranking script exists": SCRIPT.exists(),
+    "runtime evidence exists": RUNTIME_EVIDENCE.exists(),
+    "instagram runtime ranking exists": INSTAGRAM_RANKED.exists(),
+    "threads runtime evidence exists": THREADS_EVIDENCE.exists(),
+    "default cardnews candidates exist": CARDNEWS_CANDIDATES.exists(),
+    "coding channel seeds exist": CHANNEL_SEEDS.exists(),
+    "coding channel runtime exists": CHANNEL_RUNTIME.exists(),
+    "evidence router exists": EVIDENCE_ROUTER.exists(),
+    "evidence router runtime exists": EVIDENCE_ROUTER_RUNTIME.exists(),
+    "evidence router review exists": EVIDENCE_ROUTER_REVIEW.exists(),
+    "Core selection state exists": EVIDENCE_REFERENCE_STATE.exists(),
+    "Core selection runtime evidence exists": CORE_SELECTION_EVIDENCE.exists(),
+}
+if EVIDENCE_REFERENCE_STATE.exists():
+    selection_state = json.loads(EVIDENCE_REFERENCE_STATE.read_text(encoding="utf-8"))
+    checks["Core selection state is empty after test and product safe"] = (
+        selection_state.get("request_id") == "pm4-evidence-router-ai-vibe-design-v1"
+        and len(selection_state.get("items", [])) == 4
+        and selection_state.get("adopted_reference_ids") == []
+        and selection_state.get("product_changed") is False
+    )
+if CORE_SELECTION_EVIDENCE.exists():
+    core_evidence = json.loads(CORE_SELECTION_EVIDENCE.read_text(encoding="utf-8"))
+    core_checks = core_evidence.get("checks", {})
+    checks["Core selection persisted across restart and test choice was cleared"] = (
+        core_checks.get("temporary_adopt_saved") is True
+        and core_checks.get("server_restarted") is True
+        and core_checks.get("adopt_restored_after_restart") is True
+        and core_checks.get("temporary_adopt_cleared") is True
+        and core_checks.get("final_adopted_reference_ids") == []
+        and core_checks.get("product_changed") is False
+        and core_evidence.get("pm4_final_pass") is False
+    )
+if EVIDENCE_ROUTER_REVIEW.exists():
+    review_html = EVIDENCE_ROUTER_REVIEW.read_text(encoding="utf-8")
+    checks["review exposes only explained candidates and adopt action"] = (
+        review_html.count('class="card"') == 4
+        and review_html.count('<button data-value="adopt">채택</button>') == 4
+        and 'data-value="hold"' not in review_html
+        and 'data-value="discard"' not in review_html
+        and "마음에 드는 자료만 채택" in review_html
+        and "설명이 부족한 6개는 화면에서 제외" in review_html
+        and "채택만으로 제품에 자동 적용되지는 않습니다" in review_html
+    )
+if EVIDENCE_ROUTER_RUNTIME.exists():
+    router_runtime = json.loads(EVIDENCE_ROUTER_RUNTIME.read_text(encoding="utf-8"))
+    router_items = router_runtime.get("items", [])
+    checks["single topic routes four evidence types"] = (
+        router_runtime.get("runtime_scope") == "single_topic_limited_runtime"
+        and set(router_runtime.get("proven_evidence_types", [])) == {
+            "visual_reference", "real_usage", "implementation_material", "official_fact"
+        }
+        and not router_runtime.get("missing_evidence_types")
+    )
+    checks["router result preserves evidence diversity"] = (
+        len(router_items) == 10
+        and len({item.get("evidence_type") for item in router_items}) == 4
+        and len({item.get("platform") for item in router_items}) >= 5
+        and "youtube" in {item.get("platform") for item in router_items}
+        and all(item.get("user_decision") is None for item in router_items)
+    )
+    checks["router separates collected evidence from review-ready candidates"] = (
+        sum(bool(item.get("review_ready")) for item in router_items) == 4
+        and all(item.get("review_issue") for item in router_items if not item.get("review_ready"))
+    )
+    checks["router avoids automatic year expansion and adoption"] = (
+        router_runtime.get("freshness_policy", {}).get("automatic_one_year_expansion") is False
+        and router_runtime.get("automatic_adoption") is False
+        and router_runtime.get("automatic_product_application") is False
+    )
+if CHANNEL_SEEDS.exists():
+    channel_seeds = json.loads(CHANNEL_SEEDS.read_text(encoding="utf-8"))
+    channels = channel_seeds.get("channels", [])
+    locales = [item.get("locale") for item in channels]
+    checks["five to ten verified feed channels configured"] = (
+        5 <= len(channels) <= 10
+        and locales.count("ko") >= 2
+        and locales.count("global") >= 2
+        and all(item.get("channel_id", "").startswith("UC") for item in channels)
+        and all(item.get("feed", "").startswith("https://www.youtube.com/feeds/videos.xml?channel_id=") for item in channels)
+    )
+    checks["channel configuration does not auto adopt"] = (
+        channel_seeds.get("automatic_adoption") is False
+        and channel_seeds.get("automatic_product_application") is False
+        and channel_seeds.get("authentication_data_saved") is False
+    )
+if CHANNEL_RUNTIME.exists():
+    channel_runtime = json.loads(CHANNEL_RUNTIME.read_text(encoding="utf-8"))
+    summaries = channel_runtime.get("source_summary", [])
+    checks["all configured channel feeds connected"] = (
+        len(summaries) >= 5
+        and all(item.get("status") == "CONNECTED" for item in summaries)
+        and not channel_runtime.get("source_failures")
+    )
+    checks["channel-balanced non-shorts reference output"] = (
+        channel_runtime.get("mode") == "reference_default"
+        and channel_runtime.get("selection_strategy") == "one_per_connected_relevant_channel_then_recent"
+        and len({item.get("channel_name") for item in channel_runtime.get("items", [])}) >= 5
+        and all("/shorts/" not in (item.get("url") or "") for item in channel_runtime.get("items", []))
+    )
+if RUNTIME_EVIDENCE.exists():
+    runtime = json.loads(RUNTIME_EVIDENCE.read_text(encoding="utf-8"))
+    checks["instagram collection and limited ranking proven"] = (
+        runtime.get("public_reference_collection") == "PASS"
+        and runtime.get("runtime_ranking") == "PASS_FOR_3_VIDEO_CANDIDATES"
+    )
+    checks["auth data not persisted"] = runtime.get("saved_auth_data") is False
+    checks["private content not persisted"] = runtime.get("saved_private_content") is False
+    checks["unlicensed source not reused"] = (
+        runtime.get("source_code_reuse") is False
+        and runtime.get("reference_repository", {}).get("license") == "NOT_FOUND"
+    )
+if INSTAGRAM_RANKED.exists():
+    instagram_ranked = json.loads(INSTAGRAM_RANKED.read_text(encoding="utf-8"))
+    checks["three instagram videos ranked"] = (
+        len(instagram_ranked.get("items", [])) == 3
+        and all(item.get("ranking", {}).get("scope") == "instagram_items_only" for item in instagram_ranked.get("items", []))
+        and all(item.get("user_decision") is None for item in instagram_ranked.get("items", []))
+    )
+if THREADS_EVIDENCE.exists():
+    threads_runtime = json.loads(THREADS_EVIDENCE.read_text(encoding="utf-8"))
+    checks["threads public collection proven without ranking inflation"] = (
+        threads_runtime.get("public_reference_collection") == "PASS"
+        and threads_runtime.get("runtime_ranking") == "NOT_PROVEN"
+        and threads_runtime.get("metric_labels") == "NOT_EXPOSED_IN_SEARCH_DOM"
+    )
+if CARDNEWS_CANDIDATES.exists():
+    cardnews = json.loads(CARDNEWS_CANDIDATES.read_text(encoding="utf-8"))
+    checks["reference mode prefers non-video candidates"] = (
+        cardnews.get("mode") == "reference_default"
+        and len(cardnews.get("items", [])) == 5
+        and all("video" not in item.get("format", "") for item in cardnews.get("items", []))
+        and cardnews.get("automatic_product_application") is False
+    )
+with tempfile.TemporaryDirectory() as directory:
+    input_path = Path(directory) / "input.json"
+    output_path = Path(directory) / "output.json"
+    input_path.write_text(json.dumps(fixture, ensure_ascii=False), encoding="utf-8")
+    completed = subprocess.run(["python3", str(SCRIPT), "--input", str(input_path), "--output", str(output_path)], check=False, capture_output=True, text=True)
+    checks["script runs"] = completed.returncode == 0 and output_path.exists()
+    if output_path.exists():
+        result = json.loads(output_path.read_text(encoding="utf-8"))
+        by_url = {item["url"]: item for item in result["items"]}
+        checks["all platforms preserved"] = {item["platform"] for item in result["items"]} == {"youtube", "instagram", "threads"}
+        checks["missing metrics not invented"] = by_url["https://threads.example/d"]["ranking"]["status"] == "NOT_PROVEN"
+        checks["decision remains user owned"] = all(item["user_decision"] is None for item in result["items"])
+        checks["no automatic product application"] = result["automatic_product_application"] is False
+        checks["ranking is platform local"] = all(item["ranking"]["scope"].endswith("_items_only") for item in result["items"])
+
+with tempfile.TemporaryDirectory() as directory:
+    directory_path = Path(directory)
+    request_path = directory_path / "request.json"
+    sources_path = directory_path / "sources.json"
+    output_path = directory_path / "output.json"
+    request_path.write_text(json.dumps({"topic": "AI 코딩 도구", "goal": "구현과 공식 기능 확인"}, ensure_ascii=False), encoding="utf-8")
+    sources_path.write_text(json.dumps({"sources": [
+        {"adapter": "missing-official", "platform": "official_web", "evidence_types": ["official_fact"], "artifact": "missing.json"}
+    ]}, ensure_ascii=False), encoding="utf-8")
+    completed = subprocess.run([
+        "python3", str(EVIDENCE_ROUTER), "--request", str(request_path), "--sources", str(sources_path),
+        "--output", str(output_path), "--limit", "3"
+    ], check=False, capture_output=True, text=True)
+    checks["missing adapter evidence stays not proven"] = completed.returncode == 0 and output_path.exists()
+    if output_path.exists():
+        missing_result = json.loads(output_path.read_text(encoding="utf-8"))
+        checks["missing adapter evidence stays not proven"] = (
+            checks["missing adapter evidence stays not proven"]
+            and "official_fact" in missing_result.get("missing_evidence_types", [])
+            and missing_result.get("routes", [{}])[0].get("status") == "NOT_PROVEN"
+            and not missing_result.get("items")
+        )
+
+failed = [name for name, passed in checks.items() if not passed]
+print(json.dumps({"status": "PASS" if not failed else "FAIL", "checks": checks, "failed": failed}, ensure_ascii=False, indent=2))
+raise SystemExit(1 if failed else 0)

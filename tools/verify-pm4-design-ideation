@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import hashlib
+import json
+import os
+import subprocess
+import time
+import urllib.request
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+STATE = ROOT / "state/pm4-design-ideation-state.json"
+MANIFEST = ROOT / "pm4-artifacts/project-collector-mvp-v1/electronic-card-visual-directions.json"
+DNA = ROOT / "pm4-artifacts/project-collector-mvp-v1/electronic-card-design-dna.json"
+PORT = 8232
+BASE = f"http://127.0.0.1:{PORT}"
+REQUEST_ID = "pm4-electronic-business-card-design-v1"
+
+
+def digest(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def request(path: str, payload: dict | None = None) -> dict:
+    data = None if payload is None else json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(BASE + path, data=data, headers={"content-type": "application/json"} if data else {})
+    with urllib.request.urlopen(req, timeout=5) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+def main() -> None:
+    original = STATE.read_bytes()
+    server = None
+    try:
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        dna = json.loads(DNA.read_text(encoding="utf-8"))
+        assert len(manifest["directions"]) == 5
+        assert len(dna["reference_ids"]) == 6
+        assert manifest["generation_provenance"]["core_generated"] is False
+        assert manifest["implementation_approved"] is False
+        assert manifest["selected_display_order"] == 2
+        target = MANIFEST.parent / manifest["selected_visual_target"]["image_path"]
+        assert target.is_file() and digest(target) == manifest["selected_visual_target"]["sha256"]
+        assert dna["selected_direction"]["direction_id"] == "direction-2"
+        assert len(dna["required_screens_and_states"]) == 8
+        assert dna["portrait_processing_contract"]["original_preserved"] is True
+        assert dna["portrait_processing_contract"]["default_face_alteration"] is False
+        assert set(dna["portrait_processing_contract"]["supported_input_types"]) == {
+            "id_portrait", "upper_body", "full_body", "landscape_portrait",
+        }
+        assert dna["visual_target"]["user_approval"]["status"] == "approved"
+        for item in manifest["directions"]:
+            image = MANIFEST.parent / item["image_path"]
+            assert image.is_file() and digest(image) == item["sha256"]
+        server = subprocess.Popen(
+            [str(ROOT / "v2"), "dashboard", "--port", str(PORT)],
+            cwd=ROOT, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        )
+        for _ in range(40):
+            try:
+                state = request(f"/api/pm4/design-ideation-ui-state?request_id={REQUEST_ID}")
+                break
+            except Exception:
+                time.sleep(0.1)
+        else:
+            raise RuntimeError("dashboard did not start")
+        assert len(state["directions"]) == 5
+        assert state["automatic_generation"] is False
+        assert state["implementation_approved"] is False and state["product_changed"] is False
+        assert state["visual_target_approved"] is True
+        chosen = request("/api/pm4/design-ideation-ui-action", {
+            "request_id": REQUEST_ID, "action": "design-ideation.select", "direction_id": "direction-3",
+        })["state"]
+        assert chosen["selected_direction_id"] == "direction-3"
+        assert chosen["visual_target_approved"] is False
+        server.terminate(); server.wait(timeout=5); server = None
+        server = subprocess.Popen(
+            [str(ROOT / "v2"), "dashboard", "--port", str(PORT)],
+            cwd=ROOT, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        )
+        for _ in range(40):
+            try:
+                restored = request(f"/api/pm4/design-ideation-ui-state?request_id={REQUEST_ID}")
+                break
+            except Exception:
+                time.sleep(0.1)
+        else:
+            raise RuntimeError("dashboard restart did not start")
+        assert restored["selected_direction_id"] == "direction-3"
+        assert restored["visual_target_approved"] is False
+        review = urllib.request.urlopen(BASE + "/pm4-design-candidates.html", timeout=5).read().decode("utf-8")
+        assert "Product Design + ImageGen" in review and "이름·사진·직책" in review
+        visual_target_review = urllib.request.urlopen(BASE + "/pm4-electronic-card-visual-target.html", timeout=5).read().decode("utf-8")
+        assert "전체 화면 Visual Target" in visual_target_review and "사진 자동 보정" in visual_target_review
+        target_image = urllib.request.urlopen(BASE + "/pm4-design-target-images/direction-2-full-flow-visual-target.png", timeout=5).read()
+        assert hashlib.sha256(target_image).hexdigest() == manifest["selected_visual_target"]["sha256"]
+        print("PASS: five external electronic-card candidates are Core-connected, selectable, restart-persistent, and non-applying.")
+    finally:
+        if server and server.poll() is None:
+            server.terminate()
+            try: server.wait(timeout=5)
+            except subprocess.TimeoutExpired: server.kill()
+        STATE.write_bytes(original)
+
+
+if __name__ == "__main__":
+    main()

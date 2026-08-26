@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "mode": "reference_default",
+  "request": "바이브코딩 Reference 후보 등록",
+  "selection_policy": "cardnews_and_slide_posts_first",
+  "items": [
+    {
+      "url": "https://www.instagram.com/p/DbxqUOQBQEh/",
+      "format": "cardnews_or_static_post",
+      "summary_ko": "바이브 코딩 도구를 생각·코드·저장·배포 순서로 설명하는 자료",
+      "reference_use": "복잡한 제작 흐름을 단계별 카드로 설명하는 구성"
+    },
+    {
+      "url": "https://www.instagram.com/p/DVcQHXLku5O/",
+      "format": "cardnews_or_static_post",
+      "summary_ko": "바이브 코딩에서 기획과 개발을 함께 다뤄야 한다는 짧은 메시지",
+      "reference_use": "강한 한 문장 중심 표지 구성"
+    },
+    {
+      "url": "https://www.instagram.com/p/DHrrYXMSr5p/",
+      "format": "cardnews_or_static_post",
+      "summary_ko": "바이브 코딩의 개념과 직군별 활용 변화를 설명하는 자료",
+      "reference_use": "개념 설명과 역할별 사례를 이어가는 교육형 카드 구성"
+    },
+    {
+      "url": "https://www.instagram.com/p/DV3e0PNkS1N/",
+      "format": "carousel_slide",
+      "summary_ko": "바이브 코딩 사례와 프롬프트 구조를 슬라이드로 정리한 자료",
+      "reference_use": "여러 사례를 순서대로 넘겨보는 슬라이드 구성"
+    },
+    {
+      "url": "https://www.instagram.com/p/DXWP0HfEfIj/",
+      "format": "cardnews_or_static_post",
+      "summary_ko": "비개발자가 AI로 앱을 만드는 흐름과 실제 아이디어 사례를 설명하는 자료",
+      "reference_use": "통계·사례·결론을 연결하는 이야기형 카드 구성"
+    }
+  ],
+  "user_decision": null,
+  "automatic_product_application": false
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "adapter": "instagram_cardnews_reference",
+      "platform": "instagram",
+      "evidence_types": ["visual_reference"],
+      "artifact": "instagram-cardnews-candidates.json"
+    },
+    {
+      "adapter": "threads_topic_reference",
+      "platform": "threads",
+      "evidence_types": ["visual_reference", "real_usage"],
+      "artifact": "threads-runtime-evidence.json"
+    },
+    {
+      "adapter": "youtube_channel_feed",
+      "platform": "youtube",
+      "evidence_types": ["real_usage"],
+      "artifact": "coding-channel-runtime.json"
+    },
+    {
+      "adapter": "github_public_search",
+      "platform": "github",
+      "evidence_types": ["implementation_material"],
+      "artifact": "coding-reference-github-runtime.json"
+    },
+    {
+      "adapter": "official_document_check",
+      "platform": "official_web",
+      "evidence_types": ["official_fact"],
+      "artifact": "official-fact-runtime.json"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-evidence-router-ai-vibe-design-v1",
+  "runtime_scope": "single_topic_core_connected_selection",
+  "review_url": "http://127.0.0.1:8227/pm4-evidence-review",
+  "checks": {
+    "core_state_loaded": true,
+    "temporary_adopt_saved": true,
+    "server_restarted": true,
+    "adopt_restored_after_restart": true,
+    "temporary_adopt_cleared": true,
+    "final_adopted_reference_ids": [],
+    "browser_console_errors": 0,
+    "product_changed": false
+  },
+  "automatic_product_application": false,
+  "pm4_final_pass": false,
+  "user_decision": "pending"
+}

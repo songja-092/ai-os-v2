@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "platform": "official_web",
+  "checked_at": "2026-08-26T00:00:00+09:00",
+  "query_scope": "AI 코딩 Agent와 Harness 운영 방식의 공식 근거",
+  "role": "fact_verification_only",
+  "items": [
+    {
+      "title": "OpenAI의 Codex 안전 운영 방식",
+      "url": "https://openai.com/index/running-codex-safely/",
+      "published_at": "2026-05-08",
+      "short_summary": "Coding Agent가 저장소와 개발 도구를 다룰 때 접근 경계, 사람 승인, 실행 기록과 감사를 함께 운영하는 공식 사례다.",
+      "source_owner": "OpenAI"
+    },
+    {
+      "title": "Codex Agent Loop 설명",
+      "url": "https://openai.com/index/unrolling-the-codex-agent-loop/",
+      "published_at": "2026-01-23",
+      "short_summary": "Codex CLI가 로컬에서 지시를 해석하고 도구를 사용해 작업을 반복하는 구조를 설명하는 공식 기술 자료다.",
+      "source_owner": "OpenAI"
+    },
+    {
+      "title": "Harness Engineering 운영 사례",
+      "url": "https://openai.com/index/harness-engineering/",
+      "published_at": "2026-02-11",
+      "short_summary": "Coding Agent가 안정적으로 결과에 도달하도록 환경, 검사와 작업 경계를 설계하는 공식 운영 사례다.",
+      "source_owner": "OpenAI"
+    }
+  ],
+  "automatic_adoption": false,
+  "user_decision": null
+}

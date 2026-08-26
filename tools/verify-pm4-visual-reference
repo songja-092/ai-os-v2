@@ -1,0 +1,173 @@
+#!/usr/bin/env python3
+import hashlib
+import importlib.machinery
+import importlib.util
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATE = os.path.join(ROOT, "state", "pm4-visual-reference-state.json")
+COLLECTION = os.path.join(ROOT, "pm4-artifacts", "project-collector-mvp-v1", "visual-reference-collection.json")
+SECOND_COLLECTION = os.path.join(ROOT, "test-fixtures", "pm4-visual-reference", "interior-community-collection.json")
+COLLECTOR = os.path.join(ROOT, "plugins", "v2-capability-lab", "scripts", "pm4_visual_reference_collector.py")
+REFILL = os.path.join(ROOT, "plugins", "v2-capability-lab", "scripts", "pm4_visual_reference_refill.py")
+RECEIPT = os.path.join(ROOT, "pm4-artifacts", "project-collector-mvp-v1", "interview-receipt.json")
+REVIEW = os.path.join(ROOT, "pm4-artifacts", "project-collector-mvp-v1", "visual-reference-review.html")
+HANDOFF = os.path.join(ROOT, "pm4-artifacts", "project-collector-mvp-v1", "visual-reference-selection-handoff.json")
+
+
+def digest(path):
+    if not os.path.exists(path):
+        return None
+    with open(path, "rb") as source:
+        return hashlib.sha256(source.read()).hexdigest()
+
+
+def load_v2():
+    loader = importlib.machinery.SourceFileLoader("v2_runtime", os.path.join(ROOT, "v2"))
+    spec = importlib.util.spec_from_loader(loader.name, loader)
+    module = importlib.util.module_from_spec(spec)
+    loader.exec_module(module)
+    return module
+
+
+def require(condition, message):
+    if not condition:
+        raise AssertionError(message)
+
+
+def main():
+    state_before = open(STATE, "rb").read() if os.path.exists(STATE) else None
+    persisted_state = json.loads(state_before) if state_before is not None else None
+    try:
+        with open(COLLECTION, "r", encoding="utf-8") as source:
+            collection = json.load(source)
+        shutil.copyfile(COLLECTION, STATE)
+        items = collection["items"]
+        require(collection["request_id"] == "pm4-electronic-business-card-mvp-v1", "request mismatch")
+        require(len(items) >= 5, "fewer than five references")
+        require(collection["evidence_scope"] == "electronic_business_card", "request scope mismatch")
+        require(len({item["source_url"] for item in items}) == len(items), "duplicate source URL")
+        require(len({item["sha256"] for item in items}) == len(items), "duplicate image")
+        refill = collection.get("refill")
+        require(refill and 3 <= refill.get("added_count", 0) <= 5, "refill did not append 3-5 references")
+        refill_ids = set(refill.get("added_reference_ids", []))
+        require(refill_ids.issubset({item["reference_id"] for item in items}), "refill references are missing")
+        require(refill.get("dedup_methods") == ["source_url", "sha256", "dhash_visual_similarity"], "refill dedup contract is incomplete")
+        require(collection.get("refill_history", [])[-1] == refill, "refill history was not preserved")
+        for item in items:
+            require(os.path.isfile(item["local_image_path"]), "local image missing")
+            require(digest(item["local_image_path"]) == item["sha256"], "image hash mismatch")
+            require(item["reuse_policy"] == "reference_only", "reuse boundary missing")
+            require(item["natural_summary_ko"] and item["traits"] and item["do_not_copy"], "visual metadata incomplete")
+        discovered = [item for item in items if item.get("discovery_evidence", {}).get("provider") == "behance_public_search"]
+        require(len(discovered) >= 5, "search-discovered visual evidence is insufficient")
+        korean = [item for item in items if item.get("region") == "korea"]
+        require(len(korean) >= 3, "registered Korean visual evidence is insufficient")
+        require(all(item.get("discovery_evidence", {}).get("provider") == "registered_korean_actual_source" for item in korean), "Korean provider provenance is unclear")
+        with open(SECOND_COLLECTION, "r", encoding="utf-8") as source:
+            second = json.load(source)
+        require(second["request_id"] != collection["request_id"], "second topic reused the first request")
+        require(second["evidence_scope"] == "interior_community" and len(second["items"]) >= 5, "second topic was not reproduced")
+        require(all(os.path.isfile(item["local_image_path"]) for item in second["items"]), "second-topic image missing")
+
+        v2 = load_v2()
+        shutil.copyfile(SECOND_COLLECTION, STATE)
+        second_core = v2.pm4_visual_reference_ui_state(ROOT)
+        require(second_core["request_id"] == second["request_id"] and len(second_core["items"]) == len(second["items"]), "second topic did not pass through Core")
+        shutil.copyfile(COLLECTION, STATE)
+
+        with tempfile.TemporaryDirectory(prefix="pm4-visual-failure-") as temp_dir:
+            seed_items = []
+            for item in items:
+                seed_items.append({
+                    "reference_id": item["reference_id"], "source_name": item["source_name"],
+                    "source_url": item["source_url"], "local_image_path": item["local_image_path"],
+                    "source_type": item["source_type"], "region": item["region"],
+                    "natural_summary_ko": item["natural_summary_ko"], "traits": item["traits"],
+                    "do_not_copy": item["do_not_copy"], "discovery_evidence": item.get("discovery_evidence"),
+                })
+            broken = dict(seed_items[0])
+            broken.update({"reference_id": "ref-intended-failure", "source_url": "user-provided://missing-fixture", "local_image_path": os.path.join(temp_dir, "missing.png")})
+            seed_items.append(broken)
+            seed_path = os.path.join(temp_dir, "seeds.json")
+            output_path = os.path.join(temp_dir, "collection.json")
+            with open(seed_path, "w", encoding="utf-8") as target:
+                json.dump({"request_id": collection["request_id"], "references": seed_items}, target, ensure_ascii=False)
+            subprocess.run([COLLECTOR, "--receipt", RECEIPT, "--seed-file", seed_path, "--output", output_path,
+                            "--image-dir", os.path.join(temp_dir, "images")], check=True, stdout=subprocess.DEVNULL)
+            isolated = json.load(open(output_path, encoding="utf-8"))
+            require(len(isolated["items"]) == len(items), "one source failure blocked healthy references")
+            require(len(isolated["source_failures"]) == 1, "intended source failure was not recorded")
+        serialized = json.dumps(collection, ensure_ascii=False).lower()
+        require(all(secret not in serialized for secret in ["cookie", "password", "access_token"]), "secret-like field found")
+        review = open(REVIEW, encoding="utf-8").read()
+        require("추가 탐색" in review and "디자인 참고" in review and "기능 참고" in review, "refill review controls are missing")
+        if os.path.exists(HANDOFF):
+            handoff = json.load(open(HANDOFF, encoding="utf-8"))
+            adopted_ids = {key for key, value in (persisted_state or collection).get("decisions", {}).items() if value == "adopt"}
+            handoff_ids = {item["reference_id"] for item in handoff.get("selected_references", [])}
+            require(handoff["status"] == "user_visual_reference_selection_confirmed", "selection handoff status is invalid")
+            require(handoff_ids == adopted_ids and handoff["selected_count"] == len(adopted_ids), "selection handoff does not match user decisions")
+            require(handoff["design_dna_extracted"] is False and handoff["visual_target_created"] is False, "PM4 handoff exceeded its boundary")
+            require(handoff["product_changed"] is False and handoff["implementation_allowed"] is False, "PM4 handoff changed product scope")
+
+        with tempfile.TemporaryDirectory(prefix="pm4-refill-reject-") as temp_dir:
+            state_copy = os.path.join(temp_dir, "state.json")
+            collection_copy = os.path.join(temp_dir, "collection.json")
+            shutil.copyfile(COLLECTION, state_copy)
+            shutil.copyfile(COLLECTION, collection_copy)
+            state_hash = digest(state_copy)
+            collection_hash = digest(collection_copy)
+            rejected = subprocess.run([
+                REFILL, "--receipt", RECEIPT, "--state", state_copy,
+                "--collection", collection_copy, "--image-dir", os.path.join(temp_dir, "images"),
+                "--review-output", os.path.join(temp_dir, "review.html"),
+                "--regional-seed-file", os.path.join(ROOT, "pm4-artifacts", "project-collector-mvp-v1", "visual-reference-seeds.json"),
+                "--discovery-script", os.path.join(ROOT, "plugins", "v2-capability-lab", "scripts", "pm4_visual_reference_discovery.py"),
+                "--collector-script", COLLECTOR, "--append-limit", "2",
+            ], capture_output=True, text=True)
+            require(rejected.returncode != 0, "invalid refill limit unexpectedly passed")
+            require(digest(state_copy) == state_hash and digest(collection_copy) == collection_hash, "failed refill changed preserved state")
+
+        core = v2.pm4_visual_reference_ui_state(ROOT)
+        require(core["pm4_visual_reference_pass"] is True, "Core did not expose visual references")
+        require(core["generalized_search_proven"] is False, "fixture was promoted to generalized search")
+        require("visual-reference.refill" in core["allowed_actions"], "Core does not expose refill action")
+        require(core["provider_status"]["instagram"] == "deferred_login_adapter", "deferred provider was overstated")
+        first = items[0]["reference_id"]
+        v2.apply_pm4_visual_reference_action(ROOT, {
+            "request_id": collection["request_id"], "action": "visual-reference.decision.set",
+            "reference_id": first, "decision": "hold",
+        })
+        require(v2.pm4_visual_reference_ui_state(ROOT)["decisions"][first] == "hold", "Core decision did not persist")
+        try:
+            v2.apply_pm4_visual_reference_action(ROOT, {
+                "request_id": collection["request_id"], "action": "visual-reference.apply",
+                "reference_id": first,
+            })
+            raise AssertionError("forbidden automatic apply succeeded")
+        except PermissionError:
+            pass
+        print("PASS: PM4 actual electronic-card visual Reference path is Core-connected and bounded.")
+        return 0
+    finally:
+        if state_before is None:
+            if os.path.exists(STATE):
+                os.unlink(STATE)
+        else:
+            with open(STATE, "wb") as target:
+                target.write(state_before)
+
+
+if __name__ == "__main__":
+    try:
+        raise SystemExit(main())
+    except (AssertionError, OSError, ValueError, KeyError, json.JSONDecodeError, subprocess.CalledProcessError) as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        raise SystemExit(1)

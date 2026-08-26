@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-electronic-business-card-design-v1",
+  "status": "user_approved_visual_target_ready_for_downstream_implementation",
+  "selected_direction_id": "direction-2",
+  "design_dna_path": "electronic-card-design-dna.json",
+  "visual_target_path": "design-candidates/direction-2-full-flow-visual-target.png",
+  "required_screens": [
+    "main_profile",
+    "introduction_and_career",
+    "qr_nfc_share",
+    "contact_save_preview_success_failure",
+    "external_contact_handoff_success_unavailable",
+    "owner_profile_editor",
+    "portrait_auto_correction_and_manual_crop",
+    "theme_and_action_order_editor"
+  ],
+  "portrait_inputs": ["id_portrait", "upper_body", "full_body", "landscape_portrait"],
+  "portrait_contract": {
+    "original_preserved": true,
+    "type_specific_layout": true,
+    "separate_mobile_desktop_crop": true,
+    "manual_adjustment": true,
+    "default_face_alteration": false
+  },
+  "external_contact_apps": {
+    "replicate_external_app_ui": false,
+    "verify_deep_link_handoff_and_failure_state": true
+  },
+  "implementation": {
+    "approved": false,
+    "runtime_present": false,
+    "product_changed": false,
+    "owner": "downstream PM2 and PM3 implementation; PM6 verification"
+  },
+  "user_approval": {
+    "status": "approved",
+    "approved_at": "2026-08-26"
+  }
+}

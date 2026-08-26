@@ -1,0 +1,32 @@
+{
+  "evidence_id": "content-reference-radar-instagram-2026-08-26",
+  "checked_at": "2026-08-26T00:00:00+09:00",
+  "platform": "instagram",
+  "default_mode": "reference_default",
+  "default_format_priority": ["cardnews", "carousel", "static_post", "threads_text"],
+  "marketer_only_formats": ["shorts", "reels"],
+  "account_context": "logged_in_user_confirmed_in_aside_browser",
+  "query": "#바이브코딩",
+  "result_url": "https://www.instagram.com/explore/search/keyword/?q=%23%EB%B0%94%EC%9D%B4%EB%B8%8C%EC%BD%94%EB%94%A9",
+  "public_reference_count": 10,
+  "public_reference_collection": "PASS",
+  "video_candidates_found": 5,
+  "video_candidates_ranked": 3,
+  "video_ranking_usage": "marketer_video_mode_only",
+  "cardnews_candidates_registered": 5,
+  "visible_popularity_metrics": "PASS_FOR_3_VIDEO_CANDIDATES",
+  "runtime_ranking": "PASS_FOR_3_VIDEO_CANDIDATES",
+  "threads_collection": "PASS_PUBLIC_SEARCH_WITHOUT_LOGIN",
+  "youtube_collection": "NOT_RUN",
+  "saved_auth_data": false,
+  "saved_private_content": false,
+  "source_code_reuse": false,
+  "reference_repository": {
+    "url": "https://github.com/haeun2525/trend-radar",
+    "commit": "835558a3439b1e445b1bbbedb341f7e50ae7ec33",
+    "license": "NOT_FOUND",
+    "usage": "concept_reference_only"
+  },
+  "technical_verdict": "PASS_WITH_FIX",
+  "remaining_fix": "Instagram 전체 후보 자동 상세 순회와 Threads 숫자별 지표 이름 확인은 아직 필요하다."
+}

@@ -1,0 +1,42 @@
+{
+  "mode": "marketer_video",
+  "request": "바이브코딩 인기 영상 Reference",
+  "items": [
+    {
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DVgRqjjkpmN/",
+      "author": "jakdang.code",
+      "published_at": "2026-03-05T00:00:00+09:00",
+      "title": "바이브 코딩으로 앱을 맹글어 보았습니다",
+      "summary_ko": "바이브 코딩으로 실제 앱을 만드는 과정을 보여주는 영상",
+      "format_ko": "앱 제작 시연 영상",
+      "metrics": {"views": null, "likes": 1700, "comments": 111, "reposts": 126},
+      "relevance": 100,
+      "evidence": "로그인된 Aside Browser 공개 게시물 화면"
+    },
+    {
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DYWrZ6fTCrX/",
+      "author": "muni.view",
+      "published_at": "2026-05-15T00:00:00+09:00",
+      "title": "다들 AI한테 일 시켜놓고 뭐하고 계시나요",
+      "summary_ko": "AI에게 작업을 맡긴 사람의 실제 사용 장면을 보여주는 영상",
+      "format_ko": "AI 활용 일상 영상",
+      "metrics": {"views": null, "likes": 73, "comments": 15, "reposts": null},
+      "relevance": 80,
+      "evidence": "로그인된 Aside Browser 공개 게시물 화면"
+    },
+    {
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/Da7MGgPpX-9/",
+      "author": "hyo.saeng",
+      "published_at": "2026-07-18T00:00:00+09:00",
+      "title": "연휴에도 멈출 수 없는 클코",
+      "summary_ko": "Claude Code를 활용하는 제작자의 실제 작업 장면을 보여주는 영상",
+      "format_ko": "바이브 코딩 작업 영상",
+      "metrics": {"views": null, "likes": 473, "comments": 18, "reposts": 14},
+      "relevance": 90,
+      "evidence": "로그인된 Aside Browser 공개 게시물 화면"
+    }
+  ]
+}

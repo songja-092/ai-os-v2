@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>전자명함 디자인 방향 5개</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f4f1eb;color:#172019;font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif}main{max-width:1320px;margin:auto;padding:40px 24px 72px}header{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:24px}h1{font-size:clamp(32px,5vw,56px);line-height:1.08;margin:0 0 10px}header p{max-width:720px;color:#59635c;line-height:1.65;margin:0}.status{font-weight:800;color:#087a54}.notice{background:#fff4cc;border-radius:12px;padding:15px 17px;margin-bottom:24px;line-height:1.55}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}.candidate{background:#fff;border:1px solid #d6ddd8;border-radius:18px;overflow:hidden;display:flex;flex-direction:column}.candidate.selected{outline:4px solid #0a8a5d;outline-offset:2px}.image{aspect-ratio:390/844;background:#e6ebe7;overflow:auto}.image img{display:block;width:100%;height:auto}.body{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px}.body strong{font-size:18px}.body button{border:1px solid #9db2a8;background:#fff;border-radius:9px;padding:10px 14px;font-weight:800;color:#153b2d;cursor:pointer}.candidate.selected button{background:#13251e;color:#fff;border-color:#13251e}.contract{margin-top:24px;background:#fff;border:1px solid #d6ddd8;border-radius:16px;padding:18px;line-height:1.65}.contract b{display:block;margin-bottom:6px}@media(max-width:640px){main{padding:24px 16px 48px}header{display:block}.status{display:block;margin-top:12px}.grid{grid-template-columns:1fr}.image{max-height:680px}}
+  </style>
+</head>
+<body><main>
+  <header><div><h1>전자명함 디자인 방향</h1><p>채택 Reference 6개에서 Design DNA를 정리하고 외부 Product Design + ImageGen으로 만든 5개 후보입니다. Core는 생성한 척하지 않고 출처·Hash·선택만 관리합니다.</p></div><span class="status">최종 선택은 사용자</span></header>
+  <div id="status" class="notice">Core 상태를 불러오는 중입니다.</div>
+  <p id="targetLink" hidden><a href="/pm4-electronic-card-visual-target.html" style="display:inline-block;background:#13251e;color:#fff;text-decoration:none;border-radius:10px;padding:12px 16px;font-weight:800">2번 전체 화면 Visual Target 보기</a></p>
+  <section id="grid" class="grid" aria-live="polite"></section>
+  <section class="contract"><b>실제 Module에서 바꿀 수 있어야 하는 항목</b>이름·사진·직책·소속·소개·연락처·카카오/SNS·웹사이트·QR 주소·대표색·보조색·배경색·사진 위치와 자르기·행동 순서</section>
+</main><script>
+const requestId='pm4-electronic-business-card-design-v1';const grid=document.querySelector('#grid');const statusEl=document.querySelector('#status');const targetLink=document.querySelector('#targetLink');
+function render(state){grid.innerHTML='';state.directions.forEach(item=>{const id=`direction-${item.display_order}`;const card=document.createElement('article');card.className='candidate'+(state.selected_direction_id===id?' selected':'');card.innerHTML=`<div class="image"><img src="/pm4-design-candidate-images/${id}.png" alt="전자명함 디자인 방향 ${item.display_order}"></div><div class="body"><strong>${item.display_order}번</strong><button type="button">${state.selected_direction_id===id?'선택됨':'이 방향 선택'}</button></div>`;card.querySelector('button').addEventListener('click',()=>save(state.selected_direction_id===id?'design-ideation.clear':'design-ideation.select',id));grid.appendChild(card)});targetLink.hidden=!(state.selected_direction_id==='direction-2'&&state.visual_target_ready);statusEl.textContent=state.selected_direction_id?'선택 결과가 Core에 저장되었습니다. 선택만으로 구현되지는 않습니다.':'5개 후보가 Core에 연결되었습니다. 한 방향을 선택해주세요.'}
+async function load(){try{const response=await fetch('/api/pm4/design-ideation-ui-state?request_id='+encodeURIComponent(requestId),{cache:'no-store'});const data=await response.json();if(!response.ok)throw new Error(data.error||'Core 상태를 읽지 못했습니다.');render(data)}catch(error){statusEl.textContent='Core 연결 오류: '+error.message}}
+async function save(action,directionId){try{const response=await fetch('/api/pm4/design-ideation-ui-action',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({request_id:requestId,action,direction_id:directionId})});const data=await response.json();if(!response.ok)throw new Error(data.error||'선택을 저장하지 못했습니다.');render(data.state)}catch(error){statusEl.textContent='저장 오류: '+error.message}}
+load();
+</script></body></html>

@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-electronic-business-card-mvp-v1",
+  "references": [
+    {
+      "reference_id": "ref-user-lawyer-card",
+      "source_name": "사용자 제공 한국 변호사 전자명함",
+      "source_url": "user-provided://electronic-card-lawyer-example",
+      "local_image_path": "/tmp/codex-clipboard-dc0b293f-41b3-41db-84d4-b3304da05767.png",
+      "source_type": "user_provided",
+      "region": "korea",
+      "natural_summary_ko": "인물 사진을 크게 보여주고 전문 분야, 소개, 연락 채널을 한 화면 흐름으로 연결한 한국형 전자명함입니다.",
+      "traits": ["큰 인물 사진", "전문 분야 강조", "연락 채널 묶음", "어두운 편집형 구성"],
+      "do_not_copy": ["실제 인물", "법률 브랜드", "원문 문구"]
+    },
+    {
+      "reference_id": "ref-gcard-social",
+      "source_name": "GCARD 사회복지·NGO 템플릿",
+      "source_url": "https://gcard.kr/vcard-templates#vcard25",
+      "image_url": "https://gcard.kr/assets/img/templates/vcard25.png",
+      "source_type": "korean_actual_service",
+      "region": "korea",
+      "natural_summary_ko": "한국 전자명함 서비스가 사회복지·NGO 용도로 제공하는 실제 모바일 템플릿입니다.",
+      "traits": ["모바일 단일 화면", "연락 행동 우선", "한국 서비스 문법"],
+      "do_not_copy": ["GCARD 브랜드", "템플릿 문구", "원본 이미지"]
+    },
+    {
+      "reference_id": "ref-gcard-professional",
+      "source_name": "GCARD 전문가 템플릿",
+      "source_url": "https://gcard.kr/vcard-templates#vcard16",
+      "image_url": "https://gcard.kr/assets/img/templates/vcard16.png",
+      "source_type": "korean_actual_service",
+      "region": "korea",
+      "natural_summary_ko": "전문직의 신뢰와 연락 기능을 한 화면에 정리한 국내 상용 전자명함 사례입니다.",
+      "traits": ["전문직 신뢰감", "명확한 정보 계층", "연락 버튼"],
+      "do_not_copy": ["GCARD 브랜드", "직업별 원문", "원본 인물"]
+    },
+    {
+      "reference_id": "ref-slice",
+      "source_name": "Slice 디지털 명함",
+      "source_url": "https://home.myslice.is/",
+      "image_url": "https://cdn.imweb.me/thumbnail/20250826/7e5c9f8f338d4.png",
+      "source_type": "korean_actual_service",
+      "region": "korea",
+      "natural_summary_ko": "국내 NFC·QR 전자명함 서비스의 실제 제품 화면으로, 프로필 공유와 연락처 저장을 짧은 흐름으로 제공합니다.",
+      "traits": ["NFC·QR 연결", "프로필 공유", "간결한 모바일 UI"],
+      "do_not_copy": ["Slice 브랜드", "제품 사진", "원문 카피"]
+    },
+    {
+      "reference_id": "ref-blinq",
+      "source_name": "Blinq 디지털 명함",
+      "source_url": "https://blinq.me/solutions/digital-business-card",
+      "image_url": "https://cdn.prod.website-files.com/617ac0d059899a9a3c8216e9/69ee0c8f4c6c7b73ea2ec996_DBC_StephKim_Card.avif",
+      "source_type": "global_actual_service",
+      "region": "global",
+      "natural_summary_ko": "인물과 직무를 먼저 보여주고 연락 저장 행동을 단순화한 해외 상용 디지털 명함 화면입니다.",
+      "traits": ["인물 중심", "짧은 행동 흐름", "현대적인 카드 표현"],
+      "do_not_copy": ["Blinq 브랜드", "실제 사용자 정보", "원본 사진"]
+    },
+    {
+      "reference_id": "ref-bluedot-cares",
+      "source_name": "BlueDot Cares 개인화 연결 페이지",
+      "source_url": "https://www.iconification.com/projects/bluedot-cares",
+      "image_url": "https://images.squarespace-cdn.com/content/v1/6395213c2080b569593790e4/6a84b50b-c070-460d-a6a0-16c72bbd3c61/BlueDot-Cares-FlowPages.png",
+      "source_type": "global_actual_service",
+      "region": "global",
+      "natural_summary_ko": "돌봄 서비스 종사자와 이용자를 개인화 페이지로 연결하는 실제 프로젝트로, 사회복지사 전자명함의 신뢰·안내 구조에 참고할 수 있습니다.",
+      "traits": ["돌봄 맥락", "개인화 연결", "친근한 신뢰 표현"],
+      "do_not_copy": ["BlueDot 브랜드", "서비스 문구", "원본 일러스트"]
+    }
+  ]
+}

@@ -1,0 +1,232 @@
+{
+  "schema_version": "1.0",
+  "request_id": "pm4-interior-community-fixture-v1",
+  "collector_mode": "visual_reference_seed_capture",
+  "evidence_scope": "interior_community",
+  "items": [
+    {
+      "source_name": "Community-Based Home Renovation Assistance (2026)",
+      "source_url": "https://www.behance.net/gallery/247638593/Community-Based-Home-Renovation-Assistance-(2026)",
+      "natural_summary_ko": "‘home renovation community’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-01",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/test-fixtures/pm4-visual-reference/interior-community-images/ref-discovered-01-6d46231b812f.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/42d170247638593.Y3JvcCwxNjU0LDEyOTMsMCw1Mjg.png",
+      "content_type": "image/png",
+      "byte_size": 64025,
+      "sha256": "6d46231b812fe9e4a2698fafb62e0522e2b5e2b6aa5976fdf964b915a1b32208",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:23Z"
+    },
+    {
+      "source_name": "Home Renovation Ad for Community CU",
+      "source_url": "https://www.behance.net/gallery/182953511/Home-Renovation-Ad-for-Community-CU",
+      "natural_summary_ko": "‘home renovation community’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-02",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/test-fixtures/pm4-visual-reference/interior-community-images/ref-discovered-02-2818e7d1f539.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/eaf23d182953511.Y3JvcCwxODQxLDE0NDAsNDEsMA.png",
+      "content_type": "image/png",
+      "byte_size": 90222,
+      "sha256": "2818e7d1f539a8a719ccf7f74db068519e0d9cd3f3941a86f373ce0d8b35f56d",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:24Z"
+    },
+    {
+      "source_name": "Social buildingz First Platform in Egypt for interior",
+      "source_url": "https://www.behance.net/gallery/87594521/Social-buildingz-First-Platform-in-Egypt-for-interior",
+      "natural_summary_ko": "‘interior social platform’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-03",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/test-fixtures/pm4-visual-reference/interior-community-images/ref-discovered-03-5f9bf67ed0e5.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/13c0a187594521.Y3JvcCw4MDgsNjMyLDAsMA.png",
+      "content_type": "image/png",
+      "byte_size": 113053,
+      "sha256": "5f9bf67ed0e5e1df90f22e847f4ac35a2ba9dc701cbe2bcdd2d7d9b552fc4e38",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:24Z"
+    },
+    {
+      "source_name": "Brand Identity for a Community & Social Platform",
+      "source_url": "https://www.behance.net/gallery/253121823/Brand-Identity-for-a-Community-Social-Platform",
+      "natural_summary_ko": "‘interior social platform’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-04",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/test-fixtures/pm4-visual-reference/interior-community-images/ref-discovered-04-cff2efe0852e.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/6fd2f8253121823.Y3JvcCw0MjAwLDMyODUsMCwxOTg1.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 64805,
+      "sha256": "cff2efe0852e36c11f10eb934ddb5bc0aecccf3272ec555c39d37c529972c7b3",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:24Z"
+    },
+    {
+      "source_name": "ED.HOME - Home renovation website",
+      "source_url": "https://www.behance.net/gallery/254203633/EDHOME-Home-renovation-website",
+      "natural_summary_ko": "‘home renovation community’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-05",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/test-fixtures/pm4-visual-reference/interior-community-images/ref-discovered-05-c26d1c6d5497.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/e9dbc9254203633.Y3JvcCwxMzgwLDEwODAsMjcwLDA.png",
+      "content_type": "image/png",
+      "byte_size": 39758,
+      "sha256": "c26d1c6d54973f33d98947786526bd1edc7b44121e94acb19c79eff03626eb8e",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:25Z"
+    },
+    {
+      "source_name": "GATD Home Renovation Company Brand Identity Design",
+      "source_url": "https://www.behance.net/gallery/153767935/GATD-Home-Renovation-Company-Brand-Identity-Design",
+      "natural_summary_ko": "‘home renovation community’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-06",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/test-fixtures/pm4-visual-reference/interior-community-images/ref-discovered-06-cf46eb394d3f.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/0b32c9153767935.6721df2d8379b.png",
+      "content_type": "image/png",
+      "byte_size": 50861,
+      "sha256": "cf46eb394d3febe8efe1c86c54d58e4c5c551bd166b5c8fc39d68bd1b8aab733",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:26Z"
+    },
+    {
+      "source_name": "Home Renovation in Wakayama, Japan.",
+      "source_url": "https://www.behance.net/gallery/253853343/Home-Renovation-in-Wakayama-Japan",
+      "natural_summary_ko": "‘home renovation community’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-07",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/test-fixtures/pm4-visual-reference/interior-community-images/ref-discovered-07-c70eacfd8cc7.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/30fc7b253853343.Y3JvcCwyNjI1LDIwNTMsMCwxMTQz.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 64209,
+      "sha256": "c70eacfd8cc7ea8a03e853aa100a9ed64af82c08535eca7b6e4772754b092d31",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:26Z"
+    },
+    {
+      "source_name": "Home renovation",
+      "source_url": "https://www.behance.net/gallery/253447517/Home-renovation",
+      "natural_summary_ko": "‘home renovation community’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "region": "global",
+      "source_type": "design_gallery",
+      "reference_id": "ref-discovered-08",
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/test-fixtures/pm4-visual-reference/interior-community-images/ref-discovered-08-69fe61ae9967.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/8c7134253447517.Y3JvcCw5MjAsNzIwLDE4MCww.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 63304,
+      "sha256": "69fe61ae996715d0f5d022a505dc549c4736748b43d0b7af2c2b010f0b2e0769",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:07:27Z"
+    }
+  ],
+  "source_failures": [],
+  "coverage": {
+    "total": 8,
+    "korean": 0,
+    "actual_service": 0,
+    "user_provided": 0
+  },
+  "decisions": {},
+  "visual_target_created": false,
+  "implementation_allowed": false,
+  "product_changed": false,
+  "limitations": [
+    "후보 발견은 이번 실제 요청에서 사람이 고정한 Seed를 사용했습니다.",
+    "이 실행은 범용 자동 Reference 검색을 증명하지 않습니다.",
+    "화면은 참고 전용이며 원본 브랜드·문구·인물을 복제하지 않습니다."
+  ]
+}

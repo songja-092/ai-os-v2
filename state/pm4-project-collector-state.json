@@ -310,5 +310,24 @@
     "selected_at": "2026-08-24T13:52:31Z",
     "input_method": "mouse_button_next",
     "recommendation_was_automatic_selection": false
+  },
+  "final_confirmation": {
+    "candidate_id": "direction-1",
+    "confirmed_by": "user",
+    "confirmed_at": "2026-08-25",
+    "resolves_record_conflict": true,
+    "implementation_approved": false,
+    "pm4_final_pass_approved": true,
+    "pm4_final_pass_approved_at": "2026-08-26",
+    "pm4_completion_scope": "bounded_interview_to_reference_to_user_selection_to_design_handoff"
+  },
+  "downstream_design_handoff": {
+    "owning_pm": "PM1",
+    "functional_direction": "direction-1",
+    "visual_target_status": "direction_2_full_flow_user_approved",
+    "latest_visual_trial": "direction-2-full-flow-visual-target",
+    "latest_visual_trial_decision": "approved",
+    "required_next_action": "PM5 intent_scope_asset_consistency",
+    "implementation_status": "not_started"
   }
 }

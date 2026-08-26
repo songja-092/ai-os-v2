@@ -1,5 +1,32 @@
 # AI OS V2 새 세션 시작 계약
 
+## 2026-08-26 콘텐츠 Reference 레이더
+
+- 사용자 결정: 기본 Reference 탐색은 Instagram 카드뉴스·슬라이드와 Threads 글을 우선합니다.
+  Shorts·Reels는 마케터 역할 또는 영상 마케팅 요청에서만 사용하며 기본 후보에 섞지 않습니다.
+- `v2-content-reference-radar` 저장소 Skill은 사용자의 쉬운 주제와 Interview/Spec 입력을
+  YouTube·Instagram·Threads 공개 Reference 후보로 바꾸고, 플랫폼 내부에서만 순위화한 뒤 최대
+  10개를 `채택·보류·폐기`로 넘깁니다.
+- `haeun2525/trend-radar` Commit `835558a3439b1e445b1bbbedb341f7e50ae7ec33`은 License 파일이
+  없어 코드 복사 없이 구조만 참고했습니다.
+- 로그인된 Aside Browser에서 `#바이브코딩` 공개 게시물 10건·영상 5건을 확인했고, 영상 3건의 공개
+  반응 지표로 Instagram 내부 순위화까지 Runtime PASS했습니다. Threads는 공개 후보 5건·본문 3건을
+  읽었지만 검색 숫자의 지표 이름이 노출되지 않아 실제 순위화는 `not_proven`입니다.
+  Cookie·Token·Browser Profile과 비공개 자료는 저장하지 않습니다.
+- 새 세션은 `pm4-artifacts/content-reference-radar-v1/runtime-evidence.json`을 읽고 이 결과를 PM4
+  완료나 범용 Runtime으로 확대 해석하지 않습니다.
+- PM4 Evidence Router는 현재 **단일 주제 제한 Runtime**입니다. `AI 바이브코딩 웹 디자인
+  Reference` 요청에서 Instagram·Threads·YouTube·GitHub·공식 웹의 기존 Artifact를 네 가지
+  증거 역할(시각 Reference·실사용 반응·구현 재료·공식 사실)로 나눠 10개를 수집했고,
+  `tools/verify-v2-content-reference-radar`와 실제 Browser 검토 화면을 PASS했습니다.
+- 10개 중 한국어로 내용과 참고 이유를 설명할 수 있는 4개만 사용자 Gallery에 표시합니다.
+  설명이 빈약한 제목뿐인 Threads·YouTube 항목과 번역되지 않은 GitHub 설명 등 6개는 수집
+  증거로만 보존하고 선택 후보에서는 제외합니다. 사용자 행동은 `원문 보기·채택`만 제공합니다.
+- 검토 화면의 채택은 이제 `state/pm4-evidence-reference-state.json`에 Core 상태로 저장됩니다.
+  시험 채택 1건을 저장하고 Dashboard 서버 재시작 뒤 복원한 다음 시험값을 비우는 Runtime을
+  PASS했습니다. 이는 Core 승인이나 제품 적용이 아닙니다. 임의 주제 범용 수집, 자동 채택,
+  자동 제품 적용, 사용자 최종 PM4 PASS는 `not_proven`입니다.
+
 이 문서는 Codex·Antigravity·기타 AI가 새 세션에서 **가장 먼저 읽는 공식 진입점**입니다.
 
 새 세션은 이 문서를 읽은 직후 `wiki/CODEX_COMMON_EXECUTION_CONTRACT.md`를 읽습니다. 이 공통 실행계약은 Codex만의 설정이 아니라 웹 GPT·Antigravity를 포함해 저장소를 작업하는 모든 AI가 사용하는 작업·검증·복구 기준입니다.
@@ -80,6 +107,7 @@ session_preflight:
 - 사용자의 결정이 필요한 경우 `회의할 항목이 있습니다`라고 알리고 한 번에 한 주제씩 다룹니다.
 - 회의가 끝나면 `회의가 끝났습니다`라고 명확히 말하고 결과를 기록합니다.
 - PM 범위를 벗어난 요청이면 현재 작업을 섞지 않고 어느 PM 범위인지 먼저 알립니다.
+- 사용자가 PM 진행을 승인한 뒤에는 매 단계마다 `다음` 입력을 요구하지 않고 승인 범위 안의 작업을 연속 수행합니다. 사람의 디자인·사업 판정, 로그인·권한·비용, 범위 확대, Dirty·잠금 충돌에서만 멈추며 PM 잠금 전 자동화 후보 감사와 최종 PASS는 생략하지 않습니다.
 - 사용자가 PM을 PASS하면 해당 PM의 승인 화면·동작·유지 범위·복구 기준을 고정하고 잠근 뒤 다음 PM으로 이동합니다.
 - PM이 완료되거나 Repo-local Skill을 새로 만들거나 변경하면 같은 작업에서 이 세션 공통계약의 `정확한 상태`와 Skill 목록을 갱신합니다. 공통계약 반영 전에는 PM 저장이 끝났다고 보고하지 않습니다.
 - Dirty 변경은 사용자의 변경으로 보존하며 임의로 Reset·Restore·Stash·Commit하지 않습니다.
@@ -95,6 +123,7 @@ session_preflight:
 - V2의 현재 엔지니어링 기본 방향은 `Harness-first, Spec-guided, Eval-driven, Human-approved, Loop-assisted`입니다. 짧게 `Harness-first, Loop-ready`라고 부릅니다. 사람의 목표·범위·승인·복구 계약 안에서 AI가 작업하고, 반복 가능하며 기계적으로 검증·복구 가능한 병목만 제한된 Loop로 자동화합니다.
 - 새로운 방법은 `조사 → 격리 시험 → 기존 방식 비교 → 사용자 채택 → 실제 프로젝트 → 반복 성공` 순서를 거쳐야 기본값이 됩니다. 유행, GitHub Star, 홍보 문구만으로 기본 Skill이나 Core 기능으로 승격하지 않습니다.
 - 자동화에는 시도·시간·비용 제한, PASS·중단 조건, Rollback, 사용자 호출 조건이 있어야 하며 효과가 없으면 수동 흐름과 기존 Artifact를 보존한 채 제거할 수 있어야 합니다.
+- 모든 PM은 마지막 잠금 전에 읽기 전용 `자동화 후보 감사`를 수행합니다. 후보가 없으면 근거를 기록하고 잠금으로 진행합니다. 후보가 있으면 자동화 대상·증거·최소 범위·위험·복구 방법을 먼저 보여주고 사용자의 `채택 | 보류 | 폐기` 판정을 받은 뒤, 공통계약·PM 잠금·승인 범위와 충돌이 없을 때만 자동화하고 재검증합니다. PM PASS를 자동화 승인으로 간주하지 않습니다.
 - PM을 넘기기 전 `tools/verify-pm-transition-evidence`를 실행해 잠금·Tag·사용자 PASS·기술 증거·현재 상태의 누락과 충돌을 읽기 전용으로 확인합니다. 이 검사는 기본 자동화이지만 PM을 자동 PASS하거나 파일을 자동 수정하지 않습니다.
 - 상세 운영 원본은 `wiki/V2_ENGINEERING_OPERATING_MODEL.md`입니다. 이 문서와 충돌하는 임시 대화·보고서는 공식 기본 규칙으로 사용하지 않습니다.
 
@@ -170,7 +199,7 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
   사용자 확인을 분리한 로컬 우선 최소 Pilot을 `9/9 PASS`했고 현재 `started`입니다.
   V2는 자료가 충분하다고 단정하지 않으며 사용자가 `자료 더 찾기·이 정도면 충분·조사 방향 수정`을 선택합니다.
   실제 조사 요청·출처 검증·사용자 판정·Capability Lab 연결 전에는
-  PM4 전체 PASS라고 말하지 않습니다. 새 세션은
+  단일 Pilot만으로 PM4 전체 PASS라고 말하지 않습니다. 새 세션은
   `wiki/PM4_LOCAL_FIRST_COLLECTOR_PILOT_2026-08-21.md`를 먼저 읽습니다.
 - 2026-08-24 사용자는 PM4 MVP를 `인터뷰 → Spec Lite 제작 범위 확인서 → 명세 기반
   프로젝트 자료 수집 → 제작 가능한 서로 다른 후보 3개 → 사용자 선택`으로 확정했습니다.
@@ -197,17 +226,57 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
 - Core는 확정된 인터뷰·수집 근거·구현 가능성을 기준으로 후보 하나를 `추천`할 수 있지만 자동
   선택·채택·설치하지 않습니다. 사용자가 선택하지 않은 후보도 즉시 폐기하지 않고 비교·거절
   기록으로 보존하며, 사용자가 폐기하거나 새 후보가 대체할 때만 상태를 변경합니다.
-- 첫 전자명함 시험에서 사용자는 2026-08-24 마우스 `다음` 버튼으로 3번 `신뢰와 경력을
-  보여주는 소개 명함`을 선택했습니다. 추천과 사용자 선택을 별도 기록하고 나머지 네 후보는
-  `candidate_preserved`로 보존합니다. 선택 결과는 `selection-handoff.json`으로 전달하되 실제
-  설치·구현·제품 적용·배포는 다음 승인 전까지 금지합니다.
+- 첫 전자명함 시험의 과거 대화 기록과 Handoff Artifact가 충돌했으나, 2026-08-25 사용자가
+  1번 `QR·NFC로 바로 연결하는 명함`을 최종 재확인했습니다. Core 추천 3번은 비교 근거로만
+  보존하며 자동 선택이 아닙니다. 나머지 후보는 `candidate_preserved`로 보존하고 실제 설치·
+  구현·제품 적용·배포는 다음 승인 전까지 금지합니다.
 - 출처 Adapter가 존재한다는 사실과 해당 요청에서 실제 실행됐다는 사실을 분리해 표시합니다.
   첫 전자명함 시험은 Reddit 3건·YouTube 2건·Threads 3건과 GitHub 구현 재료 5건을 실제 Link로
   연결했습니다. Instagram은 수집 브라우저의 로그인 세션 미연결로 0건이며 PM4 마지막 검증으로
   미뤘습니다. 이 상태에서 Instagram 수집 완료 또는 5개 출처 전체 PASS라고 표현하지 않습니다.
-- 사용자의 3번 시험 선택은 Core 재시작 뒤에도 복원됐고 `다음 → 선택 기록 → 제작 가능 확인서`
-  자동 생성이 검증됐습니다. 추가 사용자 선택·로그인 세션 관리·후보 최종 채택/폐기·PM4 최종
-  PASS는 PM4 마지막으로 미뤘습니다.
+- `다음 → 선택 기록 → 제작 가능 확인서` 자동 생성과 Handoff 복원 경로는 검증됐고 최종 선택은
+  1번으로 확정됐습니다. 로그인 세션 관리·Instagram 수집과 PM4 최종 PASS는 PM4 마지막 검증
+  항목으로 잠급니다.
+- 2026-08-26 후속 시각 시안 3번의 중립 색상 수정본은 사용자 `보류`입니다. 이는 PM4 기능 방향
+  1번을 취소한 것이 아닙니다. Visual Target 승인·구현은 시작하지 않으며, 전자명함 Reference
+  품질 개선과 새 Visual Target 제작은 PM1 디자인 작업으로 넘깁니다.
+- 2026-08-26 기존 PM4에 검색 기반 시각 Reference Adapter를 추가했습니다. 고정 Seed 없이 확정된
+  전자명함 명세에서 공개 Gallery 검색어를 만들고 화면 8개를 수집했으며, 인테리어 커뮤니티 Fixture에서도
+  별도 8개를 수집해 동일 Core 상태 경로로 연결했습니다. 이미지 Hash·출처·한글 요약을 보존하고,
+  HTML·Script 실행·Cookie 저장·제품 자동 적용은 금지합니다. 출처 실패 격리·판정 저장·복원은 PASS지만
+  두 입력과 Behance 공개 검색 Adapter의 제한 증거이므로 임의의 모든 주제나 Reference 품질 승인,
+  PM1 Visual Target PASS로 확대하지 않습니다. 검토 화면은 `/pm4-visual-reference-review.html`,
+  검증기는 `tools/verify-pm4-visual-reference`입니다.
+- 2026-08-26 PM4 시각 Reference 화면에 `추가 탐색` Refill Loop를 연결했습니다. 기존 후보와
+  채택·보류·폐기 판정을 유지하고, 인접 표현으로 검색 범위를 넓혀 URL·SHA-256·이미지 dHash
+  유사도 중복을 제거한 새 후보 3~5개만 추가합니다. 첫 전자명함 실제 실행은 기존 12개에 새
+  5개를 추가했습니다. 디자인 참고와 GitHub·YouTube 기반 기능 참고는 한 목록으로 섞지 않습니다.
+  사용자 URL·이미지는 등록 시 최고 우선순위지만 입력 UI는 아직 없으며, Instagram·Threads 로그인
+  수집도 PM4 마지막 검증 전까지 `deferred_login_adapter`입니다. Refill PASS를 범용 주제 탐색이나
+  Reference 품질·Visual Target·제품 적용 PASS로 확대하지 않습니다.
+- 2026-08-26 사용자는 Refill 결과를 포함한 17개 중 6개 시각 Reference를 채택했습니다.
+  `pm4-artifacts/project-collector-mvp-v1/visual-reference-selection-handoff.json`이 다음 세션의
+  공식 선택 전달서입니다. 다음 단계는 선택한 Reference를 서로 다른 디자인 방향으로 정리하는
+  작업입니다. 이후 사용자는 외부 시안 2번과 이를 확장한 8개 화면 Visual Target을 승인했고,
+  Design DNA·사진 유형별 비파괴 보정 계약을 PM4 인계 자료로 고정했습니다. 실제 제품 구현은
+  시작하지 않았습니다.
+- 2026-08-26 사용자 최종 PASS로 PM4의 제한된 완료 범위를 고정했습니다. 완료 범위는 실제
+  전자명함 요청의 인터뷰·수집·Reference 보충·사용자 선택·Design DNA·Visual Target 인계입니다.
+  현재 Instagram 로그인 세션은 확인했지만 장기 유지, 임의 주제 범용 수집, 자동 DNA·자동 승인,
+  실제 제품 구현은 완료 범위가 아니며 `not_proven`입니다. 다음 활성 단계는 PM5입니다.
+- 2026-08-26 `V2 콘텐츠 Reference 레이더`에 국내 3개·해외 4개, 총 7개 AI 코딩·개발
+  YouTube 공식 Feed를 연결했습니다. 실제 Runtime에서 7개 Feed 모두 연결되고 최근 30일 후보
+  10개가 수집됐으며, 기본 Reference 모드에서는 Shorts를 제외하고 채널별 관련 후보 한 건을
+  먼저 보여줍니다. 이는 아이디어·기능 공급원 연결 증거이며 채널 콘텐츠의 자동 채택·제품 적용,
+  Instagram·Threads 채널 수집 완료 또는 범용 주제 적합성 PASS가 아닙니다. 증거는
+  `pm4-artifacts/content-reference-radar-v1/coding-channel-runtime.json`입니다.
+- PM4의 장기 발전안은 **조건부 승격 후보**로 보존합니다. 현재 즉시 허용되는 범위는
+  `게시물·이미지·영상 수집 → AI 한글 내용 분석 → URL·이미지 Hash·의미 유사 후보 묶기
+  → 사용자 판정`까지입니다. `사용자 취향 학습 → 명세 적합성 자동 점수 → 성공 가능성 추천`은
+  지금 구현·활성화하지 않습니다. 서로 다른 실제 프로젝트에서 채택 이유·폐기 이유·구현 결과·
+  사용자 최종 판정이 반복 기록되고, 자동 추천의 PASS·FAIL을 검증할 수 있을 때만 사용자가
+  승격 여부를 다시 결정합니다. 조건 충족은 자동 도입이 아니라 `승격 검토 요청`을 발생시키는
+  시점이며 자동 채택·자동 제품 적용은 계속 금지합니다.
 - PM4 일일 탐색 브리핑은 Codex App Automation `v2`로 매일 오전 7시에 실행됩니다.
   Reddit·GitHub·YouTube·Threads·Instagram의 Link와 짧은 요약만 수집하며 충분성·채택을
   자동 판정하지 않습니다. Automation 존재를 각 공급원 Adapter 접근 PASS로 표현하지 않습니다.

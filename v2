@@ -2917,6 +2917,14 @@ PM4_DECISIONS = {"adopt", "hold", "discard"}
 PM4_PROJECT_STATE_RELATIVE_PATH = os.path.join("state", "pm4-project-collector-state.json")
 PM4_PROJECT_REQUEST_ID = "pm4-electronic-business-card-mvp-v1"
 PM4_PROJECT_DECISIONS = {"select", "retry", "stop"}
+PM4_VISUAL_REFERENCE_STATE_RELATIVE_PATH = os.path.join("state", "pm4-visual-reference-state.json")
+PM4_VISUAL_REFERENCE_DECISIONS = {"adopt", "hold", "discard"}
+PM4_EVIDENCE_REFERENCE_STATE_RELATIVE_PATH = os.path.join("state", "pm4-evidence-reference-state.json")
+PM4_DESIGN_IDEATION_STATE_RELATIVE_PATH = os.path.join("state", "pm4-design-ideation-state.json")
+PM4_DESIGN_IDEATION_REQUEST_ID = "pm4-electronic-business-card-design-v1"
+PM4_EVIDENCE_REFERENCE_RUNTIME_RELATIVE_PATH = os.path.join(
+    "pm4-artifacts", "content-reference-radar-v1", "evidence-router-runtime.json"
+)
 
 
 def load_json_file(path):
@@ -3206,6 +3214,222 @@ def pm4_project_ui_state(v2_root):
     return payload
 
 
+def load_pm4_visual_reference_state(v2_root):
+    state_path = os.path.join(v2_root, PM4_VISUAL_REFERENCE_STATE_RELATIVE_PATH)
+    if not os.path.exists(state_path):
+        raise ValueError("PM4 visual Reference state has not been built yet.")
+    state = load_json_file(state_path)
+    if not isinstance(state.get("request_id"), str) or not state["request_id"]:
+        raise ValueError("시각 Reference 요청 id가 없습니다.")
+    items = state.get("items")
+    if not isinstance(items, list) or len(items) < 5:
+        raise ValueError("시각 Reference는 실제 화면을 다섯 개 이상 포함해야 합니다.")
+    ids = {item.get("reference_id") for item in items}
+    if None in ids or len(ids) != len(items):
+        raise ValueError("시각 Reference id가 없거나 중복되었습니다.")
+    decisions = state.get("decisions", {})
+    if not isinstance(decisions, dict) or not set(decisions).issubset(ids):
+        raise ValueError("알 수 없는 시각 Reference 판정이 있습니다.")
+    if not set(decisions.values()).issubset(PM4_VISUAL_REFERENCE_DECISIONS):
+        raise ValueError("시각 Reference 판정값이 올바르지 않습니다.")
+    if state.get("visual_target_created") is not False or state.get("product_changed") is not False:
+        raise ValueError("PM4 Reference 수집은 Visual Target이나 제품을 만들 수 없습니다.")
+    return state
+
+
+def pm4_visual_reference_ui_state(v2_root):
+    payload = json.loads(json.dumps(load_pm4_visual_reference_state(v2_root)))
+    payload["allowed_actions"] = ["visual-reference.decision.set", "visual-reference.decision.clear", "visual-reference.refill"]
+    payload["evidence_level"] = "runtime_request_specific_visual_reference"
+    payload["pm4_visual_reference_pass"] = True
+    payload["generalized_search_proven"] = False
+    payload["provider_status"] = {
+        "behance_public_search": "connected",
+        "registered_actual_services": "connected",
+        "user_url_or_image": "highest_priority_when_registered",
+        "instagram": "deferred_login_adapter",
+        "threads": "deferred_login_adapter",
+        "github_youtube_function_materials": "connected_separate_view",
+    }
+    return payload
+
+
+def run_pm4_visual_reference_refill(v2_root):
+    artifact_root = os.path.join(v2_root, "pm4-artifacts", "project-collector-mvp-v1")
+    script_root = os.path.join(v2_root, "plugins", "v2-capability-lab", "scripts")
+    command = [
+        sys.executable,
+        os.path.join(script_root, "pm4_visual_reference_refill.py"),
+        "--receipt", os.path.join(artifact_root, "interview-receipt.json"),
+        "--state", os.path.join(v2_root, PM4_VISUAL_REFERENCE_STATE_RELATIVE_PATH),
+        "--collection", os.path.join(artifact_root, "visual-reference-collection.json"),
+        "--image-dir", os.path.join(artifact_root, "visual-references"),
+        "--review-output", os.path.join(artifact_root, "visual-reference-review.html"),
+        "--regional-seed-file", os.path.join(artifact_root, "visual-reference-seeds.json"),
+        "--discovery-script", os.path.join(script_root, "pm4_visual_reference_discovery.py"),
+        "--collector-script", os.path.join(script_root, "pm4_visual_reference_collector.py"),
+        "--append-limit", "5",
+    ]
+    result = subprocess.run(command, cwd=v2_root, text=True, capture_output=True, timeout=180)
+    if result.returncode != 0:
+        raise ValueError(result.stderr.strip() or result.stdout.strip() or "추가 탐색에 실패했습니다.")
+
+
+def apply_pm4_visual_reference_action(v2_root, payload):
+    state = load_pm4_visual_reference_state(v2_root)
+    if payload.get("request_id") != state["request_id"]:
+        raise PermissionError("전자명함 조사 요청이 다릅니다. 아무 내용도 변경하지 않았습니다.")
+    action = payload.get("action")
+    if action not in {"visual-reference.decision.set", "visual-reference.decision.clear", "visual-reference.refill"}:
+        raise PermissionError("시각 Reference는 판정만 저장할 수 있으며 제품에 자동 적용할 수 없습니다.")
+    if action == "visual-reference.refill":
+        run_pm4_visual_reference_refill(v2_root)
+        return pm4_visual_reference_ui_state(v2_root)
+    reference_id = payload.get("reference_id")
+    if reference_id not in {item["reference_id"] for item in state["items"]}:
+        raise ValueError("알 수 없는 시각 Reference입니다.")
+    if action == "visual-reference.decision.set":
+        decision = payload.get("decision")
+        if decision not in PM4_VISUAL_REFERENCE_DECISIONS:
+            raise ValueError("채택·보류·폐기 중 하나를 선택해주세요.")
+        state["decisions"][reference_id] = decision
+    else:
+        state["decisions"].pop(reference_id, None)
+    state["revision"] = int(state.get("revision", 1)) + 1
+    state["last_action"] = action
+    write_json_atomic(os.path.join(v2_root, PM4_VISUAL_REFERENCE_STATE_RELATIVE_PATH), state)
+    return pm4_visual_reference_ui_state(v2_root)
+
+
+def default_pm4_evidence_reference_state(v2_root):
+    runtime = load_json_file(os.path.join(v2_root, PM4_EVIDENCE_REFERENCE_RUNTIME_RELATIVE_PATH))
+    request_id = runtime.get("request", {}).get("request_id")
+    items = []
+    for item in runtime.get("items", []):
+        if not item.get("review_ready"):
+            continue
+        items.append({
+            "reference_id": item.get("candidate_id"), "title": item.get("title"),
+            "summary_ko": item.get("summary_ko"), "url": item.get("url"),
+            "platform": item.get("platform"), "evidence_type": item.get("evidence_type"),
+        })
+    return {
+        "schema_version": "1.0", "revision": 1, "request_id": request_id,
+        "items": items, "adopted_reference_ids": [],
+        "last_action": "evidence-reference.initialized", "product_changed": False,
+    }
+
+
+def load_pm4_evidence_reference_state(v2_root):
+    state_path = os.path.join(v2_root, PM4_EVIDENCE_REFERENCE_STATE_RELATIVE_PATH)
+    state = load_json_file(state_path) if os.path.exists(state_path) else default_pm4_evidence_reference_state(v2_root)
+    if not isinstance(state.get("request_id"), str) or not state["request_id"]:
+        raise ValueError("PM4 Evidence Reference 요청 id가 없습니다.")
+    items = state.get("items")
+    if not isinstance(items, list) or not items:
+        raise ValueError("사용자가 검토할 수 있는 PM4 Evidence Reference가 없습니다.")
+    ids = {item.get("reference_id") for item in items}
+    if None in ids or len(ids) != len(items):
+        raise ValueError("PM4 Evidence Reference id가 없거나 중복되었습니다.")
+    adopted = state.get("adopted_reference_ids")
+    if not isinstance(adopted, list) or not set(adopted).issubset(ids):
+        raise ValueError("알 수 없는 PM4 Evidence Reference 채택값이 있습니다.")
+    if state.get("product_changed") is not False:
+        raise ValueError("PM4 Evidence Reference 선택은 제품을 변경할 수 없습니다.")
+    return state
+
+
+def pm4_evidence_reference_ui_state(v2_root):
+    payload = json.loads(json.dumps(load_pm4_evidence_reference_state(v2_root)))
+    payload["allowed_actions"] = ["evidence-reference.adopt", "evidence-reference.clear"]
+    payload["evidence_level"] = "single_topic_core_connected_selection"
+    payload["automatic_product_application"] = False
+    payload["pm4_pass"] = False
+    return payload
+
+
+def apply_pm4_evidence_reference_action(v2_root, payload):
+    state = load_pm4_evidence_reference_state(v2_root)
+    if payload.get("request_id") != state["request_id"]:
+        raise PermissionError("자료 요청이 다릅니다. 아무 내용도 변경하지 않았습니다.")
+    action = payload.get("action")
+    if action not in {"evidence-reference.adopt", "evidence-reference.clear"}:
+        raise PermissionError("Reference 채택과 채택 취소만 저장할 수 있습니다.")
+    reference_id = payload.get("reference_id")
+    if reference_id not in {item["reference_id"] for item in state["items"]}:
+        raise ValueError("알 수 없는 Reference입니다.")
+    adopted = [item for item in state["adopted_reference_ids"] if item != reference_id]
+    if action == "evidence-reference.adopt":
+        adopted.append(reference_id)
+    state["adopted_reference_ids"] = adopted
+    state["revision"] = int(state.get("revision", 1)) + 1
+    state["last_action"] = action
+    write_json_atomic(os.path.join(v2_root, PM4_EVIDENCE_REFERENCE_STATE_RELATIVE_PATH), state)
+    return pm4_evidence_reference_ui_state(v2_root)
+
+
+def load_pm4_design_ideation_state(v2_root):
+    state = load_json_file(os.path.join(v2_root, PM4_DESIGN_IDEATION_STATE_RELATIVE_PATH))
+    if state.get("request_id") != PM4_DESIGN_IDEATION_REQUEST_ID:
+        raise ValueError("전자명함 디자인 요청 id가 다릅니다.")
+    manifest_path = os.path.join(v2_root, state.get("directions_manifest_path", ""))
+    manifest = load_json_file(manifest_path)
+    directions = manifest.get("directions")
+    if not isinstance(directions, list) or len(directions) != 5:
+        raise ValueError("전자명함 디자인 후보는 정확히 5개여야 합니다.")
+    ids = {f"direction-{item.get('display_order')}" for item in directions}
+    selected = state.get("selected_direction_id")
+    if selected is not None and selected not in ids:
+        raise ValueError("알 수 없는 전자명함 디자인 선택값입니다.")
+    if state.get("implementation_approved") is not False or state.get("product_changed") is not False:
+        raise ValueError("디자인 후보 선택은 구현이나 제품 변경을 승인할 수 없습니다.")
+    for item in directions:
+        relative = item.get("image_path", "")
+        image_path = os.path.realpath(os.path.join(os.path.dirname(manifest_path), relative))
+        image_root = os.path.realpath(os.path.join(os.path.dirname(manifest_path), "design-candidates"))
+        if os.path.commonpath([image_root, image_path]) != image_root or not os.path.isfile(image_path):
+            raise ValueError("전자명함 디자인 후보 이미지가 없거나 허용 경로 밖입니다.")
+        if file_sha256(image_path) != item.get("sha256"):
+            raise ValueError("전자명함 디자인 후보 이미지 Hash가 다릅니다.")
+    return state, manifest
+
+
+def pm4_design_ideation_ui_state(v2_root):
+    state, manifest = load_pm4_design_ideation_state(v2_root)
+    payload = json.loads(json.dumps(state))
+    payload["directions"] = manifest["directions"]
+    payload["editable_product_data_contract"] = manifest.get("editable_product_data_contract")
+    payload["selected_visual_target"] = manifest.get("selected_visual_target")
+    payload["allowed_actions"] = ["design-ideation.select", "design-ideation.clear"]
+    payload["evidence_level"] = "external_candidates_core_connected_selection"
+    payload["automatic_generation"] = False
+    payload["pm4_pass"] = False
+    return payload
+
+
+def apply_pm4_design_ideation_action(v2_root, payload):
+    state, manifest = load_pm4_design_ideation_state(v2_root)
+    if payload.get("request_id") != state["request_id"]:
+        raise PermissionError("전자명함 디자인 요청이 다릅니다. 아무 내용도 변경하지 않았습니다.")
+    action = payload.get("action")
+    if action not in {"design-ideation.select", "design-ideation.clear"}:
+        raise PermissionError("디자인 방향 선택과 선택 취소만 저장할 수 있습니다.")
+    if action == "design-ideation.select":
+        direction_id = payload.get("direction_id")
+        valid = {f"direction-{item.get('display_order')}" for item in manifest["directions"]}
+        if direction_id not in valid:
+            raise ValueError("알 수 없는 전자명함 디자인 방향입니다.")
+        state["selected_direction_id"] = direction_id
+    else:
+        state["selected_direction_id"] = None
+    state["visual_target_approved"] = False
+    state.pop("visual_target_approval_record", None)
+    state["revision"] = int(state.get("revision", 1)) + 1
+    state["last_action"] = action
+    write_json_atomic(os.path.join(v2_root, PM4_DESIGN_IDEATION_STATE_RELATIVE_PATH), state)
+    return pm4_design_ideation_ui_state(v2_root)
+
+
 def write_pm4_project_handoff(v2_root, state):
     receipt_path = os.path.join(v2_root, "pm4-artifacts", "project-collector-mvp-v1", "interview-receipt.json")
     receipt = load_json_file(receipt_path)
@@ -3492,6 +3716,42 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
                 self.send_json(500, {"error": f"PM4 project state unavailable: {exc}"})
             return
 
+        if request_path == "/api/pm4/visual-reference-ui-state":
+            request_id = parse_qs(request.query).get("request_id", [""])[0]
+            try:
+                state = pm4_visual_reference_ui_state(v2_root)
+                if request_id != state["request_id"]:
+                    self.send_json(409, {"error": "Visual Reference request mismatch."})
+                    return
+                self.send_json(200, state)
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"PM4 visual Reference state unavailable: {exc}"})
+            return
+
+        if request_path == "/api/pm4/evidence-reference-ui-state":
+            request_id = parse_qs(request.query).get("request_id", [""])[0]
+            try:
+                state = pm4_evidence_reference_ui_state(v2_root)
+                if request_id != state["request_id"]:
+                    self.send_json(409, {"error": "Evidence Reference request mismatch."})
+                    return
+                self.send_json(200, state)
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"PM4 Evidence Reference state unavailable: {exc}"})
+            return
+
+        if request_path == "/api/pm4/design-ideation-ui-state":
+            request_id = parse_qs(request.query).get("request_id", [""])[0]
+            try:
+                state = pm4_design_ideation_ui_state(v2_root)
+                if request_id != state["request_id"]:
+                    self.send_json(409, {"error": "Design ideation request mismatch."})
+                    return
+                self.send_json(200, state)
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                self.send_json(500, {"error": f"PM4 design ideation state unavailable: {exc}"})
+            return
+
         if request_path.startswith("/pm2-product-preview/"):
             try:
                 product_id, _, asset_path = resolve_pm2_product_asset(request_path)
@@ -3537,6 +3797,65 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        if request_path.startswith("/pm4-visual-reference-images/"):
+            public_name = request_path.removeprefix("/pm4-visual-reference-images/")
+            if not re.fullmatch(r"[a-z0-9-]+\.(png|jpg|webp|avif)", public_name):
+                self.send_json(404, {"error": "Invalid visual Reference image name."})
+                return
+            image_path = os.path.join(v2_root, "pm4-artifacts", "project-collector-mvp-v1", "visual-references", public_name)
+            try:
+                with open(image_path, "rb") as image_file:
+                    body = image_file.read()
+            except OSError:
+                self.send_json(404, {"error": "Visual Reference image unavailable."})
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", mimetypes.guess_type(image_path)[0] or "application/octet-stream")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        if request_path.startswith("/pm4-design-candidate-images/"):
+            public_name = request_path.removeprefix("/pm4-design-candidate-images/")
+            if not re.fullmatch(r"direction-[1-5]\.png", public_name):
+                self.send_json(404, {"error": "Invalid design candidate image name."})
+                return
+            image_path = os.path.join(v2_root, "pm4-artifacts", "project-collector-mvp-v1", "design-candidates", public_name)
+            try:
+                with open(image_path, "rb") as image_file:
+                    body = image_file.read()
+            except OSError:
+                self.send_json(404, {"error": "Design candidate image unavailable."})
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "image/png")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        if request_path == "/pm4-design-target-images/direction-2-full-flow-visual-target.png":
+            image_path = os.path.join(
+                v2_root, "pm4-artifacts", "project-collector-mvp-v1", "design-candidates",
+                "direction-2-full-flow-visual-target.png",
+            )
+            try:
+                with open(image_path, "rb") as image_file:
+                    body = image_file.read()
+            except OSError:
+                self.send_json(404, {"error": "Design Visual Target unavailable."})
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "image/png")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         if request_path in {
             "/sample-floor-plan.pdf", "/icons.svg", "/favicon.svg",
             "/assets/pdf.worker-CwUwjlJG.mjs",
@@ -3565,6 +3884,9 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
             "/pm3-editor.html": "pm3-editor.html",
             "/pm4-briefing.html": "pm4-modules/daily-discovery-briefing/index.html",
             "/pm4-project-review.html": "pm4-artifacts/project-collector-mvp-v1/review.html",
+            "/pm4-visual-reference-review.html": "pm4-artifacts/project-collector-mvp-v1/visual-reference-review.html",
+            "/pm4-design-candidates.html": "pm4-artifacts/project-collector-mvp-v1/design-candidates-review.html",
+            "/pm4-electronic-card-visual-target.html": "pm4-artifacts/project-collector-mvp-v1/electronic-card-visual-target-review.html",
         }
         if request_path in static_pm2:
             html_path = os.path.join(v2_root, static_pm2[request_path])
@@ -3704,7 +4026,7 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(body)
             return
 
-        if self.path in {"/", "/index.html", "/reference-board", "/pilot-preview", "/visual-companion", "/pm1-finish-test", "/pm1-visual-comparison", "/design-intelligence"}:
+        if self.path in {"/", "/index.html", "/reference-board", "/pilot-preview", "/visual-companion", "/pm1-finish-test", "/pm1-visual-comparison", "/design-intelligence", "/pm4-evidence-review"}:
             html_name = {
                 "/reference-board": "reference-board.html",
                 "/pilot-preview": "pilot-preview.html",
@@ -3712,6 +4034,7 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
                 "/pm1-finish-test": "pm1-finish-test.html",
                 "/pm1-visual-comparison": "pm1-visual-comparison.html",
                 "/design-intelligence": "design-intelligence.html",
+                "/pm4-evidence-review": os.path.join("pm4-artifacts", "content-reference-radar-v1", "evidence-router-review.html"),
             }.get(self.path, "dashboard.html")
             html_path = os.path.join(v2_root, html_name)
             if os.path.exists(html_path):
@@ -3795,6 +4118,51 @@ class DashboardHTTPRequestHandler(BaseHTTPRequestHandler):
                 self.send_json(400, {"error": str(exc)})
                 return
             self.send_json(200, {"message": "전자명함 후보 선택을 Core에 저장했습니다.", "state": result})
+            return
+        if request_path == "/api/pm4/visual-reference-ui-action":
+            try:
+                content_length = int(self.headers.get("Content-Length", "0"))
+                if content_length <= 0 or content_length > 8192:
+                    raise ValueError("Invalid request size.")
+                payload = json.loads(self.rfile.read(content_length).decode("utf-8"))
+                result = apply_pm4_visual_reference_action(v2_root, payload)
+            except PermissionError as exc:
+                self.send_json(403, {"error": str(exc)})
+                return
+            except (OSError, ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                self.send_json(400, {"error": str(exc)})
+                return
+            self.send_json(200, {"message": "시각 Reference 판정을 Core에 저장했습니다.", "state": result})
+            return
+        if request_path == "/api/pm4/evidence-reference-ui-action":
+            try:
+                content_length = int(self.headers.get("Content-Length", "0"))
+                if content_length <= 0 or content_length > 4096:
+                    raise ValueError("Invalid request size.")
+                payload = json.loads(self.rfile.read(content_length).decode("utf-8"))
+                result = apply_pm4_evidence_reference_action(v2_root, payload)
+            except PermissionError as exc:
+                self.send_json(403, {"error": str(exc)})
+                return
+            except (OSError, ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                self.send_json(400, {"error": str(exc)})
+                return
+            self.send_json(200, {"message": "Reference 채택을 Core에 저장했습니다.", "state": result})
+            return
+        if request_path == "/api/pm4/design-ideation-ui-action":
+            try:
+                content_length = int(self.headers.get("Content-Length", "0"))
+                if content_length <= 0 or content_length > 4096:
+                    raise ValueError("Invalid request size.")
+                payload = json.loads(self.rfile.read(content_length).decode("utf-8"))
+                result = apply_pm4_design_ideation_action(v2_root, payload)
+            except PermissionError as exc:
+                self.send_json(403, {"error": str(exc)})
+                return
+            except (OSError, ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+                self.send_json(400, {"error": str(exc)})
+                return
+            self.send_json(200, {"message": "전자명함 디자인 방향을 Core에 저장했습니다.", "state": result})
             return
         if self.path not in {"/api/reference-board/selection", "/api/visual-companion/selection", "/api/design-intelligence/decision"}:
             self.send_json(404, {"error": "Not found"})

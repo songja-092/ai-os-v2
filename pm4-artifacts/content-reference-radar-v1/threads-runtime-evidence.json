@@ -1,0 +1,36 @@
+{
+  "evidence_id": "content-reference-radar-threads-2026-08-26",
+  "checked_at": "2026-08-26T00:00:00+09:00",
+  "query": "바이브코딩",
+  "result_url": "https://www.threads.com/search?q=%EB%B0%94%EC%9D%B4%EB%B8%8C%EC%BD%94%EB%94%A9",
+  "login_state": "NOT_LOGGED_IN",
+  "public_search_available": true,
+  "unique_public_candidate_count": 5,
+  "content_visible_candidate_count": 3,
+  "sample_candidates": [
+    {
+      "url": "https://www.threads.com/@dev._pill/post/DP9IvA4ke7D",
+      "author": "dev._pill",
+      "title": "바이브 코딩 현실",
+      "visible_counts_in_ui_order": ["1.8천", "69", "48", "46"]
+    },
+    {
+      "url": "https://www.threads.com/@superb.sup/post/DMX5uF0TOGf",
+      "author": "superb.sup",
+      "title": "바이브 코딩을 위한 필수 스타일 라이브러리 4가지",
+      "visible_counts_in_ui_order": ["439", "27", "219", "190"]
+    },
+    {
+      "url": "https://www.threads.com/@hiddenmysticsoul707/post/DbzrovRkfMg",
+      "author": "hiddenmysticsoul707",
+      "title": "바이브 코딩으로 만든 세 번째 서비스",
+      "visible_counts_in_ui_order": ["91", "36", "12", "14"]
+    }
+  ],
+  "metric_labels": "NOT_EXPOSED_IN_SEARCH_DOM",
+  "public_reference_collection": "PASS",
+  "runtime_ranking": "NOT_PROVEN",
+  "saved_auth_data": false,
+  "saved_private_content": false,
+  "technical_verdict": "PASS_WITH_FIX"
+}

@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "purpose": "AI 코딩·V2 적용 아이디어와 구현 사례를 찾는 공식 YouTube Feed 공급원",
+  "channels": [
+    {
+      "platform": "youtube",
+      "channel": "조코딩 JoCoding",
+      "locale": "ko",
+      "role": "AI 코딩·바이브 코딩·실전 제작 사례",
+      "url": "https://www.youtube.com/@jocoding",
+      "channel_id": "UCQNE2JmbasNYbjGAcuBiRRg",
+      "feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCQNE2JmbasNYbjGAcuBiRRg"
+    },
+    {
+      "platform": "youtube",
+      "channel": "노마드 코더 Nomad Coders",
+      "locale": "ko",
+      "role": "개발 도구·웹 개발·AI 코딩 설명",
+      "url": "https://www.youtube.com/@nomadcoders",
+      "channel_id": "UCUpJs89fSBXNolQGOYKn0YQ",
+      "feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCUpJs89fSBXNolQGOYKn0YQ"
+    },
+    {
+      "platform": "youtube",
+      "channel": "코딩애플",
+      "locale": "ko",
+      "role": "웹 개발·코딩 도구·실무 설명",
+      "url": "https://www.youtube.com/@codingapple",
+      "channel_id": "UCSLrpBAzr-ROVGHQ5EmxnUg",
+      "feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCSLrpBAzr-ROVGHQ5EmxnUg"
+    },
+    {
+      "platform": "youtube",
+      "channel": "Fireship",
+      "locale": "global",
+      "role": "개발 기술·AI 도구의 빠른 업데이트",
+      "url": "https://www.youtube.com/@Fireship",
+      "channel_id": "UCsBjURrPoezykLs9EqgamOA",
+      "feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCsBjURrPoezykLs9EqgamOA"
+    },
+    {
+      "platform": "youtube",
+      "channel": "AI Jason",
+      "locale": "global",
+      "role": "AI Agent·자동화·실전 AI 개발",
+      "url": "https://www.youtube.com/@AIJasonZ",
+      "channel_id": "UCrXSVX9a1mj8l0CMLwKgMVw",
+      "feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCrXSVX9a1mj8l0CMLwKgMVw"
+    },
+    {
+      "platform": "youtube",
+      "channel": "Cole Medin",
+      "locale": "global",
+      "role": "AI Agent·로컬 AI·자동화 구현",
+      "url": "https://www.youtube.com/@ColeMedin",
+      "channel_id": "UCMwVTLZIRRUyyVrkjDpn4pA",
+      "feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCMwVTLZIRRUyyVrkjDpn4pA"
+    },
+    {
+      "platform": "youtube",
+      "channel": "IndyDevDan",
+      "locale": "global",
+      "role": "Claude Code·Agentic Coding·개발 Workflow",
+      "url": "https://www.youtube.com/@indydevdan",
+      "channel_id": "UC_x36zCEGilGpB1m-V4gmjg",
+      "feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UC_x36zCEGilGpB1m-V4gmjg"
+    }
+  ],
+  "automatic_adoption": false,
+  "automatic_product_application": false,
+  "authentication_data_saved": false
+}
