@@ -29,6 +29,11 @@ check_sha "8107e07dcbf62fdf77d0581ac8159f5b8646c1d8ca1fa0ef8066e4518cdf2263" "pm
 check_sha "1d440bbbdf6c90fe5e24e6463060911801d62b5d96c33e34c1aa2bf634de1fb8" "pm2-module-test.html"
 check_sha "768d7b13ec42c353f8757d6603f455203189ead69adae55838459da0b6fc0902" "wiki/PM2_FIRST_MODULE_PILOT_REPORT_2026-08-19.md"
 check_sha "da8adcb9e34cee648e466509b63ae0396195697f58b883c7749ff8179a22ebb5" "pm2-artifacts/module-registry-v1/core-verification.json"
+check_sha "79b038c51c0c428b3961945c0bd8cbf58312f2c52b5b54708decdb7830fead53" "wiki/PM4_COMPLETION_REPORT_2026-08-26.md"
+check_sha "974d00ea3d7ec41d69430562514c1aee7942d8afe215340686f49d4fe9a00e2e" "pm4-artifacts/project-collector-mvp-v1/electronic-card-design-handoff.json"
+check_sha "053735a40d6cf9c65396ba871885409e6c0a30cf963591512267524dbcd40748" "pm4-artifacts/project-collector-mvp-v1/design-candidates/direction-2-full-flow-visual-target.png"
+check_sha "f06e1c349f404c84571f5fda444b924ae748fe861dfb7bc36ccc091e919fe39a" "state/pm4-design-ideation-state.json"
+check_sha "aa47d48932896a118c48f98bbbdb64d9ae08774a35d7f5721525f81e0008efff" "pm4-artifacts/project-collector-mvp-v1/visual-reference-selection-handoff.json"
 
 if [[ "$failures" -gt 0 ]]; then
   echo "PM lock verification: FAIL ($failures)"

@@ -1,32 +1,39 @@
 {
   "schema_version": "1.0",
-  "transition": "PM2_to_PM3",
+  "transition": "PM4_to_PM5",
   "expected_branch": "codex/pm3-from-pm2-lock",
   "tag": {
-    "name": "pm2-complete-2026-08-19"
+    "name": "pm4-complete-2026-08-26"
   },
   "files": [
     {
-      "path": "pm2-module-test.html",
-      "sha256": "1d440bbbdf6c90fe5e24e6463060911801d62b5d96c33e34c1aa2bf634de1fb8"
-    },
-    {
-      "path": "wiki/PM2_FIRST_MODULE_PILOT_REPORT_2026-08-19.md",
-      "sha256": "768d7b13ec42c353f8757d6603f455203189ead69adae55838459da0b6fc0902",
+      "path": "wiki/PM4_COMPLETION_REPORT_2026-08-26.md",
+      "sha256": "79b038c51c0c428b3961945c0bd8cbf58312f2c52b5b54708decdb7830fead53",
       "required_text": [
-        "사용자는 2026-08-19",
-        "PM2 PASS",
-        "pm2_overall: completed_and_locked"
+        "completed_and_user_approved",
+        "다음 활성 단계: PM5 사용자 의도·범위·자산 정합성"
       ]
     },
     {
-      "path": "pm2-artifacts/module-registry-v1/core-verification.json",
-      "sha256": "da8adcb9e34cee648e466509b63ae0396195697f58b883c7749ff8179a22ebb5"
+      "path": "pm4-artifacts/project-collector-mvp-v1/electronic-card-design-handoff.json",
+      "sha256": "974d00ea3d7ec41d69430562514c1aee7942d8afe215340686f49d4fe9a00e2e"
+    },
+    {
+      "path": "pm4-artifacts/project-collector-mvp-v1/design-candidates/direction-2-full-flow-visual-target.png",
+      "sha256": "053735a40d6cf9c65396ba871885409e6c0a30cf963591512267524dbcd40748"
+    },
+    {
+      "path": "state/pm4-design-ideation-state.json",
+      "sha256": "f06e1c349f404c84571f5fda444b924ae748fe861dfb7bc36ccc091e919fe39a"
+    },
+    {
+      "path": "pm4-artifacts/project-collector-mvp-v1/visual-reference-selection-handoff.json",
+      "sha256": "aa47d48932896a118c48f98bbbdb64d9ae08774a35d7f5721525f81e0008efff"
     },
     {
       "path": "wiki/CURRENT_STATE.md",
       "required_text": [
-        "현재 활성 단계는 `PM3 — 부분 수정·Motion Adapter`"
+        "다음 진행 가능 단계는 `PM5 — 사용자 의도·범위·자산 정합성`입니다."
       ]
     }
   ]

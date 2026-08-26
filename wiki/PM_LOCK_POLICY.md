@@ -50,3 +50,23 @@
 | `pm2-artifacts/module-registry-v1/core-verification.json` | `da8adcb9e34cee648e466509b63ae0396195697f58b883c7749ff8179a22ebb5` |
 
 PM3부터 위 세 파일을 직접 수정하지 않습니다. PM2의 프로젝트 선택·단일 Preview·기능 목록을 변경해야 한다면 별도 Change Run과 사용자 승인을 사용합니다.
+
+## PM4 잠금 기준
+
+- 상태: `completed_and_user_approved`
+- Result Commit: `4d5dd0a8cf2a2a9c88a6d8d14150c91dd9eb6305`
+- Tag: `pm4-complete-2026-08-26`
+- 승인 화면: `pm4-electronic-card-visual-target.html`
+- 완료 경계: 전자명함 요청의 인터뷰·수집·시각 Reference·리필·사용자 선택·Design DNA·전체 흐름 Visual Target·PM5 인계
+
+### 핵심 파일 SHA-256
+
+| 파일 | SHA-256 |
+|---|---|
+| `wiki/PM4_COMPLETION_REPORT_2026-08-26.md` | `79b038c51c0c428b3961945c0bd8cbf58312f2c52b5b54708decdb7830fead53` |
+| `pm4-artifacts/project-collector-mvp-v1/electronic-card-design-handoff.json` | `974d00ea3d7ec41d69430562514c1aee7942d8afe215340686f49d4fe9a00e2e` |
+| `pm4-artifacts/project-collector-mvp-v1/design-candidates/direction-2-full-flow-visual-target.png` | `053735a40d6cf9c65396ba871885409e6c0a30cf963591512267524dbcd40748` |
+| `state/pm4-design-ideation-state.json` | `f06e1c349f404c84571f5fda444b924ae748fe861dfb7bc36ccc091e919fe39a` |
+| `pm4-artifacts/project-collector-mvp-v1/visual-reference-selection-handoff.json` | `aa47d48932896a118c48f98bbbdb64d9ae08774a35d7f5721525f81e0008efff` |
+
+PM5부터 위 다섯 파일을 직접 수정하지 않습니다. PM4 범위를 확장하거나 승인 결과를 변경하려면 별도 Change Run과 사용자 승인을 사용합니다.
