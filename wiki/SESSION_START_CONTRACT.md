@@ -18,6 +18,9 @@
 - 현재 상태는 `M1_foundation_pass / M2_not_started / product_runtime_not_started / revenue_not_proven`입니다.
 - `v2 storyboard intake`, Story Profile·Scene Schema, PPTX Import Draft와 M1 Foundation Verifier는
   Core에 연결됐습니다. Visual Target·정식 PPT Export·제품 Runtime은 M2 이후 범위입니다.
+- M1 이후 다른 세션에서 스토리 보드를 계속할 때는
+  `wiki/STORY_BOARD_NEXT_SESSION_HANDOFF.md`를 단일 실행 진입점으로 사용하고
+  `tools/verify-story-board-next-session-handoff`를 통과한 뒤 M2를 시작합니다.
 
 ## 2026-08-30 제품 조립 Gate 회의 결정
 
