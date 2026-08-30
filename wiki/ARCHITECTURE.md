@@ -172,6 +172,27 @@ Kernel, Planner, 별도 Collector 서버, Multi-Agent와 자체 실행 엔진은
 
 ## MVP 이후 연결
 
+### Story 제품 계층과 제품 하네스 경계 — 2026-08-30
+
+`V2 Story Core`는 별도 Workflow 엔진이 아니라 기존 Core Run·Gate·Artifact·Version·Restore 위에 놓는
+제품 계층입니다. 공통 Story Profile·Scene Contract·Recipe를 사용하되 Memory와 Knowledge의 입력,
+공개 기본값, CTA, 가격, 개인정보 검사는 각각의 Product Adapter가 소유합니다.
+
+```text
+V2 Core
+└─ Product Harness
+   ├─ Product Contract / Screen Manifest / State Matrix
+   ├─ Product Profile / Adapter / Recipe / Verifier
+   └─ Story Core
+      ├─ Memory Story Adapter
+      └─ Knowledge Story Adapter
+```
+
+제품 하네스는 조사 결과를 실행 가능한 규칙으로 바꾸는 중간 계층입니다. 정상 결과 파일을 Codex가
+직접 수정하면 PASS가 아니며, 빠진 소유 지점을 계약·Adapter·Recipe·Verifier에 보완한 뒤 동일 입력으로
+Core Run을 다시 실행해야 합니다. 상세 계약은
+`wiki/V2_STORY_PILOT_AND_CORE_COMPLETION_CONTRACT_2026-08-30.md`를 따릅니다.
+
 M7이 PASS하면 Core는 완료 상태만 표시하고 멈추지 않고 `wiki/POST_MVP_ROADMAP.md`의 최우선 미검증 후보를 읽습니다. 이 자동 연결은 `상태 조회 → 후보 로드 → 수집 → 분석 → 추천 → Preview 준비`까지만 허용하며 구현 Gate를 자동 통과하지 않습니다.
 
 Post-MVP 공식 순서는 `PM0 운영환경·Capability Lab 준비 → PM1 디자인 전략·탐색·채택 → PM2 조립식 제작 보드 → PM3 부분 수정·Motion Adapter → PM4 조사·Design Intelligence → PM5 사용자 의도·범위·자산 정합성 → PM6 전체 통합·품질·복구 검증`입니다. 최신 범위와 Gate는 [[POST_MVP_PM0_PM6_BASELINE]]을 단일 기준으로 사용합니다. PM2는 고정 Core 위에 정적 Project·Module Registry, Slot Renderer, Versioned Design Recipe와 Adapter 경계를 두며 Module 실패를 해당 Module에 격리합니다.

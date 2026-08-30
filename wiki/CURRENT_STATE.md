@@ -1,5 +1,14 @@
 # Current State
 
+2026-08-30 수익화·범용성 회의는 `Memory Story`와 `Knowledge Story`의 좁은 비교 Pilot로 종료했습니다.
+독립 도메인을 제품·자료·결제의 본체로 두고 네이버 카페는 사례·지식, 카카오톡은 공지·재방문,
+나머지 채널은 홍보로 사용합니다. `V2 Story Core`는 새 Orchestrator가 아니라 기존 Core 아래의 공통
+제품 계층이며, 전자명함에서 발생한 반복 수정은 Product Contract·제품별 Adapter·Recipe·Verifier·
+State Matrix·전체 회귀검사로 흡수합니다. 공식 계약은
+`wiki/V2_STORY_PILOT_AND_CORE_COMPLETION_CONTRACT_2026-08-30.md`입니다. 현재 상태는
+`approved_plan / implementation_not_started / revenue_not_proven`이며 Story 제품·결제·수익 PASS가
+아닙니다.
+
 2026-08-30 회의에서 V2 MVP의 남은 핵심을 `초기 모델 → 제품 계약 → 제품 조립 → Product Harness
 → PM6 → 배포·운영 확인·복구` 연결로 확정했습니다. 새 PM·Workflow 엔진·외부 패키지는 추가하지
 않고, 기존 Product Contract·Registry·검증기를 사용하는 제한형 제품 조립기를 구현했습니다.
@@ -32,8 +41,9 @@ GitHub Spec Kit `v0.16.5`를 전역이 아닌 `/home/user/바탕화면/v2_spec_k
 2026-08-29에는 전자명함 전용 `core-design-harness`를 공식 입력에서 제외하고, 기존 PM4 승인
 Handoff·Design DNA·Visual Target과 PM5 Intent를 `run-electronic-card-official-v1`로 연결했습니다.
 Core가 생성한 `draft-design-recipe.json`은 방향·화면·행동·사진 처리·반응형·금지 재해석과 입력
-Hash를 잠급니다. 연결 Runtime 검사는 PASS했지만 PM5 Fixture의 사용자 범위 승인이 아직
-`pending`이므로 제품 구현·PM6·배포는 차단 상태이며 PASS로 확대하지 않습니다.
+Hash를 잠급니다. 당시 PM5 Fixture 범위는 `pending`이었으나 이후 사용자가 시험 범위와 최종 결과를
+승인했고, 최신 회귀검사를 거쳐 PM5·PM6는 `completed_locked`입니다. 실제 정보·공개 주소·QR·NFC
+배포와 다른 제품 범용 Runtime은 여전히 별도 범위이며 `not_proven`입니다.
 
 2026-08-24 PM4 프로젝트 수집 MVP는 전자명함 시험에서 `인터뷰 → 소셜 사용 근거 → 방향 5개 → GitHub 구현 재료 → Core 추천 → 사용자 시험 선택 → 제작 가능 확인서`까지 연결했습니다. Reddit 3건·YouTube 2건·Threads 3건과 GitHub 구현 재료 5건은 실제 Link로 보존했고, Instagram은 로그인 세션 미연결로 0건입니다. 후보 보존, `다음` 클릭 후 확인서 자동 생성, 서버 재시작 복원, 자동 설치·구현 차단은 PASS했습니다. 2026-08-25 사용자가 1번 `QR·NFC로 바로 연결하는 명함`을 최종 재확인해 대화 기록과 Handoff Artifact의 충돌을 해소했습니다. Core의 3번 추천은 비교 근거로만 보존하며 자동 선택으로 해석하지 않습니다. 2026-08-26 사용자는 후속 3번 시각 시안 수정본을 `보류`했습니다. 이후 기존 PM4에 검색 기반 시각 Reference Adapter를 추가해 고정 Seed 없이 전자명함 명세에서 공개 Gallery 검색어 3개를 생성하고 화면 8개를 출처·이미지 Hash·한글 요약·복제 금지 항목과 함께 수집했습니다. 같은 경로는 인테리어 커뮤니티 Fixture에서도 별도 화면 8개를 수집해 Core 연결됐고, 출처 하나의 의도된 실패가 다른 자료를 막지 않는 것도 PASS했습니다. Core 조회·판정 저장·서버 재시작 조회·제품 자동 적용 차단 역시 Runtime PASS입니다. 2026-08-26 `추가 탐색` Refill Loop를 Core Action으로 연결해 기존 12개를 보존하고 인접 검색어 5개로 새 후보 5개만 추가했습니다. URL·SHA-256·이미지 dHash 유사도 중복 제거, 채택 특징 우선·폐기 특징/유사 화면 제외, 판정 보존, 3개 미만 확보 시 원본 유지, 디자인/기능 자료 분리 표시를 검사했습니다. 기능 자료는 기존 GitHub·YouTube 근거를 별도 화면으로 재사용합니다. 사용자는 총 17개 중 6개 시각 Reference를 채택했고, 선택 결과는 `visual-reference-selection-handoff.json`으로 고정했습니다. 이 전달서는 PM1 디자인 방향 정리의 입력이며 DNA·Visual Target·구현 승인은 아닙니다. 사용자 URL·이미지는 등록되면 최고 우선순위지만 입력 UI는 아직 없고, Instagram·Threads 로그인 수집도 PM4 최종 보류 상태입니다. 이는 두 입력과 현재 공개 Gallery·등록 서비스 Adapter의 제한 증거이며 임의의 모든 주제, Reference 품질 승인, Visual Target 승인, 구현을 증명하지 않습니다. 로그인 세션 관리·Instagram 수집과 사용자 PM4 최종 PASS는 PM4 마지막 검증 항목으로 잠급니다. 과거 로컬 우선 Pilot 증거는 [[PM4_LOCAL_FIRST_COLLECTOR_PILOT_2026-08-21]]을 사용합니다.
 

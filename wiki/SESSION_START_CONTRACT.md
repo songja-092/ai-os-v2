@@ -1,5 +1,16 @@
 # AI OS V2 새 세션 시작 계약
 
+## 2026-08-30 Story 비교 Pilot·Core 완성 계약
+
+- 수익화 회의는 `Memory Story`와 `Knowledge Story`의 좁은 비교 Pilot으로 종료했습니다.
+- V2의 다음 목표는 Story 결과 하나를 만드는 것이 아니라, 전자명함에서 드러난 반복 수정 병목을
+  `Product Contract → Profile·Adapter·Recipe·Verifier → Product Harness`로 흡수하는 것입니다.
+- 정상적인 두 번째 고객부터 고객별 코드 수정 없이 Core Artifact가 재현되어야 하며, 완성 시 Codex는
+  정상 제작에 개입하지 않고 새 실패 유형·Core 결함·새 능력 Pilot만 진단합니다.
+- 공식 실행·자동화·사용자 개입·완성 기준은
+  `wiki/V2_STORY_PILOT_AND_CORE_COMPLETION_CONTRACT_2026-08-30.md`를 따릅니다.
+- 현재 상태는 `approved_plan / implementation_not_started / revenue_not_proven`입니다.
+
 ## 2026-08-30 제품 조립 Gate 회의 결정
 
 - V2의 현재 병목은 초기 모델 생성이 아니라 초기 모델을 배포·운영·복구 가능한 제품으로 연결하는
