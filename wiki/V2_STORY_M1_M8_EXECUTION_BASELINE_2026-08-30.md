@@ -147,3 +147,67 @@ TTS Provider를 연결하지 않습니다. 기본 TTS는 M8 승격 후보이며,
 - 독립 도메인·결제·Pilot·수익: `not_started / not_proven`
 
 다음 실행은 M1이며, M1 PASS 전 M2 제품 화면을 먼저 만들지 않습니다.
+
+## 11. Milestone Result Snapshot·전체 동기화 계약
+
+각 Story M1~M8은 파일 수정이 끝났다고 종료하지 않습니다. 해당 마일스톤의 코드·계약·입력 Hash·
+산출물·검증·사용자 판정·미해결 한계·복구 방법을 하나의 `Milestone Result Snapshot`으로 고정해야
+종료됩니다.
+
+### 마일스톤 종료 순서
+
+```text
+작업 완료
+→ 전체 회귀·실패·Restore 검사
+→ 사용자 판단이 필요한 항목 일괄 확인
+→ Milestone Result Manifest 생성
+→ Result Commit 생성
+→ 불변 Milestone Tag 생성
+→ GitHub main Fast-forward
+→ Obsidian·공통 Wiki Fast-forward
+→ local / origin main / Obsidian SHA 일치 확인
+→ CURRENT_STATE가 최신 Snapshot을 가리키게 갱신
+→ 다음 마일스톤 시작
+```
+
+### Result Manifest 필수 내용
+
+- 프로젝트명 `스토리 보드`, 마일스톤 ID, Run ID, 완료 시각
+- Base Commit·Result Commit·Milestone Tag
+- 승인된 Product/Design/Revenue/Privacy Contract Hash
+- 입력 원본 Hash와 원본 불변 여부
+- 생성 Artifact 경로·Hash·Runtime 주소
+- 실행한 Verifier·명령·종료 코드·판정
+- 사용자 승인 원문 또는 승인 Artifact
+- 자동화된 부분·사람 개입·Codex 개입 횟수
+- 비용·소요시간·재시도·알려진 한계
+- 이전 Snapshot과 Restore 절차
+
+### Commit·Tag 규칙
+
+- Commit은 문서 파일만이 아니라 마일스톤에서 승인된 저장소 전체 상태의 기준점입니다.
+- 권장 Tag는 `story-board-m1-result-v1`처럼 마일스톤과 Version을 포함합니다.
+- 검사 실패·사용자 승인 미완료·동기화 SHA 불일치 상태에서는 Result Tag와 완료 판정을 금지합니다.
+- 이미 만든 Result Tag를 다른 Commit으로 강제 이동하지 않습니다. 변경은 `v2`, `v3` 새 Tag로 남깁니다.
+- 미완성 중간 Commit은 허용하지만 `Milestone Result Snapshot`으로 표현하지 않습니다.
+
+### 최신 기록과 회귀
+
+- `wiki/CURRENT_STATE.md`는 항상 가장 최근 완료 Snapshot과 현재 진행 중인 마일스톤을 함께 표시합니다.
+- 과거 Snapshot은 삭제하거나 최신 파일로 덮지 않고 Commit·Tag·Manifest로 보존합니다.
+- 회귀는 현재 Worktree를 강제 초기화하지 않고 과거 Tag에서 새 Branch/Worktree를 만들어 검사합니다.
+- 회귀 결과를 채택하면 새 Result Commit과 새 Tag를 만들며 과거 Snapshot은 그대로 유지합니다.
+- 사용자 자료·Secret·대용량 외부 Artifact는 Git에 직접 넣지 않고 Hash·권한·보존 위치·복구 증거를
+  Manifest에 기록합니다.
+
+### 동기화 PASS
+
+다음 네 값이 같아야 `synced`로 기록합니다.
+
+1. 활성 작업 저장소 Result Commit
+2. GitHub `origin/main`
+3. Obsidian Vault HEAD
+4. Milestone Result Manifest의 `result_commit`
+
+웹 GPT에는 GitHub `main`의 Commit과 필수 문서 경로를 전달합니다. 직접 GitHub Commit을 확인하지
+못한 AI는 최신 상태를 확인했다고 표현할 수 없습니다.

@@ -325,6 +325,10 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - PPT는 내부 원본이 아니라 입출력 형식이며 `PPT/PDF/사진+텍스트 → Story Profile·Scene Contract
   → PPT/카드/웹/모션/MP4/PDF/책`을 공식 구조로 사용합니다.
 - 실행 기준: `wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_2026-08-30.md`
+- Story M1~M8 종료 단위는 개별 파일이 아니라 복구 가능한 `Milestone Result Snapshot`입니다. 매 단계
+  종료 시 Result Manifest·Commit·불변 Tag를 만들고 GitHub main·Obsidian·활성 저장소 SHA를 맞춥니다.
+- 과거 단계 회귀는 강제 Reset이 아니라 해당 Tag에서 새 Branch/Worktree를 만들어 검증하며, 채택된
+  회귀 결과는 새 Version의 Result Commit·Tag로 보존합니다.
 
 # PM 종료 전 자동화 후보 감사 — 2026-08-26
 

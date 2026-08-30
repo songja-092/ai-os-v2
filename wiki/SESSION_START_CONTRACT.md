@@ -11,6 +11,9 @@
   `wiki/V2_STORY_PILOT_AND_CORE_COMPLETION_CONTRACT_2026-08-30.md`를 따릅니다.
 - Storyboard 공통 구조와 M1~M8 제품·사업 병렬 Gate는
   `wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_2026-08-30.md`를 단일 기준으로 사용합니다.
+- 각 Story 마일스톤은 파일 변경으로 종료하지 않습니다. 전체 저장소 상태·계약 Hash·Artifact·검증·
+  사용자 판정·복구 절차를 Result Manifest·Commit·불변 Tag로 고정하고 GitHub main·Obsidian·현재
+  작업 저장소 SHA가 같을 때만 완료·동기화로 기록합니다.
 - 현재 상태는 `approved_plan / implementation_not_started / revenue_not_proven`입니다.
 
 ## 2026-08-30 제품 조립 Gate 회의 결정

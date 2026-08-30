@@ -14,6 +14,11 @@ M1~M8 Gate와 단계별 금지선은 `wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_202
 `design_complete`로 확정했습니다. Schema·Adapter·Fixture·Runtime·도메인·결제는 아직
 `not_implemented` 또는 `not_started`이며 다음 실행 단계는 M1 기반 준비입니다.
 
+Story M1부터는 각 마일스톤 종료 시 전체 저장소 상태와 증거를 `Milestone Result Snapshot`으로
+고정합니다. Result Manifest·Commit·불변 Tag·GitHub main·Obsidian SHA 정합성과 별도 Worktree 기반
+Restore 검사가 없으면 완료로 기록하지 않습니다. 현재는 M1 실행 전이므로 Story Result Snapshot은
+아직 존재하지 않습니다.
+
 2026-08-30 회의에서 V2 MVP의 남은 핵심을 `초기 모델 → 제품 계약 → 제품 조립 → Product Harness
 → PM6 → 배포·운영 확인·복구` 연결로 확정했습니다. 새 PM·Workflow 엔진·외부 패키지는 추가하지
 않고, 기존 Product Contract·Registry·검증기를 사용하는 제한형 제품 조립기를 구현했습니다.
