@@ -5485,9 +5485,24 @@ def cmd_design_connect_approved_flow(args):
     result = subprocess.run(command, check=False)
     raise SystemExit(result.returncode)
 
+def cmd_storyboard_intake(args):
+    command = [
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "compile-storyboard-intake"),
+        "--meeting", args.meeting,
+        "--output", args.output,
+    ]
+    result = subprocess.run(command, check=False)
+    raise SystemExit(result.returncode)
+
 def main():
     parser = argparse.ArgumentParser(description="AI OS V2 Core Command Line Interface")
     subparsers = parser.add_subparsers(dest="command", required=True)
+
+    storyboard_parser = subparsers.add_parser("storyboard", help="Manage Story Board product intake")
+    storyboard_subparsers = storyboard_parser.add_subparsers(dest="storyboard_command", required=True)
+    storyboard_intake_parser = storyboard_subparsers.add_parser("intake", help="Compile meeting decisions into one adaptive interview bundle")
+    storyboard_intake_parser.add_argument("--meeting", required=True)
+    storyboard_intake_parser.add_argument("--output", required=True)
 
     run_parser = subparsers.add_parser("run", help="Manage V2 runs")
     run_subparsers = run_parser.add_subparsers(dest="run_command", required=True)
@@ -5653,7 +5668,10 @@ def main():
 
     args = parser.parse_args()
 
-    if args.command == "run":
+    if args.command == "storyboard":
+        if args.storyboard_command == "intake":
+            cmd_storyboard_intake(args)
+    elif args.command == "run":
         if args.run_command == "create":
             cmd_create(args)
         elif args.run_command == "show":

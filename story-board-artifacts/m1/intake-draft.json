@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "project_id": "story-board",
+  "meeting_sha256": "5cb477c29762b1dcc670e2a071eba193ec8161feb4268682e60409fd57b7c626",
+  "status": "ready_for_contract_review",
+  "confirmed": {
+    "inputs": [
+      "pptx",
+      "pdf",
+      "photos",
+      "text"
+    ],
+    "internal_source": "story_profile_and_scene_contract",
+    "outputs": [
+      "improved_pptx",
+      "new_pptx",
+      "cards",
+      "web_story",
+      "motion",
+      "mp4",
+      "pdf",
+      "book"
+    ],
+    "project_name": "스토리 보드",
+    "tts_timing": "after_paid_demand",
+    "channel_roles": {
+      "domain": "product_data_payment",
+      "naver_cafe": "knowledge_cases",
+      "kakao": "notice_return",
+      "social": "promotion"
+    },
+    "core_requirement": "core_reproducible_without_normal_codex_edits",
+    "first_pilot": "knowledge_story",
+    "fixture_topic": "중소기업 실무자를 위한 생성형 AI 업무자동화 입문",
+    "free_output": "핵심 장면 1개와 6~10초 무음 웹 모션",
+    "external_ai_policy": "M1은 가상·공개 허가 자료만 사용하고 실제 고객 자료 전송은 별도 승인",
+    "pilot_cost_cap": "M1 외부 유료 도구비 0원"
+  },
+  "question_bundle": [
+    {
+      "id": "first_paid_offer",
+      "question": "첫 유료 상품과 시험 가격 범위는 어떻게 할까요?",
+      "reason": "M5 전까지 가설로 보존할 가격 기준입니다.",
+      "blocking": false
+    },
+    {
+      "id": "visual_preferences",
+      "question": "선호하는 디자인과 피해야 할 방향이 있나요?",
+      "reason": "M2 Visual Target의 탐색 범위를 줄입니다.",
+      "blocking": false
+    },
+    {
+      "id": "recruitment_scope",
+      "question": "첫 실제 사용자는 어디까지 모집할 수 있나요?",
+      "reason": "M4 공개·모집 범위를 잠급니다.",
+      "blocking": false
+    }
+  ],
+  "contract_drafts": {
+    "product": {
+      "status": "draft",
+      "inputs": [
+        "pptx",
+        "pdf",
+        "photos",
+        "text"
+      ],
+      "internal_source": "story_profile_and_scene_contract",
+      "outputs": [
+        "improved_pptx",
+        "new_pptx",
+        "cards",
+        "web_story",
+        "motion",
+        "mp4",
+        "pdf",
+        "book"
+      ],
+      "first_pilot": "knowledge_story"
+    },
+    "design": {
+      "status": "draft",
+      "visual_target_required": true,
+      "preferences": null,
+      "directions": 3
+    },
+    "revenue_distribution": {
+      "status": "draft",
+      "channels": {
+        "domain": "product_data_payment",
+        "naver_cafe": "knowledge_cases",
+        "kakao": "notice_return",
+        "social": "promotion"
+      },
+      "free_output": "핵심 장면 1개와 6~10초 무음 웹 모션",
+      "first_paid_offer": null
+    },
+    "privacy_cost_automation": {
+      "status": "draft",
+      "external_ai_policy": "M1은 가상·공개 허가 자료만 사용하고 실제 고객 자료 전송은 별도 승인",
+      "pilot_cost_cap": "M1 외부 유료 도구비 0원",
+      "external_publish_requires_approval": true
+    }
+  },
+  "implementation_allowed": false
+}

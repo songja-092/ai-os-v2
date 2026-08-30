@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+"""Read-only PPTX importer producing draft Story Profile and Scene Contract."""
+from __future__ import annotations
+import argparse, hashlib, json, re, sys, zipfile
+from pathlib import Path
+from xml.etree import ElementTree as ET
+ROOT=Path(__file__).resolve().parents[1]; NS={"a":"http://schemas.openxmlformats.org/drawingml/2006/main"}
+def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+def label(path): return str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
+def main():
+ p=argparse.ArgumentParser(); p.add_argument("--pptx",required=True); p.add_argument("--output-dir",required=True); a=p.parse_args(); source=(ROOT/a.pptx).resolve() if not Path(a.pptx).is_absolute() else Path(a.pptx); out=(ROOT/a.output_dir).resolve() if not Path(a.output_dir).is_absolute() else Path(a.output_dir)
+ if not source.is_file() or source.suffix.lower()!=".pptx": print(json.dumps({"verdict":"BLOCKED","reason":"pptx file required"})); return 2
+ before=sha(source); warnings=[]; scenes=[]
+ try:
+  with zipfile.ZipFile(source) as deck:
+   names=set(deck.namelist()); slides=sorted((n for n in names if re.fullmatch(r"ppt/slides/slide[0-9]+\.xml",n)),key=lambda n:int(re.search(r"([0-9]+)",Path(n).stem).group(1)))
+   if not slides: raise ValueError("no slides")
+   if any(n.startswith("ppt/charts/") for n in names): warnings.append("charts: preserve_only")
+   if any("diagram" in n for n in names): warnings.append("smartart_or_diagram: preserve_only")
+   if any(n.startswith("ppt/embeddings/") for n in names): warnings.append("embedded_object: preserve_only")
+   if any(n.startswith("ppt/media/") and Path(n).suffix.lower() in {".mp4",".mov",".avi"} for n in names): warnings.append("video: preserve_only")
+   for index,name in enumerate(slides,1):
+    root=ET.fromstring(deck.read(name)); texts=[(node.text or "").strip() for node in root.findall(".//a:t",NS) if (node.text or "").strip()]
+    title=texts[0] if texts else f"Slide {index}"; body=texts[1:]
+    assets=sorted(n for n in names if n.startswith("ppt/media/")) if index==1 else []
+    scenes.append({"scene_id":f"scene_{index:03d}","order":index,"title":title,"body":body,"source_slide":index,"asset_refs":assets,"output_mapping":{"slide":index,"card":index,"web":index,"shot":index,"page":index},"motion":"none","audio":"none"})
+ except (zipfile.BadZipFile,ET.ParseError,ValueError) as exc: print(json.dumps({"verdict":"BLOCKED","reason":str(exc)},ensure_ascii=False)); return 2
+ after=sha(source)
+ if before!=after: print(json.dumps({"verdict":"BLOCKED","reason":"source hash changed"})); return 2
+ profile={"schema_version":"1.0","profile_id":"knowledge-story-fixture-v1","status":"draft","source":{"path":label(source),"sha256":before,"immutable":True},"purpose":"업무자동화 입문 교육","audience":"중소기업 실무자","core_message":scenes[0]["title"],"tone":"명확하고 실용적","rights":"fixture_public_or_synthetic","outputs":["improved_pptx","web_story","motion","pdf"]}
+ contract={"schema_version":"1.0","contract_id":"knowledge-story-scenes-v1","status":"draft","source_sha256":before,"scenes":scenes,"warnings":warnings}
+ out.mkdir(parents=True,exist_ok=True); (out/"story-profile.json").write_text(json.dumps(profile,ensure_ascii=False,indent=2)+"\n"); (out/"scene-contract.json").write_text(json.dumps(contract,ensure_ascii=False,indent=2)+"\n")
+ print(json.dumps({"verdict":"PASS_IMPORT_DRAFT","source_sha256":before,"source_immutable":True,"slide_count":len(scenes),"warnings":warnings,"outputs":[label(out/"story-profile.json"),label(out/"scene-contract.json")]},ensure_ascii=False,indent=2)); return 0
+if __name__=="__main__": sys.exit(main())

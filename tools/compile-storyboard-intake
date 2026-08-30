@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+"""Compile confirmed meeting decisions into one bounded Story Board interview bundle."""
+from __future__ import annotations
+import argparse, hashlib, json, sys
+from pathlib import Path
+from jsonschema import Draft202012Validator
+
+ROOT = Path(__file__).resolve().parents[1]
+MEETING_SCHEMA = ROOT / "schemas/storyboard-meeting.schema.json"
+OUTPUT_SCHEMA = ROOT / "schemas/storyboard-intake.schema.json"
+
+QUESTIONS = {
+  "first_pilot": ("첫 Pilot은 Knowledge Story로 시작할까요?", "첫 Fixture와 조사 범위를 하나로 제한해야 합니다.", True),
+  "fixture_topic": ("첫 가상 PPT는 어떤 주제로 만들까요?", "PPT Import·Scene 변환 Fixture에 사용할 내용이 필요합니다.", True),
+  "free_output": ("무료 결과에 반드시 보여줄 한 가지는 무엇인가요?", "무료 체험의 완료 기준을 잠급니다.", True),
+  "first_paid_offer": ("첫 유료 상품과 시험 가격 범위는 어떻게 할까요?", "M5 전까지 가설로 보존할 가격 기준입니다.", False),
+  "visual_preferences": ("선호하는 디자인과 피해야 할 방향이 있나요?", "M2 Visual Target의 탐색 범위를 줄입니다.", False),
+  "external_ai_policy": ("실제 자료를 외부 AI에 전송해도 되는 범위는 어디까지인가요?", "개인정보와 Provider 경계를 잠급니다.", True),
+  "pilot_cost_cap": ("첫 Pilot의 외부 도구 비용 상한은 얼마인가요?", "자동 비용 차단 기준입니다.", True),
+  "recruitment_scope": ("첫 실제 사용자는 어디까지 모집할 수 있나요?", "M4 공개·모집 범위를 잠급니다.", False)
+}
+
+def load(path: Path): return json.loads(path.read_text(encoding="utf-8"))
+def errors(schema, value): return sorted(f"{'.'.join(map(str,e.absolute_path)) or '$'}: {e.message}" for e in Draft202012Validator(schema).iter_errors(value))
+def label(path: Path): return str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
+
+def main():
+    p=argparse.ArgumentParser(); p.add_argument("--meeting", required=True); p.add_argument("--output", required=True); a=p.parse_args()
+    meeting_path=(ROOT/a.meeting).resolve() if not Path(a.meeting).is_absolute() else Path(a.meeting)
+    out=(ROOT/a.output).resolve() if not Path(a.output).is_absolute() else Path(a.output)
+    try: meeting=load(meeting_path); meeting_schema=load(MEETING_SCHEMA); output_schema=load(OUTPUT_SCHEMA)
+    except Exception as exc: print(json.dumps({"verdict":"BLOCKED","reason":str(exc)},ensure_ascii=False)); return 2
+    found=errors(meeting_schema,meeting)
+    ids=[d.get("id") for d in meeting.get("decisions",[])]
+    if len(ids)!=len(set(ids)): found.append("decision ids must be unique")
+    if found: print(json.dumps({"verdict":"BLOCKED","errors":found},ensure_ascii=False,indent=2)); return 2
+    confirmed={d["id"]:d["value"] for d in meeting["decisions"] if d["status"]=="confirmed"}
+    bundle=[{"id":key,"question":q,"reason":reason,"blocking":blocking} for key,(q,reason,blocking) in QUESTIONS.items() if key not in confirmed]
+    has_blocking_questions = any(item["blocking"] for item in bundle)
+    result={
+      "schema_version":"1.0","project_id":"story-board","meeting_sha256":hashlib.sha256(meeting_path.read_bytes()).hexdigest(),
+      "status":"interview_required" if has_blocking_questions else "ready_for_contract_review","confirmed":confirmed,"question_bundle":bundle,
+      "contract_drafts":{
+        "product":{"status":"draft","inputs":confirmed.get("inputs",[]),"internal_source":confirmed.get("internal_source"),"outputs":confirmed.get("outputs",[]),"first_pilot":confirmed.get("first_pilot")},
+        "design":{"status":"draft","visual_target_required":True,"preferences":confirmed.get("visual_preferences"),"directions":3},
+        "revenue_distribution":{"status":"draft","channels":confirmed.get("channel_roles",{}),"free_output":confirmed.get("free_output"),"first_paid_offer":confirmed.get("first_paid_offer")},
+        "privacy_cost_automation":{"status":"draft","external_ai_policy":confirmed.get("external_ai_policy"),"pilot_cost_cap":confirmed.get("pilot_cost_cap"),"external_publish_requires_approval":True}
+      },"implementation_allowed":False}
+    found=errors(output_schema,result)
+    if found: print(json.dumps({"verdict":"BLOCKED","errors":found},ensure_ascii=False,indent=2)); return 2
+    out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps({"verdict":"PASS_INTAKE_DRAFT","output":label(out),"confirmed_count":len(confirmed),"question_count":len(bundle),"implementation_allowed":False},ensure_ascii=False,indent=2)); return 0
+if __name__=="__main__": sys.exit(main())

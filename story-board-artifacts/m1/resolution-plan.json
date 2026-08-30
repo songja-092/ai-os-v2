@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "contract": "story-board-artifacts/m1/product-contract.draft.json",
+  "contract_sha256": "b757d5caf3cc266f6d5d27f7b9b0a5e5414ea263ea2c895b24e17a6c8b6136ba",
+  "registry": "product-harness-registry.json",
+  "registry_sha256": "8e63648dafbd5970e32a9a4a2ebee60f396d6af69a5f7f268e62b723ac742e77",
+  "project_type": "story_board",
+  "profile": "story_board.m1",
+  "evidence_scope": "fixture_specific",
+  "selected_adapters": [
+    "storyboard-intake.v1",
+    "storyboard-pptx-import.v1"
+  ],
+  "selected_verifiers": [
+    {
+      "id": "storyboard-product-contract",
+      "command": [
+        "tools/verify-product-contract",
+        "story-board-artifacts/m1/product-contract.draft.json"
+      ],
+      "classification": "contract_only"
+    },
+    {
+      "id": "storyboard-m1-foundation",
+      "command": [
+        "tools/verify-storyboard-m1-foundation"
+      ],
+      "classification": "fixture_specific"
+    }
+  ],
+  "capability_coverage": {
+    "intake.adaptive": [
+      "storyboard-intake.v1"
+    ],
+    "story.profile": [
+      "storyboard-pptx-import.v1"
+    ],
+    "story.scenes": [
+      "storyboard-pptx-import.v1"
+    ],
+    "source.pptx_import": [
+      "storyboard-pptx-import.v1"
+    ]
+  },
+  "verifier_coverage": {
+    "confirmed_not_reasked": [
+      "storyboard-m1-foundation"
+    ],
+    "contract_complete": [
+      "storyboard-product-contract"
+    ],
+    "story_contracts_validate": [
+      "storyboard-m1-foundation"
+    ],
+    "pptx_import_draft": [
+      "storyboard-m1-foundation"
+    ]
+  },
+  "missing_evidence": [],
+  "missing_capabilities": [],
+  "ambiguous_capabilities": {},
+  "missing_contract_gates": [],
+  "uncovered_machine_gates": [],
+  "pending_user_approvals": [
+    "final_result",
+    "visual_target"
+  ],
+  "execution_allowed": false,
+  "technical_verdict": "RESOLVED_CONTRACT_ONLY",
+  "limitations": [
+    "fixture_specific capability evidence for story_board only",
+    "does not implement, deploy, approve, or claim multi-product runtime"
+  ]
+}

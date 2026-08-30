@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+"""Verify one recoverable milestone snapshot without mutating Git state."""
+from __future__ import annotations
+import argparse, hashlib, json, subprocess, sys
+from pathlib import Path
+from jsonschema import Draft202012Validator
+ROOT=Path(__file__).resolve().parents[1]; SCHEMA=ROOT/"schemas/milestone-result.schema.json"
+def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+def label(path): return str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
+def main():
+ p=argparse.ArgumentParser(); p.add_argument("manifest"); p.add_argument("--check-sync",action="store_true"); a=p.parse_args(); path=(ROOT/a.manifest).resolve() if not Path(a.manifest).is_absolute() else Path(a.manifest)
+ try: schema=json.loads(SCHEMA.read_text()); data=json.loads(path.read_text())
+ except Exception as exc: print(json.dumps({"verdict":"BLOCKED","errors":[str(exc)]},ensure_ascii=False)); return 2
+ errs=[f"{'.'.join(map(str,e.absolute_path)) or '$'}: {e.message}" for e in Draft202012Validator(schema).iter_errors(data)]
+ for group in ("contracts","artifacts"):
+  for item in data.get(group,[]):
+   target=(ROOT/item["path"]).resolve()
+   if not target.is_file(): errs.append(f"missing {group} file: {item['path']}")
+   elif sha(target)!=item["sha256"]: errs.append(f"hash mismatch: {item['path']}")
+ tag_target=""
+ if data.get("status")=="completed":
+  tag=subprocess.run(["git","rev-parse",f"refs/tags/{data.get('tag','')}^{{commit}}"],cwd=ROOT,text=True,capture_output=True); tag_target=tag.stdout.strip()
+  if tag.returncode: errs.append("milestone tag must exist")
+  else:
+   parent=subprocess.run(["git","rev-parse",f"{tag_target}^"],cwd=ROOT,text=True,capture_output=True).stdout.strip()
+   if parent!=data.get("evidence_commit"): errs.append("seal commit parent must equal evidence_commit")
+ if a.check_sync:
+  refs={name:subprocess.run(["git","rev-parse",ref],cwd=ROOT,text=True,capture_output=True).stdout.strip() for name,ref in {"head":"HEAD","origin_main":"origin/main"}.items()}
+  if not tag_target or any(value!=tag_target for value in refs.values()): errs.append(f"sync mismatch: tag={tag_target}, refs={refs}")
+ print(json.dumps({"verifier":"verify-milestone-result","verdict":"BLOCKED" if errs else "PASS_MILESTONE_RESULT","manifest":label(path),"snapshot_commit":tag_target or None,"errors":sorted(errs)},ensure_ascii=False,indent=2)); return 2 if errs else 0
+if __name__=="__main__": sys.exit(main())

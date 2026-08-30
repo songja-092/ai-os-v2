@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-os-v2.local/schemas/storyboard-intake.schema.json",
+  "title": "V2 Story Board Adaptive Intake",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "meeting_sha256", "status", "confirmed", "question_bundle", "contract_drafts", "implementation_allowed"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "project_id": {"const": "story-board"},
+    "meeting_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "status": {"enum": ["interview_required", "ready_for_contract_review"]},
+    "confirmed": {"type": "object"},
+    "question_bundle": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "question", "reason", "blocking"],
+        "properties": {
+          "id": {"type": "string"},
+          "question": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1},
+          "blocking": {"type": "boolean"}
+        }
+      }
+    },
+    "contract_drafts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["product", "design", "revenue_distribution", "privacy_cost_automation"],
+      "properties": {
+        "product": {"type": "object"},
+        "design": {"type": "object"},
+        "revenue_distribution": {"type": "object"},
+        "privacy_cost_automation": {"type": "object"}
+      }
+    },
+    "implementation_allowed": {"const": false}
+  }
+}

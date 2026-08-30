@@ -1,0 +1,15 @@
+{
+  "verifier": "verify-storyboard-m1-foundation",
+  "verdict": "PASS_M1_FOUNDATION",
+  "checks": {
+    "valid_meeting_compiles": true,
+    "confirmed_not_reasked": true,
+    "question_budget": true,
+    "implementation_blocked_before_interview": true,
+    "duplicate_decision_blocked": true,
+    "incomplete_result_blocked": true,
+    "pptx_import_draft": true,
+    "story_contracts_validate": true,
+    "corrupt_pptx_blocked": true
+  }
+}

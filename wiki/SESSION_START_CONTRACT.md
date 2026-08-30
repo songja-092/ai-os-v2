@@ -2,6 +2,7 @@
 
 ## 2026-08-30 Story 비교 Pilot·Core 완성 계약
 
+- 공식 프로젝트명은 `스토리 보드`, 내부 식별자는 `story-board`입니다.
 - 수익화 회의는 `Memory Story`와 `Knowledge Story`의 좁은 비교 Pilot으로 종료했습니다.
 - V2의 다음 목표는 Story 결과 하나를 만드는 것이 아니라, 전자명함에서 드러난 반복 수정 병목을
   `Product Contract → Profile·Adapter·Recipe·Verifier → Product Harness`로 흡수하는 것입니다.
@@ -14,7 +15,9 @@
 - 각 Story 마일스톤은 파일 변경으로 종료하지 않습니다. 전체 저장소 상태·계약 Hash·Artifact·검증·
   사용자 판정·복구 절차를 Result Manifest·Commit·불변 Tag로 고정하고 GitHub main·Obsidian·현재
   작업 저장소 SHA가 같을 때만 완료·동기화로 기록합니다.
-- 현재 상태는 `approved_plan / implementation_not_started / revenue_not_proven`입니다.
+- 현재 상태는 `M1_in_progress / product_runtime_not_started / revenue_not_proven`입니다.
+- `v2 storyboard intake`와 M1 Foundation Verifier는 구현됐지만 적응형 인터뷰 답변·Story Contract·
+  PPT Adapter·M1 Result Snapshot은 아직 미완료입니다.
 
 ## 2026-08-30 제품 조립 Gate 회의 결정
 

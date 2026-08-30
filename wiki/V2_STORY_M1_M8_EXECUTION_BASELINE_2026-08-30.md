@@ -1,6 +1,9 @@
-# V2 Story M1~M8 실행 기준 — 2026-08-30
+# 스토리 보드 M1~M8 실행 기준 — 2026-08-30
 
 상태: `design_complete / implementation_not_started / revenue_not_proven`
+
+공식 프로젝트명은 `스토리 보드`, 내부 Core 식별자는 `story-board`입니다. `V2 Story Core`는 외부
+프로젝트명이 아니라 Story Profile·Scene Contract를 처리하는 내부 공통 제품 계층입니다.
 
 이 문서는 `V2 Story Pilot과 Core 완성 계약`을 실제 마일스톤으로 나눈 실행 기준입니다. M1~M8은
 새 PM 번호가 아닙니다. 마일스톤은 제품·사업이 어디까지 도달했는지를 표시하고, 기존 PM0~PM6은
@@ -160,9 +163,10 @@ TTS Provider를 연결하지 않습니다. 기본 TTS는 M8 승격 후보이며,
 작업 완료
 → 전체 회귀·실패·Restore 검사
 → 사용자 판단이 필요한 항목 일괄 확인
-→ Milestone Result Manifest 생성
-→ Result Commit 생성
-→ 불변 Milestone Tag 생성
+→ Evidence Commit 생성
+→ Evidence Commit Hash를 담은 Milestone Result Manifest 생성
+→ Manifest를 담은 Seal Commit 생성
+→ Seal Commit에 불변 Milestone Tag 생성
 → GitHub main Fast-forward
 → Obsidian·공통 Wiki Fast-forward
 → local / origin main / Obsidian SHA 일치 확인
@@ -173,7 +177,7 @@ TTS Provider를 연결하지 않습니다. 기본 TTS는 M8 승격 후보이며,
 ### Result Manifest 필수 내용
 
 - 프로젝트명 `스토리 보드`, 마일스톤 ID, Run ID, 완료 시각
-- Base Commit·Result Commit·Milestone Tag
+- Base Commit·Evidence Commit·Seal Commit에서 파생되는 Milestone Tag
 - 승인된 Product/Design/Revenue/Privacy Contract Hash
 - 입력 원본 Hash와 원본 불변 여부
 - 생성 Artifact 경로·Hash·Runtime 주소
@@ -185,7 +189,9 @@ TTS Provider를 연결하지 않습니다. 기본 TTS는 M8 승격 후보이며,
 
 ### Commit·Tag 규칙
 
-- Commit은 문서 파일만이 아니라 마일스톤에서 승인된 저장소 전체 상태의 기준점입니다.
+- Evidence Commit은 문서 파일만이 아니라 마일스톤에서 승인된 코드·Artifact·검증 증거 전체입니다.
+- Manifest는 자기 Commit Hash를 가질 수 없으므로 Evidence Commit을 기록하고 다음 Seal Commit에
+  포함합니다. Tag는 Seal Commit을 가리키며 Seal Commit의 부모는 반드시 Evidence Commit이어야 합니다.
 - 권장 Tag는 `story-board-m1-result-v1`처럼 마일스톤과 Version을 포함합니다.
 - 검사 실패·사용자 승인 미완료·동기화 SHA 불일치 상태에서는 Result Tag와 완료 판정을 금지합니다.
 - 이미 만든 Result Tag를 다른 Commit으로 강제 이동하지 않습니다. 변경은 `v2`, `v3` 새 Tag로 남깁니다.
@@ -204,10 +210,13 @@ TTS Provider를 연결하지 않습니다. 기본 TTS는 M8 승격 후보이며,
 
 다음 네 값이 같아야 `synced`로 기록합니다.
 
-1. 활성 작업 저장소 Result Commit
+1. 활성 작업 저장소 Seal Commit
 2. GitHub `origin/main`
 3. Obsidian Vault HEAD
-4. Milestone Result Manifest의 `result_commit`
+4. Milestone Tag가 가리키는 Seal Commit
+
+Manifest의 `evidence_commit`은 Seal Commit의 직전 부모와 같아야 합니다. 이 2단계 구조는 Manifest가
+자기 자신의 Commit Hash를 포함할 수 없는 순환 문제를 피합니다.
 
 웹 GPT에는 GitHub `main`의 Commit과 필수 문서 경로를 전달합니다. 직접 GitHub Commit을 확인하지
 못한 AI는 최신 상태를 확인했다고 표현할 수 없습니다.

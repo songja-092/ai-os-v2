@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "contract_id": "story-board-m1-v1",
+  "project_type": "story_board",
+  "status": "draft",
+  "source_evidence": {
+    "interview_receipt": "story-board-artifacts/m1/intake-draft.json",
+    "research_artifacts": ["wiki/STORY_BOARD_M1_CAPABILITY_ENVIRONMENT_RESEARCH_2026-08-30.md"],
+    "approved_references": []
+  },
+  "user_outcomes": [
+    "PPT·PDF·사진·텍스트를 공통 Story Profile·Scene Contract로 변환한다",
+    "같은 원본을 PPT·카드·웹 이야기·영상·PDF·책으로 확장한다",
+    "정상 제작은 V2 Core에서 재현·검증·복구한다"
+  ],
+  "content_fields": [
+    {"id":"source_assets","label":"원본 자료","type":"list","required":true,"user_visible":true,"editable":true,"screens":["intake"],"empty_behavior":"구현 차단"},
+    {"id":"project_title","label":"프로젝트 제목","type":"text","required":true,"user_visible":true,"editable":true,"screens":["intake","scene_review","output_preview"],"empty_behavior":"임시 제목 제안","max_length":80},
+    {"id":"purpose","label":"목적","type":"long_text","required":true,"user_visible":true,"editable":true,"screens":["intake","scene_review"],"empty_behavior":"인터뷰 후보","max_length":500},
+    {"id":"audience","label":"대상","type":"text","required":true,"user_visible":true,"editable":true,"screens":["intake","scene_review"],"empty_behavior":"인터뷰 후보","max_length":120},
+    {"id":"core_message","label":"핵심 메시지","type":"long_text","required":true,"user_visible":true,"editable":true,"screens":["scene_review","output_preview"],"empty_behavior":"자료에서 초안 추출","max_length":500},
+    {"id":"scenes","label":"장면 구성","type":"list","required":true,"user_visible":true,"editable":true,"screens":["scene_review","output_preview"],"empty_behavior":"자료 변환 실패 표시"},
+    {"id":"output_formats","label":"결과 형식","type":"list","required":true,"user_visible":true,"editable":true,"screens":["intake","output_preview"],"empty_behavior":"무료 기본 결과 선택"}
+  ],
+  "screens": [
+    {"id":"intake","purpose":"자료와 목적 확인","content":["source_assets","project_title","purpose","audience","output_formats"],"required_actions":["analyze_source"],"empty_state":"지원 자료와 예시 표시"},
+    {"id":"scene_review","purpose":"Story Profile과 Scene 검토","content":["project_title","purpose","audience","core_message","scenes"],"required_actions":["edit_scene","approve_content"],"empty_state":"분석 실패 이유와 재시도 표시"},
+    {"id":"output_preview","purpose":"선택 출력 미리보기","content":["project_title","core_message","scenes","output_formats"],"required_actions":["select_visual_direction","request_export"],"empty_state":"Visual Target 승인 필요 표시"}
+  ],
+  "state_matrix": {
+    "content_lengths":["empty","normal","extreme"],
+    "content_presence":["complete","optional_missing","required_missing"],
+    "assets":["pptx_valid","pptx_corrupt","photo_low_resolution","text_only"],
+    "viewports":["360x800","390x844","1440x900"],
+    "themes":["neutral_fixture","selected_visual_direction"],
+    "interaction_states":["idle","analyzing","blocked","ready"]
+  },
+  "asset_rules": {"original_preserved":true,"missing_asset_fallback":"텍스트 Scene 유지와 경고","quality_gate":["원본 Hash 불변","손상 파일 차단","지원하지 않는 요소 경고"],"runtime_variants":["pptx","pdf","photos_and_text","text_only"]},
+  "theme_rules": {"semantic_tokens":["surface","text","muted_text","accent","border","focus"],"contrast_gate":true,"all_screens_apply":true,"restore_required":true},
+  "acceptance_gates": [
+    {"id":"contract_complete","classification":"contract","automatable":true,"pass_condition":"Draft Product Contract Schema 통과"},
+    {"id":"confirmed_not_reasked","classification":"runtime","automatable":true,"pass_condition":"확정 Decision 재질문 0"},
+    {"id":"pptx_import_draft","classification":"runtime","automatable":true,"pass_condition":"가상 PPTX에서 Story Draft 생성"},
+    {"id":"story_contracts_validate","classification":"runtime","automatable":true,"pass_condition":"Profile·Scene Schema와 원본 Hash 통과"},
+    {"id":"visual_target_approval","classification":"human_approval","automatable":false,"pass_condition":"M2 사용자 방향 승인"}
+  ],
+  "approval": {"product_scope":"approved","visual_target":"pending","final_result":"pending"}
+}

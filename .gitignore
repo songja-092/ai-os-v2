@@ -13,6 +13,7 @@
 node_modules/
 dist/
 test-results/
+.tmp/
 
 # AI OS V2 Generated files
 runs/

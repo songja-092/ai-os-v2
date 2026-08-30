@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+"""Validate Story Profile and Scene Contract plus source immutability."""
+from __future__ import annotations
+import argparse, hashlib, json, sys
+from pathlib import Path
+from jsonschema import Draft202012Validator
+ROOT=Path(__file__).resolve().parents[1]
+def load(p): return json.loads(p.read_text())
+def main():
+ p=argparse.ArgumentParser(); p.add_argument("--profile",required=True); p.add_argument("--scenes",required=True); a=p.parse_args(); profile_path=(ROOT/a.profile).resolve(); scenes_path=(ROOT/a.scenes).resolve(); errs=[]
+ try: profile=load(profile_path); scenes=load(scenes_path)
+ except Exception as exc: print(json.dumps({"verdict":"BLOCKED","errors":[str(exc)]})); return 2
+ for schema_name,value in (("story-profile.schema.json",profile),("scene-contract.schema.json",scenes)):
+  schema=load(ROOT/"schemas"/schema_name); errs += [f"{schema_name}:{'.'.join(map(str,e.absolute_path)) or '$'}:{e.message}" for e in Draft202012Validator(schema).iter_errors(value)]
+ source=(ROOT/profile.get("source",{}).get("path","")).resolve()
+ if not source.is_file(): errs.append("source missing")
+ elif hashlib.sha256(source.read_bytes()).hexdigest()!=profile["source"]["sha256"]: errs.append("source hash mismatch")
+ if profile.get("source",{}).get("sha256")!=scenes.get("source_sha256"): errs.append("profile and scene source mismatch")
+ orders=[s.get("order") for s in scenes.get("scenes",[])]; ids=[s.get("scene_id") for s in scenes.get("scenes",[])]
+ if orders!=list(range(1,len(orders)+1)): errs.append("scene order must be contiguous")
+ if len(ids)!=len(set(ids)): errs.append("scene ids must be unique")
+ print(json.dumps({"verifier":"verify-story-contracts","verdict":"BLOCKED" if errs else "PASS_STORY_CONTRACT_DRAFT","errors":sorted(errs),"limitations":["draft contracts do not prove design, runtime, or user approval"]},ensure_ascii=False,indent=2)); return 2 if errs else 0
+if __name__=="__main__": sys.exit(main())

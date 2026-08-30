@@ -22,6 +22,13 @@
         "final_user_approval"
       ],
       "evidence_scope": "single_product_runtime"
+    },
+    {
+      "id": "story_board.m1",
+      "project_types": ["story_board"],
+      "required_capabilities": ["intake.adaptive", "source.pptx_import", "story.profile", "story.scenes"],
+      "required_gates": ["contract_complete", "confirmed_not_reasked", "pptx_import_draft", "story_contracts_validate"],
+      "evidence_scope": "fixture_specific"
     }
   ],
   "adapters": [
@@ -56,6 +63,22 @@
       "project_types": ["electronic_business_card"],
       "side_effect": "local_write",
       "evidence": ["pm5-artifacts/electronic-business-card-v1/qr-clean.png", "pm5-artifacts/electronic-business-card-v1/product/pm6-runtime-evidence.json"]
+    },
+    {
+      "id": "storyboard-intake.v1",
+      "status": "verified_limited",
+      "provides": ["intake.adaptive"],
+      "project_types": ["story_board"],
+      "side_effect": "local_write",
+      "evidence": ["story-board-artifacts/m1/meeting-record.json", "story-board-artifacts/m1/intake-draft.json"]
+    },
+    {
+      "id": "storyboard-pptx-import.v1",
+      "status": "verified_limited",
+      "provides": ["source.pptx_import", "story.profile", "story.scenes"],
+      "project_types": ["story_board"],
+      "side_effect": "local_write",
+      "evidence": ["story-board-artifacts/m1/ppt-fixture/knowledge-story-fixture.pptx", "story-board-artifacts/m1/story-contracts/story-profile.json", "story-board-artifacts/m1/story-contracts/scene-contract.json"]
     }
   ],
   "verifiers": [
@@ -81,6 +104,22 @@
       "proves": ["state_matrix_runtime", "visual_regression", "restore"],
       "project_types": ["electronic_business_card"],
       "classification": "runtime",
+      "side_effect": "read_only"
+    },
+    {
+      "id": "storyboard-product-contract",
+      "command": ["tools/verify-product-contract", "{contract}"],
+      "proves": ["contract_complete"],
+      "project_types": ["story_board"],
+      "classification": "contract_only",
+      "side_effect": "read_only"
+    },
+    {
+      "id": "storyboard-m1-foundation",
+      "command": ["tools/verify-storyboard-m1-foundation"],
+      "proves": ["confirmed_not_reasked", "pptx_import_draft", "story_contracts_validate"],
+      "project_types": ["story_board"],
+      "classification": "fixture_specific",
       "side_effect": "read_only"
     }
   ]

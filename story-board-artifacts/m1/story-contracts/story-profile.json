@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "profile_id": "knowledge-story-fixture-v1",
+  "status": "draft",
+  "source": {
+    "path": "story-board-artifacts/m1/ppt-fixture/knowledge-story-fixture.pptx",
+    "sha256": "d5f4229168e33d946f238c39d4f45fd5207bdf3d7582b1d48d2f210c2cc1eea5",
+    "immutable": true
+  },
+  "purpose": "업무자동화 입문 교육",
+  "audience": "중소기업 실무자",
+  "core_message": "생성형 AI로\n반복 업무를 줄입니다",
+  "tone": "명확하고 실용적",
+  "rights": "fixture_public_or_synthetic",
+  "outputs": [
+    "improved_pptx",
+    "web_story",
+    "motion",
+    "pdf"
+  ]
+}

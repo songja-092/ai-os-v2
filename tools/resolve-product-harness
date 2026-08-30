@@ -135,7 +135,10 @@ def main() -> int:
         "pending_user_approvals": pending_approvals,
         "execution_allowed": execution_allowed,
         "technical_verdict": "BLOCKED" if technical_blockers else "RESOLVED_CONTRACT_ONLY",
-        "limitations": ["single electronic business card evidence only", "does not implement, deploy, approve, or claim multi-product runtime"],
+        "limitations": [
+            f"{profile['evidence_scope']} capability evidence for {project_type} only",
+            "does not implement, deploy, approve, or claim multi-product runtime",
+        ],
     }
     if args.output:
         output_path = resolve_path(args.output)

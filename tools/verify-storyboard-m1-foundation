@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+"""Deterministic M1 checks for meeting intake and milestone snapshot gates."""
+from __future__ import annotations
+import argparse, json, subprocess, sys, tempfile
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+MEETING=ROOT/"story-board-artifacts/m1/meeting-record.json"
+COMPILER=ROOT/"tools/compile-storyboard-intake"
+MILESTONE=ROOT/"tools/verify-milestone-result"
+IMPORTER=ROOT/"tools/import-pptx-to-story"
+STORY_VERIFY=ROOT/"tools/verify-story-contracts"
+PPTX=ROOT/"story-board-artifacts/m1/ppt-fixture/knowledge-story-fixture.pptx"
+
+def run(argv): return subprocess.run(argv,cwd=ROOT,text=True,capture_output=True)
+def main():
+ parser=argparse.ArgumentParser(); parser.add_argument("--output"); args=parser.parse_args()
+ checks={}
+ with tempfile.TemporaryDirectory(prefix="storyboard-m1-") as temp:
+  temp=Path(temp); output=temp/"intake.json"
+  good=run([str(COMPILER),"--meeting",str(MEETING),"--output",str(output)])
+  checks["valid_meeting_compiles"]=good.returncode==0 and output.exists()
+  intake=json.loads(output.read_text()) if output.exists() else {}
+  confirmed=set(intake.get("confirmed",{})); asked=[q.get("id") for q in intake.get("question_bundle",[])]
+  checks["confirmed_not_reasked"]=not confirmed.intersection(asked)
+  checks["question_budget"]=len(asked)<=8
+  checks["implementation_blocked_before_interview"]=intake.get("implementation_allowed") is False
+  duplicate=json.loads(MEETING.read_text()); duplicate["decisions"].append(dict(duplicate["decisions"][0])); dup=temp/"duplicate.json"; dup.write_text(json.dumps(duplicate,ensure_ascii=False))
+  bad=run([str(COMPILER),"--meeting",str(dup),"--output",str(temp/"bad.json")])
+  checks["duplicate_decision_blocked"]=bad.returncode==2
+  invalid_manifest=temp/"invalid-result.json"; invalid_manifest.write_text(json.dumps({"schema_version":"1.0","project_id":"story-board"}))
+  invalid=run([str(MILESTONE),str(invalid_manifest)])
+  checks["incomplete_result_blocked"]=invalid.returncode==2
+  story_out=temp/"story"
+  imported=run([str(IMPORTER),"--pptx",str(PPTX),"--output-dir",str(story_out)])
+  checks["pptx_import_draft"]=imported.returncode==0
+  verified=run([str(STORY_VERIFY),"--profile",str(story_out/"story-profile.json"),"--scenes",str(story_out/"scene-contract.json")])
+  checks["story_contracts_validate"]=verified.returncode==0
+  corrupt=temp/"corrupt.pptx"; corrupt.write_bytes(b"not-a-pptx")
+  corrupt_result=run([str(IMPORTER),"--pptx",str(corrupt),"--output-dir",str(temp/"corrupt-out")])
+  checks["corrupt_pptx_blocked"]=corrupt_result.returncode==2
+ verdict="PASS_M1_FOUNDATION" if all(checks.values()) else "BLOCKED"
+ result={"verifier":"verify-storyboard-m1-foundation","verdict":verdict,"checks":checks}
+ if args.output:
+  target=(ROOT/args.output).resolve(); target.parent.mkdir(parents=True,exist_ok=True); target.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n")
+ print(json.dumps(result,ensure_ascii=False,indent=2)); return 0 if all(checks.values()) else 2
+if __name__=="__main__": sys.exit(main())

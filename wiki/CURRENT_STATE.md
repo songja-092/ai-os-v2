@@ -1,5 +1,17 @@
 # Current State
 
+2026-08-30 사용자가 새 프로젝트의 공식 이름을 `스토리 보드`로 확정했습니다. `V2 Story Pilot`은
+과거 임시 작업명이고 `V2 Story Core`는 내부 공통 제품 계층입니다. Story M1은 시작됐으며 현재
+회의 기록 → 적응형 인터뷰 초안의 Core 연결과 Result Snapshot Gate를 구축 중입니다. 실제 Story
+Schema·PPT Adapter·제품 Runtime은 아직 `not_implemented`입니다.
+
+Story M1의 첫 Core 명령 `v2 storyboard intake`를 연결했습니다. 기존 회의 Record에서 확정된 7개
+결정은 재질문하지 않고 미확정 8개만 질문 묶음으로 생성하며, 인터뷰 전
+`implementation_allowed: false`를 유지합니다. 중복 Decision·불완전 Result Manifest 차단 Fixture는
+`tools/verify-storyboard-m1-foundation`에서 PASS했습니다. 이는 M1 기반 일부의 구현 증거이며 Story
+Contract 잠금·PPT 변환·M1 완료가 아닙니다. 환경 조사는
+`wiki/STORY_BOARD_M1_CAPABILITY_ENVIRONMENT_RESEARCH_2026-08-30.md`를 사용합니다.
+
 2026-08-30 수익화·범용성 회의는 `Memory Story`와 `Knowledge Story`의 좁은 비교 Pilot로 종료했습니다.
 독립 도메인을 제품·자료·결제의 본체로 두고 네이버 카페는 사례·지식, 카카오톡은 공지·재방문,
 나머지 채널은 홍보로 사용합니다. `V2 Story Core`는 새 Orchestrator가 아니라 기존 Core 아래의 공통
@@ -16,7 +28,7 @@ M1~M8 Gate와 단계별 금지선은 `wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_202
 
 Story M1부터는 각 마일스톤 종료 시 전체 저장소 상태와 증거를 `Milestone Result Snapshot`으로
 고정합니다. Result Manifest·Commit·불변 Tag·GitHub main·Obsidian SHA 정합성과 별도 Worktree 기반
-Restore 검사가 없으면 완료로 기록하지 않습니다. 현재는 M1 실행 전이므로 Story Result Snapshot은
+Restore 검사가 없으면 완료로 기록하지 않습니다. 현재 M1은 진행 중이며 Story Result Snapshot은
 아직 존재하지 않습니다.
 
 2026-08-30 회의에서 V2 MVP의 남은 핵심을 `초기 모델 → 제품 계약 → 제품 조립 → Product Harness

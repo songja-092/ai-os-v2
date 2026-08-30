@@ -329,6 +329,8 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
   종료 시 Result Manifest·Commit·불변 Tag를 만들고 GitHub main·Obsidian·활성 저장소 SHA를 맞춥니다.
 - 과거 단계 회귀는 강제 Reset이 아니라 해당 Tag에서 새 Branch/Worktree를 만들어 검증하며, 채택된
   회귀 결과는 새 Version의 Result Commit·Tag로 보존합니다.
+- Result Snapshot은 `Evidence Commit → Manifest Seal Commit → 불변 Tag` 2단계로 고정합니다.
+  Manifest는 `evidence_commit`을 기록하고 Seal Commit의 부모가 이 값과 일치해야 합니다.
 
 # PM 종료 전 자동화 후보 감사 — 2026-08-26
 

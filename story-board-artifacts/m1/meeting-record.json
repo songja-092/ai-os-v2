@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "project_id": "story-board",
+  "project_name": "스토리 보드",
+  "meeting_status": "closed_for_m1",
+  "decisions": [
+    {"id": "inputs", "status": "confirmed", "value": ["pptx", "pdf", "photos", "text"], "source": "2026-08-30 사용자 회의"},
+    {"id": "internal_source", "status": "confirmed", "value": "story_profile_and_scene_contract", "source": "2026-08-30 사용자 회의"},
+    {"id": "outputs", "status": "confirmed", "value": ["improved_pptx", "new_pptx", "cards", "web_story", "motion", "mp4", "pdf", "book"], "source": "2026-08-30 사용자 회의"},
+    {"id": "project_name", "status": "confirmed", "value": "스토리 보드", "source": "사용자 명시"},
+    {"id": "tts_timing", "status": "confirmed", "value": "after_paid_demand", "source": "사용자 승인"},
+    {"id": "channel_roles", "status": "confirmed", "value": {"domain": "product_data_payment", "naver_cafe": "knowledge_cases", "kakao": "notice_return", "social": "promotion"}, "source": "수익 회의"},
+    {"id": "core_requirement", "status": "confirmed", "value": "core_reproducible_without_normal_codex_edits", "source": "사용자 명시"},
+    {"id": "first_pilot", "status": "confirmed", "value": "knowledge_story", "source": "회의 권장안 이후 사용자 시작 승인"},
+    {"id": "fixture_topic", "status": "confirmed", "value": "중소기업 실무자를 위한 생성형 AI 업무자동화 입문", "source": "기존 B2B 강사 가상 샘플 합의"},
+    {"id": "free_output", "status": "confirmed", "value": "핵심 장면 1개와 6~10초 무음 웹 모션", "source": "Story Pilot 계약"},
+    {"id": "external_ai_policy", "status": "confirmed", "value": "M1은 가상·공개 허가 자료만 사용하고 실제 고객 자료 전송은 별도 승인", "source": "Privacy·Cost 계약"},
+    {"id": "pilot_cost_cap", "status": "confirmed", "value": "M1 외부 유료 도구비 0원", "source": "기존 Bundle 우선 환경 결정"}
+  ]
+}

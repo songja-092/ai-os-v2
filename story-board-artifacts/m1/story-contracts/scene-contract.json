@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "contract_id": "knowledge-story-scenes-v1",
+  "status": "draft",
+  "source_sha256": "d5f4229168e33d946f238c39d4f45fd5207bdf3d7582b1d48d2f210c2cc1eea5",
+  "scenes": [
+    {
+      "scene_id": "scene_001",
+      "order": 1,
+      "title": "생성형 AI로\n반복 업무를 줄입니다",
+      "body": [
+        "오늘 바로 적용할 수 있는 세 가지 원칙",
+        "중소기업 실무자를 위한 업무자동화 입문"
+      ],
+      "source_slide": 1,
+      "asset_refs": [],
+      "output_mapping": {
+        "slide": 1,
+        "card": 1,
+        "web": 1,
+        "shot": 1,
+        "page": 1
+      },
+      "motion": "none",
+      "audio": "none"
+    },
+    {
+      "scene_id": "scene_002",
+      "order": 2,
+      "title": "2",
+      "body": [
+        "자동화는 도구보다 업무 순서가 먼저입니다",
+        "반복 찾기",
+        "매주 같은 입력과 같은 판단이 반복되는 일을 고릅니다.",
+        "결과 확인하기",
+        "시간 절감과 오류 감소를 기록한 뒤 다음 자동화를 결정합니다.",
+        "작게 시험하기",
+        "한 번에 한 단계만 자동화하고 실패 시 원래 방식으로 돌아갑니다."
+      ],
+      "source_slide": 2,
+      "asset_refs": [],
+      "output_mapping": {
+        "slide": 2,
+        "card": 2,
+        "web": 2,
+        "shot": 2,
+        "page": 2
+      },
+      "motion": "none",
+      "audio": "none"
+    },
+    {
+      "scene_id": "scene_003",
+      "order": 3,
+      "title": "3",
+      "body": [
+        "첫 자동화는 세 단계로 진행합니다",
+        "1단계",
+        "2단계",
+        "3단계",
+        "작은 연결",
+        "가장 반복적인 한 단계만 연결합니다.",
+        "업무 기록",
+        "입력·판단·출력을 한 번 관찰합니다.",
+        "검증 후 확대",
+        "오류와 시간을 비교한 뒤 범위를 넓힙니다."
+      ],
+      "source_slide": 3,
+      "asset_refs": [],
+      "output_mapping": {
+        "slide": 3,
+        "card": 3,
+        "web": 3,
+        "shot": 3,
+        "page": 3
+      },
+      "motion": "none",
+      "audio": "none"
+    }
+  ],
+  "warnings": []
+}

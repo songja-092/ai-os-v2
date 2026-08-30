@@ -1,6 +1,9 @@
-# V2 Story Pilot과 Core 완성 계약 — 2026-08-30
+# 스토리 보드 Pilot과 Core 완성 계약 — 2026-08-30
 
 상태: `approved_plan / implementation_not_started`
+
+공식 프로젝트명은 `스토리 보드`입니다. 과거 회의의 `V2 Story Pilot`은 같은 프로젝트의 임시
+작업명이었으며, `V2 Story Core`는 외부 브랜드가 아닌 내부 공통 계층으로만 사용합니다.
 
 M1~M8의 제품·사업 병렬 트랙, PPT 양방향 변환, 단계별 Gate의 단일 실행 기준은
 `wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_2026-08-30.md`를 사용합니다.

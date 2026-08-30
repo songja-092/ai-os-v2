@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-os-v2.local/schemas/milestone-result.schema.json",
+  "title": "V2 Milestone Result Snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "milestone", "run_id", "status", "base_commit", "evidence_commit", "tag", "contracts", "artifacts", "verifications", "intervention", "restore"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "project_id": {"type": "string", "minLength": 1},
+    "milestone": {"pattern": "^M[1-8]$"},
+    "run_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "completed"]},
+    "base_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "evidence_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "tag": {"type": "string", "pattern": "^story-board-m[1-8]-result-v[1-9][0-9]*$"},
+    "contracts": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/hashed_file"}},
+    "artifacts": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/hashed_file"}},
+    "verifications": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["command", "exit_code", "verdict"],
+        "properties": {"command": {"type": "array", "minItems": 1, "items": {"type": "string"}}, "exit_code": {"const": 0}, "verdict": {"type": "string", "pattern": "^PASS"}}
+      }
+    },
+    "intervention": {
+      "type": "object", "additionalProperties": false,
+      "required": ["user_question_count", "codex_manual_edit_count", "customer_specific_code_count"],
+      "properties": {"user_question_count": {"type": "integer", "minimum": 0}, "codex_manual_edit_count": {"type": "integer", "minimum": 0}, "customer_specific_code_count": {"const": 0}}
+    },
+    "restore": {
+      "type": "object", "additionalProperties": false,
+      "required": ["tested", "method", "evidence"],
+      "properties": {"tested": {"const": true}, "method": {"enum": ["separate_worktree"]}, "evidence": {"type": "string", "minLength": 1}}
+    }
+  },
+  "$defs": {
+    "hashed_file": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+    }
+  }
+}

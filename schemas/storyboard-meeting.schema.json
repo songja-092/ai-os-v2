@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-os-v2.local/schemas/storyboard-meeting.schema.json",
+  "title": "V2 Story Board Meeting Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "project_name", "meeting_status", "decisions"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "project_id": {"const": "story-board"},
+    "project_name": {"const": "스토리 보드"},
+    "meeting_status": {"enum": ["in_progress", "closed_for_m1"]},
+    "decisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "status", "value", "source"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "status": {"enum": ["confirmed", "hypothesis", "unresolved", "prohibited"]},
+          "value": {},
+          "source": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}
