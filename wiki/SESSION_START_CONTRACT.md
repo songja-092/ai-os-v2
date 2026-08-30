@@ -9,6 +9,8 @@
   정상 제작에 개입하지 않고 새 실패 유형·Core 결함·새 능력 Pilot만 진단합니다.
 - 공식 실행·자동화·사용자 개입·완성 기준은
   `wiki/V2_STORY_PILOT_AND_CORE_COMPLETION_CONTRACT_2026-08-30.md`를 따릅니다.
+- Storyboard 공통 구조와 M1~M8 제품·사업 병렬 Gate는
+  `wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_2026-08-30.md`를 단일 기준으로 사용합니다.
 - 현재 상태는 `approved_plan / implementation_not_started / revenue_not_proven`입니다.
 
 ## 2026-08-30 제품 조립 Gate 회의 결정

@@ -39,3 +39,7 @@ V2의 완성 목표는 모든 업종과 기능을 미리 내장하는 것이 아
 대체합니다. 완성 기준은 정상 고객 Run에 Codex가 개입하지 않고 V2 Core Artifact만으로 결과를
 재현·검사·복구하는 것입니다. 상세 기준은
 `wiki/V2_STORY_PILOT_AND_CORE_COMPLETION_CONTRACT_2026-08-30.md`를 단일 기준으로 사용합니다.
+
+Story 제품의 단계별 목표는 기존 Core MVP 번호와 구분한 `Story M1~M8`로 관리합니다. 제품 제작과
+유입·가격·결제·재사용을 별도 트랙으로 진행하되 같은 Gate에서 검증하며, 상세 산출물과 금지선은
+`wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_2026-08-30.md`를 따릅니다.

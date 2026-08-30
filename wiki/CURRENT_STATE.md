@@ -9,6 +9,11 @@ State Matrix·전체 회귀검사로 흡수합니다. 공식 계약은
 `approved_plan / implementation_not_started / revenue_not_proven`이며 Story 제품·결제·수익 PASS가
 아닙니다.
 
+Storyboard의 공통 `Story Profile·Scene Contract`, PPT Import/Export 네 모드, 제품·사업 병렬 트랙,
+M1~M8 Gate와 단계별 금지선은 `wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_2026-08-30.md`에
+`design_complete`로 확정했습니다. Schema·Adapter·Fixture·Runtime·도메인·결제는 아직
+`not_implemented` 또는 `not_started`이며 다음 실행 단계는 M1 기반 준비입니다.
+
 2026-08-30 회의에서 V2 MVP의 남은 핵심을 `초기 모델 → 제품 계약 → 제품 조립 → Product Harness
 → PM6 → 배포·운영 확인·복구` 연결로 확정했습니다. 새 PM·Workflow 엔진·외부 패키지는 추가하지
 않고, 기존 Product Contract·Registry·검증기를 사용하는 제한형 제품 조립기를 구현했습니다.

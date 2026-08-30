@@ -9,6 +9,8 @@
   홍보에 사용합니다.
 - 구현·자동화·도구·사용자 개입·Core 완성 기준은
   `wiki/V2_STORY_PILOT_AND_CORE_COMPLETION_CONTRACT_2026-08-30.md`로 승격했습니다.
+- Storyboard 공통 구조, PPT 양방향 변환, 도메인·홍보·결제까지 포함한 Story M1~M8 실행 기준은
+  `wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_2026-08-30.md`로 확정했습니다.
 - 현재는 계획 승인 상태이며 제품 구현·실제 결제·수익 구조 검증 완료로 표현하지 않습니다.
 
 ## 상태

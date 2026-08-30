@@ -320,6 +320,11 @@ AI OS V2는 개발 기능을 새로 만드는 OS가 아니라, 검증된 기존 
 - 자동화 후보는 정상 Run과 실패·복구 증거가 쌓인 뒤 승격하며 외부 게시·결제·환불·POD·Core 승격은
   사람 승인 없이 실행하지 않습니다.
 - 공식 계약: `wiki/V2_STORY_PILOT_AND_CORE_COMPLETION_CONTRACT_2026-08-30.md`
+- 새 PM을 추가하지 않고 M1~M8을 제품 성장 마일스톤으로 사용하며 기존 PM0~PM6을 각 단계의 품질
+  검사 절차로 재사용합니다. 제품 개발과 Revenue & Distribution은 병렬 트랙으로 같은 Gate에서 만납니다.
+- PPT는 내부 원본이 아니라 입출력 형식이며 `PPT/PDF/사진+텍스트 → Story Profile·Scene Contract
+  → PPT/카드/웹/모션/MP4/PDF/책`을 공식 구조로 사용합니다.
+- 실행 기준: `wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_2026-08-30.md`
 
 # PM 종료 전 자동화 후보 감사 — 2026-08-26
 

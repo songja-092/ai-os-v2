@@ -193,6 +193,11 @@ V2 Core
 Core Run을 다시 실행해야 합니다. 상세 계약은
 `wiki/V2_STORY_PILOT_AND_CORE_COMPLETION_CONTRACT_2026-08-30.md`를 따릅니다.
 
+Story 제품의 성장 단계는 기존 `Core MVP M1~M7`과 구분해 `Story M1~M8`로 표기합니다. 새 PM이나
+Orchestrator가 아니며, 제품 트랙과 Revenue & Distribution 트랙이 같은 Gate를 통과하는 마일스톤입니다.
+PPT는 내부 상태를 소유하지 않고 Import/Export Adapter를 통해 Story Profile·Scene Contract와
+양방향 변환합니다. 실행 기준은 `wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_2026-08-30.md`입니다.
+
 M7이 PASS하면 Core는 완료 상태만 표시하고 멈추지 않고 `wiki/POST_MVP_ROADMAP.md`의 최우선 미검증 후보를 읽습니다. 이 자동 연결은 `상태 조회 → 후보 로드 → 수집 → 분석 → 추천 → Preview 준비`까지만 허용하며 구현 Gate를 자동 통과하지 않습니다.
 
 Post-MVP 공식 순서는 `PM0 운영환경·Capability Lab 준비 → PM1 디자인 전략·탐색·채택 → PM2 조립식 제작 보드 → PM3 부분 수정·Motion Adapter → PM4 조사·Design Intelligence → PM5 사용자 의도·범위·자산 정합성 → PM6 전체 통합·품질·복구 검증`입니다. 최신 범위와 Gate는 [[POST_MVP_PM0_PM6_BASELINE]]을 단일 기준으로 사용합니다. PM2는 고정 Core 위에 정적 Project·Module Registry, Slot Renderer, Versioned Design Recipe와 Adapter 경계를 두며 Module 실패를 해당 Module에 격리합니다.

@@ -2,6 +2,9 @@
 
 상태: `approved_plan / implementation_not_started`
 
+M1~M8의 제품·사업 병렬 트랙, PPT 양방향 변환, 단계별 Gate의 단일 실행 기준은
+`wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_2026-08-30.md`를 사용합니다.
+
 이 문서는 2026-08-30 수익구조 회의의 최종 합의와, 전자명함 제작에서 발견한 반복 수정 병목을
 V2 Core의 제품 제작 능력으로 바꾸기 위한 다음 실행 계약입니다. 시장 결제·공개 Runtime·다른 제품의
 범용 재현은 아직 `not_proven`이며, 이 문서 자체는 구현·검증·수익 PASS가 아닙니다.
