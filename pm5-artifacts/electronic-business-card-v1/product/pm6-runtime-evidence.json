@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0",
+  "project_id": "electronic-business-card",
+  "scope": "user_approved_test_fixture",
+  "runtime_url": "http://127.0.0.1:8229/electronic-card-product/",
+  "checks": {
+    "profile": "PASS",
+    "about_and_career": "PASS",
+    "qr_nfc_share": "PASS",
+    "profile_editor": "PASS",
+    "portrait_adjustment_controls": "PASS",
+    "theme_controls": "PASS",
+    "action_order_controls": "PASS",
+    "completion_screen": "PASS",
+    "mobile_390x844": "PASS",
+    "desktop_1100x900": "PASS",
+    "console_errors": "PASS",
+    "portrait_background_removed": "PASS",
+    "portrait_template_layer_preserved": "PASS",
+    "photo_optional_typography_fallback": "PASS",
+    "initial_letter_avatar_absent": "PASS",
+    "qr_layout_centered": "PASS",
+    "full_theme_change": "PASS",
+    "theme_applies_to_qr_and_detail_views": "PASS",
+    "dark_clothing_contrast_recommendation": "PASS",
+    "qr_single_frame_equal_spacing": "PASS",
+    "theme_visual_previews": "PASS",
+    "white_first_clean_theme": "PASS",
+    "single_edit_owner_per_field": "PASS",
+    "contract_edit_surfaces_match_ui": "PASS",
+    "optional_intro_and_careers": "PASS",
+    "qr_retry_control_outside_code": "PASS",
+    "full_portrait_editor_preview": "PASS",
+    "completion_light_poster": "PASS",
+    "completion_fixed_color_and_motion": "PASS",
+    "responsive_320x568_all_views": "PASS",
+    "responsive_390x844_all_views": "PASS",
+    "responsive_1100x900_all_views": "PASS",
+    "visible_control_accessible_names": "PASS"
+  },
+  "failure_history": [
+    {
+      "failure": "stylesheet served as text/html",
+      "repair": "extension-aware MIME type in Core static route",
+      "recheck": "PASS"
+    },
+    {
+      "failure": "Visual Target 합성 이미지와 원본 사진 배경이 Portrait Source로 중복 사용됨",
+      "repair": "고정 Hash의 Portrait Composer Adapter로 인물만 투명 RGBA로 분리하고 Template·Content·Portrait Layer를 분리",
+      "recheck": "PASS"
+    },
+    {
+      "failure": "사진 미등록 상태에 성 이니셜 원형 아바타가 남음",
+      "repair": "사진을 선택 사항으로 바꾸고 사진이 없으면 인물 영역 없는 Typography Template로 복구",
+      "recheck": "PASS"
+    },
+    {
+      "failure": "QR 캡처 이미지의 회색 바탕·흰 카드와 Runtime 카드가 중첩되어 이중 여백이 생김",
+      "repair": "캡처 외곽과 하단 손잡이를 제거한 qr-clean.png를 Core Asset Route에 등록하고 카드 여백을 20px 단일 규격으로 통일",
+      "recheck": "PASS: 상·하·좌·우 21px 렌더링 간격"
+    },
+    {
+      "failure": "추천 웜 테마가 갈색으로 보여 사용자 기대와 충돌하고 선택 전 결과를 알기 어려움",
+      "repair": "흰색 중심의 클린 민트를 기본 추천으로 교체하고 인물·배경·하단 행동을 포함한 네 개 미리보기를 제공",
+      "recheck": "PASS"
+    },
+    {
+      "failure": "소개·상세 소개·NFC 안내가 여러 편집 화면에 중복되고 삭제한 공유 안내 입력이 남음",
+      "repair": "기본 정보는 전체 편집, 소개·경력은 해당 탭, NFC 안내는 공유 탭이 소유하도록 Product Contract와 UI를 함께 정리하고 Core 병합 저장을 적용",
+      "recheck": "PASS: 편집 필드 중복 0개"
+    },
+    {
+      "failure": "QR 재시도 아이콘이 QR 안전 영역과 겹치고 완료 화면이 선택 테마에 따라 어둡게 표시됨",
+      "repair": "재시도 아이콘을 QR 외부 중앙으로 이동하고 완료 화면은 고정 에메랄드 포스터·체크 모션·reduced-motion 대체로 분리",
+      "recheck": "PASS: QR 비중첩, 고정색, 모션, Console 오류 0개"
+    },
+    {
+      "failure": "초기 접근성 회귀 스크립트가 숨겨진 폼 입력을 보이는 컨트롤로 잘못 집계",
+      "repair": "실제 Client Rect가 있는 컨트롤과 연결 Label만 판정하도록 검사 범위를 교정",
+      "recheck": "PASS: 3 Viewport × 5 화면의 보이는 무명 컨트롤 0개"
+    }
+  ],
+  "technical_verdict": "PASS_WITH_PORTRAIT_AND_DEFAULT_PROFILE",
+  "portrait_mode": "tone_matched_portrait_with_optional_default_profile",
+  "theme_mode": "full_surface_theme_with_portrait_contrast",
+  "portrait_composer": {
+    "selected_adapter": "inspyrenet-transparent-background@1.3.4",
+    "fallback_adapter": "rembg@2.0.81:u2net_human_seg",
+    "cutout": "portrait-cutout.png",
+    "result": "portrait-composer-result.json",
+    "runtime_source_allowed": true
+  },
+  "runtime_captures": {
+    "mobile_portrait": "runtime-mobile-cutout.png",
+    "desktop_portrait": "runtime-desktop-cutout.png",
+    "qr_nfc": "runtime-qr.png",
+    "final_profile_390x844": "runtime-final-profile-390x844.png",
+    "final_share_390x844": "runtime-final-share-390x844.png",
+    "final_completion_390x844": "runtime-final-complete-390x844.png"
+  },
+  "latest_regression": {
+    "viewports": ["320x568", "390x844", "1100x900"],
+    "views": ["profile", "about", "share", "edit", "complete"],
+    "horizontal_overflow": 0,
+    "broken_visible_images": 0,
+    "unnamed_visible_controls": 0,
+    "console_errors": 0,
+    "verdict": "PASS"
+  },
+  "blocked_asset": "Visual Target에서 잘라낸 합성 이미지는 Portrait Source로 사용하지 않음.",
+  "user_final_approval": "approved",
+  "user_final_approval_at": "2026-08-30",
+  "lock_scope": "pm5_pm6_local_first_product",
+  "deployment_status": "deferred_separate_scope"
+}

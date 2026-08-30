@@ -1,0 +1,246 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "collector_mode": "visual_reference_seed_capture",
+  "evidence_scope": "electronic_business_card",
+  "items": [
+    {
+      "reference_id": "ref-discovered-01",
+      "source_url": "https://www.behance.net/gallery/245853675/PromBiz-NFC-Business-Card-Website-Design",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "source_name": "PromBiz: NFC Business Card Website Design",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘NFC business card website warm neutral’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card website warm neutral",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card+website+warm+neutral"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v2/ref-discovered-01-7a98e09ea7cc.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/3697b5245853675.Y3JvcCw1NDAyLDQyMjYsNTc1LDA.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 52664,
+      "sha256": "7a98e09ea7cc19398628d0a64818af6c62abe2d746c8c94c5d213ab12819449c",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:50:38Z"
+    },
+    {
+      "reference_id": "ref-discovered-02",
+      "source_url": "https://www.behance.net/gallery/237957235/Business-card-site-for-digital-agency-web-site",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "source_name": "Business card site for digital agency / web-site",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘NFC business card website warm neutral’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card website warm neutral",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card+website+warm+neutral"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v2/ref-discovered-02-8d5d803deebb.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/568f11237957235.Y3JvcCwyNTE4LDE5NzAsMzQyLDA.png",
+      "content_type": "image/png",
+      "byte_size": 58214,
+      "sha256": "8d5d803deebb36035679fb4560c3bc0466dfd071d912d6d28a5d42696c87204d",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:50:38Z"
+    },
+    {
+      "reference_id": "ref-discovered-03",
+      "source_url": "https://www.behance.net/gallery/251385979/Strategic-Web-Banner-Design-for-Modern-Digital-Brands",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "source_name": "Strategic Web Banner Design for Modern Digital Brands",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘social worker digital business card editorial portrait’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "social worker digital business card editorial portrait",
+        "search_url": "https://www.behance.net/search/projects?search=social+worker+digital+business+card+editorial+portrait"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v2/ref-discovered-03-3655813e19b5.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/2f1e71251385979.Y3JvcCwyNDI0LDE4OTYsMCww.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 77167,
+      "sha256": "3655813e19b50a0237247521e21b5e337f2a295617023127b1bf7e77465413f1",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:50:39Z"
+    },
+    {
+      "reference_id": "ref-discovered-04",
+      "source_url": "https://www.behance.net/gallery/253692005/Digital-Banking-Web",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "source_name": "Digital Banking Web",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘NFC business card website warm neutral’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card website warm neutral",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card+website+warm+neutral"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v2/ref-discovered-04-96bc83c94b34.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/425a10253692005.Y3JvcCwzMDY4LDI0MDAsNjgsMA.png",
+      "content_type": "image/png",
+      "byte_size": 40473,
+      "sha256": "96bc83c94b3462bf37b99ff0bec72ecb9a28d6430290ebcb9747fab1a6d9b384",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:50:39Z"
+    },
+    {
+      "reference_id": "ref-discovered-05",
+      "source_url": "https://www.behance.net/gallery/166274821/Fintech-Mobile-App-Design",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "source_name": "Fintech Mobile App Design",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘professional mobile profile card asymmetric layout’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "professional mobile profile card asymmetric layout",
+        "search_url": "https://www.behance.net/search/projects?search=professional+mobile+profile+card+asymmetric+layout"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v2/ref-discovered-05-ff14a8ce4c00.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/b65c1e166274821.Y3JvcCwxNTM0LDEyMDAsMzQsMA.png",
+      "content_type": "image/png",
+      "byte_size": 65351,
+      "sha256": "ff14a8ce4c00ff747063e4d84837bc9a39194c0593e6a7d88a2aa63fd6b62874",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:50:39Z"
+    },
+    {
+      "reference_id": "ref-discovered-06",
+      "source_url": "https://www.behance.net/gallery/253310267/Professional-Company-Profile-Design",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "source_name": "Professional Company Profile Design",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘professional mobile profile card asymmetric layout’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "professional mobile profile card asymmetric layout",
+        "search_url": "https://www.behance.net/search/projects?search=professional+mobile+profile+card+asymmetric+layout"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v2/ref-discovered-06-88aab70cfb70.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/44020c231430673.Y3JvcCwyOTg1LDIzMzUsMjU4LDA.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 53519,
+      "sha256": "88aab70cfb70c44029cc88260095a06d7c852e48bcc10d1c5d6ab04687a0844f",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:50:39Z"
+    },
+    {
+      "reference_id": "ref-discovered-08",
+      "source_url": "https://www.behance.net/gallery/201565131/Tap-Digital-Business-Card",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "source_name": "Tap - Digital Business Card",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘NFC business card website warm neutral’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card website warm neutral",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card+website+warm+neutral"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v2/ref-discovered-08-0bbd5b0232be.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/21d725201565131.Y3JvcCwxMTkzLDkzMyw4LDA.png",
+      "content_type": "image/png",
+      "byte_size": 92024,
+      "sha256": "0bbd5b0232be209e29bc941b6f15578ea056bb59c98fd0e8bc512122cd5d83cc",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:50:39Z"
+    }
+  ],
+  "source_failures": [
+    {
+      "reference_id": "ref-discovered-07",
+      "reason": "중복 이미지입니다."
+    }
+  ],
+  "coverage": {
+    "total": 7,
+    "korean": 0,
+    "actual_service": 0,
+    "user_provided": 0
+  },
+  "decisions": {},
+  "visual_target_created": false,
+  "implementation_allowed": false,
+  "product_changed": false,
+  "limitations": [
+    "후보 발견은 이번 실제 요청에서 사람이 고정한 Seed를 사용했습니다.",
+    "이 실행은 범용 자동 Reference 검색을 증명하지 않습니다.",
+    "화면은 참고 전용이며 원본 브랜드·문구·인물을 복제하지 않습니다."
+  ]
+}

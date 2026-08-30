@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "adapter": "imagegen",
+  "status": "ready_for_adapter",
+  "design_dna_path": "pm5-artifacts/core-business-card-after-v1/core-design-dna.json",
+  "design_dna_sha256": "0babe7a512e81420bfcef1ec3a2fa38f810554e93a21e37b898c31290a75d518",
+  "output_path": "pm5-artifacts/core-business-card-after-v1/core-electronic-card-visual-target.png",
+  "screen_count": 9,
+  "product_changed": false
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "recipe_id": "electronic-business-card-design-recipe-v1",
+  "run_id": "run-electronic-card-official-v1",
+  "project_id": "electronic-business-card",
+  "status": "approved_locked",
+  "approval": {
+    "status": "approved_test_fixture_scope",
+    "required": true,
+    "approved_at": "2026-08-29T05:05:59Z"
+  },
+  "selected_direction": "direction-2",
+  "source_hashes": {
+    "intent": "b0765aefa945a40da991f30247bd8e8b0ae547f7ea0090dd1f7ea35b6beb20a6",
+    "handoff": "974d00ea3d7ec41d69430562514c1aee7942d8afe215340686f49d4fe9a00e2e",
+    "design_dna": "ba8c93b488adaab696ba2c556ba0b9a47afd0e999b64b72ea11ec29d92c887b7",
+    "visual_target": "053735a40d6cf9c65396ba871885409e6c0a30cf963591512267524dbcd40748"
+  },
+  "design_dna": {
+    "structure": "인물 중심 첫 화면, 핵심 소개, 즉시 연락 행동, 상세 경력과 활동은 아래로 이어지는 모바일 단일 흐름",
+    "information_density": "첫 화면은 낮고 명확하게, 상세 영역은 접거나 아래로 분리",
+    "typography": "한국어 가독성이 높은 산세리프 중심, 이름과 역할의 위계가 뚜렷함",
+    "color": "정치 명함으로 오해할 수 있는 강한 단일 정당색을 피하고 중립 바탕과 제한된 강조색 사용",
+    "space": "인물과 핵심 행동 주변에 충분한 여백, 카드 중첩 최소화",
+    "component_shape": "모바일 친화적 큰 터치 영역, 버튼·행동 묶음은 단순하고 즉시 이해 가능",
+    "motion": "연락 행동 피드백과 섹션 전환에만 짧고 절제된 모션"
+  },
+  "use": [
+    "인물 중심의 강한 첫 화면",
+    "검정·백색 기반의 높은 대비",
+    "제한된 형광 연두 강조색",
+    "큰 이름과 명확한 직업 위계",
+    "비대칭 편집형 구도",
+    "크고 단순한 연락 행동"
+  ],
+  "exclude": [
+    "정치 홍보물처럼 보이는 단일 정당색",
+    "원본 인물·문구·브랜드",
+    "외부 전화·문자·메일 앱 화면 복제",
+    "과도한 배지·장식·중첩 카드"
+  ],
+  "screens": [
+    "main_profile",
+    "introduction_and_career",
+    "qr_nfc_share",
+    "contact_save_preview_success_failure",
+    "external_contact_handoff_success_unavailable",
+    "owner_profile_editor",
+    "portrait_auto_correction_and_manual_crop",
+    "theme_and_action_order_editor"
+  ],
+  "actions": [
+    "save_contact",
+    "call",
+    "send_sms",
+    "send_email",
+    "open_kakao_or_social",
+    "open_website",
+    "show_qr_or_nfc"
+  ],
+  "portrait_contract": {
+    "photo_optional": true,
+    "default_profile_required": true,
+    "original_preserved": true,
+    "type_specific_layout": true,
+    "separate_mobile_desktop_crop": true,
+    "manual_adjustment": true,
+    "default_face_alteration": false,
+    "composer_adapter": "inspyrenet-transparent-background@1.3.4",
+    "layer_model": ["template", "content_data", "transparent_portrait", "rendered_output"],
+    "tone_target": "neutral_black_white_lime"
+  },
+  "theme_contract": {
+    "user_facing_name": "테마 변경",
+    "scope": ["hero_background", "portrait_contrast", "text", "actions", "qr_share", "completion"],
+    "default_recommendation": "clean",
+    "recommendation_reason": "검은 옷과 어두운 배경의 윤곽 충돌을 피하면서 흰색 중심의 깨끗한 인상을 유지함",
+    "options": ["clean", "blue", "mono", "lime"],
+    "accent_only_change": "blocked",
+    "all_screens_apply_together": true
+  },
+  "responsive_contract": {
+    "mobile_primary": true,
+    "desktop_required": true
+  },
+  "implementation_rules": {
+    "visual_target_fidelity_required": true,
+    "recipe_change_requires_new_version": true,
+    "unapproved_design_reinterpretation": "blocked",
+    "external_app_ui_replication": "blocked"
+  },
+  "implementation_gate": "ready_for_test_fixture_implementation",
+  "implementation": {
+    "entrypoint": "pm5-artifacts/electronic-business-card-v1/product/index.html",
+    "runtime_url": "http://127.0.0.1:8229/electronic-card-product/",
+    "status": "implemented_for_pm6_verification"
+  },
+  "created_at": "2026-08-29T04:54:48Z"
+}

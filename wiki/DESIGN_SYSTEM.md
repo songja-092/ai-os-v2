@@ -1,7 +1,7 @@
 # AI OS V2 디자인 시스템
 
-최종 갱신: 2026-08-20
-상태: 사용자 회의 결정 반영·구현 전 계약 포함
+최종 갱신: 2026-08-29
+상태: 사용자 회의 결정 반영·공식 Run 연결 Pilot 포함
 공식 이름: `V2 디자인 시스템(Design System, 디자인 시스템)`
 
 이 문서는 AI OS V2의 디자인 탐색·채택·구현·수정·검증 규칙을 한곳에 모은 **공식 원본**입니다. 다른 Wiki, 과거 Run, Pilot 보고서와 디자인 규칙이 충돌하면 현재 Commit의 이 문서를 우선하고 충돌을 보고합니다. 과거 문서는 당시 판단과 실패·검증 증거로 보존하며 삭제하지 않습니다.
@@ -76,6 +76,11 @@ V2 운영 화면과 고객 결과물은 기본 품질 규칙만 공유합니다.
 
 Codex는 공식 제품 구현자가 아니며 사용자 대신 디자인을 확정하거나 PASS하지 않습니다.
 
+사용자가 한 프로젝트에서 후보 선택을 명시적으로 위임하면 디자인 총괄은 근거가 가장 강한
+후보를 `추천 선택`할 수 있습니다. 이 위임은 후보 선택만 줄이며 Visual Target 승인·제작 범위
+승인·최종 결과 승인을 대신하지 않습니다. 추천 선택의 후보·근거·위임 범위는 Run에 기록하고
+사용자가 언제든 다른 후보로 되돌릴 수 있어야 합니다.
+
 ### Antigravity(안티그래비티)
 
 - 승인된 Visual Target·Design Recipe·작업 지시서를 기준으로 실제 웹·앱·화면·기능 구현
@@ -99,13 +104,17 @@ Antigravity는 디자인 방향·범위를 임의로 확대하거나 자신의 �
 → 기존 성공 Recipe·DNA·Block으로 해결 가능한지 확인
 → 부족할 때만 V2 수집기가 한국 중심 실제 Reference 조사
 → 출처·라이선스·반응형·기술·자산의 제작 가능성 확인
+→ 인터뷰와 조사 결과를 제품별 Product Contract 초안으로 변환
+→ Content Schema·Screen Manifest·State Matrix·Asset·Theme·Acceptance Gate 누락 검사
+→ 사용자가 쉬운 제품 범위를 승인한 뒤 Product Contract 잠금
 → Codex가 디자인 총괄 절차로 구조적으로 다른 낮은 비용의 방향 3개 제안
-→ 사용자가 화면을 보고 전체 방향·마음에 드는 부분·현재안 유지·다른 후보·중단 선택
+→ 사용자가 선택하거나, 명시적으로 위임한 프로젝트에서는 디자인 총괄이 근거를 기록하고 추천 선택
 → 선택된 후보·부분에서만 7축 Design DNA 추출
 → Reference·DNA·Section·가져올 속성·가져오지 않을 속성을 Draft Design Recipe로 기록
-→ 선택 조합의 Visual Target 한 장을 제작하고 사용자가 승인
+→ Product Design의 탐색 절차와 ImageGen Adapter로 선택 조합의 전체 화면 Visual Target 제작
+→ UI UX Pro Max가 사용성·접근성·기본 규칙을 검사하고 실패 항목을 수정·재검사
+→ 사용자가 Visual Target을 승인
 → 같은 Design Recipe를 승인 상태로 승격하고 구현 Component 목록 확정
-→ UI UX Pro가 사용성·접근성·기본 규칙 검사
 → Codex가 Antigravity 작업 지시서 작성
 → Antigravity가 실제 구현
 → 동일 조건에서 Reference·Visual Target·실제 결과 비교
@@ -115,7 +124,11 @@ Antigravity는 디자인 방향·범위를 임의로 확대하거나 자신의 �
 → 채택 결과만 성공 Recipe·Block으로 승격
 ```
 
-사용자가 직접 결정하는 기본 지점은 `요청 확인`, `방향 3개 중 선택`, `Visual Target 승인`, `최종 판정`입니다. Reference 원본과 상세 DNA는 요청할 때 열어보고 나머지는 내부 절차로 처리하며 전문용어를 기본 화면에 노출하지 않습니다.
+사용자가 직접 결정하는 기본 지점은 `요청 확인`, `Visual Target 승인`, `제작 범위 승인`, `최종 판정`입니다. `방향 3개 중 선택`은 사용자가 명시적으로 위임하면 디자인 총괄의 추천 선택으로 줄일 수 있습니다. Reference 원본과 상세 DNA는 요청할 때 열어보고 나머지는 내부 절차로 처리하며 전문용어를 기본 화면에 노출하지 않습니다.
+
+Product Design과 ImageGen은 V2 Core가 아닙니다. 후보·Visual Target을 만드는 교체 가능한 제작
+Adapter이며 Core는 사용자 원문, Reference, Prompt, 결과 Hash, 선택 근거, Recipe, 승인과 Version을
+소유합니다. 기존 성공 Recipe 또는 정확한 Figma·Screenshot이 있으면 ImageGen을 생략할 수 있습니다.
 
 이 흐름은 특정 회사 하나의 고정 절차를 복제한 것이 아니라 `탐색 → 문제 정의 → 방향 확장 → 선택·전달`로 수렴하는 보편적 Human-centered Design 흐름을 V2에 맞게 줄인 것입니다. V2는 여러 고해상도 시안을 반복 생성하지 않고 서로 다른 방향을 낮은 비용으로 비교한 뒤 실제 데이터 Visual Target 하나만 마감합니다. 상세 비교와 근거는 [[DESIGN_ADOPTION_METHOD_REVIEW_2026-08-20]]을 사용합니다.
 
@@ -193,6 +206,14 @@ Reference·Visual Target·구현 결과 비교 시 다음 조건을 고정합니
 PM1과 PM2는 잠금 기준이 존재합니다. PM3은 사용자가 조건부 통과로 범위를 잠갔지만 기술 완료는 `not_proven`이며 PM6 재검증이 필수입니다. 다음 진행 가능 단계는 PM4입니다. 최근 Puck·React Grid Layout Pilot은 PM3 격리 시험이며 Core Registry 승격·실제 고객 제품 적용은 아직 증명되지 않았습니다.
 
 현재 PM1의 기존 기본 방식은 사용자 PASS 증거로 보존합니다. 이번 인터뷰·성공 Recipe 우선·한국 중심 Reference·서로 다른 방향 3개·선택 후 Design DNA·Visual Target 하나 흐름은 사용자 회의에서 승인된 **다음 개선 계약**이며 아직 V2 Core 자동 기능으로 구현·검증된 것은 아닙니다.
+
+2026-08-29 전자명함 제한 Pilot에서 PM4 사용자 승인 방향·Design DNA·Visual Target Hash와 PM5
+Intent를 `run-electronic-card-official-v1`에 연결하고 Draft Design Recipe를 잠갔습니다. 사용자가
+가짜 정보 Fixture 제작 범위를 승인한 뒤 실제 제품 구현과 PM6 기술 검증까지 통과했습니다.
+Portrait Composer는 고정된 Adapter·Model Hash를 검사한 뒤 원본 사진에서 투명 인물 Layer만 만들고,
+합성된 Visual Target 이미지를 Portrait Source로 사용하는 것을 차단합니다. 사진이 없으면 이니셜
+아바타 대신 글자 중심 Template를 사용합니다. 현재 배포·PM6 최종 잠금은 사용자 최종 승인만
+기다립니다. 이 증거는 전자명함 제한 Pilot의 증거이며 임의 주제 범용 Runtime 증거가 아닙니다.
 
 PM3 부분수정의 사용자 흐름·허용 속성·Diff·검증·Restore 최종 계약은 [[PM3_PARTIAL_EDIT_FINAL_FLOW_2026-08-20]]을 사용합니다.
 

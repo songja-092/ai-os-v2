@@ -20,5 +20,8 @@ specs/
 .specify/workflows/runs/
 # Capability Lab candidates are reproducible from pinned public commits. Keep evidence, not clones.
 pm1-artifacts/capability-lab/trials/*/source/
+# Keep Oh My Design trial outputs and evidence, not its reproducible tool internals.
+pm1-artifacts/omd-hospital-ab-v1/oh-my-design/.agents/
+pm1-artifacts/omd-hospital-ab-v1/oh-my-design/.codex/
 __pycache__/
 *.pyc

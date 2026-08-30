@@ -1,5 +1,16 @@
 # Current State
 
+2026-08-30 회의에서 V2 MVP의 남은 핵심을 `초기 모델 → 제품 계약 → 제품 조립 → Product Harness
+→ PM6 → 배포·운영 확인·복구` 연결로 확정했습니다. 새 PM·Workflow 엔진·외부 패키지는 추가하지
+않고, 기존 Product Contract·Registry·검증기를 사용하는 제한형 제품 조립기를 구현했습니다.
+전자명함 Profile 하나에서 등록된 Core Content·Portrait Composer·Theme·QR Adapter와 기존
+Product Contract·Portrait·PM6 Verifier의 기능·Gate Coverage를 결정적으로 연결합니다. Profile
+중복, 미등록 제품, Adapter 증거 누락 Fixture는 `BLOCKED`를 확인했습니다. 이는 전자명함 단일 제품의
+조립 계약 증거이며 다른 제품 범용 Runtime이나 배포 완료 증거가 아닙니다. PM5 시험 범위와 Visual
+Target은 기존 사용자 승인 증거를 Product Contract에 동기화했습니다. 2026-08-30 사용자가 로컬 전자명함 1차 결과를 최종 승인해 PM5·PM6는 `completed_locked`이며, 실제 정보·공개 주소·QR·NFC 배포는 별도 범위로 유예했습니다.
+
+2026-08-29 PM5 전자명함 시험 제작 범위를 사용자 승인 후 실제 제품 Runtime까지 연결했습니다. 테마 6종, 사용자 지정 색상, 이전 테마 복원은 `state/electronic-card-product-state.json`과 Core Action으로 저장·복구됩니다. 인물 합성은 일반 테마에서 부드러운 배경 면과 가장자리 그림자를 사용하고, 강한 대각선은 라임 편집형에만 제한합니다. PM5 의도·범위와 제품별 Core 연결의 기술 검사는 PASS이며, 이는 전자명함 제한 증거로 임의 프로젝트 범용 제작 Runtime을 뜻하지 않습니다. 실제 정보·공개 주소·문자 미리보기·QR·NFC·배포 전환 기준은 [[ELECTRONIC_BUSINESS_CARD_OPERATION_AND_DEPLOYMENT]]를 사용합니다.
+
 2026-08-26 사용자 결정에 따라 `v2-content-reference-radar`의 기본 탐색 형식은 Instagram 카드뉴스·슬라이드와 Threads 공개 글입니다. Shorts·Reels는 `marketer_video` 모드에서만 사용합니다. 기존 Instagram 영상 3건 순위화 증거는 삭제하지 않고 마케터용으로 분류했으며, 현재 `#바이브코딩` 카드뉴스·정적 게시물 후보 5건을 기본 Reference 후보로 등록했습니다. 후보 등록은 사용자 채택이나 제품 적용이 아닙니다.
 
 2026-08-26 `v2-content-reference-radar` Skill을 추가해 YouTube·Instagram·Threads의 공개 콘텐츠 후보를 V2 형식으로 중복 제거·플랫폼 내부 순위화·한글 요약하고 사용자의 `채택·보류·폐기`로 넘기는 최소 계약과 결정형 Fixture를 PASS했습니다. 로그인된 Aside Browser에서 `#바이브코딩` Instagram 공개 게시물 10건과 영상 5건을 확인했고, 영상 3건은 공개 좋아요·댓글·리포스트를 읽어 Instagram 내부 순위화까지 Runtime PASS했습니다. Threads는 로그인 없이 공개 검색 후보 5건과 본문 3건을 읽어 수집 PASS했지만 검색 화면 숫자의 지표 이름이 노출되지 않아 실제 순위화는 `not_proven`입니다. 참고한 `haeun2525/trend-radar`에는 License 파일이 없어 소스는 재사용하지 않았고 구조만 참고했습니다. Cookie·Token·비공개 콘텐츠는 저장하지 않았습니다.
@@ -16,7 +27,13 @@ GitHub Spec Kit `v0.16.5`를 전역이 아닌 `/home/user/바탕화면/v2_spec_k
 
 디자인 탐색·채택·구현·수정·검증의 단일 공식 원본은 [[DESIGN_SYSTEM]] · [GitHub 링크](DESIGN_SYSTEM.md)입니다. 흩어진 과거 디자인 문서는 증거로 보존하되 새 결정과 충돌하면 현재 Commit의 디자인 시스템을 우선합니다.
 
-현재 `M7 — PDF 도면 스탬프 MVP E2E`까지 구현·독립 검증·사용자 승인·Result Commit·Rollback/Restore가 완료됐습니다. M7 공식 Run은 `run-c0a968f3`, 제품 Result Commit은 `3b592c8`입니다. 이로써 `AI OS V2 Core MVP M1~M7`은 검증 완료·동결 상태입니다. Post-MVP 설계는 [[POST_MVP_PM0_PM6_BASELINE]]의 `PM0~PM6`으로 완료됐으며 완료 범위와 미구현 항목은 [[POST_MVP_DESIGN_COMPLETION_REPORT]]에 기록합니다. PM0·PM1·PM2는 기존 판정대로 PASS, PM3은 사용자 조건부 통과와 PM6 재검증 조건을 유지합니다. PM4는 전자명함 실제 요청의 제한 범위에서 인터뷰·수집·Reference 보충·사용자 선택·Design DNA·전체 화면 Visual Target 인계까지 사용자·Runtime 검증으로 통과했습니다. 다음 진행 가능 단계는 `PM5 — 사용자 의도·범위·자산 정합성`입니다. `run-ef4986d7`의 기존 Preview v1과 PM1의 실패 Pilot은 당시 거절 판정 그대로 보존하며 구현 입력으로 사용하지 않습니다.
+현재 `M7 — PDF 도면 스탬프 MVP E2E`까지 구현·독립 검증·사용자 승인·Result Commit·Rollback/Restore가 완료됐습니다. M7 공식 Run은 `run-c0a968f3`, 제품 Result Commit은 `3b592c8`입니다. 이로써 `AI OS V2 Core MVP M1~M7`은 검증 완료·동결 상태입니다. Post-MVP 설계는 [[POST_MVP_PM0_PM6_BASELINE]]의 `PM0~PM6`으로 완료됐으며 완료 범위와 미구현 항목은 [[POST_MVP_DESIGN_COMPLETION_REPORT]]에 기록합니다. PM0·PM1·PM2는 기존 판정대로 PASS, PM3은 사용자 조건부 통과와 PM6 재검증 조건으로 기존 증거를 유지합니다. PM4는 전자명함 실제 요청의 제한 범위에서 인터뷰·수집·Reference 보충·사용자 선택·Design DNA·전체 화면 Visual Target 인계까지 사용자·Runtime 검증으로 통과했습니다. 전자명함 PM5·PM6는 최신 전체 회귀검사와 사용자 최종 승인을 거쳐 2026-08-30 `completed_locked`로 전환했습니다. 실제 배포·다른 제품 범용 Runtime은 아직 `not_proven`입니다. Codex·외부 Skill 단독 결과는 정식 V2 결과가 아니며, Core가 입력·Artifact·검증·Version·Restore를 재현해야 한다는 공통 제작 계약을 유지합니다. `run-ef4986d7`의 기존 Preview v1과 PM1의 실패 Pilot은 당시 거절 판정 그대로 보존하며 구현 입력으로 사용하지 않습니다.
+
+2026-08-29에는 전자명함 전용 `core-design-harness`를 공식 입력에서 제외하고, 기존 PM4 승인
+Handoff·Design DNA·Visual Target과 PM5 Intent를 `run-electronic-card-official-v1`로 연결했습니다.
+Core가 생성한 `draft-design-recipe.json`은 방향·화면·행동·사진 처리·반응형·금지 재해석과 입력
+Hash를 잠급니다. 연결 Runtime 검사는 PASS했지만 PM5 Fixture의 사용자 범위 승인이 아직
+`pending`이므로 제품 구현·PM6·배포는 차단 상태이며 PASS로 확대하지 않습니다.
 
 2026-08-24 PM4 프로젝트 수집 MVP는 전자명함 시험에서 `인터뷰 → 소셜 사용 근거 → 방향 5개 → GitHub 구현 재료 → Core 추천 → 사용자 시험 선택 → 제작 가능 확인서`까지 연결했습니다. Reddit 3건·YouTube 2건·Threads 3건과 GitHub 구현 재료 5건은 실제 Link로 보존했고, Instagram은 로그인 세션 미연결로 0건입니다. 후보 보존, `다음` 클릭 후 확인서 자동 생성, 서버 재시작 복원, 자동 설치·구현 차단은 PASS했습니다. 2026-08-25 사용자가 1번 `QR·NFC로 바로 연결하는 명함`을 최종 재확인해 대화 기록과 Handoff Artifact의 충돌을 해소했습니다. Core의 3번 추천은 비교 근거로만 보존하며 자동 선택으로 해석하지 않습니다. 2026-08-26 사용자는 후속 3번 시각 시안 수정본을 `보류`했습니다. 이후 기존 PM4에 검색 기반 시각 Reference Adapter를 추가해 고정 Seed 없이 전자명함 명세에서 공개 Gallery 검색어 3개를 생성하고 화면 8개를 출처·이미지 Hash·한글 요약·복제 금지 항목과 함께 수집했습니다. 같은 경로는 인테리어 커뮤니티 Fixture에서도 별도 화면 8개를 수집해 Core 연결됐고, 출처 하나의 의도된 실패가 다른 자료를 막지 않는 것도 PASS했습니다. Core 조회·판정 저장·서버 재시작 조회·제품 자동 적용 차단 역시 Runtime PASS입니다. 2026-08-26 `추가 탐색` Refill Loop를 Core Action으로 연결해 기존 12개를 보존하고 인접 검색어 5개로 새 후보 5개만 추가했습니다. URL·SHA-256·이미지 dHash 유사도 중복 제거, 채택 특징 우선·폐기 특징/유사 화면 제외, 판정 보존, 3개 미만 확보 시 원본 유지, 디자인/기능 자료 분리 표시를 검사했습니다. 기능 자료는 기존 GitHub·YouTube 근거를 별도 화면으로 재사용합니다. 사용자는 총 17개 중 6개 시각 Reference를 채택했고, 선택 결과는 `visual-reference-selection-handoff.json`으로 고정했습니다. 이 전달서는 PM1 디자인 방향 정리의 입력이며 DNA·Visual Target·구현 승인은 아닙니다. 사용자 URL·이미지는 등록되면 최고 우선순위지만 입력 UI는 아직 없고, Instagram·Threads 로그인 수집도 PM4 최종 보류 상태입니다. 이는 두 입력과 현재 공개 Gallery·등록 서비스 Adapter의 제한 증거이며 임의의 모든 주제, Reference 품질 승인, Visual Target 승인, 구현을 증명하지 않습니다. 로그인 세션 관리·Instagram 수집과 사용자 PM4 최종 PASS는 PM4 마지막 검증 항목으로 잠급니다. 과거 로컬 우선 Pilot 증거는 [[PM4_LOCAL_FIRST_COLLECTOR_PILOT_2026-08-21]]을 사용합니다.
 

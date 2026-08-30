@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-os-v2.local/schemas/product-contract.schema.json",
+  "title": "AI OS V2 Product Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "project_type",
+    "status",
+    "source_evidence",
+    "user_outcomes",
+    "content_fields",
+    "screens",
+    "state_matrix",
+    "asset_rules",
+    "theme_rules",
+    "acceptance_gates",
+    "approval"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "contract_id": {"type": "string", "minLength": 1},
+    "project_type": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "approved_locked"]},
+    "source_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["interview_receipt", "research_artifacts", "approved_references"],
+      "properties": {
+        "interview_receipt": {"type": "string", "minLength": 1},
+        "research_artifacts": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "approved_references": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "user_outcomes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "content_fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "type", "required", "user_visible", "editable", "screens", "empty_behavior"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "label": {"type": "string", "minLength": 1},
+          "type": {"enum": ["text", "long_text", "url", "phone", "email", "image", "list", "color", "boolean"]},
+          "required": {"type": "boolean"},
+          "user_visible": {"type": "boolean"},
+          "editable": {"type": "boolean"},
+          "system_generated_reason": {"type": "string", "minLength": 1},
+          "screens": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "empty_behavior": {"type": "string", "minLength": 1},
+          "max_length": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "screens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "purpose", "content", "required_actions", "empty_state"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "purpose": {"type": "string", "minLength": 1},
+          "content": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "required_actions": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "empty_state": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "state_matrix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["content_lengths", "content_presence", "assets", "viewports", "themes", "interaction_states"],
+      "properties": {
+        "content_lengths": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"enum": ["empty", "short", "normal", "long", "extreme"]}},
+        "content_presence": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"enum": ["complete", "optional_missing", "required_missing"]}},
+        "assets": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "viewports": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "pattern": "^[0-9]+x[0-9]+$"}},
+        "themes": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "interaction_states": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "asset_rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["original_preserved", "missing_asset_fallback", "quality_gate", "runtime_variants"],
+      "properties": {
+        "original_preserved": {"const": true},
+        "missing_asset_fallback": {"type": "string", "minLength": 1},
+        "quality_gate": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "runtime_variants": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "theme_rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_tokens", "contrast_gate", "all_screens_apply", "restore_required"],
+      "properties": {
+        "semantic_tokens": {"type": "array", "minItems": 6, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "contrast_gate": {"const": true},
+        "all_screens_apply": {"const": true},
+        "restore_required": {"const": true}
+      }
+    },
+    "acceptance_gates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "classification", "automatable", "pass_condition"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "classification": {"enum": ["contract", "runtime", "visual", "human_approval"]},
+          "automatable": {"type": "boolean"},
+          "pass_condition": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["product_scope", "visual_target", "final_result"],
+      "properties": {
+        "product_scope": {"enum": ["pending", "approved"]},
+        "visual_target": {"enum": ["pending", "approved"]},
+        "final_result": {"enum": ["pending", "approved"]}
+      }
+    }
+  }
+}

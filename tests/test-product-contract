@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -u
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+tools/verify-product-contract test-fixtures/product-contract/electronic-card-valid.json >/tmp/v2-product-contract-positive.json || exit 1
+if tools/verify-product-contract test-fixtures/product-contract/electronic-card-invalid.json >/tmp/v2-product-contract-negative.json; then
+  echo "negative fixture unexpectedly passed" >&2
+  exit 1
+else
+  code=$?
+  [ "$code" -eq 2 ] || exit 1
+fi
+grep -q 'PASS_CONTRACT_ONLY' /tmp/v2-product-contract-positive.json || exit 1
+grep -q 'BLOCKED' /tmp/v2-product-contract-negative.json || exit 1
+echo 'product-contract fixtures: PASS'

@@ -1,0 +1,373 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "framesmith",
+  "source": "https://github.com/vicmaster/framesmith",
+  "source_class": "public_github",
+  "prepared_at": "2026-08-20T11:59:10.583323+00:00",
+  "source_commit": "8ff503abbe0e1fa78dde4af8045f434483daeac0",
+  "source_sha256": "92b87a28b9352c95e291efd267cf1c2a00ae159e70719649af33424083949e8a",
+  "status": "static_reviewed",
+  "private_project_mounted": false,
+  "audit": {
+    "scanned_text_files": 190,
+    "findings": [
+      {
+        "risk": "home_access",
+        "file": "README.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmark/run.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "docs/GUIDELINES.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "docs/specs/PHASE-17-SPEC.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "docs/specs/PHASE-24-SPEC.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "docs/specs/PHASE-26-SPEC.md",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/build-bloom-landing.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/build-bloom-landing.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/build-phase8-release.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/build-phase8-release.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/build-phase9-showcase.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/build-phase9-showcase.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/build-viewer-mock.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/build-viewer-mock.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/cli.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/fonts.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "src/fonts.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/index.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "src/index.ts",
+        "match_count": 12
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/llm-judge.ts",
+        "match_count": 8
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/repo-store.ts",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": "src/repo-store.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "src/repo-store.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/reviser.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/scene-graph.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "src/scene-graph.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "src/scene-graph.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/screenshot.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/viewer-standalone.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "src/viewer-standalone.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/workspaces.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "src/workspaces.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-archive-view.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-archive-view.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-build-log.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-cli.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test-cli.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-cli.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-design-system-inheritance.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-design-system-inheritance.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-empty-thumbnail.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-empty-thumbnail.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-env.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-feedback.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-feedback.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-flow-critique.ts",
+        "match_count": 10
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-fonts-by-name.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-gradient-shadow-move-fixes.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-init.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-llm-judge.ts",
+        "match_count": 24
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-repo-canvases.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-repo-external-change.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-repo-external-change.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-viewer-feedback.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-viewer-logo-favicon.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-viewer-logo-favicon.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-viewer-repo-aggregation.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-viewer-repo-lifecycle.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "test-viewer-repo-lifecycle.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-viewer-resolves-workspace-tokens.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-viewer-resolves-workspace-tokens.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-viewer-sidebar.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-viewer-sidebar.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-viewer-watch.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test-visual.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-workspace-mcp-tools.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-workspace-mcp-tools.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-workspace-migration.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-workspace-migration.ts",
+        "match_count": 2
+      }
+    ],
+    "package_lifecycle_scripts": {},
+    "license_files": [
+      "LICENSE"
+    ],
+    "automatic_execution_allowed": false,
+    "note": "Findings require review; absence of a match is not a security guarantee."
+  },
+  "trials": [],
+  "fixture": {
+    "path_in_sandbox": "/work/fixture/index.html",
+    "contains_private_project_data": false,
+    "created_at": "2026-08-20T11:59:16.719824+00:00"
+  }
+}

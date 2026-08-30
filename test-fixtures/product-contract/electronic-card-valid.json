@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "contract_id": "fixture-electronic-card-valid",
+  "project_type": "electronic_business_card",
+  "status": "draft",
+  "source_evidence": {
+    "interview_receipt": "fixture/interview.json",
+    "research_artifacts": ["fixture/research.json"],
+    "approved_references": ["fixture/reference.png"]
+  },
+  "user_outcomes": ["프로필과 연락 방법을 한 링크로 공유"],
+  "content_fields": [
+    {"id": "name", "label": "이름", "type": "text", "required": true, "user_visible": true, "editable": true, "screens": ["profile", "editor"], "empty_behavior": "저장 차단", "max_length": 40},
+    {"id": "portrait", "label": "인물 사진", "type": "image", "required": false, "user_visible": true, "editable": true, "screens": ["profile", "editor"], "empty_behavior": "글자 중심 Layout"}
+  ],
+  "screens": [
+    {"id": "profile", "purpose": "방문자에게 사람과 연락 행동 표시", "content": ["name", "portrait"], "required_actions": ["save_contact"], "empty_state": "사진 없이도 이름 중심 명함 표시"},
+    {"id": "editor", "purpose": "소유자 정보 편집", "content": ["name", "portrait"], "required_actions": ["save"], "empty_state": "필수값 안내"}
+  ],
+  "state_matrix": {
+    "content_lengths": ["empty", "normal", "long"],
+    "content_presence": ["complete", "optional_missing"],
+    "assets": ["photo_present", "photo_absent"],
+    "viewports": ["390x844", "1100x900"],
+    "themes": ["light", "custom_low_contrast"],
+    "interaction_states": ["initial", "edited"]
+  },
+  "asset_rules": {
+    "original_preserved": true,
+    "missing_asset_fallback": "글자 중심 Layout",
+    "quality_gate": ["해상도", "비율", "가장자리"],
+    "runtime_variants": ["mobile", "desktop"]
+  },
+  "theme_rules": {
+    "semantic_tokens": ["background", "surface", "text", "muted_text", "accent", "accent_text", "border", "focus"],
+    "contrast_gate": true,
+    "all_screens_apply": true,
+    "restore_required": true
+  },
+  "acceptance_gates": [
+    {"id": "schema", "classification": "contract", "automatable": true, "pass_condition": "Schema와 의미 검사를 통과"},
+    {"id": "final", "classification": "human_approval", "automatable": false, "pass_condition": "사용자 최종 승인"}
+  ],
+  "approval": {"product_scope": "pending", "visual_target": "pending", "final_result": "pending"}
+}

@@ -1,0 +1,122 @@
+{
+  "schema_version": "official-design-run-v1",
+  "run_id": "run-electronic-card-personalized-v2",
+  "project_id": "electronic-business-card",
+  "status": "candidates_ready_for_user_selection",
+  "candidate_count": 5,
+  "input_policy": "approved_reference_first",
+  "source_hashes": {
+    "direction_1": "be236b523869796e7ffc9df8e2c47ed7432d5eda32714a091c7698d841527190",
+    "direction_2": "cfece8648acc22f65cd5134ae9653e558d6f3d96451225b3d3f8f03d8e12aa4f",
+    "direction_3": "fb0aa974de624fb73056a5adbe2faec4d36f3ffd32dfce9f9e4bf62a228523ae",
+    "direction_4": "fea662e1880005cf98d08d25fb451b0d4812c1eff7377a662e82ebd706113bda",
+    "direction_5": "a783c40fff575622c24dc577c50a834e386cc01d397205b3f9c610579fcae707",
+    "portrait": "8d56a7976d110a3f5c632737e9ecbfe686fe82f71924a68e9a7695a7a87f9d1e",
+    "candidate_contract": "c2e47e18621c1a30b1a081cbd1ef4c40a93b81926204f904699b6184a8109a1f"
+  },
+  "outputs": [
+    {
+      "candidate_id": "direction-1",
+      "family": "warm_human_trust",
+      "image_path": "pm5-artifacts/electronic-business-card-v1/personalized-candidates-v2/direction-1.png",
+      "sha256": "58e58470e6185a9df73b697411de00f2a28eb8c207c54dafa7ea9d90b30e9df2",
+      "changed_axes": [
+        "layout_structure",
+        "action_layout",
+        "color_strategy"
+      ],
+      "scores": {
+        "product_fit": 5,
+        "usability": 4,
+        "visual_finish": 4,
+        "reference_alignment": 4
+      },
+      "minimum_prior_distance": 26
+    },
+    {
+      "candidate_id": "direction-2",
+      "family": "editorial_professional",
+      "image_path": "pm5-artifacts/electronic-business-card-v1/personalized-candidates-v2/direction-2.png",
+      "sha256": "f2046260c4dc3a5576db7dd91abeacd17fc6583ee8f1403f3b4933abd0510be6",
+      "changed_axes": [
+        "portrait_placement",
+        "information_hierarchy",
+        "typography_system"
+      ],
+      "scores": {
+        "product_fit": 5,
+        "usability": 4,
+        "visual_finish": 4,
+        "reference_alignment": 4
+      },
+      "minimum_prior_distance": 18
+    },
+    {
+      "candidate_id": "direction-3",
+      "family": "documentary_community",
+      "image_path": "pm5-artifacts/electronic-business-card-v1/personalized-candidates-v2/direction-3.png",
+      "sha256": "24d8b2d9ce122811d083ce5aacfa6113b5fb6160bb01d6a66d8464590123c4d1",
+      "changed_axes": [
+        "surface_material",
+        "portrait_placement",
+        "action_layout"
+      ],
+      "scores": {
+        "product_fit": 5,
+        "usability": 4,
+        "visual_finish": 4,
+        "reference_alignment": 4
+      },
+      "minimum_prior_distance": 28
+    },
+    {
+      "candidate_id": "direction-4",
+      "family": "nfc_object_interface",
+      "image_path": "pm5-artifacts/electronic-business-card-v1/personalized-candidates-v2/direction-4.png",
+      "sha256": "a0791774cfec4231f0879f9c21c53038a75260be7dbca90636e804640de92364",
+      "changed_axes": [
+        "information_hierarchy",
+        "action_layout",
+        "surface_material"
+      ],
+      "scores": {
+        "product_fit": 5,
+        "usability": 4,
+        "visual_finish": 4,
+        "reference_alignment": 4
+      },
+      "minimum_prior_distance": 16
+    },
+    {
+      "candidate_id": "direction-5",
+      "family": "cultural_profile",
+      "image_path": "pm5-artifacts/electronic-business-card-v1/personalized-candidates-v2/direction-5.png",
+      "sha256": "6fcdc9912ce6d0c69f18cdd31c194bd0a08c3bde0837e9df9c088c46cce92f13",
+      "changed_axes": [
+        "typography_system",
+        "layout_structure",
+        "color_strategy"
+      ],
+      "scores": {
+        "product_fit": 5,
+        "usability": 4,
+        "visual_finish": 4,
+        "reference_alignment": 4
+      },
+      "minimum_prior_distance": 21
+    }
+  ],
+  "similarity_evidence": {
+    "method": "image_dhash_64",
+    "minimum_same_run_distance": 18,
+    "exact_match": false,
+    "layout_signature_match": false
+  },
+  "registration_gate": "PASS",
+  "recommended_candidate_id": "direction-5",
+  "recommendation_reason": "초반 승인 시안의 제품성을 유지하면서 인물·타이포그래피·색·정보 구조가 현재 구현과 가장 분명하게 달라 개인화 효과가 큼",
+  "selected_candidate_id": null,
+  "user_approval": "pending",
+  "product_changed": false,
+  "last_action": "candidate.clear"
+}

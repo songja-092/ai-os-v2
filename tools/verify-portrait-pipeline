@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+import hashlib
+import json
+import subprocess
+import tempfile
+from pathlib import Path
+from PIL import Image
+
+ROOT = Path(__file__).resolve().parents[1]
+TOOL = ROOT / "tools/prepare-portrait-asset"
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    opaque = tmp / "opaque.png"
+    transparent_path = tmp / "transparent.png"
+    Image.new("RGB", (300, 400), "white").save(opaque)
+    transparent_image = Image.new("RGBA", (300, 400), (0, 0, 0, 0))
+    for x in range(90, 210):
+        for y in range(50, 390):
+            transparent_image.putpixel((x, y), (20, 20, 20, 255))
+    transparent_image.save(transparent_path)
+    source_hash = hashlib.sha256(opaque.read_bytes()).hexdigest()
+    subprocess.run([str(TOOL), "--input", str(opaque), "--output", str(tmp / "opaque.json"), "--asset-role", "portrait_source"], check=True, capture_output=True)
+    subprocess.run([str(TOOL), "--input", str(transparent_path), "--output", str(tmp / "transparent.json"), "--asset-role", "portrait_source"], check=True, capture_output=True)
+    a = json.loads((tmp / "opaque.json").read_text())
+    b = json.loads((tmp / "transparent.json").read_text())
+    assert a["source_sha256"] == source_hash
+    assert a["original_preserved"] is True and a["cutout_gate"] == "BLOCKED_TRANSPARENT_SUBJECT_REQUIRED"
+    assert a["render_contract"]["mode"] == "safe_crop"
+    assert b["cutout_gate"] == "PASS" and b["render_contract"]["mode"] == "transparent_subject_template"
+    assert a["render_contract"]["face_alteration"] is False and b["render_contract"]["face_alteration"] is False
+    subprocess.run([str(TOOL), "--input", str(opaque), "--output", str(tmp / "composite.json"), "--asset-role", "visual_composite"], check=True, capture_output=True)
+    c = json.loads((tmp / "composite.json").read_text())
+    assert c["runtime_allowed"] is False and c["render_contract"]["mode"] == "reference_only"
+print("PASS: opaque portrait falls back safely; verified transparent subject selects template compositing.")

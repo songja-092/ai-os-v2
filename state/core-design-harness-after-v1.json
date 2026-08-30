@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "adopted_reference_ids": [
+    "ref-slice"
+  ],
+  "selection_records": [
+    {
+      "reference_id": "ref-slice",
+      "action": "core-design.reference.adopt",
+      "selected_by": "user",
+      "selected_at": "2026-08-28T12:09:32Z"
+    }
+  ],
+  "revision": 5,
+  "product_changed": false,
+  "selected_direction_id": null,
+  "last_action": "core-design.candidates.registered"
+  ,
+  "official_flow_status": "excluded_test_evidence",
+  "official_run_input_allowed": false,
+  "exclusion_reason": "전자명함 전용 시험 Harness이며 공식 Core 디자인 흐름을 재현하지 않음"
+}

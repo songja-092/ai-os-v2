@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run-electronic-card-official-v1",
+  "status": "PASS",
+  "verified": [
+    "PM4 user-approved direction",
+    "Visual Target SHA-256 continuity",
+    "PM5 source-contract continuity",
+    "Draft Design Recipe created and locked",
+    "implementation remains blocked while PM5 approval is pending"
+  ],
+  "not_proven": [
+    "product implementation",
+    "PM6 runtime verification",
+    "deployment",
+    "final user approval"
+  ],
+  "fixture_scope": true,
+  "completed_at": "2026-08-29T04:54:48Z"
+}

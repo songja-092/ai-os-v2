@@ -1,0 +1,209 @@
+{
+  "schema_version": "1.0",
+  "audit_id": "pm5-electronic-card-system-gap-2026-08-29",
+  "status": "recorded_candidate_not_implemented",
+  "scope": "electronic-business-card fixture only",
+  "runtime_evidence": {
+    "url": "http://127.0.0.1:8229/electronic-card-product/?portrait-composer=1",
+    "screenshot": "01-current-product.png",
+    "observed_at": "2026-08-29",
+    "confirmed": [
+      "사진이 있는 현재 소개·경력 화면은 렌더링됨",
+      "이름·직책·한 줄 소개·기관명·전화·이메일 편집 UI가 존재함",
+      "사진 추가·제거·크기·세로 위치 조정 UI가 존재함",
+      "테마 Preset과 사용자 지정 단일 색상 입력이 존재함"
+    ],
+    "not_proven": [
+      "소개 본문·경력 목록·서비스 문구·상담 문구를 사용자가 편집하고 Core에 복원함",
+      "사진 유무 두 분기가 모든 화면에서 같은 기능을 제공함",
+      "저해상도·전신·반명함·가로 사진을 자동 품질 보정함",
+      "누끼 가장자리와 Template 배경의 색·명암·그림자 조화를 자동 판정함",
+      "사용자 지정 색상으로 만든 전체 Palette가 모든 화면에서 접근성 기준을 만족함"
+    ]
+  },
+  "root_cause": {
+    "verdict": "missing_product_contract_between_research_and_finish",
+    "research_gap": [
+      "Reference가 첫 화면의 인상과 기능 중심이었고 편집 가능한 전체 데이터 목록을 고정하지 않음",
+      "사진 없음·저해상도·다양한 비율·긴 한국어·빈 값의 상태 Reference를 조사 범위에 넣지 않음"
+    ],
+    "production_contract_gap": [
+      "단일 Profile 데이터 Schema가 없고 일부 사용자 데이터가 HTML·JavaScript에 고정됨",
+      "화면별 필수·선택 필드와 사진 없음 Fallback 계약이 없음",
+      "누끼 이후 해상도·가장자리·색·명암·그림자 조화 Gate가 없음",
+      "테마가 의미별 Palette Token이 아니라 Preset 또는 단일 Accent 색 입력 중심임"
+    ],
+    "finish_gap": [
+      "마감 검사가 현재 Fixture의 보이는 화면에 집중되고 입력 다양성 Matrix를 검사하지 않음",
+      "고정 텍스트·긴 텍스트·빈 값·사진 품질·Palette 대비를 실패시키는 자동 검사가 없음"
+    ],
+    "primary_bottleneck": "production_contract_gap"
+  },
+  "candidate_contract": {
+    "content_model": {
+      "single_source_of_truth": true,
+      "all_user_visible_content_editable": true,
+      "fields": [
+        "name",
+        "role",
+        "organization",
+        "portrait",
+        "headline",
+        "short_intro",
+        "about_body",
+        "career_entries",
+        "services_or_specialties",
+        "action_context",
+        "consultation_label_and_url",
+        "phone",
+        "email",
+        "social_links",
+        "website",
+        "action_labels_and_order"
+      ],
+      "screen_manifest_required": true,
+      "empty_and_long_text_rules_required": true
+    },
+    "portrait_modes": {
+      "photo_present": "원본 보존 → 방향·해상도 검사 → 인물 Matting → 가장자리 정리 → 크기·위치 → 색·명암·그림자 조화 → 화면별 출력",
+      "photo_absent": "인물 자리를 억지로 남기지 않고 Typography·Logo 중심의 완전한 명함 Layout 사용",
+      "functional_parity": true,
+      "required_inputs": [
+        "id_portrait",
+        "upper_body",
+        "full_body",
+        "landscape",
+        "low_resolution",
+        "transparent_png"
+      ]
+    },
+    "theme_model": {
+      "user_surface": "미리보기가 있는 Palette 선택",
+      "semantic_tokens": [
+        "page_background",
+        "surface",
+        "primary_text",
+        "secondary_text",
+        "accent",
+        "accent_text",
+        "border",
+        "portrait_backdrop",
+        "panel",
+        "focus"
+      ],
+      "custom_color_behavior": "한 색을 그대로 전체에 쓰지 않고 접근 가능한 Palette 후보를 생성한 뒤 전체 화면 Preview와 Contrast Gate를 통과한 조합만 적용",
+      "single_accent_only": "insufficient"
+    }
+  },
+  "deterministic_automation_candidates": [
+    {
+      "id": "content-schema-gate",
+      "priority": 1,
+      "reuse": "Core state/action + existing verifier",
+      "checks": [
+        "사용자에게 보이는 문구의 고정값 금지",
+        "모든 필드 저장·재열기·복원",
+        "화면별 필수·선택 필드와 Fallback"
+      ],
+      "user_approval_required_before_implementation": true
+    },
+    {
+      "id": "content-and-asset-matrix",
+      "priority": 2,
+      "reuse": "existing PM5 fixture + browser/runtime verifier",
+      "checks": [
+        "사진 있음·없음",
+        "반명함·상반신·전신·가로·저해상도",
+        "짧은·긴·빈 한국어 텍스트",
+        "모바일·데스크톱과 전체 화면"
+      ],
+      "user_approval_required_before_implementation": true
+    },
+    {
+      "id": "portrait-quality-gate",
+      "priority": 3,
+      "reuse": "existing InSPyReNet/rembg adapter + Pillow",
+      "checks": [
+        "최소 해상도와 확대 금지",
+        "Alpha 가장자리·전경 면적·머리·몸 잘림 경고",
+        "배경과 인물 명암 분리",
+        "모바일·데스크톱 별 출력"
+      ],
+      "optional_tool_trials": [
+        "Sharp for deterministic resize/composite",
+        "MODNet as an isolated portrait-matting comparison only"
+      ],
+      "user_approval_required_before_install_or_trial": true
+    },
+    {
+      "id": "semantic-palette-gate",
+      "priority": 4,
+      "reuse": "existing CSS custom properties + Core theme state",
+      "checks": [
+        "한 Accent에서 의미별 Token Palette 생성",
+        "본문·버튼·Focus 대비",
+        "모든 화면 미리보기",
+        "실패 Palette 적용 차단과 이전 Palette 복원"
+      ],
+      "user_approval_required_before_implementation": true
+    },
+    {
+      "id": "visual-regression-matrix",
+      "priority": 5,
+      "reuse": "existing browser/runtime harness",
+      "checks": [
+        "Overflow·잘림·겹침",
+        "전체 화면 Screenshot 기준",
+        "기준이 달라졌을 때 자동 승인 금지"
+      ],
+      "optional_tool_trials": [
+        "Playwright screenshot comparison",
+        "axe-core accessibility checks"
+      ],
+      "user_approval_required_before_install_or_trial": true
+    }
+  ],
+  "judgment_tasks_not_ready_for_automation": [
+    "인물과 배경이 세련되게 어울리는지 최종 미감 승인",
+    "여러 후보 중 사용자의 정체성을 가장 잘 표현하는 방향 선택",
+    "서로 다른 사람의 명함이 충분히 고유한지 범용 자동 채점",
+    "저해상도 사진의 생성형 복원 또는 얼굴 변경"
+  ],
+  "tool_assessment": {
+    "single_magic_tool": false,
+    "install_now": false,
+    "best_first_change": "새 도구 설치가 아니라 Content Schema·Portrait 분기·Semantic Palette·입력 Matrix를 제품 계약과 기존 Harness에 연결",
+    "external_candidates": [
+      {
+        "tool": "Sharp",
+        "role": "비율 유지 Resize·Crop·Composite의 반복 가능한 출력",
+        "does_not_solve": "좋은 구도·누끼 품질·미감 판단"
+      },
+      {
+        "tool": "MODNet",
+        "role": "인물 Matting 비교 후보",
+        "does_not_solve": "배경과의 톤 조화·저해상도 복원·Layout"
+      },
+      {
+        "tool": "Playwright screenshot comparison",
+        "role": "잘림·여백·회귀의 반복 검출",
+        "does_not_solve": "틀린 기준 화면을 좋은 디자인으로 판정하는 문제"
+      },
+      {
+        "tool": "axe-core",
+        "role": "일부 접근성 문제 자동 검출",
+        "does_not_solve": "전체 접근성이나 디자인 미감의 자동 승인"
+      }
+    ]
+  },
+  "pm5_lock_impact": {
+    "current_pm5_lock_allowed": false,
+    "reason": "기존 자동화 감사가 PASS_NO_ADDITIONAL_AUTOMATION으로 기록됐지만 실제 Runtime과 코드에서 편집·사진·Palette·입력 Matrix 누락이 확인됨",
+    "required_before_lock": [
+      "사용자에게 자동화 후보를 채택·보류·폐기로 제시",
+      "채택 범위만 구현하고 정상·실패·복원 Fixture 검증",
+      "기술 PASS와 사용자 최종 승인을 분리"
+    ]
+  },
+  "user_decision": "pending"
+}

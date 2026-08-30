@@ -34,6 +34,18 @@ check_sha "974d00ea3d7ec41d69430562514c1aee7942d8afe215340686f49d4fe9a00e2e" "pm
 check_sha "053735a40d6cf9c65396ba871885409e6c0a30cf963591512267524dbcd40748" "pm4-artifacts/project-collector-mvp-v1/design-candidates/direction-2-full-flow-visual-target.png"
 check_sha "f06e1c349f404c84571f5fda444b924ae748fe861dfb7bc36ccc091e919fe39a" "state/pm4-design-ideation-state.json"
 check_sha "aa47d48932896a118c48f98bbbdb64d9ae08774a35d7f5721525f81e0008efff" "pm4-artifacts/project-collector-mvp-v1/visual-reference-selection-handoff.json"
+check_sha "d95248fee49c190b67b9003e0378a9acf9eed7e692b9634ec03d64d63fbf1c1c" "wiki/PM5_PM6_ELECTRONIC_CARD_COMPLETION_REPORT_2026-08-30.md"
+check_sha "612d61eed92324367d2f0a59060980e6b01b3bf60e3b86af24558c2931368d7f" "pm5-artifacts/electronic-business-card-v1/product-contract.v1.json"
+check_sha "200b5afaab40fac1558b76640952c16f3aa7cdd2f17297379323d68896fe9470" "pm5-artifacts/electronic-business-card-v1/draft-design-recipe.json"
+check_sha "cc3ac7778d907c6183b117f1fa6a4e1d216624c6c944b93cd841a5d7f463e871" "pm5-artifacts/electronic-business-card-v1/product/index.html"
+check_sha "8383cdc3bafb55fe0865db73c3805e220c2d50890539f2acb4d94260c452c574" "pm5-artifacts/electronic-business-card-v1/product/styles.css"
+check_sha "dcba354e2e082071bf3ed7e066ae75aeb22e629a24cc52a0b639ac17803ace93" "pm5-artifacts/electronic-business-card-v1/product/app.js"
+check_sha "97c3d60fd4529577fb2653eccacf097ed03eb0280b687f49c18e9f5f482868d9" "pm5-artifacts/electronic-business-card-v1/product/pm6-runtime-evidence.json"
+check_sha "fd2e6321f5e3cd30321256853dce26aef906968b23d23d9238ce1959835a2b86" "pm5-artifacts/electronic-business-card-v1/product/automation-audit.json"
+check_sha "c240afe1aede5c036707a862004a7dbe4646dccbdacf3860b1b7105b4ddb0b04" "state/official-design-runs/run-electronic-card-official-v1.json"
+check_sha "902e4903f26eec20b7600c3361f69332056e1eac321146fb2a59f28adc085e5b" "pm5-artifacts/electronic-business-card-v1/product/runtime-final-profile-390x844.png"
+check_sha "4b3b7d7e492a88120dc360a04a75b56d1d2ab676c02d869998533018b9dbd404" "pm5-artifacts/electronic-business-card-v1/product/runtime-final-share-390x844.png"
+check_sha "886fbe66474a471634925c5684c04de1fd2419da0636e55ff32417d33ca58410" "pm5-artifacts/electronic-business-card-v1/product/runtime-final-complete-390x844.png"
 
 if [[ "$failures" -gt 0 ]]; then
   echo "PM lock verification: FAIL ($failures)"

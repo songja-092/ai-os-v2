@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "status": "technical_pass_pending_user_visual_approval",
+  "visual_target_path": "pm5-artifacts/core-business-card-after-v1/core-electronic-card-visual-target.png",
+  "visual_target_sha256": "129b4a76e9531e8837ccea96fd632c1fdfb80bed92569a2cda91f924bd926118",
+  "design_dna_path": "pm5-artifacts/core-business-card-after-v1/core-design-dna.json",
+  "design_dna_sha256": "0babe7a512e81420bfcef1ec3a2fa38f810554e93a21e37b898c31290a75d518",
+  "fixture": {
+    "person_name": "김하은",
+    "organization": "행복마을종합사회복지관",
+    "job_title": "사회복지사",
+    "portrait_asset": "fixtures/pm5/social-worker-profile.jpg",
+    "phone": "010-1234-5678",
+    "email": "haeun.kim@example.invalid",
+    "kakao_or_social": "https://example.invalid/haeun",
+    "website": "https://example.invalid/happy-welfare",
+    "theme_color": "따뜻한 중립색과 제한된 녹색",
+    "delivery_scope": "모바일 링크·QR·NFC"
+  },
+  "checks": {
+    "user_reference_preserved": true,
+    "design_dna_hash_locked": true,
+    "nine_screens_declared": true,
+    "required_fixture_complete": true,
+    "portrait_original_preserved": true,
+    "implementation_blocked_before_user_approval": true
+  },
+  "technical_verdict": "PASS",
+  "user_approval": "pending",
+  "implementation_allowed": false,
+  "product_changed": false
+}

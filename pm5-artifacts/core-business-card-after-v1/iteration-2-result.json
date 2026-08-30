@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "iteration": 2,
+  "stage": "reference_gallery_runtime",
+  "technical_result": "PASS",
+  "quality_result": "FAIL",
+  "failure_reason": "제목은 전자명함이지만 후보 1·2의 Cover가 노트북 홍보 화면이라 모바일 전자명함 구성을 판단하기 어려움",
+  "repair": "전자명함 기본 검색어를 vCard·연락 카드·모바일 UI 화면 중심으로 축소",
+  "user_selection_requested": false,
+  "codex_manual_design_intervention": false
+}

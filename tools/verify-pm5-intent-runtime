@@ -1,0 +1,170 @@
+#!/usr/bin/env python3
+"""Verify PM5 intent/scope runtime in an isolated temporary repository."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import runpy
+import shutil
+import tempfile
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+CORE = runpy.run_path(str(ROOT / "v2"), run_name="pm5_verifier")
+REQUEST_ID = CORE["PM5_REQUEST_ID"]
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def expect_blocked(callback) -> bool:
+    try:
+        callback()
+    except PermissionError:
+        return True
+    return False
+
+
+def main() -> int:
+    locked = [
+        ROOT / "wiki/PM4_COMPLETION_REPORT_2026-08-26.md",
+        ROOT / "pm4-artifacts/project-collector-mvp-v1/electronic-card-design-handoff.json",
+        ROOT / "pm4-artifacts/project-collector-mvp-v1/design-candidates/direction-2-full-flow-visual-target.png",
+        ROOT / "state/pm4-design-ideation-state.json",
+        ROOT / "pm4-artifacts/project-collector-mvp-v1/visual-reference-selection-handoff.json",
+    ]
+    before = {str(path): sha256(path) for path in locked}
+    checks: dict[str, bool] = {}
+    integrated_html = (ROOT / "pm5-artifacts/electronic-business-card-v1/scope-review.html").read_text(
+        encoding="utf-8"
+    )
+    checks["approved_visual_assets_connected"] = (
+        "direction-2.png" in integrated_html
+        and "portrait-id-approved.png" in integrated_html
+        and "qr-approved.png" in integrated_html
+        and "screen-9-completion-visual-target.png" in integrated_html
+    )
+    checks["visual_fidelity_assets_present"] = all(
+        (ROOT / "pm5-artifacts/electronic-business-card-v1" / name).is_file()
+        for name in [
+            "portrait-id-approved.png", "qr-approved.png", "screen-9-completion-visual-target.png",
+        ]
+    )
+    checks["nine_screen_completion_flow_present"] = all(
+        label in integrated_html for label in [
+            "1. 메인 프로필", "2. 소개 · 경력", "3. QR · NFC 공유", "4. 연락처 저장",
+            "5. 외부 연결 상태", "6. 내 정보 편집", "7. 사진 맞춤 · 위치 조정",
+            "8. 테마 · 행동 순서", "9. 최종 완료",
+        ]
+    )
+    with tempfile.TemporaryDirectory(prefix="pm5-intent-") as temp:
+        trial = Path(temp)
+        for relative in [
+            "pm4-artifacts/project-collector-mvp-v1/interview-receipt.json",
+            "pm4-artifacts/project-collector-mvp-v1/electronic-card-design-handoff.json",
+            "pm4-artifacts/project-collector-mvp-v1/design-candidates/direction-2-full-flow-visual-target.png",
+        ]:
+            source = ROOT / relative
+            target = trial / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
+
+        initial = CORE["pm5_ui_state"](str(trial))
+        checks["original_request_preserved"] = initial["original_request"] == "전자명함을 만들 거야"
+        checks["spec_full_selected"] = initial["mode"] == "spec_full"
+        checks["pm4_handoff_connected"] = (
+            initial["source_contract"]["selected_direction_id"] == "direction-2"
+            and len(initial["source_contract"]["required_screens"]) == 8
+        )
+        checks["missing_assets_visible"] = set(initial["missing_fields"]) == CORE["PM5_REQUIRED_FIELDS"]
+        checks["implementation_blocked_before_approval"] = initial["implementation_allowed"] is False
+        checks["approval_blocked_when_missing"] = expect_blocked(
+            lambda: CORE["apply_pm5_ui_action"](
+                str(trial), {"request_id": REQUEST_ID, "action": "scope.approve"}
+            )
+        )
+
+        fixture_state = CORE["apply_pm5_ui_action"](
+            str(trial), {"request_id": REQUEST_ID, "action": "fixture.apply"}
+        )
+        checks["test_fixture_populates_all_required_fields"] = (
+            fixture_state["scope_ready"] is True
+            and fixture_state["approval"]["status"] == "pending"
+            and fixture_state["implementation_allowed"] is False
+        )
+        CORE["apply_pm5_ui_action"](
+            str(trial), {"request_id": REQUEST_ID, "action": "version.restore", "intent_packet_version": 1}
+        )
+
+        sample = {
+            "person_name": "테스트 사용자",
+            "portrait_asset": "fixtures/portrait.jpg",
+            "phone": "010-0000-0000",
+            "email": "test@example.invalid",
+            "kakao_or_social": "https://example.invalid/social",
+            "website": "https://example.invalid",
+        }
+        for field, value in sample.items():
+            CORE["apply_pm5_ui_action"](
+                str(trial),
+                {"request_id": REQUEST_ID, "action": "intent.answer.set", "field": field, "value": value},
+            )
+        ready = CORE["pm5_ui_state"](str(trial))
+        checks["scope_ready_after_required_inputs"] = ready["scope_ready"] is True
+        version_before_approval = ready["intent_packet_version"]
+        approved = CORE["apply_pm5_ui_action"](
+            str(trial), {"request_id": REQUEST_ID, "action": "scope.approve"}
+        )
+        handoff_path = trial / CORE["PM5_HANDOFF_RELATIVE_PATH"]
+        handoff = json.loads(handoff_path.read_text(encoding="utf-8"))
+        checks["approval_creates_handoff_only"] = (
+            approved["approval"]["status"] == "approved"
+            and handoff["implementation_performed"] is False
+            and handoff["product_changed"] is False
+        )
+
+        changed = CORE["apply_pm5_ui_action"](
+            str(trial),
+            {"request_id": REQUEST_ID, "action": "intent.answer.set", "field": "theme_color", "value": "짙은 녹색"},
+        )
+        checks["change_invalidates_approval"] = (
+            changed["approval"]["status"] == "pending" and changed["implementation_allowed"] is False
+        )
+        stale_handoff = json.loads(handoff_path.read_text(encoding="utf-8"))
+        checks["changed_scope_invalidates_old_handoff"] = (
+            stale_handoff["status"] == "stale_due_to_intent_change"
+            and stale_handoff["stale"] is True
+            and stale_handoff["implementation_performed"] is False
+        )
+        restored = CORE["apply_pm5_ui_action"](
+            str(trial),
+            {"request_id": REQUEST_ID, "action": "version.restore", "intent_packet_version": version_before_approval},
+        )
+        checks["previous_version_restored_as_pending"] = (
+            restored["answers"].get("theme_color") is None
+            and restored["approval"]["status"] == "pending"
+            and restored["implementation_allowed"] is False
+        )
+        reloaded = CORE["pm5_ui_state"](str(trial))
+        checks["restart_reload_preserves_state"] = reloaded["intent_packet_version"] == restored["intent_packet_version"]
+
+    after = {str(path): sha256(path) for path in locked}
+    checks["pm4_locked_files_unchanged"] = before == after
+    failed = [name for name, passed in checks.items() if not passed]
+    print(json.dumps({
+        "tool": "verify-pm5-intent-runtime",
+        "evidence_level": "isolated_runtime_fixture",
+        "verdict": "PASS" if not failed else "BLOCKED",
+        "checks": checks,
+        "failed": failed,
+        "user_approval_recorded": False,
+        "product_implemented": False,
+    }, ensure_ascii=False, indent=2))
+    return 0 if not failed else 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

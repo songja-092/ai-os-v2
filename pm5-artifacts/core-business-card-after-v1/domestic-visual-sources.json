@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "checked_at": "2026-08-28",
+  "items": [
+    {
+      "reference_id": "ref-korea-e-myprofile",
+      "source_name": "e-myprofile 국내 디지털 명함",
+      "source_url": "https://www.e-myprofile.com/",
+      "source_type": "korean_actual_service_runtime_capture",
+      "region": "korea",
+      "local_image_path": "pm5-artifacts/core-business-card-after-v1/reference-images-domestic/e-myprofile-mobile.png",
+      "sha256": "db91348adbd57b6c49172c7bd80b667a0d2821bbb613eda7556363cf862df6ce",
+      "natural_summary_ko": "국내 디지털 명함 서비스의 모바일 첫 화면입니다. 큰 제목과 짧은 설명, 한 개의 분명한 시작 버튼으로 기능을 단계적으로 안내합니다.",
+      "traits": ["큰 한글 제목", "넓은 여백", "단일 주요 행동", "단계형 기능 안내"],
+      "do_not_copy": ["e-myprofile 브랜드", "원문 문구", "보라색 고유 표현"]
+    },
+    {
+      "reference_id": "ref-korea-modibic",
+      "source_name": "모디빅 국내 디지털 명함",
+      "source_url": "https://modibic.com/",
+      "source_type": "korean_actual_service_runtime_capture",
+      "region": "korea",
+      "local_image_path": "pm5-artifacts/core-business-card-after-v1/reference-images-domestic/modibic-mobile.png",
+      "sha256": "5110a84f5ae84b70615c1ec8ac732576a872b39bc6245cc202686113429660d5",
+      "natural_summary_ko": "실제 명함 앱 화면을 휴대폰 안에 보여주는 국내 서비스입니다. 브랜드 색상을 크게 사용하고 명함 카드와 사람 이미지를 함께 강조합니다.",
+      "traits": ["휴대폰 안 실제 명함 화면", "강한 브랜드 색상", "명함 카드 미리보기", "인물과 제품 동시 강조"],
+      "do_not_copy": ["모디빅 브랜드", "민트 고유 색상", "앱스토어 홍보 문구"]
+    }
+  ]
+}

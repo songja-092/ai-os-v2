@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "contract_id": "fixture-electronic-card-invalid",
+  "project_type": "electronic_business_card",
+  "status": "approved_locked",
+  "source_evidence": {"interview_receipt": "fixture/interview.json", "research_artifacts": ["fixture/research.json"], "approved_references": ["fixture/reference.png"]},
+  "user_outcomes": ["프로필 공유"],
+  "content_fields": [
+    {"id": "about", "label": "소개", "type": "long_text", "required": false, "user_visible": true, "editable": false, "screens": ["missing_screen"], "empty_behavior": "숨김"}
+  ],
+  "screens": [
+    {"id": "profile", "purpose": "프로필", "content": ["unknown_field"], "required_actions": [], "empty_state": "빈 화면"}
+  ],
+  "state_matrix": {"content_lengths": ["normal"], "content_presence": ["complete"], "assets": ["photo_present"], "viewports": ["390x844"], "themes": ["light"], "interaction_states": ["initial"]},
+  "asset_rules": {"original_preserved": true, "missing_asset_fallback": "빈 칸", "quality_gate": ["해상도"], "runtime_variants": ["mobile"]},
+  "theme_rules": {"semantic_tokens": ["background", "surface", "text", "muted_text", "accent", "accent_text"], "contrast_gate": true, "all_screens_apply": true, "restore_required": true},
+  "acceptance_gates": [{"id": "schema", "classification": "contract", "automatable": true, "pass_condition": "통과"}],
+  "approval": {"product_scope": "pending", "visual_target": "pending", "final_result": "pending"}
+}

@@ -74,7 +74,97 @@ Codex는 승인 범위 안에서 해결 가능한 일반 코드 오류를 최대
 - 자동화 채택은 PM PASS가 아니며 PM PASS도 자동화 승인으로 해석하지 않습니다.
 - 이미 잠긴 PM에서 후보가 발견되면 유지보수 또는 후속 PM 후보로 남기며, 별도 승인 없이 잠금을 다시 열지 않습니다.
 
-## 6. 증거 언어
+## 6. Core 재현 가능 제작 계약
+
+V2에서 정식으로 제작한 결과는 Codex·Antigravity·외부 Skill 하나의 세션 능력에만 의존할 수 없습니다. 외부 도구는 제작 Adapter로 사용할 수 있지만, V2 Core가 같은 입력과 승인 상태를 읽어 결과·증거·Version·복구 경로를 다시 연결할 수 있어야 합니다.
+
+필수 흐름은 다음과 같습니다.
+
+사용자 원문·Intent Packet
+→ 승인된 Reference·Visual Target·Design Recipe
+→ Core가 소유한 제작 요청과 입력 Hash
+→ 교체 가능한 제작 Adapter
+→ Core Artifact·상태 저장
+→ 기능 검사와 Visual Fidelity·마감 검사
+→ 사용자 승인
+→ Version·Restore
+
+- Codex만 생성하고 Core Action·상태·Artifact 경로로 재현할 수 없는 결과는 `codex_only_pilot`이며 정식 V2 제작 완료가 아닙니다.
+- 외부 Skill·MCP·사이트 제작 도구가 만든 이미지·코드·Prompt는 입력 Hash, 도구·Version, 출력 경로, 사용 Recipe, 검증 결과를 Core Artifact에 남깁니다.
+- 승인된 Visual Target이 있으면 구현은 해당 자산과 Design Recipe를 명시적으로 읽어야 하며, 기능만 동작한다는 이유로 시각적 대체물을 사용하지 않습니다.
+- 디자인 결과는 기능 검사와 별도로 동일 화면·상태의 Visual Fidelity 비교와 마감 검사를 통과해야 합니다.
+- Core 연결이 아직 없는 외부 제작 능력은 격리 Pilot로 사용할 수 있지만, 사용자에게 `V2에서도 가능` 또는 `Core 제작 완료`라고 표현하지 않습니다.
+- 범용 Core 제작은 서로 다른 실제 프로젝트 증거가 생긴 뒤 승격하며, 단일 전자명함 Fixture를 범용화 근거로 사용하지 않습니다.
+
+### Core 우선 보완 규칙
+
+- PM 진행 중 발견한 오류는 Codex가 진단·수정할 수 있지만, Codex가 수동으로 만든 화면만으로 PM 완료를 선언하지 않습니다.
+- 채택된 제품 변경은 Core가 읽는 상태, 허용 Action, 결과 Artifact, 동일 검사 재실행, 복원 경로 중 해당 항목에 연결되어야 합니다.
+- 반복되는 화면 보정은 먼저 제품별 Core 계약으로 고정하고, 서로 다른 프로젝트 증거가 생기기 전에는 범용 기능으로 확대하지 않습니다.
+- 기술 검사는 Core 재현 가능성을 판정하고, 디자인 취향과 최종 사용 승인은 사용자에게 남깁니다.
+
+### 디자인 후보의 제품 범위 Gate
+
+- 후보 수나 시각적 차이보다 먼저 제품의 핵심 사용자 결과·필수 행동·편집 가능 데이터·첫 화면 가독성을 검사합니다.
+- 다양성은 제품 필수 조건을 고정한 상태에서 레이아웃·인물 배치·정보 위계·행동 배치·타이포그래피·재질·색상 중 두 축 이상으로 만듭니다. 색상만 다른 후보는 별도 방향으로 세지 않습니다.
+- 포스터·신문·마케팅 화면처럼 핵심 제품 행동을 잃은 결과는 생성 증거로 보존할 수 있지만 선택 Gallery에는 등록하지 않습니다.
+- 실패한 최근 시안을 다음 생성의 기본 Reference로 재사용하지 않고, 승인된 Reference·Design DNA·Visual Target을 우선 입력합니다.
+
+### 디자인 제작의 공식 Run 경계
+
+- 전용 시험 Harness와 Codex 단독 결과를 공식 구현 입력으로 사용하지 않습니다.
+- 이미 승인된 Reference·방향·Visual Target이 있으면 재탐색하지 않고 Hash를 검증해 재사용합니다.
+- 사용자가 후보 선택을 명시적으로 위임하면 디자인 총괄은 추천 선택할 수 있지만 Visual Target·범위·최종 결과의 사용자 승인을 대신하지 않습니다.
+- 선택 후 Design DNA만 남기지 않고 Draft Design Recipe를 생성해 구현 방향을 잠급니다.
+- Product Design·ImageGen은 시각 제작 Adapter이며 Core는 Prompt·Reference·Hash·Recipe·승인·Version을 소유합니다.
+- PM5 범위 승인, 승인 Recipe, 실제 구현, PM6 검증 순서가 열리기 전 다음 Gate로 진행하지 않습니다.
+
+### 구현 전 제품 계약 Gate
+
+Reference 조사와 인터뷰를 구현에 직접 넘기지 않습니다. 둘을 합쳐 제품별
+`Product Contract` 초안을 만들고 `tools/verify-product-contract`를 통과한 뒤 사용자가 제품 범위를
+승인해야 구현할 수 있습니다.
+
+- 인터뷰는 목적·사용자·필수 내용·편집 범위·사람의 판단을 보존합니다.
+- 조사는 제품의 일반 화면·기능뿐 아니라 사진·데이터 없음, 긴 내용, 오류, 모바일·PC 등 실제 상태를 보강합니다.
+- Product Contract는 사용자 결과, 편집 가능한 Content Schema, Screen Manifest, State Matrix,
+  Asset·Theme 규칙, 자동 검사와 사용자 승인 지점을 한곳에 고정합니다.
+- 사용자는 기술 수치나 예외를 직접 설계하지 않습니다. V2가 기존 성공 Recipe와 조사 근거에서
+  초안을 만들고, 누락 검사는 기계적으로 차단하며, 제품 범위만 쉬운 화면으로 승인받습니다.
+- 사용자에게 보이는 제품 콘텐츠는 기본적으로 편집 가능해야 합니다. 편집할 수 없는 값은 Core가
+  생성해야 하는 이유와 실패 처리를 계약에 기록합니다.
+- Contract PASS는 구조만 증명하며 Runtime·시각 품질·사용자 최종 승인을 대신하지 않습니다.
+
+### 제품 조립 Gate
+
+잠긴 Product Contract를 구현에 바로 넘기지 않습니다. `tools/resolve-product-harness`가 등록된
+`Profile → Adapter → Verifier`를 정확히 한 경로로 조립한 계획을 먼저 생성해야 합니다.
+
+- `Profile`은 제품 종류별 필수 기능·화면·상태·검사 Gate를 선언합니다.
+- `Adapter`는 제공 기능, 적용 가능한 제품, 부작용, 실제 증거를 선언합니다.
+- `Verifier`는 자신이 증명하는 Gate와 증거 등급을 선언합니다.
+- 등록되지 않은 기능을 AI가 이름 유사성이나 추측으로 연결하지 않습니다.
+- Profile이 없거나 둘 이상이고, Adapter 증거·기능·자동 검사 중 하나라도 빠지면 구현 전에
+  `BLOCKED`합니다.
+- 조립 성공은 `RESOLVED_CONTRACT_ONLY`이며 구현·Runtime·PM6·사용자 승인·배포 PASS가 아닙니다.
+- 로그인·비용·외부 쓰기 Adapter와 제품 범위·Visual Target·최종 결과 승인은 계속 사람에게 남깁니다.
+- 현재 Registry의 전자명함 Profile은 단일 제품 제한 증거입니다. 성격이 다른 실제 제품에서
+  반복 검증되기 전 범용 Core 조립기로 승격하지 않습니다.
+
+### V2 MVP 완주 기준
+
+V2 MVP는 기능 수가 아니라 다음 경로가 서로 다른 실제 제품 두 건에서 끊기지 않는지로 판정합니다.
+
+`자연어 요청 → 조사·최소 인터뷰 → Requirements → Product Contract → Reference·Draft Design Recipe
+→ 제품 조립 → 구현 → Product Harness → PM6 → 사용자 승인 → 배포 → 운영 확인 → 재검증·복구`
+
+- 사용자는 기본적으로 첫 요청·실제 정보, Visual Target, 최종 배포만 판단합니다.
+- 저장소 확인, 조사, 계약·조립 계획 초안, 구현, 일반 오류 수정, 동일 검사 재실행, 회귀·복구 확인은
+  승인 범위 안에서 Codex와 V2가 연속 처리합니다.
+- 비용·로그인·개인정보·외부 게시·파괴적 변경·잠금 충돌·사업 및 디자인 최종 판단에서만 멈춥니다.
+- 배포 후 상태 확인, 수정 후 재검증, Adapter 제거 후 Core·기존 Artifact 보존까지 완료 범위에 포함합니다.
+
+## 7. 증거 언어
 
 - `PASS`: 해당 검사와 해당 범위의 증거가 있음
 - `BLOCKED`: 완료 조건 또는 안전 조건을 충족하지 못함

@@ -1,0 +1,283 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "collector_mode": "core_visual_reference_runtime",
+  "items": [
+    {
+      "region": "korea",
+      "do_not_copy": [
+        "실제 인물",
+        "법률 브랜드",
+        "원문 문구"
+      ],
+      "traits": [
+        "큰 인물 사진",
+        "전문 분야 강조",
+        "연락 채널 묶음",
+        "어두운 편집형 구성"
+      ],
+      "source_type": "user_provided",
+      "reference_id": "ref-user-lawyer-card",
+      "source_name": "사용자 제공 한국 변호사 전자명함",
+      "source_url": "user-provided://electronic-card-lawyer-example",
+      "natural_summary_ko": "인물 사진을 크게 보여주고 전문 분야, 소개, 연락 채널을 한 화면 흐름으로 연결한 한국형 전자명함입니다.",
+      "discovery_evidence": {
+        "provider": "registered_korean_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "user-provided://electronic-card-lawyer-example"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-user-lawyer-card-3cc41f1caec3.png",
+      "image_url": null,
+      "content_type": "image/png",
+      "byte_size": 148617,
+      "sha256": "3cc41f1caec38ece30e13115b526770c6e2ecf8d75ee7576c499249df2b98ede",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:20Z"
+    },
+    {
+      "region": "korea",
+      "do_not_copy": [
+        "Slice 브랜드",
+        "제품 사진",
+        "원문 카피"
+      ],
+      "traits": [
+        "NFC·QR 연결",
+        "프로필 공유",
+        "간결한 모바일 UI"
+      ],
+      "source_type": "korean_actual_service",
+      "reference_id": "ref-slice",
+      "source_name": "Slice 디지털 명함",
+      "source_url": "https://home.myslice.is/",
+      "natural_summary_ko": "국내 NFC·QR 전자명함 서비스의 실제 제품 화면으로, 프로필 공유와 연락처 저장을 짧은 흐름으로 제공합니다.",
+      "discovery_evidence": {
+        "provider": "registered_korean_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "https://home.myslice.is/"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm4-artifacts/project-collector-mvp-v1/visual-references/ref-slice-4647d4018f3e.png",
+      "image_url": "https://cdn.imweb.me/thumbnail/20250826/7e5c9f8f338d4.png",
+      "content_type": "image/png",
+      "byte_size": 345246,
+      "sha256": "4647d4018f3e2b002769716ba43b5bcab77f2040aca6258dc2bba048fe1ac348",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-26T11:30:21Z"
+    },
+    {
+      "reference_id": "ref-korea-e-myprofile",
+      "source_name": "e-myprofile 국내 디지털 명함",
+      "source_url": "https://www.e-myprofile.com/",
+      "source_type": "korean_actual_service_runtime_capture",
+      "region": "korea",
+      "local_image_path": "pm5-artifacts/core-business-card-after-v1/reference-images-domestic/e-myprofile-mobile.png",
+      "sha256": "db91348adbd57b6c49172c7bd80b667a0d2821bbb613eda7556363cf862df6ce",
+      "natural_summary_ko": "국내 디지털 명함 서비스의 모바일 첫 화면입니다. 큰 제목과 짧은 설명, 한 개의 분명한 시작 버튼으로 기능을 단계적으로 안내합니다.",
+      "traits": [
+        "큰 한글 제목",
+        "넓은 여백",
+        "단일 주요 행동",
+        "단계형 기능 안내"
+      ],
+      "do_not_copy": [
+        "e-myprofile 브랜드",
+        "원문 문구",
+        "보라색 고유 표현"
+      ]
+    },
+    {
+      "reference_id": "ref-korea-modibic",
+      "source_name": "모디빅 국내 디지털 명함",
+      "source_url": "https://modibic.com/",
+      "source_type": "korean_actual_service_runtime_capture",
+      "region": "korea",
+      "local_image_path": "pm5-artifacts/core-business-card-after-v1/reference-images-domestic/modibic-mobile.png",
+      "sha256": "5110a84f5ae84b70615c1ec8ac732576a872b39bc6245cc202686113429660d5",
+      "natural_summary_ko": "실제 명함 앱 화면을 휴대폰 안에 보여주는 국내 서비스입니다. 브랜드 색상을 크게 사용하고 명함 카드와 사람 이미지를 함께 강조합니다.",
+      "traits": [
+        "휴대폰 안 실제 명함 화면",
+        "강한 브랜드 색상",
+        "명함 카드 미리보기",
+        "인물과 제품 동시 강조"
+      ],
+      "do_not_copy": [
+        "모디빅 브랜드",
+        "민트 고유 색상",
+        "앱스토어 홍보 문구"
+      ]
+    },
+    {
+      "source_url": "https://gcard.kr/vcard-templates#vcard25",
+      "source_name": "GCARD 사회복지·NGO 템플릿",
+      "reference_id": "ref-refill-r01-01",
+      "traits": [
+        "모바일 단일 화면",
+        "연락 행동 우선",
+        "한국 서비스 문법"
+      ],
+      "do_not_copy": [
+        "GCARD 브랜드",
+        "템플릿 문구",
+        "원본 이미지"
+      ],
+      "natural_summary_ko": "한국 전자명함 서비스가 사회복지·NGO 용도로 제공하는 실제 모바일 템플릿입니다.",
+      "region": "korea",
+      "source_type": "korean_actual_service",
+      "discovery_evidence": {
+        "provider": "registered_korean_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "https://gcard.kr/vcard-templates#vcard25"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/runtime-reference-images/refill-r01-01-f343f821ccfc.png",
+      "image_url": "https://gcard.kr/assets/img/templates/vcard25.png",
+      "content_type": "image/png",
+      "byte_size": 954346,
+      "sha256": "f343f821ccfc0aa0b3c202ae818e470c9a48fd9216475d733b7fa0f3e4287307",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T12:14:01Z",
+      "refill_round": 1
+    },
+    {
+      "source_url": "https://gcard.kr/vcard-templates#vcard16",
+      "source_name": "GCARD 전문가 템플릿",
+      "reference_id": "ref-refill-r01-02",
+      "traits": [
+        "전문직 신뢰감",
+        "명확한 정보 계층",
+        "연락 버튼"
+      ],
+      "do_not_copy": [
+        "GCARD 브랜드",
+        "직업별 원문",
+        "원본 인물"
+      ],
+      "natural_summary_ko": "전문직의 신뢰와 연락 기능을 한 화면에 정리한 국내 상용 전자명함 사례입니다.",
+      "region": "korea",
+      "source_type": "korean_actual_service",
+      "discovery_evidence": {
+        "provider": "registered_korean_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "https://gcard.kr/vcard-templates#vcard16"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/runtime-reference-images/refill-r01-02-f8dbb2eba92a.png",
+      "image_url": "https://gcard.kr/assets/img/templates/vcard16.png",
+      "content_type": "image/png",
+      "byte_size": 641701,
+      "sha256": "f8dbb2eba92a2aa0697f6cdc4107a3d7f0b2fc9c2a9784265c875a4758865be1",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T12:14:02Z",
+      "refill_round": 1
+    },
+    {
+      "source_url": "https://www.iconification.com/projects/bluedot-cares",
+      "source_name": "BlueDot Cares 개인화 연결 페이지",
+      "reference_id": "ref-refill-r01-03",
+      "traits": [
+        "돌봄 맥락",
+        "개인화 연결",
+        "친근한 신뢰 표현"
+      ],
+      "do_not_copy": [
+        "BlueDot 브랜드",
+        "서비스 문구",
+        "원본 일러스트"
+      ],
+      "natural_summary_ko": "돌봄 서비스 종사자와 이용자를 개인화 페이지로 연결하는 실제 프로젝트로, 사회복지사 전자명함의 신뢰·안내 구조에 참고할 수 있습니다.",
+      "region": "global",
+      "source_type": "global_actual_service",
+      "discovery_evidence": {
+        "provider": "registered_global_actual_source",
+        "query": "electronic_business_card",
+        "search_url": "https://www.iconification.com/projects/bluedot-cares"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/runtime-reference-images/refill-r01-03-641656a3f453.png",
+      "image_url": "https://images.squarespace-cdn.com/content/v1/6395213c2080b569593790e4/6a84b50b-c070-460d-a6a0-16c72bbd3c61/BlueDot-Cares-FlowPages.png",
+      "content_type": "image/png",
+      "byte_size": 1314802,
+      "sha256": "641656a3f453bce7ea5039560c341d470dabc1fb06ceb9e20423107e1747b9ec",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T12:14:02Z",
+      "refill_round": 1
+    }
+  ],
+  "decisions": {},
+  "revision": 2,
+  "refill": {
+    "round": 1,
+    "added_count": 3,
+    "added_reference_ids": [
+      "ref-refill-r01-01",
+      "ref-refill-r01-02",
+      "ref-refill-r01-03"
+    ],
+    "queries": [
+      "professional mobile profile",
+      "personal link page portfolio",
+      "digital vcard profile",
+      "contact profile landing page",
+      "professional bio link page"
+    ],
+    "provider_failures": [],
+    "deduplicated": [
+      {
+        "reference_id": "ref-blinq",
+        "reason": "unsupported_image_for_visual_dedup"
+      }
+    ],
+    "dedup_methods": [
+      "source_url",
+      "sha256",
+      "dhash_visual_similarity"
+    ],
+    "decision_influence": {
+      "adopted_traits": [],
+      "discarded_traits": [],
+      "excluded_url_count": 4
+    },
+    "completed_at": "2026-08-28T12:14:02Z"
+  },
+  "refill_history": [
+    {
+      "round": 1,
+      "added_count": 3,
+      "added_reference_ids": [
+        "ref-refill-r01-01",
+        "ref-refill-r01-02",
+        "ref-refill-r01-03"
+      ],
+      "queries": [
+        "professional mobile profile",
+        "personal link page portfolio",
+        "digital vcard profile",
+        "contact profile landing page",
+        "professional bio link page"
+      ],
+      "provider_failures": [],
+      "deduplicated": [
+        {
+          "reference_id": "ref-blinq",
+          "reason": "unsupported_image_for_visual_dedup"
+        }
+      ],
+      "dedup_methods": [
+        "source_url",
+        "sha256",
+        "dhash_visual_similarity"
+      ],
+      "decision_influence": {
+        "adopted_traits": [],
+        "discarded_traits": [],
+        "excluded_url_count": 4
+      },
+      "completed_at": "2026-08-28T12:14:02Z"
+    }
+  ],
+  "coverage": {
+    "total": 7,
+    "korean": 6,
+    "actual_service": 6,
+    "user_provided": 1
+  },
+  "source_failures": [],
+  "last_action": "visual-reference.refill"
+}

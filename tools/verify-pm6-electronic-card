@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+import json
+import sys
+import urllib.request
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+intent = json.loads((ROOT / "state/pm5-intent-state.json").read_text())
+product_state = json.loads((ROOT / "state/electronic-card-product-state.json").read_text())
+recipe = json.loads((ROOT / "pm5-artifacts/electronic-business-card-v1/draft-design-recipe.json").read_text())
+contract = json.loads((ROOT / "pm5-artifacts/electronic-business-card-v1/product-contract.v1.json").read_text())
+evidence = json.loads((ROOT / "pm5-artifacts/electronic-business-card-v1/product/pm6-runtime-evidence.json").read_text())
+portrait = json.loads((ROOT / "pm5-artifacts/electronic-business-card-v1/product/portrait-render-manifest.json").read_text())
+composite = json.loads((ROOT / "pm5-artifacts/electronic-business-card-v1/product/visual-composite-manifest.json").read_text())
+composer = json.loads((ROOT / "pm5-artifacts/electronic-business-card-v1/product/portrait-composer-result.json").read_text())
+product = ROOT / "pm5-artifacts/electronic-business-card-v1/product"
+index_text = (product / "index.html").read_text()
+style_text = (product / "styles.css").read_text()
+app_text = (product / "app.js").read_text()
+
+checks = {
+    "pm5_scope_approved": intent.get("approval", {}).get("status") == "approved",
+    "recipe_locked": recipe.get("status") == "approved_locked",
+    "product_files": all((product / name).is_file() for name in ("index.html", "styles.css", "app.js")),
+    "runtime_evidence_portrait_and_default": evidence.get("technical_verdict") == "PASS_WITH_PORTRAIT_AND_DEFAULT_PROFILE",
+    "user_final_approval_recorded": evidence.get("user_final_approval") == "approved"
+        and contract.get("approval", {}).get("final_result") == "approved",
+    "portrait_original_preserved": portrait.get("original_preserved") is True,
+    "portrait_source_runtime_allowed": portrait.get("asset_role") == "portrait_source" and portrait.get("runtime_allowed") is True,
+    "portrait_tone_contract": portrait.get("tone_contract", {}).get("target") == "neutral_black_white_lime",
+    "portrait_composer_pass": composer.get("quality_gate") == "PASS" and composer.get("runtime_allowed") is True,
+    "visual_composite_blocked_from_runtime": composite.get("cutout_gate") == "BLOCKED_VISUAL_COMPOSITE_NOT_PORTRAIT"
+        and composite.get("runtime_allowed") is False,
+    "full_theme_contract": recipe.get("theme_contract", {}).get("all_screens_apply_together") is True
+        and recipe.get("theme_contract", {}).get("accent_only_change") == "blocked",
+    "theme_runtime_options": all(f'data-theme-option="{name}"' in index_text for name in ("clean", "blue", "violet", "coral", "mono", "lime"))
+        and 'id="custom-theme-color"' in index_text and "coreAction" in app_text,
+    "all_product_content_editable": all(f'name="{name}"' in index_text for name in (
+        "name", "role", "organization", "eyebrow", "intro", "about_body", "services",
+        "consultation_label", "consultation_url", "phone", "email", "social_label", "social_url",
+        "website_label", "website_url", "nfc_message"))
+        and 'id="career-add-form"' in index_text,
+    "single_edit_owner_per_field": all(index_text.count(f'name="{name}"') == 1 for name in (
+        "eyebrow", "about_body", "nfc_message"))
+        and 'name="share_intro"' not in index_text
+        and "const profile={...state.profile,...Object.fromEntries(new FormData(form))}" in app_text,
+    "contract_edit_surfaces_match_ui": all(field not in next(
+        screen["content"] for screen in contract["screens"] if screen["id"] == "editor")
+        for field in ("eyebrow", "about_body", "career_entries", "nfc_message"))
+        and "share_intro" not in {field["id"] for field in contract["content_fields"]},
+    "content_core_save_restore": all(token in app_text for token in (
+        "content.update", "content.restore", "career.add", "action_order")),
+    "accessible_action_reorder": 'draggable="true"' in app_text
+        and 'aria-label="${labels[id]} 위로 이동"' in app_text
+        and '>↑</button>' in app_text and '>↓</button>' in app_text,
+    "theme_core_state": product_state.get("request_id") == "electronic-card-product-v1"
+        and product_state.get("portrait_harmony", {}).get("mode") == "soft_atmosphere"
+        and product_state.get("portrait_harmony", {}).get("hard_geometry") == "lime_only",
+    "theme_restore_available": 'data-action="restore-theme"' in index_text and "theme.restore" in app_text,
+    "portrait_background_harmony": ':root:not([data-theme="lime"]) .hero:after' in style_text
+        and ':root:not([data-theme="lime"]) .portrait-main img{filter:var(--photo-filter)}' in style_text
+        and composer.get("edge_quality_gate") == "PASS",
+    "theme_surface_tokens": all(token in style_text for token in ("--hero-bg", "--hero-shape", "--panel", "--completion")),
+    "clean_qr_asset": 'qr-clean.png' in index_text and (ROOT / "pm5-artifacts/electronic-business-card-v1/qr-clean.png").is_file(),
+    "qr_refresh_outside_code": '<div class="qr-tools"><button class="qr-refresh-icon"' in index_text
+        and '</button></div><div class="qr-card"><img id="qr-image"' in index_text
+        and '.qr-refresh-icon{position:static' in style_text,
+    "optional_content_ui": "timeline.hidden=state.careers.length===0" in app_text
+        and "if(!profile.name.trim()||!profile.role.trim())" in app_text,
+    "full_portrait_editor_preview": ".portrait-edit img{object-fit:contain!important;object-position:center bottom!important}" in style_text,
+    "light_completion_view": ".completion-view{background:var(--paper);color:var(--ink)}" in style_text
+        and ".completion-card{background:var(--soft);border-color:var(--line)}" in style_text,
+    "completion_content_simplified": "나를 소개하는 가장 간결한 방법" not in index_text
+        and '<div class="completion-mark"' not in index_text
+        and index_text.index('id="complete-title"') < index_text.index('class="completion-card"'),
+    "completion_poster_check": 'class="completion-check"' in index_text
+        and '.completion-check path{' in style_text
+        and '.completion-view:before{' in style_text,
+    "completion_fixed_color_and_motion": all(token in style_text for token in (
+        "--complete-accent:#16856f", "@keyframes complete-pop", "@keyframes complete-draw",
+        "@keyframes complete-rise", "@media(prefers-reduced-motion:reduce)")),
+}
+try:
+    response = urllib.request.urlopen("http://127.0.0.1:8229/electronic-card-product/styles.css", timeout=2)
+    checks["css_mime"] = response.headers.get_content_type() == "text/css"
+except Exception:
+    checks["css_mime"] = False
+
+contract_safe = all(checks.values())
+result = {"verifier": "verify-pm6-electronic-card", "checks": checks,
+          "verdict": "PASS_WITH_PORTRAIT_AND_DEFAULT_PROFILE" if contract_safe else "BLOCKED_CONTRACT_FAILURE"}
+print(json.dumps(result, ensure_ascii=False, indent=2))
+sys.exit(0 if contract_safe else 2)

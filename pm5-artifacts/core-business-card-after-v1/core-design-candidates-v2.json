@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "status": "five_distinct_directions_pending_user_selection",
+  "design_dna_path": "pm5-artifacts/core-business-card-after-v1/core-design-dna.json",
+  "design_dna_sha256": "0babe7a512e81420bfcef1ec3a2fa38f810554e93a21e37b898c31290a75d518",
+  "candidates": [
+    {
+      "direction_id": "direction-1",
+      "label": "비대칭 편집형",
+      "summary_ko": "인물과 이름을 양분해 강한 첫인상을 만드는 방향",
+      "image_path": "pm5-artifacts/core-business-card-after-v1/design-candidates-v2/direction-1.png",
+      "image_url": "/core-design-candidates/direction-1.png",
+      "sha256": "a213e42df7fd509e7ea3272b2fc34bc13c03bf83364f20bc3d86303c2056e391",
+      "screen_scope": "main_profile_only"
+    },
+    {
+      "direction_id": "direction-2",
+      "label": "차분한 기관형",
+      "summary_ko": "큰 인물과 공공서비스 신뢰감을 정돈된 위계로 전달하는 방향",
+      "image_path": "pm5-artifacts/core-business-card-after-v1/design-candidates-v2/direction-2.png",
+      "image_url": "/core-design-candidates/direction-2.png",
+      "sha256": "0da61e7fa5aaa44a342b53870588b2096fe8c76f5f1efb40e0e15a9c94b0964c",
+      "screen_scope": "main_profile_only"
+    },
+    {
+      "direction_id": "direction-3",
+      "label": "따뜻한 스토리형",
+      "summary_ko": "사람 중심 분위기와 세로 연락 목록으로 친근함을 강조하는 방향",
+      "image_path": "pm5-artifacts/core-business-card-after-v1/design-candidates-v2/direction-3.png",
+      "image_url": "/core-design-candidates/direction-3.png",
+      "sha256": "91df111bb4ccda19ad0e613a344078ad03f4e141baf87efe9f28038193a6b560",
+      "screen_scope": "main_profile_only"
+    },
+    {
+      "direction_id": "direction-4",
+      "label": "대형 타이포형",
+      "summary_ko": "큰 이름과 비대칭 인물 구도로 기억성을 높이는 방향",
+      "image_path": "pm5-artifacts/core-business-card-after-v1/design-candidates-v2/direction-4.png",
+      "image_url": "/core-design-candidates/direction-4.png",
+      "sha256": "208c90ed8c904fdd71e8ffadda2c1904495d6e78a76ba1483338d3b9ae322d04",
+      "screen_scope": "main_profile_only"
+    },
+    {
+      "direction_id": "direction-5",
+      "label": "몰입형 인물 중심",
+      "summary_ko": "큰 환경 인물과 하단 연락 Dock으로 신뢰와 행동을 균형 있게 연결하는 방향",
+      "image_path": "pm5-artifacts/core-business-card-after-v1/design-candidates-v2/direction-5.png",
+      "image_url": "/core-design-candidates/direction-5.png",
+      "sha256": "2f816142d8691430801edd1d2f5afe5d182516a6d59aed3a4877f9e7d4103656",
+      "screen_scope": "main_profile_only"
+    }
+  ],
+  "recommended_direction_id": "direction-5",
+  "recommendation_reason": "인물이 중요한 화면에서 큰 인물과 연락 행동의 균형이 가장 좋음",
+  "premature_full_flow_target": {
+    "path": "pm5-artifacts/core-business-card-after-v1/core-electronic-card-visual-target.png",
+    "status": "excluded_failed_sequence_evidence"
+  },
+  "implementation_allowed": false
+}

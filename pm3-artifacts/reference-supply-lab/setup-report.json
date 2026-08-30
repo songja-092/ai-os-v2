@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-08-20T21:00:00+09:00",
+  "purpose": "Prepare removable reference suppliers for one-by-one user trials without exposing private projects or modifying V2 Core.",
+  "core_modified": false,
+  "locked_pm_modified": false,
+  "private_project_shared": false,
+  "connectors": [
+    {
+      "id": "figma-official",
+      "status": "connected_and_read_verified",
+      "cost_mode": "starter_plan_limits_apply",
+      "evidence": {
+        "pilot_file_url": "https://www.figma.com/design/ZYnDo92iB7O4QMMecbwDKG",
+        "pilot_board_node_id": "2:2",
+        "community_libraries_found": [
+          "Material 3 Design Kit",
+          "Simple Design System",
+          "iOS and iPadOS 26",
+          "macOS 26"
+        ],
+        "component_search": "PASS",
+        "sample_query": "Card"
+      },
+      "next_user_decision": "adopt | hold | discard"
+    },
+    {
+      "id": "public-web-browser",
+      "status": "available",
+      "sources": ["GDWEB", "public production websites"],
+      "next_user_decision": "test_after_figma"
+    },
+    {
+      "id": "github-and-shadcn",
+      "status": "available",
+      "next_user_decision": "test_after_visual_sources"
+    },
+    {
+      "id": "mobbin-mcp",
+      "status": "not_connected_paid_candidate",
+      "fallback": "manual public links or user screenshots"
+    }
+  ],
+  "isolated_candidates": [
+    {
+      "id": "21st-codex-plugin",
+      "status": "static_reviewed_fixture_ready",
+      "source_commit": "df9d8c7a5c64cdf7e107e336fa8c129ede02ca20"
+    },
+    {
+      "id": "design-mcp",
+      "status": "static_reviewed_fixture_ready_manual_risk_review_required",
+      "source_commit": "82fe6e3749acccf80aecfd523e531be4302865e3"
+    },
+    {
+      "id": "framesmith",
+      "status": "static_reviewed_fixture_ready_manual_risk_review_required",
+      "source_commit": "8ff503abbe0e1fa78dde4af8045f434483daeac0"
+    },
+    {
+      "id": "ui-ux-pro-mcp",
+      "status": "static_reviewed_fixture_ready_overlap_review_required",
+      "source_commit": "943385ee3e2320f493dedd86f0869260d3f8324e"
+    }
+  ],
+  "trial_order": [
+    "figma-official",
+    "public-web-browser",
+    "21st-codex-plugin",
+    "design-mcp",
+    "framesmith",
+    "ui-ux-pro-mcp",
+    "mobbin-mcp-optional"
+  ],
+  "decision_rule": "Only the user may adopt, hold, or discard a supplier after seeing its isolated result."
+}

@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0",
+  "recipe_id": "hospital-clinician-section-v1",
+  "project_id": "haeon-family-clinic",
+  "source_commit": "e2625bba034e5aef4b130c5640d041ab6b76c925",
+  "status": "draft",
+  "target_viewport": "shared",
+  "target_section_id": "clinicians.cards",
+  "changes": [
+    {
+      "property": "card_gap",
+      "before": "22px",
+      "after": "16px",
+      "source": "property_panel"
+    },
+    {
+      "property": "card_radius",
+      "before": "32px",
+      "after": "22px",
+      "source": "property_panel"
+    },
+    {
+      "property": "content_padding",
+      "before": "22px",
+      "after": "26px",
+      "source": "property_panel"
+    },
+    {
+      "property": "portrait_width_desktop",
+      "before": "160px",
+      "after": "210px",
+      "source": "resize"
+    },
+    {
+      "property": "title_size",
+      "before": "25px",
+      "after": "28px",
+      "source": "property_panel"
+    },
+    {
+      "property": "accent_color",
+      "before": "#087f74",
+      "after": "#b43a14",
+      "source": "color_picker"
+    },
+    {
+      "property": "specialty_surface",
+      "before": "#e8f6f2",
+      "after": "#fff0e8",
+      "source": "color_picker"
+    }
+  ],
+  "preserve": [
+    "global navigation",
+    "main page",
+    "reservation flow",
+    "clinician copy and actions",
+    "mobile card order",
+    "all sections except clinicians.cards",
+    "PM1 and PM2 locked files"
+  ],
+  "preview": {
+    "before_query": "?view=clinicians",
+    "after_query": "?view=clinicians&pm3=clinician-cards-v1"
+  },
+  "approval": {
+    "required": true,
+    "status": "pending"
+  },
+  "applied_to_product": false,
+  "restore": {
+    "method": "remove the pm3 query parameter or return to source_commit",
+    "verified": true
+  },
+  "verification": {
+    "build": "PASS",
+    "desktop_overflow": false,
+    "mobile_430_overflow": false,
+    "reservation_action": "PASS",
+    "console_errors": 0,
+    "original_defaults_restored": "PASS",
+    "mouse_property_connection": "PASS",
+    "photo_resize_and_direction": {
+      "status": "implemented_awaiting_user_mouse_confirmation",
+      "width": "120px_to_320px",
+      "height": "120px_to_320px",
+      "interaction": ["right_edge_drag", "bottom_edge_drag"],
+      "removed_controls": ["left_layout_button", "top_layout_button"]
+    },
+    "card_order_drag": {
+      "status": "implemented_awaiting_user_mouse_confirmation",
+      "allowed_order": [
+        "clinician.kim-haeon",
+        "clinician.lee-bom"
+      ],
+      "recipe_diff_required": true
+    },
+    "auto_layout_draft": "PASS",
+    "auto_text_wrap": {
+      "status": "PASS",
+      "title": "balanced",
+      "body": "pretty",
+      "korean_word_break": "keep-all",
+      "long_copy_line_height": "1.7"
+    },
+    "original_draft_toggle": "PASS",
+    "preview_width_toggle": "PASS",
+    "user_visual_decision": "pending"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "iteration": 3,
+  "stage": "reference_gallery_runtime",
+  "technical_result": "PASS",
+  "quality_result": "PASS_FOR_USER_SELECTION",
+  "references": [
+    "TapTrack-NFC Digital Business Card App Ui/Ux Case Study",
+    "Digital Business card application",
+    "Tapik - Digital NFC Business Card Case Study"
+  ],
+  "improvements": [
+    "모바일 vCard·연락 카드·NFC 앱 화면 중심 검색",
+    "인쇄물·회사소개·일반 금융앱 제외",
+    "사용자 선택 전 DNA·시안·제품 변경 차단"
+  ],
+  "next_gate": "user_reference_selection",
+  "codex_manual_design_intervention": false
+}

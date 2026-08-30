@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "profiles": [
+    {
+      "id": "electronic_business_card.v1",
+      "project_types": ["electronic_business_card"],
+      "required_capabilities": [
+        "content.editable",
+        "portrait.optional",
+        "portrait.composition",
+        "theme.customizable",
+        "share.qr",
+        "screens.complete",
+        "state.restore"
+      ],
+      "required_gates": [
+        "contract_complete",
+        "no_hardcoded_product_content",
+        "state_matrix_runtime",
+        "visual_regression",
+        "restore",
+        "final_user_approval"
+      ],
+      "evidence_scope": "single_product_runtime"
+    }
+  ],
+  "adapters": [
+    {
+      "id": "electronic-card-core-content.v1",
+      "status": "verified_limited",
+      "provides": ["content.editable", "screens.complete", "state.restore"],
+      "project_types": ["electronic_business_card"],
+      "side_effect": "local_write",
+      "evidence": ["state/electronic-card-product-state.json", "pm5-artifacts/electronic-business-card-v1/product/pm6-runtime-evidence.json"]
+    },
+    {
+      "id": "portrait-composer.v1",
+      "status": "verified_limited",
+      "provides": ["portrait.optional", "portrait.composition"],
+      "project_types": ["electronic_business_card"],
+      "side_effect": "local_write",
+      "evidence": ["portrait-composer-adapters.json", "pm5-artifacts/electronic-business-card-v1/product/portrait-composer-result.json"]
+    },
+    {
+      "id": "electronic-card-theme.v1",
+      "status": "verified_limited",
+      "provides": ["theme.customizable"],
+      "project_types": ["electronic_business_card"],
+      "side_effect": "local_write",
+      "evidence": ["state/electronic-card-product-state.json", "pm5-artifacts/electronic-business-card-v1/draft-design-recipe.json"]
+    },
+    {
+      "id": "electronic-card-qr.v1",
+      "status": "verified_limited",
+      "provides": ["share.qr"],
+      "project_types": ["electronic_business_card"],
+      "side_effect": "local_write",
+      "evidence": ["pm5-artifacts/electronic-business-card-v1/qr-clean.png", "pm5-artifacts/electronic-business-card-v1/product/pm6-runtime-evidence.json"]
+    }
+  ],
+  "verifiers": [
+    {
+      "id": "product-contract",
+      "command": ["tools/verify-product-contract", "{contract}"],
+      "proves": ["contract_complete", "no_hardcoded_product_content"],
+      "project_types": ["electronic_business_card"],
+      "classification": "contract_only",
+      "side_effect": "read_only"
+    },
+    {
+      "id": "portrait-composer",
+      "command": ["tools/verify-portrait-composer"],
+      "proves": ["state_matrix_runtime"],
+      "project_types": ["electronic_business_card"],
+      "classification": "runtime",
+      "side_effect": "read_only"
+    },
+    {
+      "id": "pm6-electronic-card",
+      "command": ["tools/verify-pm6-electronic-card"],
+      "proves": ["state_matrix_runtime", "visual_regression", "restore"],
+      "project_types": ["electronic_business_card"],
+      "classification": "runtime",
+      "side_effect": "read_only"
+    }
+  ]
+}

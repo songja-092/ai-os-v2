@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "collector_mode": "visual_reference_seed_capture",
+  "evidence_scope": "electronic_business_card",
+  "items": [
+    {
+      "region": "global",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "source_name": "TapTrack-NFC Digital Business Card App Ui/Ux Case Study",
+      "source_url": "https://www.behance.net/gallery/208489615/TapTrack-NFC-Digital-Business-Card-App-UiUx-Case-Study",
+      "source_type": "design_gallery",
+      "natural_summary_ko": "‘NFC digital business card mobile UI’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "reference_id": "ref-discovered-01",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC digital business card mobile UI",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+digital+business+card+mobile+UI"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v5/ref-discovered-01-6c47f31fbf55.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/c63e0d208489615.Y3JvcCwxMzc0LDEwNzUsMjU1LDA.png",
+      "content_type": "image/png",
+      "byte_size": 56392,
+      "sha256": "6c47f31fbf55c0de319f0adc7920922d7ec1152e89f0219ff8d8ebcb0791aca6",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:56:48Z"
+    },
+    {
+      "region": "global",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "source_name": "NFC Digital Business Card - Mobile App Case Study",
+      "source_url": "https://www.behance.net/gallery/252405903/NFC-Digital-Business-Card-Mobile-App-Case-Study",
+      "source_type": "design_gallery",
+      "natural_summary_ko": "‘NFC digital business card mobile UI’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "reference_id": "ref-discovered-02",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC digital business card mobile UI",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+digital+business+card+mobile+UI"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v5/ref-discovered-02-5e464c8fc1af.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/75853e252405903.Y3JvcCw1NjAwLDQzODAsMCwxMTA.png",
+      "content_type": "image/png",
+      "byte_size": 49381,
+      "sha256": "5e464c8fc1af3153ec5d71e3fabed99a791fd8f973d9854aa4e654da4b08e1d8",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:56:48Z"
+    },
+    {
+      "region": "global",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "source_name": "Digital Business card application",
+      "source_url": "https://www.behance.net/gallery/226482679/Digital-Business-card-application",
+      "source_type": "design_gallery",
+      "natural_summary_ko": "‘NFC digital business card mobile UI’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "reference_id": "ref-discovered-03",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC digital business card mobile UI",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+digital+business+card+mobile+UI"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v5/ref-discovered-03-1b37bf9ef5bd.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/192ab7226482679.Y3JvcCw0NDc3LDM1MDEsMCww.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 32470,
+      "sha256": "1b37bf9ef5bdb6789253df6ac96a6f82f8d84baa5b4e089962b3118bec03427b",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:56:48Z"
+    }
+  ],
+  "source_failures": [],
+  "coverage": {
+    "total": 3,
+    "korean": 0,
+    "actual_service": 0,
+    "user_provided": 0
+  },
+  "decisions": {},
+  "visual_target_created": false,
+  "implementation_allowed": false,
+  "product_changed": false,
+  "limitations": [
+    "후보 발견은 이번 실제 요청에서 사람이 고정한 Seed를 사용했습니다.",
+    "이 실행은 범용 자동 Reference 검색을 증명하지 않습니다.",
+    "화면은 참고 전용이며 원본 브랜드·문구·인물을 복제하지 않습니다."
+  ]
+}

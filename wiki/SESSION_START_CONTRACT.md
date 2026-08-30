@@ -1,5 +1,29 @@
 # AI OS V2 새 세션 시작 계약
 
+## 2026-08-30 제품 조립 Gate 회의 결정
+
+- V2의 현재 병목은 초기 모델 생성이 아니라 초기 모델을 배포·운영·복구 가능한 제품으로 연결하는
+  표준 경로입니다. 새 PM이나 Workflow 엔진을 추가하지 않고 기존 PM5·PM6·Core 사이를 연결합니다.
+- 구현 전 순서는 `Requirements → Product Contract → Profile·Adapter·Verifier 조립 → 구현
+  → Product Harness → PM6 → 사용자 승인 → 배포·운영 확인·복구`입니다.
+- `제품 조립기`는 사용자 이해를 위한 이름이며 기술적으로는 제한형 Capability Resolver입니다.
+  Registry에 정확히 등록되고 증거가 있는 부품만 연결하며 누락·중복·승인 부족은 실행 전에 차단합니다.
+- 사용자는 첫 요청·실제 정보, Visual Target, 최종 배포를 기본 판단 지점으로 남깁니다. 로그인·비용·
+  개인정보·외부 게시·잠금 충돌·최종 사업 및 디자인 판단을 제외한 기술 작업은 승인 범위 안에서 이어갑니다.
+- 전자명함은 첫 완주 Fixture입니다. 성격이 다른 실제 제품 한 건의 배포·복구까지 반복되기 전에는
+  범용 V2 MVP 완료라고 선언하지 않습니다.
+
+## 2026-08-29 공식 디자인 Run 연결
+
+- 전자명함 전용 `core-design-harness`는 공식 흐름에서 제외한 시험 증거입니다.
+- PM4 승인 Handoff·Design DNA·Visual Target과 PM5 Intent는
+  `run-electronic-card-official-v1`에 연결됐고 Draft Design Recipe가 잠겼습니다.
+- PM5 가짜 정보 Fixture의 시험 제작 범위는 사용자가 승인했고, 승인된 PM4 Handoff·Design Recipe·제품 Runtime을 공식 Run에 연결했습니다. 전자명함 제품의 테마 선택·사용자 색상·이전 테마 복원과 인물 합성 규칙은 제품별 Core 상태·Action으로 재현됩니다. 이는 전자명함 제한 증거이며 임의 프로젝트 범용 제작 Runtime을 뜻하지 않습니다.
+- 사용자가 후보 선택을 명시적으로 위임하면 디자인 총괄이 추천 선택할 수 있으나 Visual Target,
+  제작 범위, 최종 결과의 사용자 승인을 대신하지 않습니다.
+- 공식 상세 계약은 `wiki/DESIGN_SYSTEM.md`, Runtime 증거는
+  `pm5-artifacts/electronic-business-card-v1/connection-evidence.json`을 사용합니다.
+
 ## 2026-08-26 콘텐츠 Reference 레이더
 
 - 사용자 결정: 기본 Reference 탐색은 Instagram 카드뉴스·슬라이드와 Threads 글을 우선합니다.
@@ -146,6 +170,7 @@ session_preflight:
 - `프로젝트 패키징` (`v2-project-packaging`): 이미 제작된 프로젝트 결과를 읽고 Module Manifest·기능 목록·격리 Preview 초안을 만드는 Skill. 자동 기능 완료 판정·자동 Core 등록·자동 채택은 하지 않습니다.
 - `V2 Layout Editor Integration` (`v2-layout-editor-integration`): Puck·React Grid Layout을 제거 가능한 PM3 Adapter로 연결하고, PC·모바일 배치 분리, 이미지 Slot, 단색·투톤 Palette, 자동 정리, Undo·Restore와 Recipe 안전 검사를 수행하는 Codex Skill. 현재 격리 Pilot 검증 단계이며 Core Registry에는 승격되지 않았습니다.
 - `V2 Spec Adapter` (`v2-spec-adapter`): 사용자의 짧은 자연어를 원문 그대로 보존하고 현재 화면·Section·잠금 계약을 읽어 작은 수정용 `Spec Lite` 또는 새 프로젝트·큰 기능용 `Spec Full`로 변환하는 Repo-local Skill입니다. `요구사항 창을 늘려줘` 수준의 요청도 변경 범위·보존 범위·완료 기준·회귀검사로 정리하며, 사용자는 쉬운 확인만 봅니다. Skill 구조와 가짜 요청 Pilot은 PASS했지만 V2 Core Runtime 자동 연결은 아직 구현되지 않았습니다.
+- PM5 전자명함 Pilot은 위 Spec Adapter 계약을 Core Runtime에 제한 연결했습니다. 사용자 원문, PM4 잠금 입력, 필수 자료, 승인 차단, 수정 시 기존 전달서 무효화, 이전 버전 복원을 검증했습니다. 이는 전자명함 한 프로젝트 증거이며 임의 프로젝트 범용 연결은 아닙니다. 상세 증거는 `wiki/PM5_INTENT_RUNTIME_PILOT_2026-08-28.md`를 사용합니다.
 - `V2 Design Director` (`v2-design-director`): 후보별 Reference 탐색·시각 결과·사용자 채택/보류/폐기를 기록하고, 채택 공급원을 역할별 Section에 연결한 Draft Design Recipe와 HTML 추적 상태를 자동 검사합니다. 사용자 결정을 대신하거나 Core·제품에 자동 적용하지 않습니다.
 
 ## PM별 Codex 기본 도구 계약
@@ -155,6 +180,8 @@ session_preflight:
 - PM6은 `Frontend Testing`으로 실행 화면·상호작용·Console·반응형·회귀를 검사하고, `Product Design Audit`으로 디자인 마감 품질을 별도로 검사합니다.
 - 위 도구는 Codex 작업 환경에 이미 존재하므로 새 Package 설치가 필요하지 않습니다. V2 Core Runtime에 자동 연결됐다는 의미는 아닙니다.
 - 도구는 Core 상태·승인·Version·복구를 소유하지 않으며, 사용자 승인과 PM PASS를 대신하지 않습니다.
+- Codex·Antigravity·Product Design·ImageGen·Sites 등 외부 제작 Adapter가 단독으로 만든 결과는 `codex_only_pilot` 또는 해당 Adapter Pilot입니다. V2 정식 결과가 되려면 사용자 원문·승인 Visual Target·Design Recipe·입력 Hash·출력 Artifact·기능 검사·Visual Fidelity 마감·Version·Restore를 Core 경로로 다시 연결해야 합니다.
+- 모든 제작은 `외부 Adapter가 잘 만들 수 있음`과 `V2 Core가 같은 제작을 소유·재현할 수 있음`을 분리해 판정합니다. 후자가 확인되지 않으면 Core 가능으로 확대하지 않습니다.
 - 기능 PASS와 디자인 PASS를 분리하고 실제 고객 결과물의 PM1→PM2→PM3→PM6 E2E가 재현되기 전에는 통합 완료로 표현하지 않습니다.
 - 상세 계약과 현재 증거 상태는 `wiki/PM_CODEX_TOOLCHAIN_ADOPTION_2026-08-24.md`를 사용합니다.
 
@@ -306,7 +333,7 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
   시작**하도록 새 결정을 내렸습니다. 이는 원본 Skill의 무조건 자동 실행이 아니라
   PM5가 소유할 V2 전용 `인터뷰 우선 제작 시작 계약`입니다. 새 프로젝트는 전체,
   큰 변경은 짧게, 작은 수정은 명확하면 생략하며, 출력은 Versioned Intent Packet과
-  `제작 범위 확인서`입니다. Runtime 구현·Core 연결은 아직 `not_implemented`입니다.
+  `제작 범위 확인서`입니다. 전자명함 한 프로젝트에서는 원문·PM4 잠금 입력·필수 자료·범위 승인·전체 9개 화면·복원 경로를 Core Runtime에 제한 연결했습니다. 임의 프로젝트의 인터뷰·제작·Fidelity 마감을 자동 연결하는 범용 Runtime은 아직 `not_proven`입니다.
   과거 Trial 근거는 `wiki/INTERVIEW_ME_CAPABILITY_LAB_REPORT_2026-08-20.md`, 새 회의
   결정은 `wiki/DESIGN_AND_EDITOR_MEETING_2026-08-21.md`를 사용합니다.
 - 새 세션은 위 문장을 그대로 믿지 말고 `CURRENT_STATE.md`와 해당 증거 파일을 현재 SHA에서 다시 확인합니다.

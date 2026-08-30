@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "source": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/electronic-business-card-v1/portrait-id-approved.png",
+  "source_sha256": "d6dafe0fe19cfdb2fc5fd2231162c114afe585e22be3cf1d64a8a6d59357e82e",
+  "normalized": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/electronic-business-card-v1/product/visual-composite-manifest.normalized.png",
+  "normalized_sha256": "d6dafe0fe19cfdb2fc5fd2231162c114afe585e22be3cf1d64a8a6d59357e82e",
+  "original_preserved": true,
+  "asset_role": "visual_composite",
+  "analysis": {
+    "width": 545,
+    "height": 715,
+    "aspect_ratio": 0.7622,
+    "has_alpha": false,
+    "transparent_pixel_ratio": 0.0,
+    "subject_type": "id_portrait",
+    "mean_luminance": 0.4886,
+    "warmth": 0.0519
+  },
+  "tone_contract": {
+    "target": "neutral_black_white_lime",
+    "css_filter": "saturate(.78) contrast(1.06) brightness(1.02)",
+    "background_blend": "neutral",
+    "manual_override_allowed": true
+  },
+  "render_contract": {
+    "mode": "reference_only",
+    "allowed_templates": [],
+    "fallback": "request_portrait_source",
+    "face_alteration": false,
+    "background_removal_performed": false
+  },
+  "runtime_allowed": false,
+  "cutout_gate": "BLOCKED_VISUAL_COMPOSITE_NOT_PORTRAIT"
+}

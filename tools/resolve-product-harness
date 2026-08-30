@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+"""Resolve one Product Contract to registered Profile, Adapters, and Verifiers."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+from jsonschema import Draft202012Validator
+
+
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_REGISTRY = ROOT / "product-harness-registry.json"
+REGISTRY_SCHEMA = ROOT / "schemas/product-harness-registry.schema.json"
+
+
+def read_json(path: Path) -> dict:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def resolve_path(value: str) -> Path:
+    path = Path(value)
+    return path if path.is_absolute() else ROOT / path
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def blocked(reason: str, details: object) -> int:
+    print(json.dumps({"resolver": "resolve-product-harness", "verdict": "BLOCKED", "reason": reason, "details": details}, ensure_ascii=False, indent=2))
+    return 2
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--contract", required=True)
+    parser.add_argument("--registry", default=str(DEFAULT_REGISTRY))
+    parser.add_argument("--output")
+    args = parser.parse_args()
+
+    try:
+        contract_path = resolve_path(args.contract)
+        registry_path = resolve_path(args.registry)
+        contract = read_json(contract_path)
+        registry = read_json(registry_path)
+        schema = read_json(REGISTRY_SCHEMA)
+    except (OSError, json.JSONDecodeError) as error:
+        return blocked("input_error", str(error))
+
+    schema_errors = [error.message for error in Draft202012Validator(schema).iter_errors(registry)]
+    if schema_errors:
+        return blocked("invalid_registry", sorted(schema_errors))
+
+    contract_check = subprocess.run(
+        [str(ROOT / "tools/verify-product-contract"), str(contract_path)],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if contract_check.returncode != 0:
+        return blocked("invalid_product_contract", contract_check.stdout[-2000:] or contract_check.stderr[-2000:])
+
+    project_type = contract.get("project_type")
+    profiles = [profile for profile in registry["profiles"] if project_type in profile["project_types"]]
+    if len(profiles) != 1:
+        return blocked("profile_match_must_be_exactly_one", {"project_type": project_type, "matches": [item["id"] for item in profiles]})
+    profile = profiles[0]
+
+    missing_evidence = []
+    eligible_adapters = []
+    for adapter in registry["adapters"]:
+        if project_type not in adapter["project_types"] or adapter["status"] != "verified_limited":
+            continue
+        absent = [value for value in adapter["evidence"] if not resolve_path(value).exists()]
+        if absent:
+            missing_evidence.append({"adapter": adapter["id"], "missing": absent})
+            continue
+        eligible_adapters.append(adapter)
+
+    required_capabilities = set(profile["required_capabilities"])
+    capability_owners: dict[str, list[str]] = {item: [] for item in required_capabilities}
+    for adapter in eligible_adapters:
+        for capability in set(adapter["provides"]) & required_capabilities:
+            capability_owners[capability].append(adapter["id"])
+    missing_capabilities = sorted(item for item, owners in capability_owners.items() if not owners)
+    ambiguous_capabilities = {item: owners for item, owners in capability_owners.items() if len(owners) > 1}
+
+    contract_gate_ids = {gate.get("id") for gate in contract.get("acceptance_gates", [])}
+    missing_contract_gates = sorted(set(profile["required_gates"]) - contract_gate_ids)
+    machine_gates = {gate["id"] for gate in contract.get("acceptance_gates", []) if gate.get("automatable")}
+    verifier_owners: dict[str, list[str]] = {gate: [] for gate in machine_gates}
+    selected_verifiers = []
+    for verifier in registry["verifiers"]:
+        if project_type not in verifier["project_types"]:
+            continue
+        command_path = resolve_path(verifier["command"][0])
+        if not command_path.exists():
+            continue
+        covered = set(verifier["proves"]) & machine_gates
+        if covered:
+            selected_verifiers.append(verifier)
+            for gate in covered:
+                verifier_owners[gate].append(verifier["id"])
+    uncovered_machine_gates = sorted(gate for gate, owners in verifier_owners.items() if not owners)
+
+    approvals = contract.get("approval", {})
+    pending_approvals = sorted(key for key, value in approvals.items() if value != "approved")
+    technical_blockers = bool(missing_evidence or missing_capabilities or ambiguous_capabilities or missing_contract_gates or uncovered_machine_gates)
+    execution_allowed = not technical_blockers and approvals.get("product_scope") == "approved" and approvals.get("visual_target") == "approved"
+    contract_label = str(contract_path.relative_to(ROOT)) if contract_path.is_relative_to(ROOT) else str(contract_path)
+    plan = {
+        "schema_version": "1.0",
+        "contract": contract_label,
+        "contract_sha256": sha256(contract_path),
+        "registry": str(registry_path.relative_to(ROOT)) if registry_path.is_relative_to(ROOT) else str(registry_path),
+        "registry_sha256": sha256(registry_path),
+        "project_type": project_type,
+        "profile": profile["id"],
+        "evidence_scope": profile["evidence_scope"],
+        "selected_adapters": [adapter["id"] for adapter in eligible_adapters if set(adapter["provides"]) & required_capabilities],
+        "selected_verifiers": [{"id": verifier["id"], "command": [token.replace("{contract}", contract_label) for token in verifier["command"]], "classification": verifier["classification"]} for verifier in selected_verifiers],
+        "capability_coverage": capability_owners,
+        "verifier_coverage": verifier_owners,
+        "missing_evidence": missing_evidence,
+        "missing_capabilities": missing_capabilities,
+        "ambiguous_capabilities": ambiguous_capabilities,
+        "missing_contract_gates": missing_contract_gates,
+        "uncovered_machine_gates": uncovered_machine_gates,
+        "pending_user_approvals": pending_approvals,
+        "execution_allowed": execution_allowed,
+        "technical_verdict": "BLOCKED" if technical_blockers else "RESOLVED_CONTRACT_ONLY",
+        "limitations": ["single electronic business card evidence only", "does not implement, deploy, approve, or claim multi-product runtime"],
+    }
+    if args.output:
+        output_path = resolve_path(args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(json.dumps(plan, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(plan, ensure_ascii=False, indent=2))
+    return 2 if technical_blockers else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

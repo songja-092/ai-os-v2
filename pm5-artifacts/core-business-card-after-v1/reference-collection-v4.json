@@ -1,0 +1,272 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "collector_mode": "visual_reference_seed_capture",
+  "evidence_scope": "electronic_business_card",
+  "items": [
+    {
+      "source_type": "design_gallery",
+      "source_url": "https://www.behance.net/gallery/252405903/NFC-Digital-Business-Card-Mobile-App-Case-Study",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘NFC digital business card mobile UI’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_name": "NFC Digital Business Card - Mobile App Case Study",
+      "reference_id": "ref-discovered-01",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC digital business card mobile UI",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+digital+business+card+mobile+UI"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v4/ref-discovered-01-5e464c8fc1af.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/75853e252405903.Y3JvcCw1NjAwLDQzODAsMCwxMTA.png",
+      "content_type": "image/png",
+      "byte_size": 49381,
+      "sha256": "5e464c8fc1af3153ec5d71e3fabed99a791fd8f973d9854aa4e654da4b08e1d8",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:56:03Z"
+    },
+    {
+      "source_type": "design_gallery",
+      "source_url": "https://www.behance.net/gallery/208489615/TapTrack-NFC-Digital-Business-Card-App-UiUx-Case-Study",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘NFC digital business card mobile UI’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_name": "TapTrack-NFC Digital Business Card App Ui/Ux Case Study",
+      "reference_id": "ref-discovered-02",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC digital business card mobile UI",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+digital+business+card+mobile+UI"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v4/ref-discovered-02-6c47f31fbf55.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/c63e0d208489615.Y3JvcCwxMzc0LDEwNzUsMjU1LDA.png",
+      "content_type": "image/png",
+      "byte_size": 56392,
+      "sha256": "6c47f31fbf55c0de319f0adc7920922d7ec1152e89f0219ff8d8ebcb0791aca6",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:56:03Z"
+    },
+    {
+      "source_type": "design_gallery",
+      "source_url": "https://www.behance.net/gallery/243586741/NFC-Business-Card-Smart-Digital-Networking-Wave-Cards",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘NFC digital business card mobile UI’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_name": "NFC Business Card | Smart Digital Networking Wave Cards",
+      "reference_id": "ref-discovered-03",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC digital business card mobile UI",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+digital+business+card+mobile+UI"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v4/ref-discovered-03-448c4ff20e7e.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/80b6e6243586741.Y3JvcCwzMDgxLDI0MTAsMTE5Nyww.png",
+      "content_type": "image/png",
+      "byte_size": 65657,
+      "sha256": "448c4ff20e7e830e6fb85825bdd1eff3dd476d02b8d8188a3f0fb2665cd09f0e",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:56:04Z"
+    },
+    {
+      "source_type": "design_gallery",
+      "source_url": "https://www.behance.net/gallery/210847777/NFC-Digital-business-card-design",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘NFC digital business card mobile UI’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_name": "NFC Digital business card design",
+      "reference_id": "ref-discovered-04",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC digital business card mobile UI",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+digital+business+card+mobile+UI"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v4/ref-discovered-04-c8f2010da535.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/efea2a210847777.Y3JvcCwxMTU3LDkwNSwxMzQsMjc0.png",
+      "content_type": "image/png",
+      "byte_size": 63298,
+      "sha256": "c8f2010da535a1402583ce21d19da95e117541157020c9ecd2e4b32e5e28693f",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:56:04Z"
+    },
+    {
+      "source_type": "design_gallery",
+      "source_url": "https://www.behance.net/gallery/231906309/Tapik-Digital-NFC-Business-Card-Case-Study",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘NFC digital business card mobile UI’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_name": "Tapik - Digital NFC Business Card Case Study",
+      "reference_id": "ref-discovered-05",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC digital business card mobile UI",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+digital+business+card+mobile+UI"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v4/ref-discovered-05-e02c0e36b957.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/fbbf24231906309.Y3JvcCwxNDAzLDEwOTgsMjAsMA.png",
+      "content_type": "image/png",
+      "byte_size": 97350,
+      "sha256": "e02c0e36b9574266f1e0220fe1c72268fe5f2a78dcde72aa696de0d3c1f58bfe",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:56:05Z"
+    },
+    {
+      "source_type": "design_gallery",
+      "source_url": "https://www.behance.net/gallery/178125501/Wave-Cards-A-Digital-NFC-Business-Card",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘NFC digital business card mobile UI’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_name": "Wave Cards - A Digital NFC Business Card",
+      "reference_id": "ref-discovered-06",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC digital business card mobile UI",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+digital+business+card+mobile+UI"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v4/ref-discovered-06-9570b02265ba.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/4065d4178125501.Y3JvcCw4NzgsNjg3LDczLDA.png",
+      "content_type": "image/png",
+      "byte_size": 127348,
+      "sha256": "9570b02265ba3dad51926e4634f4eeebd2a2e3e9f6b0eb40f51ab2447e6d71ff",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:56:05Z"
+    },
+    {
+      "source_type": "design_gallery",
+      "source_url": "https://www.behance.net/gallery/226482679/Digital-Business-card-application",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘NFC digital business card mobile UI’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_name": "Digital Business card application",
+      "reference_id": "ref-discovered-07",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC digital business card mobile UI",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+digital+business+card+mobile+UI"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v4/ref-discovered-07-1b37bf9ef5bd.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/192ab7226482679.Y3JvcCw0NDc3LDM1MDEsMCww.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 32470,
+      "sha256": "1b37bf9ef5bdb6789253df6ac96a6f82f8d84baa5b4e089962b3118bec03427b",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:56:05Z"
+    },
+    {
+      "source_type": "design_gallery",
+      "source_url": "https://www.behance.net/gallery/234961269/RULINK-Digital-Business-Card",
+      "region": "global",
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "natural_summary_ko": "‘NFC digital business card mobile UI’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "source_name": "RULINK - Digital Business Card",
+      "reference_id": "ref-discovered-08",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC digital business card mobile UI",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+digital+business+card+mobile+UI"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v4/ref-discovered-08-d6bb76c28ba8.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/066b01234961269.Y3JvcCwxNjYwLDEyOTksNTMsMA.png",
+      "content_type": "image/png",
+      "byte_size": 83304,
+      "sha256": "d6bb76c28ba84072e3ff6573ef932c45e294ddb8cf4402c9461a73951d964018",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:56:06Z"
+    }
+  ],
+  "source_failures": [],
+  "coverage": {
+    "total": 8,
+    "korean": 0,
+    "actual_service": 0,
+    "user_provided": 0
+  },
+  "decisions": {},
+  "visual_target_created": false,
+  "implementation_allowed": false,
+  "product_changed": false,
+  "limitations": [
+    "후보 발견은 이번 실제 요청에서 사람이 고정한 Seed를 사용했습니다.",
+    "이 실행은 범용 자동 Reference 검색을 증명하지 않습니다.",
+    "화면은 참고 전용이며 원본 브랜드·문구·인물을 복제하지 않습니다."
+  ]
+}

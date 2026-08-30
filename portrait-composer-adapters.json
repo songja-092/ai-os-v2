@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "selected": {
+    "id": "inspyrenet-transparent-background",
+    "package_version": "1.3.4",
+    "license": "MIT",
+    "environment": "/home/user/.cache/ai-os-v2/portrait-composer/inspyrenet-env",
+    "checkpoint": "/home/user/.transparent-background/ckpt_base.pth",
+    "checkpoint_sha256": "0a6fe2a73ab0532d6d0b8d82849a9760a226df719e3063d09b4149ece6f80fcd",
+    "device": "cuda",
+    "mode": "base"
+  },
+  "fallback": {
+    "id": "rembg-u2net-human-seg",
+    "package_version": "2.0.81",
+    "license": "MIT",
+    "environment": "/home/user/.cache/ai-os-v2/portrait-composer/rembg-env",
+    "model": "/home/user/.rembg/models/u2net_human_seg/u2net_human_seg.onnx",
+    "model_sha256": "01eb6a29a5c4d8edb30b56adad9bb3a2a0535338e480724a213e0acfd2d1c73c",
+    "reason": "selected adapter unavailable or fails quality gate"
+  }
+}

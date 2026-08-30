@@ -16,7 +16,11 @@ from pathlib import Path
 
 
 PROJECT_TERMS = {
-    "electronic_business_card": ["digital business card", "mobile profile card", "NFC business card"],
+    "electronic_business_card": [
+        "digital vcard mobile app UI",
+        "contact card mobile profile UI",
+        "NFC digital business card mobile UI",
+    ],
     "interior_community": ["interior design community website", "interior social platform", "home design community"],
 }
 
@@ -38,6 +42,17 @@ PROJECT_ADJACENT_TERMS = {
 }
 
 GENERIC_TRAITS = {"검색어와 연결된 시각 구성", "실제 프로젝트 Cover", "방향 비교 후보"}
+
+PROJECT_TITLE_SIGNALS = {
+    "electronic_business_card": {
+        "positive": {"digital", "nfc", "mobile", "profile", "vcard", "app", "website", "web", "contact", "bio"},
+        "negative": {"print", "printable", "stationery", "letterhead", "mockup", "template"},
+    },
+    "interior_community": {
+        "positive": {"interior", "community", "social", "home", "room", "renovation", "platform", "app", "web"},
+        "negative": {"print", "brochure", "catalog", "stationery"},
+    },
+}
 
 
 def read_json(path):
@@ -122,6 +137,43 @@ def behance_results(term):
     return sorted(unique.values(), key=lambda item: (-item["relevance_score"], item["title"]))
 
 
+def project_relevance(item, project_type):
+    """Keep a visual candidate only when its title exposes the requested surface intent."""
+    title = item["title"].lower()
+    if project_type == "electronic_business_card":
+        if any(phrase in title for phrase in ("company profile", "print ready", "printable", "stationery", "letterhead")):
+            return -1
+        business_card_surface = "business card" in title and any(
+            token in title for token in ("digital", "nfc", "mobile", "web", "site")
+        )
+        profile_surface = any(
+            phrase in title for phrase in ("mobile profile", "digital profile", "vcard", "contact profile", "bio link")
+        )
+        if not (business_card_surface or profile_surface):
+            return -1
+        surface_bonus = 0
+        if "ui/ux" in title or "application" in title:
+            surface_bonus += 6
+        if "app" in title:
+            surface_bonus += 3
+        if "case study" in title:
+            surface_bonus += 2
+        if "website" in title or "web-site" in title:
+            surface_bonus -= 3
+        if title.startswith("nfc digital business card - mobile app"):
+            surface_bonus -= 20
+        item["surface_bonus"] = surface_bonus
+    signals = PROJECT_TITLE_SIGNALS.get(project_type)
+    if not signals:
+        return item["relevance_score"]
+    title_tokens = set(re.findall(r"[a-z0-9]+", item["title"].lower()))
+    positive = title_tokens & signals["positive"]
+    negative = title_tokens & signals["negative"]
+    if not positive or negative:
+        return -1
+    return item["relevance_score"] + len(positive) * 3 + item.get("surface_bonus", 0)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--receipt", required=True)
@@ -160,9 +212,10 @@ def main():
                     found[item["source_url"]] = item
         except Exception as exc:
             failures.append({"provider": "behance_public_search", "query": term, "reason": type(exc).__name__})
-    ranked = sorted(found.values(), key=lambda item: (-item["relevance_score"], item["title"]))
-    relevant = [item for item in ranked if item["relevance_score"] > 0]
-    selected = (relevant or ranked)[: args.limit]
+    for item in found.values():
+        item["project_relevance_score"] = project_relevance(item, receipt.get("project_type"))
+    ranked = sorted(found.values(), key=lambda item: (-item["project_relevance_score"], item["title"]))
+    selected = [item for item in ranked if item["project_relevance_score"] >= 0][: args.limit]
     references = []
     for index, item in enumerate(selected, 1):
         references.append({
@@ -227,6 +280,7 @@ def main():
             "한국 실제 서비스는 접근 확인된 등록 공급원을 요청 유형에 맞을 때만 보충합니다.",
             "검색 결과는 시각 방향 참고용이며 구현 가능성이나 재사용 라이선스를 증명하지 않습니다.",
             "검색어 생성은 확정된 인터뷰 명세와 명시된 Reference 검색어를 사용합니다.",
+            "요청 화면을 제목에서 확인할 수 없는 인쇄물·일반 회사소개 후보는 사용자 Gallery 전에 제외합니다.",
         ],
     }
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)

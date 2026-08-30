@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+import hashlib,json,subprocess,tempfile
+from pathlib import Path
+from PIL import Image
+ROOT=Path(__file__).resolve().parents[1]
+product=ROOT/"pm5-artifacts/electronic-business-card-v1/product"
+result=json.loads((product/"portrait-composer-result.json").read_text())
+cutout=product/"portrait-cutout.png"
+image=Image.open(cutout)
+checks={
+ "adapter_pinned":result["adapter"]=="inspyrenet-transparent-background" and result["package_version"]=="1.3.4",
+ "alpha_present":image.mode=="RGBA" and image.getchannel("A").getextrema()==(0,255),
+ "cutout_hash":hashlib.sha256(cutout.read_bytes()).hexdigest()==result["cutout_sha256"],
+ "coverage_safe":0.08<=result["foreground_coverage"]<=0.90,
+ "tone_target":result["tone_target"]=="neutral_black_white_lime",
+ "edge_refinement":result.get("edge_refinement",{}).get("algorithm")=="alpha_erode_blend_v1" and result.get("edge_quality_gate")=="PASS",
+ "runtime_allowed":result["runtime_allowed"] is True,
+ "visual_composite_not_source":json.loads((product/"visual-composite-manifest.json").read_text())["runtime_allowed"] is False,
+}
+print(json.dumps({"verifier":"verify-portrait-composer","checks":checks,"verdict":"PASS" if all(checks.values()) else "BLOCKED"},ensure_ascii=False,indent=2))
+raise SystemExit(0 if all(checks.values()) else 2)

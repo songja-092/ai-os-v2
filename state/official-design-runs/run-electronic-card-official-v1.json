@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run-electronic-card-official-v1",
+  "run_type": "official_design_connection",
+  "project_id": "electronic-business-card",
+  "stage": "pm6_completed_locked",
+  "status": "completed_locked",
+  "source": {
+    "pm4_handoff": "pm4-artifacts/project-collector-mvp-v1/electronic-card-design-handoff.json",
+    "pm5_intent": "state/pm5-intent-state.json",
+    "design_dna": "pm4-artifacts/project-collector-mvp-v1/electronic-card-design-dna.json",
+    "visual_target": "pm4-artifacts/project-collector-mvp-v1/design-candidates/direction-2-full-flow-visual-target.png"
+  },
+  "design_direction": {
+    "id": "direction-2",
+    "selected_by": "user",
+    "evidence": "PM4 handoff"
+  },
+  "visual_target": {
+    "status": "user_approved",
+    "sha256": "053735a40d6cf9c65396ba871885409e6c0a30cf963591512267524dbcd40748"
+  },
+  "design_recipe": {
+    "status": "approved_locked",
+    "path": "pm5-artifacts/electronic-business-card-v1/draft-design-recipe.json"
+  },
+  "implementation_gate": "completed_test_fixture_scope",
+  "pm6_gate": "user_and_technical_pass_locked",
+  "deployment_gate": "deferred_separate_deployment_scope",
+  "test_harness_inputs_allowed": false,
+  "pipeline_1_13": [
+    {"step": 1, "name": "시험 Harness 분리", "status": "PASS"},
+    {"step": 2, "name": "공식 Core Project/Run 연결", "status": "PASS"},
+    {"step": 3, "name": "후보 제작·방향 선택", "status": "PASS", "scope": "기존 PM4 사용자 승인 재사용"},
+    {"step": 4, "name": "Design DNA·Draft Recipe 잠금", "status": "PASS"},
+    {"step": 5, "name": "전체 Visual Target", "status": "PASS", "scope": "PM4 승인 Artifact"},
+    {"step": 6, "name": "UI UX Pro Max 마감", "status": "PASS"},
+    {"step": 7, "name": "PM5 완료", "status": "PASS", "reason": "사용자 시험용 가짜 정보 제작 범위 승인"},
+    {"step": 8, "name": "실제 제품 구현", "status": "PASS"},
+    {"step": 9, "name": "PM6 통합검증", "status": "PASS_WITH_FIX", "reason": "사진 없는 기본 프로필과 선택 사진 경로 분리"},
+    {"step": 10, "name": "PM6 자동화 후보 감사", "status": "PASS", "reason": "MIME 재발 방지 결정형 검증 자동화, 추가 판단형 Loop는 승격하지 않음"},
+    {"step": 11, "name": "배포·운영", "status": "DEFERRED", "reason": "로컬 1차 제품과 분리된 실제 정보·공개 주소 배포 범위"},
+    {"step": 12, "name": "다른 실제 프로젝트 재검증", "status": "NOT_PROVEN"},
+    {"step": 13, "name": "반복 성공 Loop 승격", "status": "NOT_PROVEN"}
+  ],
+  "created_at": "2026-08-29T04:58:06Z",
+  "completed_locked_at": "2026-08-30",
+  "user_final_approval": "approved"
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": "electronic-card-candidate-contract-v2",
+  "project_id": "electronic-business-card",
+  "candidate_count": 10,
+  "purpose": "실제로 사용할 수 있는 전자명함 범위 안에서 선택 가치가 있는 서로 다른 시각 방향을 만든다.",
+  "source_priority": [
+    "approved_reference_set",
+    "approved_design_dna",
+    "approved_visual_target",
+    "current_product_runtime",
+    "portrait_asset"
+  ],
+  "required_product_invariants": {
+    "surface": "mobile_electronic_business_card",
+    "primary_outcome": "identify_person_and_start_contact",
+    "first_viewport": ["person_name", "role", "portrait_or_valid_default", "save_contact"],
+    "required_actions": ["save_contact", "call", "send_sms", "send_email", "show_qr_or_nfc"],
+    "owner_editable": ["name", "portrait", "role", "contact", "theme"],
+    "portrait_identity_preserved": true,
+    "all_text_readable": true
+  },
+  "blocked_drift": [
+    "poster_without_product_controls",
+    "newspaper_or_magazine_without_product_controls",
+    "marketing_landing_page",
+    "decorative_concept_without_contact_flow",
+    "style_only_recolor",
+    "fake_device_frame",
+    "text_or_action_clipping",
+    "portrait_identity_change"
+  ],
+  "diversity_axes": [
+    "layout_structure",
+    "portrait_placement",
+    "information_hierarchy",
+    "action_layout",
+    "typography_system",
+    "surface_material",
+    "color_strategy"
+  ],
+  "diversity_rule": {
+    "minimum_changed_axes_per_candidate_pair": 2,
+    "color_only_difference_allowed": false,
+    "usable_product_invariants_must_remain_fixed": true
+  },
+  "candidate_families": [
+    "warm_human_trust",
+    "editorial_professional",
+    "documentary_community",
+    "nfc_object_interface",
+    "cultural_profile",
+    "minimal_typographic",
+    "service_profile",
+    "split_information_portrait",
+    "immersive_portrait",
+    "accessible_high_contrast"
+  ],
+  "registration_gate": {
+    "minimum_scores": {
+      "product_fit": 4,
+      "usability": 4,
+      "visual_finish": 3,
+      "reference_alignment": 3
+    },
+    "score_scale": 5,
+    "blocked_drift_must_be_empty": true,
+    "required_evidence": ["source_hashes", "candidate_family", "changed_axes", "screen_inventory", "action_inventory"]
+  },
+  "personalization_contract": {
+    "shared_product_shell": ["contact_actions", "owner_editing", "accessibility", "responsive_behavior", "restore"],
+    "person_specific_inputs": ["portrait", "occupation", "introduction", "content_priority", "preferred_reference_traits"],
+    "must_change_between_people": ["layout_signature", "portrait_composition", "typography_signature", "visual_material"],
+    "theme_color_only_is_unique": false,
+    "similarity_check": {
+      "compare_against": ["adopted_designs", "same_run_candidates"],
+      "image_hash_exact_match_blocked": true,
+      "layout_signature_match_blocked": true,
+      "high_visual_similarity_action": "regenerate_visual_layer_only"
+    }
+  },
+  "generation_rule": "최근 실패 시안을 Reference로 재사용하지 않고 승인 Reference·DNA·Visual Target을 매 후보에 함께 제공한다.",
+  "selection_rule": "Gate를 통과한 후보만 사용자 Gallery에 노출하며 생성 수와 노출 수를 구분한다.",
+  "scope": "electronic_business_card_only",
+  "generalized_runtime_proven": false
+}

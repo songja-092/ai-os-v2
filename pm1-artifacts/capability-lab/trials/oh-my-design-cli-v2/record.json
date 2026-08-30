@@ -1,0 +1,4761 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "oh-my-design-cli-v2",
+  "source": "https://github.com/kwakseongjae/oh-my-design",
+  "source_class": "public_github",
+  "prepared_at": "2026-08-24T11:58:25.951565+00:00",
+  "source_commit": "9c181086dae537395f5a34a768c03a49d875acce",
+  "source_sha256": "1e1cdf07bcff7fa3b13be46c3be6c66d4697f8c57b65e0fe73cb6d313e2bebd8",
+  "status": "isolated_tested",
+  "private_project_mounted": false,
+  "audit": {
+    "scanned_text_files": 4275,
+    "findings": [
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".agents/skills/google-analytics/EXAMPLES.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".agents/skills/google-analytics/REFERENCE.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".agents/skills/google-analytics/SKILL.md",
+        "match_count": 18
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".agents/skills/google-analytics/scripts/analyze.py",
+        "match_count": 8
+      },
+      {
+        "risk": "environment_access",
+        "file": ".agents/skills/google-analytics/scripts/ga_client.py",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".agents/skills/google-analytics/scripts/ga_client.py",
+        "match_count": 17
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".agents/skills/omd-design/REFERENCE_TAGS.md",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": ".claude/agents/omd-codex-image.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/agents/omd-master.md",
+        "match_count": 5
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": ".claude/agents/omd-master.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".claude/data/reference-fingerprints.json",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".claude/data/reference-tags.md",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": ".claude/hooks/post-edit-watch.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/hooks/post-edit-watch.cjs",
+        "match_count": 3
+      },
+      {
+        "risk": "environment_access",
+        "file": ".claude/hooks/session-end-foldin.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/hooks/session-end-foldin.cjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": ".claude/hooks/session-state-loader.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/hooks/session-state-loader.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": ".claude/hooks/skill-activation.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/hooks/skill-activation.cjs",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/settings.json",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/claude-design/SKILL.md",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/claude-design/references/codebase-analysis.md",
+        "match_count": 10
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/claude-design/scripts/analyze_codebase.py",
+        "match_count": 5
+      },
+      {
+        "risk": "process_execution",
+        "file": ".claude/skills/claude-design/scripts/analyze_codebase.py",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/claude-design/scripts/drive_claude_design.cjs",
+        "match_count": 2
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": ".claude/skills/claude-design/scripts/drive_claude_design.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": ".claude/skills/omd-apply/SKILL.md",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": ".claude/skills/omd-apply/scripts/reflow-artifact.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "environment_access",
+        "file": ".claude/skills/omd-apply/scripts/reflow-browser.py",
+        "match_count": 7
+      },
+      {
+        "risk": "process_execution",
+        "file": ".claude/skills/omd-apply/scripts/reflow-browser.py",
+        "match_count": 5
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".claude/skills/omd-asset-fetch/SKILL.md",
+        "match_count": 6
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": ".claude/skills/omd-autopilot/SKILL.md",
+        "match_count": 5
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": ".claude/skills/omd-autopilot/references/design-system-contract.md",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": ".claude/skills/omd-codex-image/SKILL.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".claude/skills/omd-feel/reference.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/omd-harness/SKILL.md",
+        "match_count": 17
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": ".claude/skills/omd-harness/SKILL.md",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/omd-harness/references/master-conversation.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": ".claude/skills/omd-harness/references/master-execution-phases.md",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/omd-harness/references/master-legacy-production.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".claude/skills/omd-harness/references/master-visual-grounding.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/omd-init/SKILL.md",
+        "match_count": 7
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": ".claude/skills/omd-init/SKILL.md",
+        "match_count": 5
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/omd-init/scripts/query-references.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/omd-lab-02-design-harness/SKILL.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": ".claude/skills/omd-learn/SKILL.md",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/omd-reference-capture/SKILL.md",
+        "match_count": 9
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/omd-release-hygiene/SKILL.md",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/omd-sync/SKILL.md",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": ".claude/skills/skill-rules.json",
+        "match_count": 12
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".codex/data/reference-fingerprints.json",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": ".codex/data/reference-tags.md",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "AGENTS.md",
+        "match_count": 7
+      },
+      {
+        "risk": "home_access",
+        "file": "CHANGELOG.md",
+        "match_count": 15
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "CHANGELOG.md",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "MIGRATION.md",
+        "match_count": 9
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "MIGRATION.md",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "README.ja.md",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": "README.ko.md",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": "README.md",
+        "match_count": 6
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "README.md",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "README.zh-TW.md",
+        "match_count": 6
+      },
+      {
+        "risk": "environment_access",
+        "file": "agents/omd-codex-image.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "agents/omd-master.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "agents/omd-master.md",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/CLAUDE-PRINT-RUNNER.md",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/CLAUDE-PRINT-RUNNER.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/CLAUDE-PRINT-RUNNER.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/COMPUTE-CONTROL.md",
+        "match_count": 5
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/COMPUTE-CONTROL.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/CURSOR-RUNTIME-PLAN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/CURSOR-RUNTIME-PLAN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/FRONTIER-STOP-CONDITIONS.md",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/HOST-ENFORCEMENT.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/LUNA-MAX-ONE-PROMPT.md",
+        "match_count": 3
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/PROTOCOL.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/README.md",
+        "match_count": 12
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/RELEASE-TRAIN.md",
+        "match_count": 3
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/ROADMAP.md",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/competitors.json",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/competitors.json",
+        "match_count": 3
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/config/autopilot-luna-high-smoke-v0.1.json",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/config/autopilot-luna-high-smoke-v0.2.json",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/config/omd-2.0-model-role-routing-v0.1.json",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/config/omd-2.0-model-role-routing-v0.1.json",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/config/omd-grok46-activation-prefixes-v0.1.json",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/config/omd-grok46-wow-preview-v0.2.json",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/config/omd-grok46-wow-preview-v0.2.json",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/config/omd-luna-max-neutral-input-lock-v0.1.json",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/config/omd-luna-max-wow-preview-v0.1.json",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/config/omd-luna-max-wow-preview-v0.1.json",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/experimental-skills/omd-decision-context-closure/SKILL.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/frontier-execution-boundary.json",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/frontier-execution-boundary.json",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/frontier-readiness.json",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/manifests/competitor-skills-2.0.json",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/manifests/e2e.json",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/manifests/reports.json",
+        "match_count": 4
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/manifests/reports.json",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/plans/luna-max-one-prompt-v0.1.json",
+        "match_count": 2
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/_lib.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/admit-grok46-wow-preview.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/admit-grok46-wow-preview.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/admit-grok46-wow-preview.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/admit-luna-max-wow-preview.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/admit-luna-max-wow-preview.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/admit-luna-max-wow-preview.mjs",
+        "match_count": 8
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/admit-luna-max-wow-preview.mjs",
+        "match_count": 15
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/aggregate-codex-effort-sweep.mjs",
+        "match_count": 18
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/aggregate-results.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/aggregate-tokens-to-target.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-autopilot-v2-readiness.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-autopilot-v2-readiness.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-autopilot-v2-readiness.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-council-intake-calibration.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-council-intake-calibration.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-evaluator-epoch-impact.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-evaluator-epoch-impact.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-luna-max-wow-preview.mjs",
+        "match_count": 19
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-luna-max-wow-preview.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-omd-2.0-competitor-source-lock.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-omd-2.0-competitor-source-lock.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-prepared-matrix-admission.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-prepared-matrix-admission.mjs",
+        "match_count": 51
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/audit-public-benchmark-claim-policy.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/autopilot-smoke-controller.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/autopilot-smoke-controller.mjs",
+        "match_count": 11
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/autopilot-smoke-controller.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/autopilot-smoke-controller.mjs",
+        "match_count": 17
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/check-claude-runner.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/check-claude-runner.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/check-claude-runner.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/check-text-geometry-scope.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/check-text-geometry-scope.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/codex-browser-sandbox-contract.mjs",
+        "match_count": 10
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/codex-browser-sandbox-contract.mjs",
+        "match_count": 20
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/codex-browser-sandbox-contract.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/codex-browser-sandbox-contract.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/codex-tool-mode-contract.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/codex-tool-mode-contract.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/codex-tool-mode-contract.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/create-codex-effort-sweep-plan.mjs",
+        "match_count": 23
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/create-codex-effort-sweep-plan.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/create-codex-effort-sweep-plan.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/create-source-contract-reliability-tasks.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/dataproduct-audit.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/evaluate-autopilot-greenfield-task.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/evaluate-autopilot-greenfield-task.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/evaluate-autopilot-greenfield-task.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/evaluate-autopilot-greenfield.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/evaluate-autopilot-greenfield.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/evaluate-reference-query.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/evaluate-run.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/evaluate-run.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/execute-council-lanes-on-matrix.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/execute-council-lanes-on-matrix.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/execute-council-lanes-on-matrix.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/execute-council-lanes-on-matrix.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/execute-council-lanes-on-matrix.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/execute-council-lanes-on-matrix.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/export-run-record.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/export-run-record.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/generate-autopilot-v2-readiness.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/generate-autopilot-v2-readiness.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/generate-autopilot-v2-readiness.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/generate-autopilot-v2-readiness.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/generate-autopilot-v2-readiness.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/generate-task-assets.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/generate-task-assets.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/generate-task-assets.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/generate-task-dataset.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/generate-task-dataset.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/generate-task-dataset.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/host-policy-contract.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/host-policy-contract.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/host-policy-contract.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/lock-grok46-wow-preview.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/materialize-grok46-wow-preview.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/materialize-grok46-wow-preview.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/materialize-grok46-wow-preview.mjs",
+        "match_count": 20
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/materialize-luna-max-wow-preview.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/materialize-luna-max-wow-preview.mjs",
+        "match_count": 27
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/multipage-audit.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-automated-review-round.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-automated-review-round.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-controller-pre-edit-plans.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-controller-pre-edit-plans.mjs",
+        "match_count": 7
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-council-routed-lifecycle.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-council-routed-lifecycle.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-council-routed-lifecycle.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-council-routed-lifecycle.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-admission-receipts.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-admission-receipts.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-admission-receipts.mjs",
+        "match_count": 71
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-admission-receipts.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-blind-review.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-evaluation-runtime-receipt.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-evaluation-runtime-receipt.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-evaluation-runtime-receipt.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-evaluation-runtime-receipt.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-wow-preview.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-wow-preview.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-wow-preview.mjs",
+        "match_count": 12
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-luna-max-wow-preview.mjs",
+        "match_count": 17
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-multipage-cells.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-review-round.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-review-round.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-review-round.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-run-matrix.mjs",
+        "match_count": 16
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-run-matrix.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-run-matrix.mjs",
+        "match_count": 35
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-sandbox.mjs",
+        "match_count": 8
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-sandbox.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-sandbox.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-sandbox.mjs",
+        "match_count": 7
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/prepare-showcase-cells.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/proof-policy-hook.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/proof-policy-hook.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/proof-policy-hook.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/proof-trace-contract.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/record-in-app-run.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/replay-council-lane-cap.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/replay-council-lane-cap.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-automated-review-round.mjs",
+        "match_count": 8
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-automated-review-round.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-automated-review-round.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-automated-review-round.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-automated-review-round.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-automated-review-round.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-autopilot-clean-dir-canary.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-autopilot-clean-dir-canary.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-autopilot-clean-dir-canary.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-claude.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-claude.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-claude.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-codex.mjs",
+        "match_count": 24
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-codex.mjs",
+        "match_count": 8
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-codex.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-codex.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-codex.mjs",
+        "match_count": 10
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-council-effectiveness-pilot.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-council-effectiveness-pilot.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-council-effectiveness-pilot.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-council-effectiveness-pilot.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-cursor.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-cursor.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-cursor.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-cursor.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-cursor.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-grok.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-grok.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-grok.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-grok.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-grok.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-grok46-omd-cell.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-grok46-omd-cell.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-grok46-omd-cell.mjs",
+        "match_count": 19
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-installed-harness-checkpoint-canary.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-installed-harness-checkpoint-canary.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-installed-harness-checkpoint-canary.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-installed-harness-checkpoint-canary.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-installed-harness-checkpoint-canary.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-luna-max-wow-preview-cell.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-luna-max-wow-preview-cell.mjs",
+        "match_count": 23
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-luna-max-wow-preview-cell.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-luna-max-wow-preview-cell.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-luna-max-wow-preview-cell.mjs",
+        "match_count": 7
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-luna-max-wow-preview-cell.mjs",
+        "match_count": 35
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-prepared-matrix.mjs",
+        "match_count": 8
+      },
+      {
+        "risk": "home_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-prepared-matrix.mjs",
+        "match_count": 11
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-prepared-matrix.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-prepared-matrix.mjs",
+        "match_count": 8
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/run-prepared-matrix.mjs",
+        "match_count": 57
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/runtime-contract.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/runtime-contract.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/showcase-audit.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/test-run-grok-contract.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "benchmarks/ui-resolve-bench/scripts/test-run-grok-contract.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "benchmarks/ui-resolve-bench/scripts/test-run-grok-contract.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/scripts/test-run-grok-contract.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "environment_access",
+        "file": "benchmarks/ui-resolve-bench/scripts/test-run-grok46-omd-cell-contract.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/scripts/test-run-grok46-omd-cell-contract.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "benchmarks/ui-resolve-bench/skills/bench-fixture-gen/SKILL.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/certificate-rotation-plan-v0.1/task.json",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/feature-flag-rollout-review-v0.1/starter/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/grid-battery-dispatch-release-v0.1/PROMPT.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/grid-battery-dispatch-release-v0.1/starter/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/grid-battery-dispatch-release-v0.1/task.json",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/satellite-telemetry-pass-review-v0.1/PROMPT.md",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/satellite-telemetry-pass-review-v0.1/starter/DESIGN.md",
+        "match_count": 8
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/satellite-telemetry-pass-review-v0.1/task.json",
+        "match_count": 26
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/satellite-telemetry-release-review-v0.1/PROMPT.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/satellite-telemetry-release-review-v0.1/starter/DESIGN.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/satellite-telemetry-release-review-v0.1/task.json",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/sensor-channel-matrix-review-v0.1/PROMPT.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "benchmarks/ui-resolve-bench/tasks/sensor-channel-matrix-review-v0.1/task.json",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "bin/oh-my-design.ts",
+        "match_count": 6
+      },
+      {
+        "risk": "environment_access",
+        "file": "data/architecture-proposals/1.7.2-recommend-install-feedback.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "data/architecture-proposals/1.7.2-recommend-install-feedback.md",
+        "match_count": 17
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "data/architecture-proposals/1.7.2-recommend-install-feedback.md",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "data/architecture-proposals/2026-05-13-thin-install-fresh-fetch.md",
+        "match_count": 5
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "data/architecture-proposals/2026-05-13-thin-install-fresh-fetch.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "data/reference-audits/2026-06-17-kr10.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "data/reference-audits/2026-06-22-kr10.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "data/reference-audits/2026-06-22-tw10.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "data/reference-audits/2026-06-22-uk10.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "data/reference-audits/2026-06-22-us10.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "data/reference-audits/2026-07-02-kr44.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "data/reference-demand.json",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "data/reference-fingerprints.json",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "data/reference-quality.json",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "data/reference-tags.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/17live/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/airbridge/DESIGN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/beusable/DESIGN.md",
+        "match_count": 15
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/bigin/DESIGN.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/clickhouse/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/cloudflare/DESIGN.md",
+        "match_count": 11
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/cuboai/DESIGN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/databricks/DESIGN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/datarize/.verification.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/datarize/DESIGN.md",
+        "match_count": 5
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/fastcampus/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/firstory/.verification.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/firstory/DESIGN.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/grip/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/hackle/DESIGN.md",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/jobkorea/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "design-md/krafton/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/lunit/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/lunit/assets/_reference/tokens.json",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "design-md/mercari/_research.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/mintlify/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "design-md/mynavi/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "design-md/panasonic/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/pixnet/.verification.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/portaly/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/posthog/.verification.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/posthog/DESIGN.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/scatterlab/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/sentry/.verification.md",
+        "match_count": 40
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/sentry/DESIGN.md",
+        "match_count": 36
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/sentry/README.md",
+        "match_count": 10
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "design-md/servicenow/_research.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/shiftee/DESIGN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "design-md/sionic/.verification.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "design-md/sionic/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/solapi/.verification.md",
+        "match_count": 7
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/solapi/DESIGN.md",
+        "match_count": 8
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/squarespace/.verification.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/squarespace/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/stores/.verification.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/together.ai/.verification.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "design-md/tossbank/.verification.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "design-md/tossbank/DESIGN.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/vocus/DESIGN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/webflow/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/wisetracker/DESIGN.md",
+        "match_count": 10
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "design-md/workday/DESIGN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "docs/BLOG_SUBDOMAIN_PLAN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "docs/CLI_QUICKSTART.md",
+        "match_count": 10
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "docs/CLI_QUICKSTART.md",
+        "match_count": 6
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "docs/DESIGN_MD_CORE_V2_MIGRATION_PLAN.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "docs/JOURNAL.md",
+        "match_count": 15
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "docs/JOURNAL.md",
+        "match_count": 179
+      },
+      {
+        "risk": "home_access",
+        "file": "docs/NARRATIVE_CONTEXT_DESIGN_HARNESS.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "docs/OMD_2_0_LUNA_MAX_RELEASE_PLAN.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "docs/design-md-weight/2026-08-22-survey.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "docs/design-md-weight/migrated/airbridge/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "docs/design-md-weight/migrated/beusable/DESIGN.md",
+        "match_count": 14
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "docs/design-md-weight/migrated/beusable/audit-log.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "docs/design-md-weight/migrated/beusable/migration-log.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "docs/design-md-weight/migrated/beusable/provenance.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "docs/design-md-weight/migrated/bigin/DESIGN.md",
+        "match_count": 3
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "docs/design-md-weight/migrated/figma/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "docs/design-md-weight/migrated/figma/provenance.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "package.json",
+        "match_count": 3
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "package.json",
+        "match_count": 14
+      },
+      {
+        "risk": "home_access",
+        "file": "packages/mcp/README.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "packages/mcp/README.md",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "packages/mcp/src/data.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/activate-autopilot-design-system.cjs",
+        "match_count": 7
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/activate-autopilot-design-system.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "scripts/activate-autopilot-design-system.cjs",
+        "match_count": 8
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/activation/compare-cli-funnel.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/activation/compare-cli-funnel.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/activation/compare-cli-funnel.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/activation/run-local-funnel.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/activation/run-local-funnel.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/activation/run-local-funnel.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/adopt-design-md-core.cjs",
+        "match_count": 5
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/adopt-design-md-core.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/adopt-design-md-core.cjs",
+        "match_count": 10
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "scripts/adopt-design-md-core.cjs",
+        "match_count": 17
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/SETUP.md",
+        "match_count": 18
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/analytics/_env.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/_env.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/_google-auth.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/analyze-modes.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/annotate-ga4.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/prune-ga4-keyevents.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/pull-active.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/analytics/pull-all.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/pull-all.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/pull-curation.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/pull-ga4-modes.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/pull-ga4.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/pull-gsc.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/pull-public.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/pull-upstash.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/setup-ga4.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/analytics/summarize.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/bench/score-init.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/bench/score-taste.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/bench/score-taste.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/bench/score-taste.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/bench-store.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/bench-store.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/compile-design-md-core.cjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "scripts/compile-design-md-core.cjs",
+        "match_count": 16
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/ctx-prime.cjs",
+        "match_count": 2
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/design-council-handoff.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "scripts/design-council-handoff.cjs",
+        "match_count": 6
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "scripts/design-council-prime.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/design-md-core.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "scripts/growth-snapshot.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/postinstall.cjs",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/prepare-design-md-core-review.cjs",
+        "match_count": 3
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/prepare-design-md-core-review.cjs",
+        "match_count": 4
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "scripts/prepare-design-md-core-review.cjs",
+        "match_count": 7
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/publish-r2.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/publish-r2.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/rebind-design-md-core-migration.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "scripts/rebind-design-md-core-migration.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/smoke-md-twins.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/sync-neon.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "scripts/sync-runtime-mirrors.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "scripts/sync-runtime-mirrors.cjs",
+        "match_count": 4
+      },
+      {
+        "risk": "process_execution",
+        "file": "scripts/sync-runtime-mirrors.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "scripts/sync-runtime-mirrors.cjs",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/claude-design/SKILL.md",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/claude-design/references/codebase-analysis.md",
+        "match_count": 10
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/claude-design/scripts/analyze_codebase.py",
+        "match_count": 5
+      },
+      {
+        "risk": "process_execution",
+        "file": "skills/claude-design/scripts/analyze_codebase.py",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/claude-design/scripts/drive_claude_design.cjs",
+        "match_count": 2
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "skills/claude-design/scripts/drive_claude_design.cjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/omd-apply/SKILL.md",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "skills/omd-apply/scripts/reflow-artifact.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "environment_access",
+        "file": "skills/omd-apply/scripts/reflow-browser.py",
+        "match_count": 7
+      },
+      {
+        "risk": "process_execution",
+        "file": "skills/omd-apply/scripts/reflow-browser.py",
+        "match_count": 5
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "skills/omd-asset-fetch/SKILL.md",
+        "match_count": 6
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/omd-autopilot/SKILL.md",
+        "match_count": 5
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/omd-autopilot/references/design-system-contract.md",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": "skills/omd-codex-image/SKILL.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "skills/omd-feel/reference.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-harness/SKILL.md",
+        "match_count": 17
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/omd-harness/SKILL.md",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-harness/references/master-conversation.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/omd-harness/references/master-execution-phases.md",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-harness/references/master-legacy-production.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "skills/omd-harness/references/master-visual-grounding.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-init/SKILL.md",
+        "match_count": 7
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/omd-init/SKILL.md",
+        "match_count": 5
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-init/scripts/query-references.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-lab-02-design-harness/SKILL.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-lab-02-design-harness/playbooks/v1.md",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-lab-02-design-harness/runs/live-2026-04-27-water-app/feedback-log.md",
+        "match_count": 22
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/omd-lab-02-design-harness/runs/live-2026-04-27-water-app/feedback-log.md",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-lab-02-design-harness/runs/v4-self-test/iterations/i1-findings.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-lab-02-design-harness/runs/v4-self-test/iterations/i2-audit-J.md",
+        "match_count": 4
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/omd-lab-02-design-harness/runs/v4-self-test/iterations/i2-audit-J.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-lab-02-design-harness/runs/v4-self-test/iterations/i2-audit-S.md",
+        "match_count": 5
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-lab-02-design-harness/runs/v4-self-test/iterations/i2-audit-V.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/omd-lab-02-design-harness/runs/v4-self-test/iterations/i2-audit-V.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/omd-lab-02-design-harness/runs/v4-self-test/iterations/i2-consolidated.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-lab-02-design-harness/runs/v4-self-test/postmortem.md",
+        "match_count": 4
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/omd-lab-02-design-harness/runs/v4-self-test/postmortem.md",
+        "match_count": 3
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "skills/omd-learn/SKILL.md",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-reference-capture/SKILL.md",
+        "match_count": 9
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/omd-sync/SKILL.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "skills-lock.json",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "spec/design-md-core-v2.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "spec/migration-checklist.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "spec/migration-checklist.md",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "spec/migration-plan.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "spec/migration-plan.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "spec/omd-v0.1.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "spec/popular-top100-verification-release-gate.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "spec/remaining-380-verification-plan.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "spec/reverify-pipeline.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "spec/reverify-pipeline.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "spec/schema/design-md-core-adoption-review-v2.schema.json",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "spec/top20-context-depth-execution.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "spec/v2-execution.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "spec/v2-measurement.md",
+        "match_count": 4
+      },
+      {
+        "risk": "process_execution",
+        "file": "src/cli/book.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/cli/design-md.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "src/cli/design-md.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "src/cli/design-md.ts",
+        "match_count": 16
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/cli/doctor.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "src/cli/doctor.ts",
+        "match_count": 19
+      },
+      {
+        "risk": "process_execution",
+        "file": "src/cli/doctor.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "src/cli/doctor.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "src/cli/doctor.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "src/cli/doctor.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "src/cli/install-skills.ts",
+        "match_count": 69
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "src/cli/install-skills.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "src/cli/install-skills.ts",
+        "match_count": 7
+      },
+      {
+        "risk": "home_access",
+        "file": "src/cli/proof-policy.ts",
+        "match_count": 6
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "src/cli/proof-policy.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": "src/core/agent-detect.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "src/core/agent-detect.ts",
+        "match_count": 7
+      },
+      {
+        "risk": "home_access",
+        "file": "test/README.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/analytics-dates.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/autopilot-greenfield-incident-e2e-helpers.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/luna-max-admission-receipts.test.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/luna-max-admission-receipts.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/bench/luna-max-admission-receipts.test.mjs",
+        "match_count": 29
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/luna-max-admission-receipts.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/bench/luna-max-blind-review-operations.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/luna-max-blind-review-operations.test.mjs",
+        "match_count": 27
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/luna-max-evaluation-runtime-receipt.test.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/luna-max-evaluation-runtime-receipt.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/luna-max-evaluation-runtime-receipt.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/luna-max-evaluation-runtime-receipt.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/luna-max-wow-preview-admission.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/luna-max-wow-preview-admission.test.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/bench/luna-max-wow-preview-admission.test.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/luna-max-wow-preview-admission.test.mjs",
+        "match_count": 14
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/bench/luna-max-wow-preview-auditor.test.mjs",
+        "match_count": 7
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/luna-max-wow-preview-auditor.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/luna-max-wow-preview-cell-runner.test.mjs",
+        "match_count": 25
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/luna-max-wow-preview-cell-runner.test.mjs",
+        "match_count": 25
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/luna-max-wow-preview-cell-runner.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/luna-max-wow-preview-cell-runner.test.mjs",
+        "match_count": 7
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/bench/luna-max-wow-preview-cell-runner.test.mjs",
+        "match_count": 43
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/luna-max-wow-preview-cell-runner.test.mjs",
+        "match_count": 51
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/luna-max-wow-preview-controller.test.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/bench/luna-max-wow-preview-controller.test.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/luna-max-wow-preview-controller.test.mjs",
+        "match_count": 7
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/luna-max-wow-preview-materializer.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/luna-max-wow-preview-materializer.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/luna-max-wow-preview-materializer.test.mjs",
+        "match_count": 7
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/omd-2.0-competitor-source-lock.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-aggregate.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/bench/ui-resolve-aggregate.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-automated-review.test.mjs",
+        "match_count": 16
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-clean-dir-canary.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-autopilot-clean-dir-canary.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-caregiver-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-caregiver-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-checkout-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-checkout-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-cold-chain-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-cold-chain-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-deletion-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-deletion-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-editorial-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-editorial-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-evaluator-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-evaluator-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-evaluator-e2e.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-grant-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-grant-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-incident-interaction-mutants-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-incident-oracles-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-locale-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-locale-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-recovery-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-recovery-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-search-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-search-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-task-evaluator-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-task-evaluator-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-transit-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-greenfield-transit-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-smoke-controller.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-autopilot-smoke-controller.test.mjs",
+        "match_count": 7
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-autopilot-smoke-controller.test.mjs",
+        "match_count": 13
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-v2-contract.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-v2-readiness-generator.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-autopilot-v2-readiness-generator.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-autopilot-v2-readiness.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-autopilot-v2-readiness.test.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-bench.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/ui-resolve-bench.test.mjs",
+        "match_count": 14
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-bench.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-bench.test.mjs",
+        "match_count": 7
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/bench/ui-resolve-bench.test.mjs",
+        "match_count": 9
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-bench.test.mjs",
+        "match_count": 136
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-claude-runner.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/ui-resolve-claude-runner.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/ui-resolve-codex-browser-sandbox.test.mjs",
+        "match_count": 14
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-codex-browser-sandbox.test.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/bench/ui-resolve-codex-browser-sandbox.test.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-codex-browser-sandbox.test.mjs",
+        "match_count": 31
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/ui-resolve-codex-effort-sweep-aggregate.test.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-codex-effort-sweep-aggregate.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-codex-effort-sweep-aggregate.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/ui-resolve-codex-effort-sweep-plan.test.mjs",
+        "match_count": 14
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-codex-effort-sweep-plan.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-codex-effort-sweep-plan.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-codex-effort-sweep-plan.test.mjs",
+        "match_count": 7
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/ui-resolve-codex-tool-mode.test.mjs",
+        "match_count": 15
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-council-effectiveness-pilot.test.mjs",
+        "match_count": 7
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-council-effectiveness-pilot.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-council-effectiveness-pilot.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-council-effectiveness-pilot.test.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-council-routed-lifecycle-controller.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-council-routed-lifecycle-controller.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-council-routed-lifecycle-controller.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-council-routed-lifecycle-executor.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-council-routed-lifecycle-executor.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-council-routed-lifecycle-executor.test.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-council-routed-lifecycle-executor.test.mjs",
+        "match_count": 7
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-council-routed-lifecycle-lock.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-council-state-routing-preparation.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-council-state-routing-preparation.test.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-council-state-routing-preparation.test.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-cursor-runtime.test.mjs",
+        "match_count": 10
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-cursor-runtime.test.mjs",
+        "match_count": 8
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-evaluator-failclosed-e2e.test.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-evaluator-failclosed-e2e.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-evaluator-failclosed-e2e.test.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/ui-resolve-export.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-frontier-skill-qualification.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-installed-harness-checkpoint.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-installed-harness-checkpoint.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-installed-harness-checkpoint.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-investigational-product-task.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-preference-aggregate.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/ui-resolve-prepare-matrix.test.mjs",
+        "match_count": 8
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-prepare-matrix.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-prepare-matrix.test.mjs",
+        "match_count": 9
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/ui-resolve-prepared-admission.test.mjs",
+        "match_count": 9
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-prepared-admission.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-prepared-admission.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-prepared-admission.test.mjs",
+        "match_count": 86
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-proof-policy-hook-runtime.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-provider-neutral.test.mjs",
+        "match_count": 12
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/ui-resolve-provider-neutral.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-provider-neutral.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-provider-neutral.test.mjs",
+        "match_count": 72
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-review-operations.test.mjs",
+        "match_count": 9
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/bench/ui-resolve-run-codex-exact-runtime.test.mjs",
+        "match_count": 14
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/ui-resolve-run-codex-exact-runtime.test.mjs",
+        "match_count": 18
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-run-codex-exact-runtime.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-run-codex-exact-runtime.test.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/bench/ui-resolve-run-matrix.test.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-run-matrix.test.mjs",
+        "match_count": 35
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-runner-report.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/bench/ui-resolve-runner-report.test.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-task-contract-mutations.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/bench/ui-resolve-tokens-to-target.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/bench/ui-resolve-tokens-to-target.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/bench/ui-resolve-tokens-to-target.test.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/benchmark-activation-analytics.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/cli/activation-reuse.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/cli/activation-reuse.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/cli/design-md.test.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/cli/doctor-context-planner-self-test.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/cli/doctor-context-planner-self-test.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/cli/doctor.test.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/cli/doctor.test.ts",
+        "match_count": 77
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/cli/doctor.test.ts",
+        "match_count": 11
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/cli/install-skills.test.ts",
+        "match_count": 12
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/cli/install-skills.test.ts",
+        "match_count": 139
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/cli/install-skills.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/cli/install-skills.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/cli/install-skills.test.ts",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/cli/installed-harness-context-plan.test.ts",
+        "match_count": 6
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/cli/installed-harness-context-plan.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/cli/installed-harness-context-plan.test.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/cli/package-build-lock.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/cli/package-build-lock.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/cli/package-build-lock.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/cli/package-build-lock.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/cli/packaged-autopilot-smoke.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/cli/packaged-autopilot-smoke.test.ts",
+        "match_count": 6
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/cli/packaged-autopilot-smoke.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/cli/packaged-autopilot-smoke.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/cli/packaged-autopilot-smoke.test.ts",
+        "match_count": 6
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/cli/packaged-design-md-core-smoke.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/cli/packaged-design-md-core-smoke.test.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/cli/packaged-design-md-core-smoke.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/cli/packaged-design-md-core-smoke.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/cli/packaged-design-md-core-smoke.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/cli/packaged-design-md-core-smoke.test.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/cli/workflows.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/core/agent-detect.test.ts",
+        "match_count": 18
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/core/agent-detect.test.ts",
+        "match_count": 14
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/core/agent-detect.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/core/catalog-resolution-order.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/hooks/hooks.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/hooks/hooks.test.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/hooks/hooks.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/hooks/hooks.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/scripts/adopt-design-md-core.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/adopt-design-md-core.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/adopt-design-md-core.test.ts",
+        "match_count": 5
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/scripts/adopt-design-md-core.test.ts",
+        "match_count": 24
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/autopilot-council.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/autopilot-council.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/scripts/autopilot-external-authority-controller.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/autopilot-external-authority-controller.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/scripts/autopilot-external-authority-controller.test.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/autopilot-mission.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/autopilot-mission.test.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/build-reference-quality-data.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/compile-design-md-core.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/compile-design-md-core.test.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/scripts/compile-design-md-core.test.ts",
+        "match_count": 8
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/ctx-prime.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/ctx-prime.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/design-council-handoff.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/design-council-handoff.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/scripts/design-council-handoff.test.ts",
+        "match_count": 7
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/design-council-prime.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/design-council-prime.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/design-council-reconcile.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/design-council-reconcile.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/scripts/design-council-reconcile.test.ts",
+        "match_count": 5
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/design-harness-context-plan.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/design-harness-context-plan.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/design-md-core.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/design-md-core.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "test/unit/scripts/design-md-core.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/design-system-plan.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/design-system-plan.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/scripts/gen-llms-full.test.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/gen-llms-full.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/prepare-design-md-core-review.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/prepare-design-md-core-review.test.ts",
+        "match_count": 5
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/scripts/prepare-design-md-core-review.test.ts",
+        "match_count": 18
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/rebind-design-md-core-migration.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/scripts/rebind-design-md-core-migration.test.ts",
+        "match_count": 7
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/scripts/sync-runtime-mirrors.test.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/sync-runtime-mirrors.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/scripts/validate-project-design-system.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/scripts/validate-project-design-system.test.ts",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/skills/omd-compatibility-shim-contract.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/skills/omd-core-v2-generation-contract.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "test/unit/skills/omd-core-v2-writer-cutover.test.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/skills/omd-core-v2-writer-cutover.test.mjs",
+        "match_count": 4
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/skills/omd-reference-query.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/skills/omd-reflow-artifact.test.mjs",
+        "match_count": 10
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/skills/omd-reflow-artifact.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/skills/omd-reflow-artifact.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test/unit/skills/omd-reflow-browser-runner.test.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/skills/omd-reflow-browser-runner.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/skills/omd-reflow-browser-runner.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test/unit/spec/design-md-core-proof-schemas.test.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test/unit/spec/design-md-core-proof-schemas.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "test/unit/spec/design-md-core-proof-schemas.test.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test-v2/tools/analysis.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-v2/tools/analysis.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "test-v2/tools/build-brief.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test-v2/tools/build-ceiling-stimuli.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-v2/tools/build-ceiling-stimuli.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-v2/tools/capture-media-evidence.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-v2/tools/capture-via-aside.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test-v2/tools/capture-via-aside.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-v2/tools/conformance.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "test-v2/tools/generate-assets.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test-v2/tools/generate-assets.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "test-v2/tools/ingest-captures.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "test-v2/tools/ingest-generated.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test-v2/tools/measure-generated.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "test-v2/tools/migrate-reference.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test-v2/tools/migrate-reference.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test-v2/tools/pipeline.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "test-v2/tools/verify-conformance.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "destructive_file_operation",
+        "file": "test-v2/tools/verify-conformance.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "web/__tests__/blog-redirects.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/__tests__/catalog-integrity.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "web/__tests__/catalog-integrity.test.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "home_access",
+        "file": "web/docs/aeo-and-public-design-md.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/docs/benchmark-activation-analytics.md",
+        "match_count": 6
+      },
+      {
+        "risk": "home_access",
+        "file": "web/docs/connectors-directory-submission.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/docs/font-playground-analytics.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/docs/funnel-analytics.md",
+        "match_count": 17
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/next.config.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "web/next.config.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/package-lock.json",
+        "match_count": 4
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "web/package-lock.json",
+        "match_count": 6
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "web/package.json",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "web/public/schema/design-md-core-adoption-review-v2.schema.json",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "web/public/showcase/applepresso/archived-prompt.md",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/public/showcase/applepresso/provenance.json",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/17live/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/airbridge/DESIGN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/beusable/DESIGN.md",
+        "match_count": 15
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/bigin/DESIGN.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/clickhouse/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/cloudflare/DESIGN.md",
+        "match_count": 11
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/cuboai/DESIGN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/databricks/DESIGN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/datarize/.verification.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/datarize/DESIGN.md",
+        "match_count": 5
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/fastcampus/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/firstory/.verification.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/firstory/DESIGN.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/grip/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/hackle/DESIGN.md",
+        "match_count": 6
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/jobkorea/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "web/references/krafton/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/lunit/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/lunit/assets/_reference/tokens.json",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "web/references/mercari/_research.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/mintlify/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "web/references/mynavi/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "web/references/panasonic/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/pixnet/.verification.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/portaly/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/posthog/.verification.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/posthog/DESIGN.md",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/scatterlab/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/sentry/.verification.md",
+        "match_count": 40
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/sentry/DESIGN.md",
+        "match_count": 36
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/sentry/README.md",
+        "match_count": 10
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "web/references/servicenow/_research.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/shiftee/DESIGN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "web/references/sionic/.verification.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "web/references/sionic/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/solapi/.verification.md",
+        "match_count": 7
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/solapi/DESIGN.md",
+        "match_count": 8
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/squarespace/.verification.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/squarespace/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/stores/.verification.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/together.ai/.verification.md",
+        "match_count": 1
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "web/references/tossbank/.verification.md",
+        "match_count": 2
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "web/references/tossbank/DESIGN.md",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/vocus/DESIGN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/webflow/DESIGN.md",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/wisetracker/DESIGN.md",
+        "match_count": 10
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/references/workday/DESIGN.md",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/scripts/adapters/run-claude-reverify.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "web/scripts/adapters/run-claude-reverify.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/scripts/adapters/run-codex-create.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "web/scripts/adapters/run-codex-create.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "web/scripts/adapters/run-codex-create.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/scripts/adapters/run-codex-reverify.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "web/scripts/adapters/run-codex-reverify.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "process_execution",
+        "file": "web/scripts/adapters/run-codex-reverify.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/scripts/build-embeddings.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/scripts/build-popular-verification-plan.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "web/scripts/capture-create-batch.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/scripts/capture-reference-evidence.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "web/scripts/capture-reference-evidence.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "web/scripts/check-codex-reverify.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "web/scripts/check-reference-capture-fixture.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/scripts/extract-tokens.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "web/scripts/extract-tokens.mjs",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/scripts/migrate-frontmatters.mjs",
+        "match_count": 6
+      },
+      {
+        "risk": "process_execution",
+        "file": "web/scripts/run-create-batch.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/scripts/run-reverify-batch.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "web/scripts/run-reverify-batch.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "process_execution",
+        "file": "web/scripts/run-reverify-batch.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/scripts/run-reverify-task.ts",
+        "match_count": 5
+      },
+      {
+        "risk": "process_execution",
+        "file": "web/scripts/run-reverify-task.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "home_access",
+        "file": "web/scripts/sync-catalog.mjs",
+        "match_count": 2
+      },
+      {
+        "risk": "process_execution",
+        "file": "web/scripts/sync-catalog.mjs",
+        "match_count": 5
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/scripts/token-sheet.mjs",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/src/app/api/font-playground/match/route.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/api/geo/route.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/src/app/api/github-stars/route.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/api/github-stars/route.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/src/app/api/og/playground/route.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/src/app/api/references/[id]/route.test.ts",
+        "match_count": 5
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/src/app/api/references/[id]/route.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/benchmarks/benchmark-activation.tsx",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/benchmarks/benchmark-method-link.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/benchmarks/benchmark-source-link.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/benchmarks/benchmark-tracker.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/builder/page.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/collections/[slug]/collection-grid.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/collections/[slug]/page.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/collections/collection-builder-link.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/collections/collection-card.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/collections/collection-inline-link.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/collections/collection-view-tracker.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/design-systems/[id]/detail-view.tsx",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/font-playground/font-playground-view.tsx",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/layout.tsx",
+        "match_count": 9
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/src/app/playground/page.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/playground/playground-view.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/privacy/ko/page.tsx",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/app/privacy/page.tsx",
+        "match_count": 14
+      },
+      {
+        "risk": "home_access",
+        "file": "web/src/app/r/[id]/route.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "web/src/app/what-is-design-md/page.tsx",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/analytics-consent.tsx",
+        "match_count": 7
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/analytics-init.tsx",
+        "match_count": 2
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/src/components/browse-modal.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/cli-docs/copy-code.test.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/cli-docs/copy-code.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/customizer.tsx",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/design-wizard.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/ds-card.tsx",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/export-panel.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/font-playground/detail-modal.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/font-playground/hero-entry.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/font-playground/match-results.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/font-playground/my-fonts.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/font-playground/usage-guide.tsx",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/install-cta.tsx",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/landing-v2/hero.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/landing-v2/sections.tsx",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/manage-consent-button.tsx",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/preview-export-view.tsx",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/preview.tsx",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/reference-evidence-drawer.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/reference-selector.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/components/reference-share-button.tsx",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "web/src/data/cli-docs.ts",
+        "match_count": 5
+      },
+      {
+        "risk": "install_lifecycle",
+        "file": "web/src/data/cli-docs.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/data/reference-quality.generated.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/activation/analytics.test.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/activation/analytics.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/active.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/benchmarks/analytics.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/builder/analytics.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/clipboard.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/collections/analytics.test.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/collections.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/consent.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/design-systems/analytics.test.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/design-systems/analytics.ts",
+        "match_count": 3
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/device.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/eea.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/font-registry.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/fonts/analytics.test.ts",
+        "match_count": 7
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/gtag.test.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/src/lib/gtag.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/gtag.ts",
+        "match_count": 9
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/src/lib/kv.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/src/lib/mixpanel.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/mixpanel.ts",
+        "match_count": 2
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/playground/state.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/src/lib/references/repository.server.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "environment_access",
+        "file": "web/src/lib/site.ts",
+        "match_count": 1
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/survey/quiz-data.ts",
+        "match_count": 4
+      },
+      {
+        "risk": "external_upload_or_telemetry",
+        "file": "web/src/lib/survey/types.ts",
+        "match_count": 5
+      }
+    ],
+    "package_lifecycle_scripts": {
+      "prepare": "npm run build",
+      "postinstall": "node scripts/postinstall.cjs"
+    },
+    "license_files": [
+      "LICENSE"
+    ],
+    "automatic_execution_allowed": false,
+    "note": "Findings require review; absence of a match is not a security guarantee."
+  },
+  "trials": [
+    {
+      "trial_id": "trial-001",
+      "executed_at": "2026-08-24T11:58:46.071182+00:00",
+      "network": "none",
+      "command": [
+        "node",
+        "--version"
+      ],
+      "returncode": 0,
+      "private_project_mounted": false,
+      "environment_credentials_forwarded": false,
+      "stdout": "evidence/trial-001.stdout.txt",
+      "stderr": "evidence/trial-001.stderr.txt"
+    }
+  ],
+  "fixture": {
+    "path_in_sandbox": "/work/fixture/index.html",
+    "contains_private_project_data": false,
+    "created_at": "2026-08-24T11:58:46.012681+00:00"
+  }
+}

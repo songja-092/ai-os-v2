@@ -1,0 +1,207 @@
+#!/usr/bin/env python3
+"""Connect approved PM design evidence to one Core Run without implementing product code."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def load_json(path: Path, label: str) -> dict:
+    if not path.is_file() or path.is_symlink():
+        raise ValueError(f"{label} 파일이 없습니다: {path}")
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError(f"{label}은 JSON 객체여야 합니다.")
+    return value
+
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def inside_root(path: Path) -> Path:
+    resolved = path.resolve()
+    try:
+        resolved.relative_to(ROOT)
+    except ValueError as exc:
+        raise ValueError(f"입력은 V2 저장소 안에 있어야 합니다: {resolved}") from exc
+    return resolved
+
+
+def atomic_json(path: Path, value: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    os.replace(temporary, path)
+
+
+def now() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--run-id", required=True)
+    parser.add_argument("--project-id", required=True)
+    parser.add_argument("--intent", required=True)
+    parser.add_argument("--handoff", required=True)
+    parser.add_argument("--dna", required=True)
+    parser.add_argument("--visual-target", required=True)
+    parser.add_argument("--output-dir", required=True)
+    args = parser.parse_args()
+
+    try:
+        if not args.run_id.startswith("run-") or not args.project_id.strip():
+            raise ValueError("run-id는 run-으로 시작하고 project-id는 비어 있지 않아야 합니다.")
+        intent_path = inside_root(Path(args.intent))
+        handoff_path = inside_root(Path(args.handoff))
+        dna_path = inside_root(Path(args.dna))
+        visual_path = inside_root(Path(args.visual_target))
+        output_dir = inside_root(Path(args.output_dir))
+        run_path = ROOT / "state" / "official-design-runs" / f"{args.run_id}.json"
+        recipe_path = output_dir / "draft-design-recipe.json"
+        evidence_path = output_dir / "connection-evidence.json"
+        if run_path.exists():
+            raise FileExistsError("기존 공식 Run을 덮어쓰지 않습니다.")
+
+        intent = load_json(intent_path, "PM5 Intent")
+        handoff = load_json(handoff_path, "PM4 Handoff")
+        dna = load_json(dna_path, "Design DNA")
+        visual_sha = sha256(visual_path)
+        expected_sha = handoff.get("visual_target_sha256") or dna.get("visual_target", {}).get("sha256")
+        if visual_sha != expected_sha:
+            raise ValueError("Visual Target Hash가 PM4 승인 증거와 다릅니다.")
+        direction = handoff.get("selected_direction_id")
+        if direction != dna.get("selected_direction", {}).get("direction_id"):
+            raise ValueError("Handoff와 Design DNA의 선택 방향이 다릅니다.")
+        if handoff.get("user_approval", {}).get("status") != "approved":
+            raise ValueError("PM4 Visual Target 사용자 승인이 필요합니다.")
+        if intent.get("source_contract", {}).get("selected_direction_id") != direction:
+            raise ValueError("PM5 Intent가 승인 방향을 보존하지 않았습니다.")
+        if intent.get("source_contract", {}).get("visual_target_sha256") != visual_sha:
+            raise ValueError("PM5 Intent의 Visual Target Hash가 다릅니다.")
+
+        intent_approved = intent.get("approval", {}).get("status") == "approved"
+        required_screens = handoff.get("required_screens", [])
+        required_actions = dna.get("required_actions", [])
+        if not required_screens or not required_actions:
+            raise ValueError("화면 또는 핵심 행동 계약이 비어 있습니다.")
+
+        recipe = {
+            "schema_version": "1.0",
+            "recipe_id": f"{args.project_id}-design-recipe-v1",
+            "run_id": args.run_id,
+            "project_id": args.project_id,
+            "status": "draft_locked",
+            "approval": {"status": "pending", "required": True},
+            "selected_direction": direction,
+            "source_hashes": {
+                "intent": sha256(intent_path),
+                "handoff": sha256(handoff_path),
+                "design_dna": sha256(dna_path),
+                "visual_target": visual_sha,
+            },
+            "design_dna": dna.get("design_dna"),
+            "use": dna.get("selected_direction", {}).get("use", []),
+            "exclude": dna.get("selected_direction", {}).get("exclude", []),
+            "screens": required_screens,
+            "actions": required_actions,
+            "portrait_contract": handoff.get("portrait_contract", {}),
+            "responsive_contract": {"mobile_primary": True, "desktop_required": True},
+            "implementation_rules": {
+                "visual_target_fidelity_required": True,
+                "recipe_change_requires_new_version": True,
+                "unapproved_design_reinterpretation": "blocked",
+                "external_app_ui_replication": "blocked",
+            },
+            "implementation_gate": "blocked_pm5_scope_approval_required" if not intent_approved else "blocked_recipe_approval_required",
+            "created_at": now(),
+        }
+        run = {
+            "schema_version": "1.0",
+            "run_id": args.run_id,
+            "run_type": "official_design_connection",
+            "project_id": args.project_id,
+            "stage": "design_recipe_draft",
+            "status": "blocked_user_approval" if not intent_approved else "awaiting_recipe_approval",
+            "source": {
+                "pm4_handoff": str(handoff_path.relative_to(ROOT)),
+                "pm5_intent": str(intent_path.relative_to(ROOT)),
+                "design_dna": str(dna_path.relative_to(ROOT)),
+                "visual_target": str(visual_path.relative_to(ROOT)),
+            },
+            "design_direction": {"id": direction, "selected_by": "user", "evidence": "PM4 handoff"},
+            "visual_target": {"status": "user_approved", "sha256": visual_sha},
+            "design_recipe": {"status": "draft_locked", "path": str(recipe_path.relative_to(ROOT))},
+            "implementation_gate": recipe["implementation_gate"],
+            "pm6_gate": "blocked_product_implementation_required",
+            "deployment_gate": "blocked_pm6_and_user_final_approval_required",
+            "test_harness_inputs_allowed": False,
+            "pipeline_1_13": [
+                {"step": 1, "name": "시험 Harness 분리", "status": "PASS"},
+                {"step": 2, "name": "공식 Core Project/Run 연결", "status": "PASS"},
+                {"step": 3, "name": "후보 제작·방향 선택", "status": "PASS", "scope": "기존 PM4 사용자 승인 재사용"},
+                {"step": 4, "name": "Design DNA·Draft Recipe 잠금", "status": "PASS"},
+                {"step": 5, "name": "전체 Visual Target", "status": "PASS", "scope": "PM4 승인 Artifact"},
+                {"step": 6, "name": "UI UX Pro Max 마감", "status": "NOT_PROVEN"},
+                {"step": 7, "name": "PM5 완료", "status": "BLOCKED", "reason": "사용자 범위 승인 pending"},
+                {"step": 8, "name": "실제 제품 구현", "status": "BLOCKED"},
+                {"step": 9, "name": "PM6 통합검증", "status": "BLOCKED"},
+                {"step": 10, "name": "PM6 자동화 후보 감사", "status": "NOT_APPLICABLE", "reason": "PM6 미도달"},
+                {"step": 11, "name": "배포·운영", "status": "BLOCKED"},
+                {"step": 12, "name": "다른 실제 프로젝트 재검증", "status": "NOT_PROVEN"},
+                {"step": 13, "name": "반복 성공 Loop 승격", "status": "NOT_PROVEN"},
+            ],
+            "created_at": now(),
+        }
+        evidence = {
+            "schema_version": "1.0",
+            "run_id": args.run_id,
+            "status": "PASS",
+            "verified": [
+                "PM4 user-approved direction",
+                "Visual Target SHA-256 continuity",
+                "PM5 source-contract continuity",
+                "Draft Design Recipe created and locked",
+                "implementation remains blocked while PM5 approval is pending",
+            ],
+            "not_proven": ["product implementation", "PM6 runtime verification", "deployment", "final user approval"],
+            "fixture_scope": intent.get("test_fixture_active") is True,
+            "completed_at": now(),
+        }
+        if recipe_path.exists():
+            previous_recipe = load_json(recipe_path, "기존 Draft Design Recipe")
+            if previous_recipe.get("recipe_id") != recipe["recipe_id"] or previous_recipe.get("source_hashes") != recipe["source_hashes"]:
+                raise FileExistsError("다른 기존 Recipe를 덮어쓰지 않습니다.")
+        else:
+            atomic_json(recipe_path, recipe)
+        if evidence_path.exists():
+            previous_evidence = load_json(evidence_path, "기존 연결 Evidence")
+            if previous_evidence.get("run_id") != args.run_id or previous_evidence.get("status") != "PASS":
+                raise FileExistsError("다른 기존 Evidence를 덮어쓰지 않습니다.")
+        else:
+            atomic_json(evidence_path, evidence)
+        atomic_json(run_path, run)
+        print(f"Official design flow connected: {args.run_id}")
+        print(f"Implementation gate: {run['implementation_gate']}")
+        return 0
+    except Exception as exc:
+        print(f"BLOCKED: {exc}", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "stage": "pm6_pre_lock_audit",
+  "deterministic_automation_added": [
+    "static asset MIME verification",
+    "PM5 approval and Recipe lock verification",
+    "product file and Runtime evidence verification",
+    "portrait alpha analysis and safe template fallback",
+    "portrait matting adapter with pinned model hash",
+    "foreground coverage and alpha integrity gate",
+    "visual composite rejection before Runtime",
+    "photo-optional typography fallback verification",
+    "single edit owner and Product Contract to UI ownership verification",
+    "optional introduction and career Core Runtime verification",
+    "QR retry control non-overlap verification",
+    "full portrait preview verification",
+    "fixed completion color, poster check, and reduced-motion verification"
+  ],
+  "loop_candidates": [],
+  "not_promoted": [
+    {
+      "candidate": "general design fidelity auto-approval",
+      "reason": "single real project and human visual judgment required"
+    },
+    {
+      "candidate": "automatic deployment",
+      "reason": "user final approval is pending"
+    },
+    {
+      "candidate": "generic product build command",
+      "reason": "only one real product Runtime is proven; wait for a different second product"
+    },
+    {
+      "candidate": "automatic SMS business-card sending",
+      "reason": "recipient consent, OS permission, wrong-number, and advertising-message risk require user-triggered sharing"
+    }
+  ],
+  "verdict": "PASS_NO_ADDITIONAL_AUTOMATION"
+}

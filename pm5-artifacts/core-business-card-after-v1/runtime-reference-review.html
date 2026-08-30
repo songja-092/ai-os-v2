@@ -1,0 +1,94 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>전자명함 시각 Reference</title>
+<style>:root{--accent:#087a53;--ink:#172019;--line:#d8ddd9}*{box-sizing:border-box}body{margin:0;background:#f4f1eb;color:var(--ink);font-family:system-ui,sans-serif}button{font:inherit}main{max-width:1280px;margin:auto;padding:40px 24px}.top{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}h1{font-size:clamp(28px,4vw,52px);margin:0 0 12px}.lead{color:#57635b;margin:0}.refill{border:0;border-radius:10px;padding:14px 20px;background:#13251e;color:#fff;font-weight:800;white-space:nowrap;cursor:pointer}.refill:disabled{opacity:.55;cursor:wait}.status{min-height:24px;margin:10px 0 20px;color:#415248}.tabs{display:flex;gap:8px;margin-bottom:20px}.tabs button{border:1px solid #b7c2bc;background:white;border-radius:999px;padding:10px 16px;cursor:pointer}.tabs button[aria-selected=true]{background:#13251e;color:white;border-color:#13251e}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}.card{background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden}img{width:100%;height:360px;object-fit:contain;background:#edf1ee}.body{padding:20px}span{font-size:12px;color:var(--accent)}h2{font-size:20px}p{line-height:1.6}a{color:#075e43;font-weight:700}.card-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.decisions{display:flex;gap:5px}.decisions button{border:1px solid #c6d0ca;background:#fff;border-radius:7px;padding:7px 9px;cursor:pointer}.decisions button.active{background:#daf3e8;border-color:#087a53;color:#075e43;font-weight:800}.note{margin-top:28px;padding:18px;border-radius:12px;background:#fff4cc}.functional{display:none}.functional-list{display:grid;gap:12px}.functional article{background:white;border:1px solid var(--line);border-radius:14px;padding:18px}.functional h2{margin:0 0 8px}.functional p{margin:6px 0;color:#4d5a52}@media(max-width:640px){main{padding:24px 16px}.top{display:block}.refill{width:100%;margin-top:20px}img{height:300px}}</style></head>
+<body><main><div class="top"><div><h1>전자명함 Reference</h1><p class="lead">실제 화면과 출처를 수집한 PM4 증거입니다. 아직 시안·Visual Target·제품 적용이 아닙니다.</p></div><button class="refill" id="refill" type="button">추가 탐색</button></div>
+<p id="status" class="status" aria-live="polite"></p>
+<nav class="tabs" aria-label="자료 종류"><button type="button" data-tab="visual" aria-selected="true">디자인 참고 <b>7</b></button><button type="button" data-tab="functional" aria-selected="false">기능 참고</button></nav>
+<section id="visual" class="grid">
+        <article class="card" data-reference-id="ref-user-lawyer-card">
+          <img src="/pm4-visual-reference-images/ref-user-lawyer-card-3cc41f1caec3.png" alt="사용자 제공 한국 변호사 전자명함 Reference">
+          <div class="body"><span>user_provided</span>
+          <h2>사용자 제공 한국 변호사 전자명함</h2>
+          <p>인물 사진을 크게 보여주고 전문 분야, 소개, 연락 채널을 한 화면 흐름으로 연결한 한국형 전자명함입니다.</p>
+          <p><strong>참고할 부분</strong> · 큰 인물 사진 · 전문 분야 강조 · 연락 채널 묶음 · 어두운 편집형 구성</p>
+          <div class="card-actions"><a href="user-provided://electronic-card-lawyer-example" target="_blank" rel="noreferrer">원문 보기</a>
+          <div class="decisions" aria-label="Reference 판정">
+            <button type="button" data-decision="adopt">채택</button><button type="button" data-decision="hold">보류</button><button type="button" data-decision="discard">폐기</button>
+          </div></div></div>
+        </article>
+        <article class="card" data-reference-id="ref-slice">
+          <img src="/pm4-visual-reference-images/ref-slice-4647d4018f3e.png" alt="Slice 디지털 명함 Reference">
+          <div class="body"><span>korean_actual_service</span>
+          <h2>Slice 디지털 명함</h2>
+          <p>국내 NFC·QR 전자명함 서비스의 실제 제품 화면으로, 프로필 공유와 연락처 저장을 짧은 흐름으로 제공합니다.</p>
+          <p><strong>참고할 부분</strong> · NFC·QR 연결 · 프로필 공유 · 간결한 모바일 UI</p>
+          <div class="card-actions"><a href="https://home.myslice.is/" target="_blank" rel="noreferrer">원문 보기</a>
+          <div class="decisions" aria-label="Reference 판정">
+            <button type="button" data-decision="adopt">채택</button><button type="button" data-decision="hold">보류</button><button type="button" data-decision="discard">폐기</button>
+          </div></div></div>
+        </article>
+        <article class="card" data-reference-id="ref-korea-e-myprofile">
+          <img src="/pm4-visual-reference-images/e-myprofile-mobile.png" alt="e-myprofile 국내 디지털 명함 Reference">
+          <div class="body"><span>korean_actual_service_runtime_capture</span>
+          <h2>e-myprofile 국내 디지털 명함</h2>
+          <p>국내 디지털 명함 서비스의 모바일 첫 화면입니다. 큰 제목과 짧은 설명, 한 개의 분명한 시작 버튼으로 기능을 단계적으로 안내합니다.</p>
+          <p><strong>참고할 부분</strong> · 큰 한글 제목 · 넓은 여백 · 단일 주요 행동 · 단계형 기능 안내</p>
+          <div class="card-actions"><a href="https://www.e-myprofile.com/" target="_blank" rel="noreferrer">원문 보기</a>
+          <div class="decisions" aria-label="Reference 판정">
+            <button type="button" data-decision="adopt">채택</button><button type="button" data-decision="hold">보류</button><button type="button" data-decision="discard">폐기</button>
+          </div></div></div>
+        </article>
+        <article class="card" data-reference-id="ref-korea-modibic">
+          <img src="/pm4-visual-reference-images/modibic-mobile.png" alt="모디빅 국내 디지털 명함 Reference">
+          <div class="body"><span>korean_actual_service_runtime_capture</span>
+          <h2>모디빅 국내 디지털 명함</h2>
+          <p>실제 명함 앱 화면을 휴대폰 안에 보여주는 국내 서비스입니다. 브랜드 색상을 크게 사용하고 명함 카드와 사람 이미지를 함께 강조합니다.</p>
+          <p><strong>참고할 부분</strong> · 휴대폰 안 실제 명함 화면 · 강한 브랜드 색상 · 명함 카드 미리보기 · 인물과 제품 동시 강조</p>
+          <div class="card-actions"><a href="https://modibic.com/" target="_blank" rel="noreferrer">원문 보기</a>
+          <div class="decisions" aria-label="Reference 판정">
+            <button type="button" data-decision="adopt">채택</button><button type="button" data-decision="hold">보류</button><button type="button" data-decision="discard">폐기</button>
+          </div></div></div>
+        </article>
+        <article class="card" data-reference-id="ref-refill-r01-01">
+          <img src="/pm4-visual-reference-images/refill-r01-01-f343f821ccfc.png" alt="GCARD 사회복지·NGO 템플릿 Reference">
+          <div class="body"><span>korean_actual_service</span>
+          <h2>GCARD 사회복지·NGO 템플릿</h2>
+          <p>한국 전자명함 서비스가 사회복지·NGO 용도로 제공하는 실제 모바일 템플릿입니다.</p>
+          <p><strong>참고할 부분</strong> · 모바일 단일 화면 · 연락 행동 우선 · 한국 서비스 문법</p>
+          <div class="card-actions"><a href="https://gcard.kr/vcard-templates#vcard25" target="_blank" rel="noreferrer">원문 보기</a>
+          <div class="decisions" aria-label="Reference 판정">
+            <button type="button" data-decision="adopt">채택</button><button type="button" data-decision="hold">보류</button><button type="button" data-decision="discard">폐기</button>
+          </div></div></div>
+        </article>
+        <article class="card" data-reference-id="ref-refill-r01-02">
+          <img src="/pm4-visual-reference-images/refill-r01-02-f8dbb2eba92a.png" alt="GCARD 전문가 템플릿 Reference">
+          <div class="body"><span>korean_actual_service</span>
+          <h2>GCARD 전문가 템플릿</h2>
+          <p>전문직의 신뢰와 연락 기능을 한 화면에 정리한 국내 상용 전자명함 사례입니다.</p>
+          <p><strong>참고할 부분</strong> · 전문직 신뢰감 · 명확한 정보 계층 · 연락 버튼</p>
+          <div class="card-actions"><a href="https://gcard.kr/vcard-templates#vcard16" target="_blank" rel="noreferrer">원문 보기</a>
+          <div class="decisions" aria-label="Reference 판정">
+            <button type="button" data-decision="adopt">채택</button><button type="button" data-decision="hold">보류</button><button type="button" data-decision="discard">폐기</button>
+          </div></div></div>
+        </article>
+        <article class="card" data-reference-id="ref-refill-r01-03">
+          <img src="/pm4-visual-reference-images/refill-r01-03-641656a3f453.png" alt="BlueDot Cares 개인화 연결 페이지 Reference">
+          <div class="body"><span>global_actual_service</span>
+          <h2>BlueDot Cares 개인화 연결 페이지</h2>
+          <p>돌봄 서비스 종사자와 이용자를 개인화 페이지로 연결하는 실제 프로젝트로, 사회복지사 전자명함의 신뢰·안내 구조에 참고할 수 있습니다.</p>
+          <p><strong>참고할 부분</strong> · 돌봄 맥락 · 개인화 연결 · 친근한 신뢰 표현</p>
+          <div class="card-actions"><a href="https://www.iconification.com/projects/bluedot-cares" target="_blank" rel="noreferrer">원문 보기</a>
+          <div class="decisions" aria-label="Reference 판정">
+            <button type="button" data-decision="adopt">채택</button><button type="button" data-decision="hold">보류</button><button type="button" data-decision="discard">폐기</button>
+          </div></div></div>
+        </article></section><section id="functional" class="functional"><div id="functional-list" class="functional-list"><p>기능 자료를 불러오는 중입니다.</p></div></section>
+<p class="note">추가 탐색은 기존 자료와 판정을 지우지 않고, 검색 범위를 넓혀 중복되지 않은 새 후보 3~5개만 붙입니다. Instagram·Threads 로그인 자료는 아직 연결 대기입니다.</p></main>
+<script>const initial={"request_id": "core-business-card-after-v1", "decisions": {}, "refill": {"round": 1, "added_count": 3, "added_reference_ids": ["ref-refill-r01-01", "ref-refill-r01-02", "ref-refill-r01-03"], "queries": ["professional mobile profile", "personal link page portfolio", "digital vcard profile", "contact profile landing page", "professional bio link page"], "provider_failures": [], "deduplicated": [{"reference_id": "ref-blinq", "reason": "unsupported_image_for_visual_dedup"}], "dedup_methods": ["source_url", "sha256", "dhash_visual_similarity"], "decision_influence": {"adopted_traits": [], "discarded_traits": [], "excluded_url_count": 4}, "completed_at": "2026-08-28T12:14:02Z"}};const requestId=initial.request_id;const statusEl=document.querySelector('#status');
+function paintDecisions(decisions){document.querySelectorAll('[data-reference-id]').forEach(card=>{const value=decisions[card.dataset.referenceId];card.querySelectorAll('[data-decision]').forEach(button=>button.classList.toggle('active',button.dataset.decision===value));})}
+paintDecisions(initial.decisions||{});
+fetch('/api/pm4/visual-reference-ui-state?request_id='+encodeURIComponent(requestId)).then(response=>response.json()).then(data=>paintDecisions(data.decisions||{})).catch(()=>{});
+document.addEventListener('click',async event=>{const decision=event.target.closest('[data-decision]');if(decision){const card=decision.closest('[data-reference-id]');const active=decision.classList.contains('active');const payload={request_id:requestId,action:active?'visual-reference.decision.clear':'visual-reference.decision.set',reference_id:card.dataset.referenceId};if(!active)payload.decision=decision.dataset.decision;const response=await fetch('/api/pm4/visual-reference-ui-action',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});const data=await response.json();if(!response.ok){statusEl.textContent=data.error||'판정을 저장하지 못했습니다.';return}paintDecisions(data.state.decisions);statusEl.textContent='판정을 저장했습니다.';}
+const tab=event.target.closest('[data-tab]');if(tab){document.querySelectorAll('[data-tab]').forEach(button=>button.setAttribute('aria-selected',String(button===tab)));document.querySelector('#visual').style.display=tab.dataset.tab==='visual'?'grid':'none';document.querySelector('#functional').style.display=tab.dataset.tab==='functional'?'block':'none';}});
+document.querySelector('#refill').addEventListener('click',async event=>{const button=event.currentTarget;button.disabled=true;button.textContent='새 자료 찾는 중…';statusEl.textContent='기존 자료와 겹치지 않는 후보를 찾고 있습니다.';try{const response=await fetch('/api/pm4/visual-reference-ui-action',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({request_id:requestId,action:'visual-reference.refill'})});const data=await response.json();if(!response.ok)throw new Error(data.error||'추가 탐색에 실패했습니다.');const count=data.state.refill?.added_count||0;statusEl.textContent=`새 후보 ${count}개를 추가했습니다. 화면을 새로 불러옵니다.`;location.reload();}catch(error){statusEl.textContent=error.message;button.disabled=false;button.textContent='추가 탐색';}});
+fetch('/api/pm4/project-ui-state?request_id='+encodeURIComponent(requestId)).then(response=>response.json()).then(data=>{const list=document.querySelector('#functional-list');list.innerHTML=(data.items||[]).map(item=>`<article><h2>${item.direction_label}</h2><p>${item.direction_summary_ko}</p><p><strong>확인된 기능</strong> · ${(item.capabilities||[]).join(' · ')}</p><a href="${item.url}" target="_blank" rel="noreferrer">구현 자료 보기</a></article>`).join('')||'<p>연결된 기능 자료가 없습니다.</p>';}).catch(()=>{document.querySelector('#functional-list').innerHTML='<p>기능 자료를 불러오지 못했습니다. 디자인 자료는 그대로 사용할 수 있습니다.</p>';});
+</script></body></html>

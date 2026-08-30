@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+from importlib.machinery import SourceFileLoader
+import json
+import sys
+import tempfile
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+module = SourceFileLoader("v2_runtime", str(ROOT / "v2")).load_module()
+
+checks = {}
+with tempfile.TemporaryDirectory(prefix="v2-card-content-") as directory:
+    root = Path(directory)
+    (root / "state").mkdir()
+    initial = module.default_electronic_card_state()
+    module.write_json_atomic(root / module.ELECTRONIC_CARD_STATE_RELATIVE_PATH, initial)
+    profile = dict(initial["profile"])
+    profile.update({"name": "검증 사용자", "about_body": "Core 저장 검증 소개", "social_label": "연결 채널"})
+    careers = [
+        {"period": "2018.02 ~ 2020.01", "title": "이전 기관", "description": "이전 경력"},
+        {"period": "2025.03 ~ 현재", "title": "검증 기관", "description": "제품 내용 Runtime 검증"},
+        {"period": "2021.11 ~ 2024.12", "title": "중간 기관", "description": "중간 경력"},
+    ]
+    order = ["email", "call", "sms", "website", "social", "share"]
+    updated = module.apply_electronic_card_action(root, {
+        "request_id": module.ELECTRONIC_CARD_REQUEST_ID,
+        "action": "content.update", "profile": profile, "careers": careers, "action_order": order,
+    })
+    checks["all_fields_saved"] = updated["profile"] == profile
+    checks["career_auto_sorted"] = [item["title"] for item in updated["careers"]] == ["검증 기관", "중간 기관", "이전 기관"]
+    checks["action_order_saved"] = updated["action_order"] == order
+    reloaded = module.load_electronic_card_state(root)
+    checks["restart_reload"] = reloaded["profile"]["name"] == "검증 사용자" and reloaded["action_order"] == order
+    added = module.apply_electronic_card_action(root, {
+        "request_id": module.ELECTRONIC_CARD_REQUEST_ID, "action": "career.add",
+        "career": {"period": "2026.01 ~ 현재", "title": "최신 기관", "description": "추가 경력"},
+    })
+    checks["single_career_add"] = added["careers"][0]["title"] == "최신 기관" and len(added["careers"]) == 4
+    restored = module.apply_electronic_card_action(root, {
+        "request_id": module.ELECTRONIC_CARD_REQUEST_ID, "action": "content.restore",
+    })
+    checks["restore"] = restored["profile"] == profile and restored["careers"][0]["title"] == "검증 기관"
+    checks["failure_history_preserved"] = len(updated["content_versions"]) == 1
+
+    minimal_profile = dict(restored["profile"])
+    for field in (
+        "organization", "eyebrow", "intro", "about_body", "services",
+        "consultation_label", "consultation_url", "phone", "email",
+        "social_label", "social_url", "website_label", "website_url",
+        "share_intro", "nfc_message",
+    ):
+        minimal_profile[field] = ""
+    minimal_profile.update({"name": "기본 사용자", "role": "직책"})
+    minimal = module.apply_electronic_card_action(root, {
+        "request_id": module.ELECTRONIC_CARD_REQUEST_ID,
+        "action": "content.update", "profile": minimal_profile,
+        "careers": [], "action_order": order,
+    })
+    checks["optional_intro_and_careers"] = (
+        minimal["profile"]["name"] == "기본 사용자"
+        and minimal["profile"]["role"] == "직책"
+        and minimal["profile"]["about_body"] == ""
+        and minimal["careers"] == []
+    )
+
+result = {"verifier": "verify-electronic-card-content-runtime", "evidence_level": "isolated_runtime_fixture", "checks": checks, "verdict": "PASS" if all(checks.values()) else "BLOCKED"}
+print(json.dumps(result, ensure_ascii=False, indent=2))
+sys.exit(0 if all(checks.values()) else 2)

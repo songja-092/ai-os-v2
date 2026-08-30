@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "contract_id": "electronic-business-card-product-contract-v1",
+  "project_type": "electronic_business_card",
+  "status": "approved_locked",
+  "source_evidence": {
+    "interview_receipt": "state/pm5-intent-state.json",
+    "research_artifacts": [
+      "pm4-artifacts/project-collector-mvp-v1/electronic-card-design-handoff.json",
+      "pm4-artifacts/project-collector-mvp-v1/electronic-card-design-dna.json"
+    ],
+    "approved_references": [
+      "pm5-artifacts/electronic-business-card-v1/draft-design-recipe.json",
+      "pm5-artifacts/electronic-business-card-v1/screen-9-completion-visual-target.json"
+    ]
+  },
+  "user_outcomes": [
+    "사진이 있거나 없어도 완성된 전자명함을 사용",
+    "프로필·소개·경력·연락 방법을 직접 편집",
+    "전화·문자·이메일·웹·소셜·QR·NFC로 공유",
+    "테마를 미리 보고 변경한 뒤 모든 화면에 동일하게 적용"
+  ],
+  "content_fields": [
+    {"id": "name", "label": "이름", "type": "text", "required": true, "user_visible": true, "editable": true, "screens": ["profile", "about", "editor", "completion"], "empty_behavior": "저장 차단", "max_length": 40},
+    {"id": "role", "label": "직책·역할", "type": "text", "required": true, "user_visible": true, "editable": true, "screens": ["profile", "about", "editor", "completion"], "empty_behavior": "저장 차단", "max_length": 60},
+    {"id": "organization", "label": "기관·소속", "type": "text", "required": false, "user_visible": true, "editable": true, "screens": ["profile", "about", "editor"], "empty_behavior": "해당 줄 숨김", "max_length": 80},
+    {"id": "portrait", "label": "인물 사진", "type": "image", "required": false, "user_visible": true, "editable": true, "screens": ["profile", "about", "editor", "completion"], "empty_behavior": "사진 영역을 제거한 글자 중심 Layout"},
+    {"id": "eyebrow", "label": "대표 문구", "type": "text", "required": false, "user_visible": true, "editable": true, "screens": ["profile", "about"], "empty_behavior": "문구 영역 숨김", "max_length": 60},
+    {"id": "short_intro", "label": "짧은 소개", "type": "long_text", "required": false, "user_visible": true, "editable": true, "screens": ["profile", "editor"], "empty_behavior": "소개 영역 숨김", "max_length": 120},
+    {"id": "about_body", "label": "상세 소개", "type": "long_text", "required": false, "user_visible": true, "editable": true, "screens": ["about"], "empty_behavior": "소개 Section 숨김", "max_length": 1000},
+    {"id": "career_entries", "label": "주요 경력", "type": "list", "required": false, "user_visible": true, "editable": true, "screens": ["about"], "empty_behavior": "경력 Section 숨김"},
+    {"id": "services", "label": "전문 분야·서비스", "type": "list", "required": false, "user_visible": true, "editable": true, "screens": ["profile", "about", "editor"], "empty_behavior": "서비스 문구 숨김"},
+    {"id": "consultation_label", "label": "상담 버튼 문구", "type": "text", "required": false, "user_visible": true, "editable": true, "screens": ["about", "editor"], "empty_behavior": "상담 버튼 숨김", "max_length": 40},
+    {"id": "consultation_url", "label": "상담 주소", "type": "url", "required": false, "user_visible": false, "editable": true, "screens": ["about", "editor"], "empty_behavior": "상담 버튼 숨김"},
+    {"id": "phone", "label": "전화번호", "type": "phone", "required": false, "user_visible": true, "editable": true, "screens": ["profile", "editor", "completion"], "empty_behavior": "전화·문자 행동 숨김"},
+    {"id": "email", "label": "이메일", "type": "email", "required": false, "user_visible": true, "editable": true, "screens": ["profile", "editor", "completion"], "empty_behavior": "이메일 행동 숨김"},
+    {"id": "social_label", "label": "소셜 이름", "type": "text", "required": false, "user_visible": true, "editable": true, "screens": ["profile", "editor"], "empty_behavior": "소셜 행동 숨김", "max_length": 30},
+    {"id": "social_url", "label": "소셜 주소", "type": "url", "required": false, "user_visible": false, "editable": true, "screens": ["profile", "editor"], "empty_behavior": "소셜 행동 숨김"},
+    {"id": "website_label", "label": "웹사이트 이름", "type": "text", "required": false, "user_visible": true, "editable": true, "screens": ["profile", "editor"], "empty_behavior": "웹사이트 행동 숨김", "max_length": 30},
+    {"id": "website_url", "label": "웹사이트 주소", "type": "url", "required": false, "user_visible": false, "editable": true, "screens": ["profile", "editor"], "empty_behavior": "웹사이트 행동 숨김"},
+    {"id": "nfc_message", "label": "NFC 안내", "type": "text", "required": false, "user_visible": true, "editable": true, "screens": ["share"], "empty_behavior": "NFC 안내 숨김", "max_length": 80},
+    {"id": "qr_asset", "label": "QR 코드", "type": "image", "required": true, "user_visible": true, "editable": false, "system_generated_reason": "Core가 현재 명함 URL에서 생성하며 사용자가 임의 이미지로 바꾸면 연결이 깨짐", "screens": ["share"], "empty_behavior": "생성 실패를 표시하고 공유 완료 차단"},
+    {"id": "theme_palette", "label": "테마 Palette", "type": "color", "required": true, "user_visible": true, "editable": true, "screens": ["profile", "about", "share", "editor", "completion"], "empty_behavior": "검증된 기본 Palette 사용"}
+  ],
+  "screens": [
+    {"id": "profile", "purpose": "방문자에게 사람·역할·연락 행동을 즉시 표시", "content": ["name", "role", "organization", "portrait", "eyebrow", "short_intro", "services", "phone", "email", "social_label", "social_url", "website_label", "website_url", "theme_palette"], "required_actions": ["save_contact", "call", "sms", "email", "social", "website", "open_share"], "empty_state": "사진과 선택 연락처가 없어도 이름·역할 중심 명함 유지"},
+    {"id": "about", "purpose": "상세 소개와 경력 제공", "content": ["name", "role", "organization", "portrait", "eyebrow", "about_body", "career_entries", "services", "consultation_label", "consultation_url", "theme_palette"], "required_actions": ["open_consultation"], "empty_state": "비어 있는 선택 Section은 제거하고 남은 정보의 간격 재배치"},
+    {"id": "share", "purpose": "QR·NFC 공유", "content": ["nfc_message", "qr_asset", "theme_palette"], "required_actions": ["native_share", "download_qr"], "empty_state": "QR 생성 실패 원인과 재시도 표시"},
+    {"id": "editor", "purpose": "명함 소유자가 기본 정보·연락 방법·Palette를 편집", "content": ["name", "role", "organization", "portrait", "short_intro", "services", "consultation_label", "consultation_url", "phone", "email", "social_label", "social_url", "website_label", "website_url", "theme_palette"], "required_actions": ["save", "restore", "remove_optional_field"], "empty_state": "필수값과 선택값을 구분해 안내"},
+    {"id": "completion", "purpose": "저장 후 전체 결과 확인", "content": ["name", "role", "portrait", "phone", "email", "theme_palette"], "required_actions": ["open_profile", "continue_editing"], "empty_state": "저장 실패 원인과 편집 복귀 제공"}
+  ],
+  "state_matrix": {
+    "content_lengths": ["empty", "short", "normal", "long", "extreme"],
+    "content_presence": ["complete", "optional_missing", "required_missing"],
+    "assets": ["photo_absent", "id_portrait", "upper_body", "full_body", "landscape", "low_resolution", "transparent_png"],
+    "viewports": ["320x568", "390x844", "768x1024", "1100x900"],
+    "themes": ["light", "dark", "custom_valid", "custom_low_contrast"],
+    "interaction_states": ["initial", "edited", "saved", "restored", "validation_error", "asset_error"]
+  },
+  "asset_rules": {
+    "original_preserved": true,
+    "missing_asset_fallback": "인물 공간을 남기지 않는 글자·정보 중심 Layout",
+    "quality_gate": ["MIME", "EXIF 방향", "최소 해상도", "비율", "Alpha 가장자리", "전경 면적", "인물 잘림", "배경 대비"],
+    "runtime_variants": ["mobile_portrait", "desktop_portrait", "photo_absent"]
+  },
+  "theme_rules": {
+    "semantic_tokens": ["page_background", "surface", "primary_text", "secondary_text", "accent", "accent_text", "border", "portrait_backdrop", "panel", "focus"],
+    "contrast_gate": true,
+    "all_screens_apply": true,
+    "restore_required": true
+  },
+  "acceptance_gates": [
+    {"id": "contract_complete", "classification": "contract", "automatable": true, "pass_condition": "모든 화면·콘텐츠·빈 상태가 Schema와 의미 검사를 통과"},
+    {"id": "no_hardcoded_product_content", "classification": "contract", "automatable": true, "pass_condition": "사용자 제품 콘텐츠가 단일 Core 데이터에서 렌더링"},
+    {"id": "state_matrix_runtime", "classification": "runtime", "automatable": true, "pass_condition": "대표 입력 Matrix가 모든 화면·Viewport에서 동작"},
+    {"id": "visual_regression", "classification": "visual", "automatable": true, "pass_condition": "승인 기준과 비교해 잘림·겹침·의도하지 않은 차이 없음"},
+    {"id": "restore", "classification": "runtime", "automatable": true, "pass_condition": "저장·재열기·이전 Version 복원"},
+    {"id": "final_user_approval", "classification": "human_approval", "automatable": false, "pass_condition": "사용자가 실제 화면 최종 승인"}
+  ],
+  "approval": {
+    "product_scope": "approved",
+    "visual_target": "approved",
+    "final_result": "approved"
+  }
+}

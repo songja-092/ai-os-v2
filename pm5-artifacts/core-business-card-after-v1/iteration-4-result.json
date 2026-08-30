@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "iteration": 4,
+  "stage": "domestic_visual_reuse",
+  "technical_result": "PASS",
+  "quality_result": "FAIL",
+  "failure_reason": "기존 GCARD 두 항목의 제목·설명과 저장된 화면 이미지가 일치하지 않음",
+  "repair": "불일치 항목을 Gallery에서 제외하고 현재 공개된 국내 서비스 모바일 화면을 다시 캡처·Hash 고정",
+  "blocked_reference_ids": ["ref-gcard-social", "ref-gcard-professional"],
+  "user_selection_requested": false
+}

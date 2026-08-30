@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "21st-codex-plugin",
+  "source": "https://github.com/21st-dev/codex-plugin",
+  "source_class": "public_github",
+  "prepared_at": "2026-08-20T11:59:06.191330+00:00",
+  "source_commit": "df9d8c7a5c64cdf7e107e336fa8c129ede02ca20",
+  "source_sha256": "c00464cb12a8101f375c6bb551038c678915c25027bca22b2ed06a6677ae4e65",
+  "status": "static_reviewed",
+  "private_project_mounted": false,
+  "audit": {
+    "scanned_text_files": 8,
+    "findings": [
+      {
+        "risk": "home_access",
+        "file": "README.md",
+        "match_count": 1
+      },
+      {
+        "risk": "home_access",
+        "file": "skills/21st-cli-use/SKILL.md",
+        "match_count": 1
+      }
+    ],
+    "package_lifecycle_scripts": {},
+    "license_files": [
+      "LICENSE"
+    ],
+    "automatic_execution_allowed": false,
+    "note": "Findings require review; absence of a match is not a security guarantee."
+  },
+  "trials": [],
+  "fixture": {
+    "path_in_sandbox": "/work/fixture/index.html",
+    "contains_private_project_data": false,
+    "created_at": "2026-08-20T11:59:16.636084+00:00"
+  }
+}

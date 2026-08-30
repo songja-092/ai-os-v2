@@ -1,0 +1,80 @@
+.workspace-stage.mode-auto {
+  grid-template-columns: minmax(0, 1fr) 300px;
+}
+
+.result-card[data-text-fit="balanced"] h2 {
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+.result-card[data-text-fit="balanced"] p {
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+  word-break: keep-all;
+}
+
+.auto-panel > p {
+  margin: 0;
+  color: #53675f;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.auto-panel ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+  color: #40564e;
+  font-size: 13px;
+}
+
+.auto-apply {
+  min-height: 46px;
+  border: 0;
+  border-radius: 9px;
+  color: #fff;
+  background: #007c50;
+  font-weight: 800;
+}
+
+.auto-apply:hover {
+  background: #006b45;
+}
+
+.result-card {
+  --card-secondary: #f1a35b;
+  --card-surface: #fff;
+  --card-text: #10251f;
+  display: grid;
+  color: var(--card-text);
+  background: var(--card-surface);
+}
+
+.result-card[data-palette-mode="twoTone"]::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 36%;
+  height: 8px;
+  content: "";
+  background: var(--card-secondary);
+}
+
+.result-card.has-image { grid-template-columns: minmax(96px, 32%) 1fr; }
+.result-card__image { min-width: 0; height: 100%; overflow: hidden; background: color-mix(in srgb, var(--card-accent) 12%, #fff); }
+.result-card__image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.result-card__content { position: relative; min-width: 0; }
+.result-card h2 { color: var(--card-text); }
+.result-card p { color: color-mix(in srgb, var(--card-text) 72%, #fff); }
+.result-card__footer span { color: var(--card-accent); }
+.result-card__footer button { border-color: color-mix(in srgb, var(--card-accent) 32%, #fff); color: var(--card-text); }
+
+.property-panel { gap: 15px; max-height: calc(100vh - 190px); overflow: auto; }
+.palette-mode { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.palette-mode button, .palette-auto, .image-remove { min-height: 38px; border: 1px solid #c6d6d0; border-radius: 8px; color: #18362c; background: #fff; }
+.palette-mode button.active { border-color: #00885a; color: #00633f; background: #e3f7ef; font-weight: 800; }
+.palette-auto { border-color: #00885a; color: #fff; background: #007c50; font-weight: 800; }
+.image-slot input[type="file"] { width: 100%; padding: 8px; border: 1px dashed #a8c2b8; border-radius: 8px; background: #f7faf9; font-size: 12px; }
+.image-remove { color: #8e2c13; }

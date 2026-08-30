@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "project_id": "electronic-business-card",
+  "intent_packet_version": 4,
+  "original_request": "전자명함을 만들 거야",
+  "answers": {
+    "person_name": "김하은",
+    "organization": "행복마을종합사회복지관",
+    "job_title": "사회복지사",
+    "portrait_asset": "fixtures/pm5/social-worker-profile.jpg",
+    "phone": "010-1234-5678",
+    "email": "haeun.kim@example.invalid",
+    "kakao_or_social": "https://example.invalid/haeun",
+    "website": "https://example.invalid/happy-welfare",
+    "theme_color": "라임 그린과 검정",
+    "delivery_scope": "모바일 링크·QR·NFC"
+  },
+  "build_scope": [
+    "방문자용 프로필과 소개·경력",
+    "QR·NFC 공유",
+    "연락처 저장과 성공·실패 상태",
+    "전화·문자·이메일·카카오/SNS·웹사이트 외부 연결",
+    "소유자용 프로필·사진·테마·행동 순서 편집",
+    "모바일과 PC 화면"
+  ],
+  "preserve_scope": [
+    "PM4에서 승인한 direction-2 디자인 방향",
+    "원본 사진 보존과 얼굴 자동 변형 금지",
+    "외부 앱 화면을 V2가 복제하지 않는 연결 방식"
+  ],
+  "excluded_scope": [
+    "회원가입·결제·방문자 통계",
+    "자동 메시지 발송",
+    "사용자 승인 없는 외부 업로드",
+    "실제 제품 구현·배포"
+  ],
+  "acceptance_checks": [
+    "필수 개인정보와 자산이 모두 제공됨",
+    "PM4 승인 Visual Target과 화면 목록이 일치함",
+    "연락 행동별 성공·실패 상태가 명세에 포함됨",
+    "사용자가 제작 범위를 승인함",
+    "승인 전 구현 전달이 차단됨"
+  ],
+  "source_contract": {
+    "handoff_path": "pm4-artifacts/project-collector-mvp-v1/electronic-card-design-handoff.json",
+    "handoff_sha256": "974d00ea3d7ec41d69430562514c1aee7942d8afe215340686f49d4fe9a00e2e",
+    "visual_target_path": "pm4-artifacts/project-collector-mvp-v1/design-candidates/direction-2-full-flow-visual-target.png",
+    "visual_target_sha256": "053735a40d6cf9c65396ba871885409e6c0a30cf963591512267524dbcd40748",
+    "selected_direction_id": "direction-2",
+    "required_screens": [
+      "main_profile",
+      "introduction_and_career",
+      "qr_nfc_share",
+      "contact_save_preview_success_failure",
+      "external_contact_handoff_success_unavailable",
+      "owner_profile_editor",
+      "portrait_auto_correction_and_manual_crop",
+      "theme_and_action_order_editor"
+    ],
+    "portrait_contract": {
+      "original_preserved": true,
+      "type_specific_layout": true,
+      "separate_mobile_desktop_crop": true,
+      "manual_adjustment": true,
+      "default_face_alteration": false
+    }
+  },
+  "status": "approved_spec_ready_for_separate_implementation",
+  "implementation_performed": false,
+  "product_changed": false
+}

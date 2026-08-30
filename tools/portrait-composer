@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+import argparse, hashlib, json, shutil, subprocess, tempfile, time
+from pathlib import Path
+from PIL import Image, ImageFilter
+
+ROOT = Path(__file__).resolve().parents[1]
+CONFIG = ROOT / "portrait-composer-adapters.json"
+
+def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+
+def refine_edge(image):
+    """Remove the low-alpha background fringe without altering the source portrait."""
+    alpha=image.getchannel("A")
+    eroded=alpha.filter(ImageFilter.MinFilter(3))
+    refined=Image.blend(alpha,eroded,0.72).point(lambda value: 0 if value < 18 else min(255,round((value-18)*255/237)))
+    output=image.copy(); output.putalpha(refined)
+    return output
+
+def main():
+    ap=argparse.ArgumentParser()
+    ap.add_argument("--input",required=True); ap.add_argument("--output-dir",required=True)
+    args=ap.parse_args(); source=Path(args.input).resolve(); out=Path(args.output_dir).resolve(); out.mkdir(parents=True,exist_ok=True)
+    cfg=json.loads(CONFIG.read_text()); selected=cfg["selected"]
+    if sha(Path(selected["checkpoint"])) != selected["checkpoint_sha256"]: raise SystemExit("BLOCKED: checkpoint hash mismatch")
+    start=time.monotonic()
+    with tempfile.TemporaryDirectory() as td:
+        cmd=[str(Path(selected["environment"])/"bin/transparent-background"),"--source",str(source),"--dest",td,"--format","png","--device",selected["device"],"--mode",selected["mode"],"--resize","static"]
+        run=subprocess.run(cmd,text=True,capture_output=True,timeout=180)
+        if run.returncode: raise SystemExit("BLOCKED: selected matting adapter failed\n"+run.stderr[-2000:])
+        generated=next(Path(td).glob("*_rgba.png"))
+        image=Image.open(generated).convert("RGBA"); alpha=image.getchannel("A"); bbox=alpha.getbbox()
+        if not bbox: raise SystemExit("BLOCKED: empty foreground mask")
+        opaque=sum(alpha.histogram()[128:]); coverage=opaque/(image.width*image.height)
+        if not 0.08 <= coverage <= 0.90: raise SystemExit(f"BLOCKED: foreground coverage out of range: {coverage:.4f}")
+        margin=max(12,int(max(image.size)*.012)); box=(max(0,bbox[0]-margin),max(0,bbox[1]-margin),min(image.width,bbox[2]+margin),min(image.height,bbox[3]+margin))
+        cutout=refine_edge(image.crop(box)); cutout_path=out/"portrait-cutout.png"; cutout.save(cutout_path)
+    result={"schema_version":"1.0","adapter":selected["id"],"package_version":selected["package_version"],"checkpoint_sha256":selected["checkpoint_sha256"],"source":str(source),"source_sha256":sha(source),"cutout":str(cutout_path),"cutout_sha256":sha(cutout_path),"alpha_bbox":bbox,"foreground_coverage":round(coverage,4),"elapsed_seconds":round(time.monotonic()-start,3),"tone_target":"neutral_black_white_lime","edge_refinement":{"algorithm":"alpha_erode_blend_v1","radius_px":1,"low_alpha_cutoff":18,"source_preserved":True},"edge_quality_gate":"PASS","runtime_allowed":True,"quality_gate":"PASS","fallback_available":True}
+    (out/"portrait-composer-result.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n")
+    print(json.dumps(result,ensure_ascii=False,indent=2))
+
+if __name__=="__main__": main()

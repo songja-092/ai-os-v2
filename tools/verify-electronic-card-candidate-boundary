@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+import json
+import hashlib
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+CONTRACT = ROOT / "pm5-artifacts/electronic-business-card-v1/design-candidate-generation-contract-v2.json"
+RUN = ROOT / "state/official-design-runs/run-electronic-card-personalized-v2.json"
+
+
+def eligible(candidate, contract):
+    invariants = contract["required_product_invariants"]
+    scores = contract["registration_gate"]["minimum_scores"]
+    return (
+        candidate.get("surface") == invariants["surface"]
+        and set(invariants["first_viewport"]).issubset(candidate.get("first_viewport", []))
+        and set(invariants["required_actions"]).issubset(candidate.get("actions", []))
+        and set(invariants["owner_editable"]).issubset(candidate.get("owner_editable", []))
+        and candidate.get("portrait_identity_preserved") is True
+        and not set(candidate.get("drift", []))
+        and len(set(candidate.get("changed_axes", []))) >= contract["diversity_rule"]["minimum_changed_axes_per_candidate_pair"]
+        and all(candidate.get("scores", {}).get(name, 0) >= minimum for name, minimum in scores.items())
+    )
+
+
+def main():
+    contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
+    run = json.loads(RUN.read_text(encoding="utf-8"))
+    required = contract["required_product_invariants"]
+    base = {
+        "surface": required["surface"],
+        "first_viewport": required["first_viewport"],
+        "actions": required["required_actions"],
+        "owner_editable": required["owner_editable"],
+        "portrait_identity_preserved": True,
+        "drift": [],
+        "changed_axes": ["layout_structure", "portrait_placement"],
+        "scores": {"product_fit": 5, "usability": 4, "visual_finish": 4, "reference_alignment": 4}
+    }
+    poster = {**base, "surface": "visual_poster", "actions": [], "drift": ["poster_without_product_controls"]}
+    recolor = {**base, "changed_axes": ["color_strategy"]}
+    outputs = run.get("outputs", [])
+    output_hashes = []
+    for item in outputs:
+        path = ROOT / item.get("image_path", "")
+        output_hashes.append(hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None)
+    checks = {
+        "ten_candidate_contract": contract.get("candidate_count") == 10 and len(contract.get("candidate_families", [])) == 10,
+        "approved_sources_first": contract.get("source_priority", [])[:3] == ["approved_reference_set", "approved_design_dna", "approved_visual_target"],
+        "usable_candidate_passes": eligible(base, contract),
+        "poster_drift_blocked": not eligible(poster, contract),
+        "color_only_difference_blocked": not eligible(recolor, contract),
+        "personalization_not_theme_only": contract.get("personalization_contract", {}).get("theme_color_only_is_unique") is False,
+        "five_run_outputs_registered": len(outputs) == 5 and len({item.get("family") for item in outputs}) == 5,
+        "run_output_hashes_match": all(value and value == item.get("sha256") for value, item in zip(output_hashes, outputs)),
+        "same_run_exact_duplicates_blocked": len(set(output_hashes)) == len(output_hashes),
+        "selection_does_not_apply_product": run.get("product_changed") is False and run.get("user_approval") == "pending",
+        "single_fixture_not_generalized": contract.get("generalized_runtime_proven") is False,
+    }
+    failed = [name for name, passed in checks.items() if not passed]
+    print(json.dumps({"verifier": "verify-electronic-card-candidate-boundary", "checks": checks, "verdict": "PASS" if not failed else "BLOCKED", "failed": failed}, ensure_ascii=False, indent=2))
+    return 0 if not failed else 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+"""Verify the request-specific Core design harness without changing repository state."""
+
+from __future__ import annotations
+
+import json
+import runpy
+import shutil
+import tempfile
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+CORE = runpy.run_path(str(ROOT / "v2"), run_name="core_design_harness_verifier")
+
+
+def main() -> int:
+    checks: dict[str, bool] = {}
+    source = (ROOT / "v2").read_text(encoding="utf-8")
+    generate_block = source[source.index("def run_ui_ux_pro_max"):source.index("def cmd_design_show")]
+    checks["design_generator_not_hospital_fixed"] = all(
+        phrase not in generate_block.lower()
+        for phrase in ("community hospital", "professional medical center", "clinician profiles")
+    )
+    base_path = ROOT / CORE["CORE_DESIGN_HARNESS_BASE_COLLECTION"]
+    domestic_path = ROOT / CORE["CORE_DESIGN_HARNESS_DOMESTIC_COLLECTION"]
+    runtime_path = ROOT / CORE["CORE_DESIGN_HARNESS_RUNTIME_COLLECTION"]
+    runtime = json.loads(runtime_path.read_text(encoding="utf-8"))
+    history = runtime.get("refill_history", [])
+    checks["refill_invoked_discovery_runtime"] = bool(
+        history and history[-1].get("added_count", 0) >= 3 and history[-1].get("queries")
+    )
+    checks["refill_records_dedup_and_failures"] = bool(
+        history and history[-1].get("dedup_methods") == ["source_url", "sha256", "dhash_visual_similarity"]
+    )
+    review = (ROOT / "pm5-artifacts/core-business-card-after-v1/core-reference-review.html").read_text(encoding="utf-8")
+    checks["review_uses_core_api"] = "/api/core-design-harness/ui-state" in review and "/api/core-design-harness/ui-action" in review
+    dna_path = ROOT / CORE["CORE_DESIGN_HARNESS_DNA"]
+    target_path = ROOT / CORE["CORE_DESIGN_HARNESS_TARGET"]
+    pilot_path = ROOT / CORE["CORE_DESIGN_HARNESS_PM5_PILOT"]
+    dna = json.loads(dna_path.read_text(encoding="utf-8"))
+    pilot = json.loads(pilot_path.read_text(encoding="utf-8"))
+    candidate_manifest = json.loads((ROOT / CORE["CORE_DESIGN_HARNESS_CANDIDATES"]).read_text(encoding="utf-8"))
+    checks["adopted_reference_drives_design_dna"] = dna.get("adopted_reference_ids") == ["ref-slice"]
+    checks["five_distinct_directions_registered"] = (
+        len(candidate_manifest.get("candidates", [])) == 5
+        and len({item["sha256"] for item in candidate_manifest["candidates"]}) == 5
+        and all(item.get("screen_scope") == "main_profile_only" for item in candidate_manifest["candidates"])
+    )
+    current = CORE["core_design_harness_ui_state"](str(ROOT))
+    checks["premature_full_flow_not_active"] = (
+        current.get("next_gate") == "user_design_direction_selection"
+        and current.get("pm5_pilot") is None
+        and candidate_manifest.get("premature_full_flow_target", {}).get("status") == "excluded_failed_sequence_evidence"
+    )
+
+    with tempfile.TemporaryDirectory(prefix="core-design-harness-") as temp:
+        trial = Path(temp)
+        for source in (base_path, domestic_path):
+            target = trial / source.relative_to(ROOT)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
+        initial = CORE["core_design_harness_ui_state"](str(trial))
+        checks["korean_visuals_are_initial_sources"] = (
+            len(initial["items"]) == 4
+            and all(item["region"] == "korea" for item in initial["items"])
+            and initial["refill_round"] == 0
+            and {item["reference_id"] for item in initial["items"]}.isdisjoint(
+                {"ref-gcard-social", "ref-gcard-professional"}
+            )
+        )
+        selected_id = initial["items"][0]["reference_id"]
+        selected = CORE["apply_core_design_harness_action"](str(trial), {
+            "request_id": initial["request_id"],
+            "action": "core-design.reference.adopt",
+            "reference_id": selected_id,
+        })
+        reloaded = CORE["core_design_harness_ui_state"](str(trial))
+        checks["selection_persists_in_core_state"] = (
+            selected_id in selected["adopted_reference_ids"]
+            and selected_id in reloaded["adopted_reference_ids"]
+            and reloaded["selection_records"][-1]["selected_by"] == "user"
+        )
+        checks["refill_appends_without_replacing"] = (
+            len(runtime.get("items", [])) >= 7
+            and {"ref-user-lawyer-card", "ref-slice", "ref-korea-e-myprofile", "ref-korea-modibic"}
+            .issubset({item["reference_id"] for item in runtime["items"]})
+        )
+        checks["selection_does_not_implement"] = (
+            reloaded["design_dna_created"] is False
+            and reloaded["visual_target_created"] is False
+            and reloaded["implementation_allowed"] is False
+            and reloaded["product_changed"] is False
+        )
+
+    failed = [name for name, passed in checks.items() if not passed]
+    print(json.dumps({
+        "tool": "verify-core-design-harness",
+        "evidence_level": "request_specific_core_runtime_fixture",
+        "verdict": "PASS" if not failed else "BLOCKED",
+        "checks": checks,
+        "failed": failed,
+        "limitations": [
+            "사용자 Reference 선택 전 Design DNA와 Visual Target은 실행하지 않음",
+            "전자명함 한 요청의 증거이며 범용 디자인 Core 증거가 아님",
+            "현재 공개 검색 공급원 범위 안의 동적 Refill 증거임",
+        ],
+    }, ensure_ascii=False, indent=2))
+    return 0 if not failed else 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

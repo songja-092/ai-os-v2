@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "status": "user_confirmed",
+  "user_confirmed": true,
+  "original_request": "현재 전자명함과 다른 버전을 Core가 처음부터 제작해 사진·여백·QR·테마 문제를 스스로 막는지 시험한다.",
+  "project_type": "electronic_business_card",
+  "answers": {
+    "profession": "사회복지사",
+    "photo_variants": ["전신", "가로"],
+    "theme": "라임 제외, 따뜻한 중립색",
+    "required_actions": ["연락처 저장", "전화", "문자", "이메일", "카카오톡", "웹사이트", "QR·NFC"],
+    "required_viewports": [390, 430, 1440],
+    "candidate_count": 3
+  },
+  "preserve": [
+    "기존 전자명함 Before Artifact",
+    "PM4 잠금 파일",
+    "사용자 Dirty 변경"
+  ],
+  "implementation_allowed": false
+}

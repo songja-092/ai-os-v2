@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "status": "core_extracted_from_user_adopted_references",
+  "adopted_reference_ids": [
+    "ref-slice"
+  ],
+  "reference_hashes": {
+    "ref-slice": "4647d4018f3e2b002769716ba43b5bcab77f2040aca6258dc2bba048fe1ac348"
+  },
+  "design_dna": {
+    "structure": "인물 사진을 첫 화면의 중심에 두고 이름·역할·핵심 연락 행동을 바로 이어서 배치",
+    "information_density": "첫 화면은 낮은 밀도, 소개·경력·공유·편집은 각각 독립 화면으로 분리",
+    "typography": "큰 한글 이름과 명확한 역할 위계, 짧은 본문과 큰 터치 라벨",
+    "color": "정치 명함처럼 보이는 강한 단일색을 피한 따뜻한 중립색과 제한된 녹색 강조",
+    "space": "인물과 주요 행동 주변에 넓은 여백, QR과 회색 배경의 대칭 정렬",
+    "component_shape": "과도한 카드 중첩 없이 얇은 경계와 중간 반경, 큰 연락 행동",
+    "motion": "저장·연결 결과와 화면 전환에만 짧은 피드백"
+  },
+  "use": [
+    "큰 인물",
+    "NFC·QR 연결",
+    "프로필 공유",
+    "간결한 모바일 UI",
+    "충분한 여백"
+  ],
+  "exclude": [
+    "Slice 브랜드 복제",
+    "원문 문구",
+    "정치 홍보물 색상",
+    "잘린 얼굴",
+    "비대칭 QR 여백"
+  ],
+  "required_screens": [
+    "main_profile",
+    "introduction_and_career",
+    "qr_nfc_share",
+    "contact_save",
+    "external_contact_handoff",
+    "owner_information_editor",
+    "portrait_correction",
+    "theme_and_action_order",
+    "completion_preview"
+  ],
+  "portrait_contract": {
+    "original_preserved": true,
+    "supported": [
+      "id_portrait",
+      "upper_body",
+      "full_body",
+      "landscape_portrait"
+    ],
+    "automatic": [
+      "exif_rotation",
+      "subject_safe_crop",
+      "type_specific_layout",
+      "quality_warning"
+    ],
+    "manual": [
+      "zoom",
+      "position",
+      "crop",
+      "reset"
+    ],
+    "face_alteration": false
+  },
+  "implementation_allowed": false
+}

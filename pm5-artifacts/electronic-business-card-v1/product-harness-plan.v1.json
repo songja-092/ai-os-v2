@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "contract": "pm5-artifacts/electronic-business-card-v1/product-contract.v1.json",
+  "contract_sha256": "6c08796330daf8141969a1a3143aef8d12d33fb522f8de03df47d64057a7e755",
+  "registry": "product-harness-registry.json",
+  "registry_sha256": "4461c6925e39a72210d9a8d084b84afd3d79ab0cb33495f5d778eed98274661c",
+  "project_type": "electronic_business_card",
+  "profile": "electronic_business_card.v1",
+  "evidence_scope": "single_product_runtime",
+  "selected_adapters": [
+    "electronic-card-core-content.v1",
+    "portrait-composer.v1",
+    "electronic-card-theme.v1",
+    "electronic-card-qr.v1"
+  ],
+  "selected_verifiers": [
+    {
+      "id": "product-contract",
+      "command": [
+        "tools/verify-product-contract",
+        "pm5-artifacts/electronic-business-card-v1/product-contract.v1.json"
+      ],
+      "classification": "contract_only"
+    },
+    {
+      "id": "portrait-composer",
+      "command": [
+        "tools/verify-portrait-composer"
+      ],
+      "classification": "runtime"
+    },
+    {
+      "id": "pm6-electronic-card",
+      "command": [
+        "tools/verify-pm6-electronic-card"
+      ],
+      "classification": "runtime"
+    }
+  ],
+  "capability_coverage": {
+    "share.qr": [
+      "electronic-card-qr.v1"
+    ],
+    "portrait.composition": [
+      "portrait-composer.v1"
+    ],
+    "portrait.optional": [
+      "portrait-composer.v1"
+    ],
+    "content.editable": [
+      "electronic-card-core-content.v1"
+    ],
+    "screens.complete": [
+      "electronic-card-core-content.v1"
+    ],
+    "state.restore": [
+      "electronic-card-core-content.v1"
+    ],
+    "theme.customizable": [
+      "electronic-card-theme.v1"
+    ]
+  },
+  "verifier_coverage": {
+    "restore": [
+      "pm6-electronic-card"
+    ],
+    "visual_regression": [
+      "pm6-electronic-card"
+    ],
+    "no_hardcoded_product_content": [
+      "product-contract"
+    ],
+    "state_matrix_runtime": [
+      "portrait-composer",
+      "pm6-electronic-card"
+    ],
+    "contract_complete": [
+      "product-contract"
+    ]
+  },
+  "missing_evidence": [],
+  "missing_capabilities": [],
+  "ambiguous_capabilities": {},
+  "missing_contract_gates": [],
+  "uncovered_machine_gates": [],
+  "pending_user_approvals": [
+    "final_result"
+  ],
+  "execution_allowed": true,
+  "technical_verdict": "RESOLVED_CONTRACT_ONLY",
+  "limitations": [
+    "single electronic business card evidence only",
+    "does not implement, deploy, approve, or claim multi-product runtime"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "screen_id": "completion",
+  "screen_number": 9,
+  "status": "visual_target_generated_pending_user_review",
+  "source_visual_target": {
+    "path": "pm4-artifacts/project-collector-mvp-v1/design-candidates/direction-2-full-flow-visual-target.png",
+    "sha256": "053735a40d6cf9c65396ba871885409e6c0a30cf963591512267524dbcd40748"
+  },
+  "generator": {
+    "adapter": "codex_builtin_imagegen",
+    "mode": "ui-mockup",
+    "core_generated": false,
+    "core_artifact_connected": true
+  },
+  "output": {
+    "path": "pm5-artifacts/electronic-business-card-v1/screen-9-completion-visual-target.png",
+    "sha256": "abf1b4df5fc4b13034d78a2f62657da9ffab0c7cc3e1fe31276a4ea9c8e1732c"
+  },
+  "prompt_contract": {
+    "design_language": "PM4 direction-2 warm white, black, lime green professional electronic card",
+    "required_copy": [
+      "전자명함 완료",
+      "김하은",
+      "사회복지사",
+      "모든 준비가 완료되었습니다",
+      "전체 8개 화면 확인",
+      "연락 기능 확인",
+      "사진 원본 보존",
+      "최종 전자명함 보기",
+      "정보 다시 수정"
+    ]
+  },
+  "derived_assets": [
+    {
+      "path": "pm5-artifacts/electronic-business-card-v1/portrait-approved.png",
+      "sha256": "3e5236b447b10ab63a2aaf698ab23adb5cde4a0d387927e0e692ce9649736e84",
+      "purpose": "uncropped profile image for screens 4, 6 and 7"
+    },
+    {
+      "path": "pm5-artifacts/electronic-business-card-v1/qr-approved.png",
+      "sha256": "8585cd66e0c47dc91ea7c572ef375c78148984f69b7a0a7f979dea1cbadebe31",
+      "purpose": "complete QR visual for screen 3"
+    }
+  ],
+  "user_approval": "pending",
+  "product_changed": false
+}

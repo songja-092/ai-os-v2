@@ -1,0 +1,228 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "discovery_mode": "request_terms_to_public_visual_gallery",
+  "queries": [
+    "social worker digital business card editorial portrait",
+    "professional mobile profile card asymmetric layout",
+    "NFC business card website warm neutral"
+  ],
+  "refill_round": 0,
+  "previous_decision_influence": {
+    "adopted_traits": [],
+    "discarded_traits": [],
+    "excluded_url_count": 0
+  },
+  "references": [
+    {
+      "reference_id": "ref-discovered-01",
+      "source_name": "PromBiz: NFC Business Card Website Design",
+      "source_url": "https://www.behance.net/gallery/245853675/PromBiz-NFC-Business-Card-Website-Design",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/3697b5245853675.Y3JvcCw1NDAyLDQyMjYsNTc1LDA.jpg",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘NFC business card website warm neutral’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card website warm neutral",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card+website+warm+neutral"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-02",
+      "source_name": "Business card site for digital agency / web-site",
+      "source_url": "https://www.behance.net/gallery/237957235/Business-card-site-for-digital-agency-web-site",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/568f11237957235.Y3JvcCwyNTE4LDE5NzAsMzQyLDA.png",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘NFC business card website warm neutral’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card website warm neutral",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card+website+warm+neutral"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-03",
+      "source_name": "Modern & Professional Business Card Design",
+      "source_url": "https://www.behance.net/gallery/231091691/Modern-Professional-Business-Card-Design",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/12e5f0229765905.Y3JvcCw5MzYsNzMyLDIzMSw5OQ.jpg",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘social worker digital business card editorial portrait’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "social worker digital business card editorial portrait",
+        "search_url": "https://www.behance.net/search/projects?search=social+worker+digital+business+card+editorial+portrait"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-04",
+      "source_name": "Modern & Professional Business Card Design",
+      "source_url": "https://www.behance.net/gallery/229765905/Modern-Professional-Business-Card-Design",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/12e5f0229765905.Y3JvcCw5MzYsNzMyLDIzMSw5OQ.jpg",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘social worker digital business card editorial portrait’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "social worker digital business card editorial portrait",
+        "search_url": "https://www.behance.net/search/projects?search=social+worker+digital+business+card+editorial+portrait"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-05",
+      "source_name": "Professional Company Profile Design",
+      "source_url": "https://www.behance.net/gallery/253310267/Professional-Company-Profile-Design",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/44020c231430673.Y3JvcCwyOTg1LDIzMzUsMjU4LDA.jpg",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘professional mobile profile card asymmetric layout’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "professional mobile profile card asymmetric layout",
+        "search_url": "https://www.behance.net/search/projects?search=professional+mobile+profile+card+asymmetric+layout"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-06",
+      "source_name": "Professional Company Profile Design",
+      "source_url": "https://www.behance.net/gallery/231430673/Professional-Company-Profile-Design",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/44020c231430673.Y3JvcCwyOTg1LDIzMzUsMjU4LDA.jpg",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘professional mobile profile card asymmetric layout’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "professional mobile profile card asymmetric layout",
+        "search_url": "https://www.behance.net/search/projects?search=professional+mobile+profile+card+asymmetric+layout"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-07",
+      "source_name": "Professional Print Ready Business Card Design",
+      "source_url": "https://www.behance.net/gallery/249317083/Professional-Print-Ready-Business-Card-Design",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/2abbc6249317083.Y3JvcCwxNDAyLDEwOTYsMCwxMw.png",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘professional mobile profile card asymmetric layout’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "professional mobile profile card asymmetric layout",
+        "search_url": "https://www.behance.net/search/projects?search=professional+mobile+profile+card+asymmetric+layout"
+      }
+    },
+    {
+      "reference_id": "ref-discovered-08",
+      "source_name": "Tap - Digital Business Card",
+      "source_url": "https://www.behance.net/gallery/201565131/Tap-Digital-Business-Card",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/21d725201565131.Y3JvcCwxMTkzLDkzMyw4LDA.png",
+      "source_type": "design_gallery",
+      "region": "global",
+      "natural_summary_ko": "‘NFC business card website warm neutral’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card website warm neutral",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card+website+warm+neutral"
+      }
+    }
+  ],
+  "source_failures": [],
+  "discovered_at": "2026-08-28T11:49:27Z",
+  "automatic_selection": false,
+  "implementation_allowed": false,
+  "limitations": [
+    "현재 무료 Runtime 공급원은 Behance 공개 검색 한 곳입니다.",
+    "한국 실제 서비스는 접근 확인된 등록 공급원을 요청 유형에 맞을 때만 보충합니다.",
+    "검색 결과는 시각 방향 참고용이며 구현 가능성이나 재사용 라이선스를 증명하지 않습니다.",
+    "검색어 생성은 확정된 인터뷰 명세와 명시된 Reference 검색어를 사용합니다."
+  ]
+}

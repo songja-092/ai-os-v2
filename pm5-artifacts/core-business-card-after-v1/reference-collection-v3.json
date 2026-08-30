@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0",
+  "request_id": "core-business-card-after-v1",
+  "collector_mode": "visual_reference_seed_capture",
+  "evidence_scope": "electronic_business_card",
+  "items": [
+    {
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "reference_id": "ref-discovered-01",
+      "region": "global",
+      "source_name": "PromBiz: NFC Business Card Website Design",
+      "source_url": "https://www.behance.net/gallery/245853675/PromBiz-NFC-Business-Card-Website-Design",
+      "natural_summary_ko": "‘NFC business card website warm neutral’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card website warm neutral",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card+website+warm+neutral"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v3/ref-discovered-01-7a98e09ea7cc.jpg",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/3697b5245853675.Y3JvcCw1NDAyLDQyMjYsNTc1LDA.jpg",
+      "content_type": "image/jpeg",
+      "byte_size": 52664,
+      "sha256": "7a98e09ea7cc19398628d0a64818af6c62abe2d746c8c94c5d213ab12819449c",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:51:03Z"
+    },
+    {
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "reference_id": "ref-discovered-02",
+      "region": "global",
+      "source_name": "Business card site for digital agency / web-site",
+      "source_url": "https://www.behance.net/gallery/237957235/Business-card-site-for-digital-agency-web-site",
+      "natural_summary_ko": "‘NFC business card website warm neutral’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card website warm neutral",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card+website+warm+neutral"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v3/ref-discovered-02-8d5d803deebb.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/568f11237957235.Y3JvcCwyNTE4LDE5NzAsMzQyLDA.png",
+      "content_type": "image/png",
+      "byte_size": 58214,
+      "sha256": "8d5d803deebb36035679fb4560c3bc0466dfd071d912d6d28a5d42696c87204d",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:51:03Z"
+    },
+    {
+      "do_not_copy": [
+        "원본 브랜드",
+        "원본 문구",
+        "원본 이미지",
+        "고유 레이아웃 전체"
+      ],
+      "reference_id": "ref-discovered-03",
+      "region": "global",
+      "source_name": "Tap - Digital Business Card",
+      "source_url": "https://www.behance.net/gallery/201565131/Tap-Digital-Business-Card",
+      "natural_summary_ko": "‘NFC business card website warm neutral’ 검색에서 발견한 실제 공개 디자인 프로젝트입니다. 화면 방향 참고용이며 구현 가능성과 라이선스는 별도 확인이 필요합니다.",
+      "traits": [
+        "검색어와 연결된 시각 구성",
+        "실제 프로젝트 Cover",
+        "방향 비교 후보"
+      ],
+      "source_type": "design_gallery",
+      "discovery_evidence": {
+        "provider": "behance_public_search",
+        "query": "NFC business card website warm neutral",
+        "search_url": "https://www.behance.net/search/projects?search=NFC+business+card+website+warm+neutral"
+      },
+      "local_image_path": "/home/user/바탕화면/ai_os_v2_pm3/pm5-artifacts/core-business-card-after-v1/reference-images-v3/ref-discovered-03-0bbd5b0232be.png",
+      "image_url": "https://mir-s3-cdn-cf.behance.net/projects/404/21d725201565131.Y3JvcCwxMTkzLDkzMyw4LDA.png",
+      "content_type": "image/png",
+      "byte_size": 92024,
+      "sha256": "0bbd5b0232be209e29bc941b6f15578ea056bb59c98fd0e8bc512122cd5d83cc",
+      "reuse_policy": "reference_only",
+      "collected_at": "2026-08-28T11:51:03Z"
+    }
+  ],
+  "source_failures": [],
+  "coverage": {
+    "total": 3,
+    "korean": 0,
+    "actual_service": 0,
+    "user_provided": 0
+  },
+  "decisions": {},
+  "visual_target_created": false,
+  "implementation_allowed": false,
+  "product_changed": false,
+  "limitations": [
+    "후보 발견은 이번 실제 요청에서 사람이 고정한 Seed를 사용했습니다.",
+    "이 실행은 범용 자동 Reference 검색을 증명하지 않습니다.",
+    "화면은 참고 전용이며 원본 브랜드·문구·인물을 복제하지 않습니다."
+  ]
+}

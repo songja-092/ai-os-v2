@@ -138,13 +138,17 @@ def run_refill(args):
             elif item["sha256"] in existing_hashes:
                 reason = "duplicate_image_hash"
             else:
-                candidate_hash = image_dhash(item["local_image_path"])
-                nearest = min((hamming(candidate_hash, value) for _, value in visual_hashes), default=64)
-                discarded_nearest = min((hamming(candidate_hash, value) for value in discarded_visual_hashes), default=64)
-                if discarded_nearest <= 5:
-                    reason = "visually_similar_to_discarded"
-                elif nearest <= 3:
-                    reason = "visually_similar_to_existing"
+                try:
+                    candidate_hash = image_dhash(item["local_image_path"])
+                except Exception:
+                    reason = "unsupported_image_for_visual_dedup"
+                if reason is None:
+                    nearest = min((hamming(candidate_hash, value) for _, value in visual_hashes), default=64)
+                    discarded_nearest = min((hamming(candidate_hash, value) for value in discarded_visual_hashes), default=64)
+                    if discarded_nearest <= 5:
+                        reason = "visually_similar_to_discarded"
+                    elif nearest <= 3:
+                        reason = "visually_similar_to_existing"
             if reason:
                 deduplicated.append({"reference_id": item["reference_id"], "reason": reason})
                 continue

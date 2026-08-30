@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "V2 Portrait Template Contract",
+  "type": "object",
+  "required": ["source_sha256", "original_preserved", "analysis", "render_contract", "cutout_gate"],
+  "properties": {
+    "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "original_preserved": {"const": true},
+    "analysis": {
+      "type": "object",
+      "required": ["width", "height", "has_alpha", "subject_type"]
+    },
+    "asset_role": {"enum": ["portrait_source", "visual_composite"]},
+    "runtime_allowed": {"type": "boolean"},
+    "render_contract": {
+      "type": "object",
+      "required": ["mode", "allowed_templates", "fallback", "face_alteration", "background_removal_performed"],
+      "properties": {
+        "mode": {"enum": ["transparent_subject_template", "safe_crop", "full_bleed_original", "reference_only"]},
+        "face_alteration": {"const": false}
+      }
+    },
+    "cutout_gate": {"enum": ["PASS", "BLOCKED_TRANSPARENT_SUBJECT_REQUIRED", "BLOCKED_VISUAL_COMPOSITE_NOT_PORTRAIT"]}
+  }
+}

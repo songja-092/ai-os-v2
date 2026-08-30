@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "iteration": 1,
+  "stage": "reference_collection",
+  "technical_result": "PASS",
+  "quality_result": "FAIL",
+  "collected": 6,
+  "duplicates_removed": 2,
+  "failure_reason": "전자명함 요청에 회사 소개 웹과 인쇄 명함이 섞여 Design DNA 입력으로 사용할 수 없음",
+  "repair": "프로젝트별 화면 의도 신호와 제외 신호를 수집기 순위화에 추가",
+  "codex_manual_design_intervention": false
+}

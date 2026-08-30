@@ -16,9 +16,33 @@
   },
   "routes": [
     {
+      "id": "product-harness-resolver",
+      "priority": 11,
+      "paths": ["schemas/product-harness-registry.schema.json", "product-harness-registry.json", "tools/resolve-product-harness", "tools/portrait-composer", "tools/verify-portrait-composer", "tools/verify-pm6-electronic-card", "tests/test-product-harness-resolver", "pm5-artifacts/**/product-harness-plan*.json"],
+      "commands": [{"id": "product-harness-resolver-fixtures", "command": ["tests/test-product-harness-resolver"], "classification": "fixture_specific", "side_effect": "read_only"}]
+    },
+    {
+      "id": "product-contract",
+      "priority": 12,
+      "paths": ["schemas/product-contract.schema.json", "tools/verify-product-contract", "tests/test-product-contract", "test-fixtures/product-contract/**", "pm5-artifacts/**/product-contract*.json"],
+      "commands": [{"id": "product-contract-fixtures", "command": ["tests/test-product-contract"], "classification": "fixture_specific", "side_effect": "read_only"}]
+    },
+    {
+      "id": "electronic-card-candidate-boundary",
+      "priority": 48,
+      "paths": ["pm5-artifacts/electronic-business-card-v1/design-candidate-generation-contract-v2.json", "pm5-artifacts/electronic-business-card-v1/personalized-candidates-v2/**", "state/official-design-runs/run-electronic-card-personalized-v2.json", "tools/verify-electronic-card-candidate-boundary"],
+      "commands": [{"id": "electronic-card-candidate-boundary", "command": ["tools/verify-electronic-card-candidate-boundary"], "classification": "contract_only", "side_effect": "read_only"}]
+    },
+    {
+      "id": "official-design-flow",
+      "priority": 15,
+      "paths": ["tools/connect-approved-design-flow", "tools/verify-official-design-flow", "state/official-design-runs/**", "pm5-artifacts/electronic-business-card-v1/draft-design-recipe.json", "pm5-artifacts/electronic-business-card-v1/connection-evidence.json"],
+      "commands": [{"id": "official-design-flow", "command": ["tools/verify-official-design-flow"], "classification": "runtime", "side_effect": "read_only"}]
+    },
+    {
       "id": "locked-pm-results",
       "priority": 0,
-      "paths": ["pm1-complete-review.html", "pm1-artifacts/visual-target-v1/**", "pm2-module-test.html", "pm2-artifacts/module-registry-v1/**", "wiki/PM1_COMPLETION_REPORT_2026-08-18.md", "wiki/PM2_FIRST_MODULE_PILOT_REPORT_2026-08-19.md"],
+      "paths": ["pm1-complete-review.html", "pm1-artifacts/visual-target-v1/**", "pm2-module-test.html", "pm2-artifacts/module-registry-v1/**", "wiki/PM1_COMPLETION_REPORT_2026-08-18.md", "wiki/PM2_FIRST_MODULE_PILOT_REPORT_2026-08-19.md", "wiki/PM5_PM6_ELECTRONIC_CARD_COMPLETION_REPORT_2026-08-30.md", "pm5-artifacts/electronic-business-card-v1/product-contract.v1.json", "pm5-artifacts/electronic-business-card-v1/draft-design-recipe.json", "pm5-artifacts/electronic-business-card-v1/product/**", "state/official-design-runs/run-electronic-card-official-v1.json"],
       "commands": [{"id": "pm-locks", "command": ["tools/verify-pm-locks"], "classification": "runtime", "side_effect": "read_only"}],
       "block_change": true
     },
@@ -105,6 +129,15 @@
       "priority": 20,
       "paths": ["pm4-modules/daily-discovery-briefing/**", "tools/verify-pm4-briefing-module"],
       "commands": [{"id": "pm4-briefing-module", "command": ["tools/verify-pm4-briefing-module"], "classification": "contract_only", "side_effect": "read_only"}]
+    },
+    {
+      "id": "pm5-intent-runtime",
+      "priority": 20,
+      "paths": ["v2", "state/pm5-intent-state.json", "pm5-artifacts/electronic-business-card-v1/**", "tools/verify-pm5-intent-runtime", "tools/verify-electronic-card-content-runtime"],
+      "commands": [
+        {"id": "pm5-intent-runtime", "command": ["tools/verify-pm5-intent-runtime"], "classification": "fixture_specific", "side_effect": "temporary_with_restore", "mutable_paths": []},
+        {"id": "electronic-card-content-runtime", "command": ["tools/verify-electronic-card-content-runtime"], "classification": "fixture_specific", "side_effect": "temporary_with_restore", "mutable_paths": []}
+      ]
     }
   ],
   "unmatched_policy": {"verdict": "BLOCKED", "exit_code": 2, "reason": "no_verifier_for_changed_file"},

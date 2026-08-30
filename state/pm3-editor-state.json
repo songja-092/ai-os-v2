@@ -1,0 +1,1494 @@
+{
+  "state_version": "1.0",
+  "revision": 217,
+  "project_id": "pdf-drawing-symbols",
+  "design_version": 1,
+  "selected_card_id": "hospital-web-result-preview",
+  "allowed_actions": [
+    "section.select",
+    "layout.move",
+    "card.move",
+    "style.set_color",
+    "style.set_font_size",
+    "card.set_size",
+    "draft.undo",
+    "draft.redo",
+    "draft.discard",
+    "draft.apply",
+    "version.restore"
+  ],
+  "applied": {
+    "layout_order": [
+      "project-list",
+      "preview"
+    ],
+    "card_order": [
+      "pdf-result-preview",
+      "hospital-web-result-preview"
+    ],
+    "cards": {
+      "pdf-result-preview": {
+        "color": "#00a86b",
+        "font_size": "medium",
+        "size": "medium"
+      },
+      "hospital-web-result-preview": {
+        "color": "#2563eb",
+        "font_size": "medium",
+        "size": "medium"
+      }
+    }
+  },
+  "draft": {
+    "layout_order": [
+      "project-list",
+      "preview"
+    ],
+    "card_order": [
+      "pdf-result-preview",
+      "hospital-web-result-preview"
+    ],
+    "cards": {
+      "pdf-result-preview": {
+        "color": "#00a86b",
+        "font_size": "large",
+        "size": "large"
+      },
+      "hospital-web-result-preview": {
+        "color": "#2563eb",
+        "font_size": "medium",
+        "size": "small"
+      }
+    }
+  },
+  "past": [
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "pdf-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "small",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "pdf-result-preview 색상 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#000000",
+            "font_size": "small",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#000000",
+            "font_size": "small",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#000000",
+            "font_size": "small",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#000000",
+            "font_size": "small",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 색상 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#df0101",
+            "font_size": "small",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#df0101",
+            "font_size": "small",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#df0101",
+            "font_size": "small",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#df0101",
+            "font_size": "small",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#df0101",
+            "font_size": "medium",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#df0101",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "small"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#df0101",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "large"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#df0101",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "small"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#df0101",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "large"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#df0101",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "large"
+          }
+        }
+      },
+      "label": "초기 배치로 복원"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "small",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "프로젝트 카드 순서 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "hospital-web-result-preview",
+          "pdf-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "프로젝트 카드 순서 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "medium"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "large"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "large"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "small"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "large"
+          }
+        }
+      },
+      "label": "pdf-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "large"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "small",
+            "size": "large"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "large"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "large",
+            "size": "large"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "large"
+          }
+        }
+      },
+      "label": "pdf-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "small",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "large"
+          }
+        }
+      },
+      "label": "pdf-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "medium",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "large"
+          }
+        }
+      },
+      "label": "pdf-result-preview 글씨 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "large"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "small"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "large"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    },
+    {
+      "design": {
+        "layout_order": [
+          "project-list",
+          "preview"
+        ],
+        "card_order": [
+          "pdf-result-preview",
+          "hospital-web-result-preview"
+        ],
+        "cards": {
+          "pdf-result-preview": {
+            "color": "#00a86b",
+            "font_size": "large",
+            "size": "large"
+          },
+          "hospital-web-result-preview": {
+            "color": "#2563eb",
+            "font_size": "medium",
+            "size": "medium"
+          }
+        }
+      },
+      "label": "hospital-web-result-preview 카드 크기 변경"
+    }
+  ],
+  "future": [],
+  "dirty": true,
+  "last_action": "card.set_size"
+}

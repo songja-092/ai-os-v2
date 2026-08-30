@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+"""Validate a V2 product contract before implementation begins."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+from jsonschema import Draft202012Validator
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SCHEMA = ROOT / "schemas/product-contract.schema.json"
+
+
+def block(messages: list[str]) -> int:
+    print(json.dumps({"verifier": "verify-product-contract", "verdict": "BLOCKED", "errors": messages}, ensure_ascii=False, indent=2))
+    return 2
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("contract")
+    args = parser.parse_args()
+    path = (ROOT / args.contract).resolve() if not Path(args.contract).is_absolute() else Path(args.contract)
+    try:
+        schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
+        contract = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        return block([str(error)])
+
+    errors = [f"{'.'.join(map(str, error.absolute_path)) or '$'}: {error.message}" for error in Draft202012Validator(schema).iter_errors(contract)]
+    fields = contract.get("content_fields", [])
+    screens = contract.get("screens", [])
+    field_ids = [field.get("id") for field in fields]
+    screen_ids = [screen.get("id") for screen in screens]
+    if len(field_ids) != len(set(field_ids)):
+        errors.append("content_fields ids must be unique")
+    if len(screen_ids) != len(set(screen_ids)):
+        errors.append("screens ids must be unique")
+    known_fields = set(field_ids)
+    known_screens = set(screen_ids)
+    for field in fields:
+        if field.get("user_visible") and not field.get("editable") and not field.get("system_generated_reason"):
+            errors.append(f"visible field {field.get('id')} must be editable or explain system generation")
+        unknown = set(field.get("screens", [])) - known_screens
+        if unknown:
+            errors.append(f"field {field.get('id')} references unknown screens: {sorted(unknown)}")
+    for screen in screens:
+        unknown = set(screen.get("content", [])) - known_fields
+        if unknown:
+            errors.append(f"screen {screen.get('id')} references unknown fields: {sorted(unknown)}")
+    if contract.get("status") == "approved_locked":
+        approval = contract.get("approval", {})
+        if approval.get("product_scope") != "approved" or approval.get("visual_target") != "approved":
+            errors.append("approved_locked requires approved product_scope and visual_target")
+
+    if errors:
+        return block(sorted(errors))
+    print(json.dumps({
+        "verifier": "verify-product-contract",
+        "verdict": "PASS_CONTRACT_ONLY",
+        "contract": str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path),
+        "limitations": ["Runtime, visual quality, and final user approval are not proven"]
+    }, ensure_ascii=False, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

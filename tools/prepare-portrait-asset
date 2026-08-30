@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+"""Prepare a portrait for Core templates without altering the original."""
+import argparse
+import hashlib
+import json
+import sys
+from pathlib import Path
+from PIL import Image, ImageOps
+
+
+def digest(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input", required=True)
+    parser.add_argument("--output", required=True)
+    parser.add_argument("--subject", choices=("auto", "id_portrait", "upper_body", "full_body", "environment"), default="auto")
+    parser.add_argument("--asset-role", choices=("portrait_source", "visual_composite"), required=True)
+    args = parser.parse_args()
+    source = Path(args.input).resolve()
+    output = Path(args.output).resolve()
+    if not source.is_file():
+        print("BLOCKED: input portrait not found", file=sys.stderr)
+        return 2
+
+    with Image.open(source) as raw:
+        image = ImageOps.exif_transpose(raw)
+        width, height = image.size
+        has_alpha = "A" in image.getbands()
+        alpha_coverage = 0.0
+        if has_alpha:
+            alpha = image.getchannel("A")
+            transparent = sum(1 for value in alpha.getdata() if value < 250)
+            alpha_coverage = transparent / (width * height)
+        meaningful_cutout = has_alpha and alpha_coverage >= 0.03
+        aspect = width / height
+        sample = image.convert("RGB").resize((32, 32))
+        pixels = list(sample.getdata())
+        mean_r = sum(pixel[0] for pixel in pixels) / len(pixels)
+        mean_g = sum(pixel[1] for pixel in pixels) / len(pixels)
+        mean_b = sum(pixel[2] for pixel in pixels) / len(pixels)
+        luminance = (0.2126 * mean_r + 0.7152 * mean_g + 0.0722 * mean_b) / 255
+        warmth = (mean_r - mean_b) / 255
+        inferred = args.subject
+        if inferred == "auto":
+            inferred = "id_portrait" if 0.68 <= aspect <= 0.9 else "environment" if aspect >= 1.15 else "upper_body"
+
+        if args.asset_role == "visual_composite":
+            render_mode = "reference_only"
+            allowed_templates = []
+            fallback = "request_portrait_source"
+        elif meaningful_cutout:
+            render_mode = "transparent_subject_template"
+            allowed_templates = ["editorial_cutout", "soft_gradient_cutout", "minimal_cutout"]
+            fallback = "safe_crop"
+        elif inferred in {"id_portrait", "upper_body"}:
+            render_mode = "safe_crop"
+            allowed_templates = ["split_portrait", "full_bleed_portrait", "neutral_frame"]
+            fallback = "contain_on_neutral"
+        else:
+            render_mode = "full_bleed_original"
+            allowed_templates = ["full_bleed_portrait", "editorial_overlay"]
+            fallback = "contain_on_neutral"
+
+        normalized = output.with_suffix(".normalized.png")
+        normalized.parent.mkdir(parents=True, exist_ok=True)
+        image.save(normalized, "PNG")
+
+    manifest = {
+        "schema_version": "1.0",
+        "source": str(source),
+        "source_sha256": digest(source),
+        "normalized": str(normalized),
+        "normalized_sha256": digest(normalized),
+        "original_preserved": True,
+        "asset_role": args.asset_role,
+        "analysis": {"width": width, "height": height, "aspect_ratio": round(aspect, 4),
+                     "has_alpha": has_alpha, "transparent_pixel_ratio": round(alpha_coverage, 4),
+                     "subject_type": inferred, "mean_luminance": round(luminance, 4),
+                     "warmth": round(warmth, 4)},
+        "tone_contract": {"target": "neutral_black_white_lime",
+                          "css_filter": "saturate(.78) contrast(1.06) brightness(1.02)",
+                          "background_blend": "neutral", "manual_override_allowed": True},
+        "render_contract": {"mode": render_mode, "allowed_templates": allowed_templates,
+                            "fallback": fallback, "face_alteration": False,
+                            "background_removal_performed": False},
+        "runtime_allowed": args.asset_role == "portrait_source",
+        "cutout_gate": "BLOCKED_VISUAL_COMPOSITE_NOT_PORTRAIT" if args.asset_role == "visual_composite" else ("PASS" if meaningful_cutout else "BLOCKED_TRANSPARENT_SUBJECT_REQUIRED")
+    }
+    output.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(manifest, ensure_ascii=False, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

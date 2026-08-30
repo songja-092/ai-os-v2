@@ -1,0 +1,5 @@
+const menu=document.querySelector('.menu'),nav=document.querySelector('nav'),dialog=document.querySelector('dialog'),form=dialog.querySelector('form');
+menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',open);nav.classList.toggle('open',open)});
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}));
+document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>dialog.showModal()));
+form.addEventListener('submit',e=>{if(e.submitter?.value!=='confirm')return;e.preventDefault();if(!form.reportValidity())return;form.querySelector('.notice').textContent='예약 요청이 접수되었습니다. 확인 전화를 드릴게요.';form.querySelector('.submit').disabled=true;setTimeout(()=>{dialog.close();form.reset();form.querySelector('.notice').textContent='';form.querySelector('.submit').disabled=false},1300)});

@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "status": "observed",
+  "baseline_url": "http://127.0.0.1:8228/pm5-scope-review.html",
+  "failures": [
+    "인물 사진 Crop이 화면 목적과 맞지 않음",
+    "QR Quiet Zone과 레이아웃 중심 검사가 없음",
+    "테마 설명과 실제 Runtime 변경을 구분하지 않음",
+    "기능 Fixture PASS를 디자인 PASS로 확대함"
+  ],
+  "core_source_failure": {
+    "status": "confirmed_static_evidence",
+    "evidence": "v2 design generate의 검색어·Renderer Prompt·검증 Prompt가 병원 웹으로 고정됨"
+  }
+}

@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+"""Verify the official design connection without elevating fixture evidence."""
+
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+RUN = ROOT / "state/official-design-runs/run-electronic-card-official-v1.json"
+RECIPE = ROOT / "pm5-artifacts/electronic-business-card-v1/draft-design-recipe.json"
+EVIDENCE = ROOT / "pm5-artifacts/electronic-business-card-v1/connection-evidence.json"
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def main():
+    try:
+        run = json.loads(RUN.read_text(encoding="utf-8"))
+        recipe = json.loads(RECIPE.read_text(encoding="utf-8"))
+        evidence = json.loads(EVIDENCE.read_text(encoding="utf-8"))
+        if run["run_type"] != "official_design_connection" or run["test_harness_inputs_allowed"] is not False:
+            raise ValueError("시험 Harness가 공식 입력에서 제외되지 않았습니다.")
+        approved = recipe["status"] == "approved_locked" and recipe["approval"]["status"] == "approved_test_fixture_scope"
+        pending = recipe["status"] == "draft_locked" and recipe["approval"]["status"] == "pending"
+        if not (approved or pending):
+            raise ValueError("Design Recipe 승인 경계가 잘못됐습니다.")
+        visual = ROOT / run["source"]["visual_target"]
+        if sha(visual) != recipe["source_hashes"]["visual_target"]:
+            raise ValueError("Visual Target Hash가 변경됐습니다.")
+        if pending and run["implementation_gate"] != "blocked_pm5_scope_approval_required":
+            raise ValueError("PM5 pending 상태에서 구현이 열렸습니다.")
+        if approved and run.get("user_final_approval") == "approved":
+            if run["status"] != "completed_locked" or run["deployment_gate"] != "deferred_separate_deployment_scope":
+                raise ValueError("PM5·PM6 잠금과 별도 배포 경계가 맞지 않습니다.")
+        elif approved and run["deployment_gate"] != "blocked_user_final_approval_required":
+            raise ValueError("사용자 최종 승인 전에 배포가 열렸습니다.")
+        if evidence["fixture_scope"] is not True:
+            raise ValueError("Fixture 한계가 보존되지 않았습니다.")
+        if pending and "product implementation" not in evidence["not_proven"]:
+            raise ValueError("승인 전 구현 한계가 보존되지 않았습니다.")
+        pipeline = {item["step"]: item["status"] for item in run.get("pipeline_1_13", [])}
+        expected_step_7 = "PASS" if approved else "BLOCKED"
+        if pipeline.get(1) != "PASS" or pipeline.get(5) != "PASS" or pipeline.get(7) != expected_step_7 or pipeline.get(13) != "NOT_PROVEN":
+            raise ValueError("1~13 진행 상태가 실제 Gate와 맞지 않습니다.")
+        print("PASS: official design flow connection")
+        print("PASS: Design Recipe locked")
+        print("PASS: PM5·PM6 user approval and lock boundary")
+        print("PASS: deployment remains a separate deferred scope")
+        return 0
+    except Exception as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

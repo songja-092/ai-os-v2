@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko" data-theme="clean">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#187b70">
+  <title>김하은 사회복지사 · 전자명함</title>
+  <link rel="stylesheet" href="/electronic-card-product/styles.css">
+</head>
+<body>
+  <main class="app-shell" data-testid="electronic-card-app">
+    <header class="topbar">
+      <button class="word-button back-button" type="button" data-action="back" hidden>이전</button>
+      <strong id="page-title">김하은</strong>
+      <button class="word-button" type="button" data-action="edit">내 정보 편집</button>
+    </header>
+
+    <section class="view view-profile is-active" data-view="profile" aria-labelledby="profile-name">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow" id="profile-eyebrow">사람을 잇고 가능성을 키웁니다</p>
+          <h1 id="profile-name">김하은</h1>
+          <p class="role">사회복지사</p>
+          <p class="intro">함께 성장하고,<br>따뜻한 변화를 만듭니다.</p>
+        </div>
+        <div class="portrait-frame portrait-main is-placeholder" data-portrait-frame data-initials="김">
+          <img id="profile-photo" alt="등록한 프로필 사진" hidden>
+        </div>
+        <p class="vertical-note">SOCIAL WORKER · 2026</p>
+      </div>
+
+      <div class="action-panel">
+        <p class="action-context" id="profile-services">사회복지 상담 · 사례관리 · 지역연계</p>
+        <button class="primary-action" type="button" data-action="save-contact">연락처 저장</button>
+        <div class="action-grid" id="action-grid">
+          <a data-action-id="call" href="tel:01012345678">전화</a>
+          <a data-action-id="sms" href="sms:01012345678">문자</a>
+          <a data-action-id="email" href="mailto:haeun.kim@example.invalid">이메일</a>
+          <a data-action-id="social" href="https://example.invalid/haeun" target="_blank" rel="noreferrer">카카오톡</a>
+          <a data-action-id="website" href="https://example.invalid/happy-welfare" target="_blank" rel="noreferrer">웹사이트</a>
+          <button type="button" data-action-id="share" data-action="share">QR · NFC</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="view reading-view" data-view="about" aria-labelledby="about-title">
+      <div class="page-heading">
+        <div><h1 id="about-title">김하은</h1><p id="about-role">사회복지사</p></div>
+        <div class="portrait-frame portrait-small is-placeholder" data-portrait-frame data-initials="김"><img data-profile-photo alt="등록한 프로필 사진" hidden></div>
+      </div>
+      <p class="highlight" id="about-eyebrow">사람을 잇고 가능성을 키웁니다</p>
+      <article class="about-article"><div class="career-heading"><h2>소개</h2><button class="text-action" type="button" data-action="toggle-about-edit" aria-expanded="false">소개 편집</button></div><p id="about-body"></p><form id="inline-about-editor" class="inline-tab-editor" hidden><label>대표 문구<input name="eyebrow"></label><label>상세 소개<textarea name="about_body" rows="5"></textarea></label><div class="inline-editor-actions"><button class="secondary-action" type="button" data-action="cancel-about-edit">취소</button><button class="primary-action" type="button" data-action="save-about">소개 저장</button></div></form></article>
+      <article class="career-article"><div class="career-heading"><h2>주요 경력</h2><button class="text-action" type="button" data-action="toggle-career-edit" aria-expanded="false">경력 추가</button></div><section class="inline-career-editor" id="inline-career-editor" hidden><form id="career-add-form" class="career-add-card"><div class="career-date-fields"><label>시작 월<input name="start" type="month" required></label><label>종료 월<input name="end" type="month"></label></div><label class="current-career"><input name="current" type="checkbox"> 현재 근무 중</label><label>기관·직책<input name="title" required placeholder="기관명과 직책"></label><label>담당 업무<textarea name="description" rows="3" required placeholder="담당한 업무를 입력하세요"></textarea></label><div class="inline-editor-actions"><button class="secondary-action" type="button" data-action="cancel-career-edit">취소</button><button class="primary-action" type="button" data-action="add-career">추가하기</button></div></form></section><ol class="timeline" id="career-timeline"></ol></article>
+      <a class="primary-action bottom-action" id="consultation-link" href="https://example.invalid/haeun" target="_blank" rel="noreferrer">1:1 상담 문의</a>
+    </section>
+
+    <section class="view share-view" data-view="share" aria-labelledby="share-title">
+      <div class="page-heading simple"><h1 id="share-title">QR · NFC 공유</h1><button class="text-action" type="button" data-action="toggle-share-edit" aria-expanded="false">안내 편집</button></div>
+      <div class="qr-tools"><button class="qr-refresh-icon" type="button" data-action="regenerate-qr" aria-label="QR 다시 생성" title="QR 다시 생성">↻</button></div><div class="qr-card"><img id="qr-image" src="/pm5-artifacts/electronic-business-card-v1/qr-clean.png" alt="전자명함 QR 코드"></div>
+      <p class="nfc-message" id="nfc-message">NFC 태그에 휴대폰을 대세요</p>
+      <form id="inline-share-editor" class="inline-tab-editor" hidden><label>NFC 안내<input name="nfc_message"></label><div class="inline-editor-actions"><button class="secondary-action" type="button" data-action="cancel-share-edit">취소</button><button class="primary-action" type="button" data-action="save-share">안내 저장</button></div></form>
+      <div class="share-actions"><button class="primary-action" type="button" data-action="native-share">공유하기</button><a class="secondary-action" href="/pm5-artifacts/electronic-business-card-v1/qr-clean.png" download="kim-haeun-qr.png">QR 이미지 저장</a></div>
+      <p id="qr-regenerate-status" class="helper" aria-live="polite"></p>
+      <p class="helper">카메라로 스캔하거나 NFC 태그로 빠르게 연결할 수 있습니다.</p>
+    </section>
+
+    <section class="view editor-view" data-view="edit" aria-labelledby="edit-title">
+      <div class="page-heading simple"><h1 id="edit-title">프로필 편집</h1><button class="save-link" type="button" data-action="finish-edit">저장</button></div>
+      <div class="photo-editor">
+        <div class="portrait-frame portrait-edit is-placeholder" data-portrait-frame data-initials="김"><img id="editor-photo" alt="편집할 프로필 사진" hidden></div>
+        <label class="secondary-action file-control">사진 추가 · 변경 (선택)<input id="photo-input" type="file" accept="image/*"></label>
+        <label>사진 크기<input id="photo-scale" type="range" min="100" max="170" value="100"></label>
+        <label>세로 위치<input id="photo-position" type="range" min="0" max="100" value="18"></label>
+        <button class="text-action" type="button" data-action="reset-photo">기본 프로필 사용</button>
+      </div>
+      <form id="profile-form" class="form-stack">
+        <label>이름<input name="name" value="김하은"></label>
+        <label>직책<input name="role" value="사회복지사"></label>
+        <label>한 줄 소개<input name="intro" value="함께 성장하고, 따뜻한 변화를 만듭니다."></label>
+        <label>기관명<input name="organization" value="행복마을종합사회복지관"></label>
+        <label>전문 분야<input name="services" value="사회복지 상담 · 사례관리 · 지역연계"></label>
+        <label>상담 버튼 이름<input name="consultation_label" value="1:1 상담 문의"></label>
+        <label>상담 연결 주소<input name="consultation_url" type="url"></label>
+        <label>전화번호<input name="phone" value="010-1234-5678" inputmode="tel"></label>
+        <label>이메일<input name="email" value="haeun.kim@example.invalid" inputmode="email"></label>
+        <label>SNS 버튼 이름<input name="social_label" value="카카오톡"></label>
+        <label>SNS 연결 주소<input name="social_url" type="url"></label>
+        <label>웹사이트 버튼 이름<input name="website_label" value="웹사이트"></label>
+        <label>웹사이트 주소<input name="website_url" type="url"></label>
+      </form>
+      <fieldset class="theme-picker">
+        <legend>테마 변경</legend>
+        <p>배경·인물 대비·버튼·QR 화면을 함께 바꿉니다. 선택은 Core에 저장되어 다시 열어도 유지됩니다.</p>
+        <div class="theme-options">
+          <button type="button" data-theme-option="clean" class="selected" aria-pressed="true"><span class="theme-preview theme-preview-clean" aria-hidden="true"></span><b>클린 민트</b><small>흰색 중심에 차분한 민트 포인트</small></button>
+          <button type="button" data-theme-option="blue" aria-pressed="false"><span class="theme-preview theme-preview-blue" aria-hidden="true"></span><b>소프트 블루</b><small>신뢰감 있는 밝은 청회색</small></button>
+          <button type="button" data-theme-option="violet" aria-pressed="false"><span class="theme-preview theme-preview-violet" aria-hidden="true"></span><b>소프트 바이올렛</b><small>부드럽고 현대적인 보라 포인트</small></button>
+          <button type="button" data-theme-option="coral" aria-pressed="false"><span class="theme-preview theme-preview-coral" aria-hidden="true"></span><b>클린 코랄</b><small>따뜻하고 친근한 코랄 포인트</small></button>
+          <button type="button" data-theme-option="mono" aria-pressed="false"><span class="theme-preview theme-preview-mono" aria-hidden="true"></span><b>밝은 모노</b><small>사진과 정보에 집중하는 중립 배경</small></button>
+          <button type="button" data-theme-option="lime" aria-pressed="false"><span class="theme-preview theme-preview-lime" aria-hidden="true"></span><b>라임 편집형</b><small>강한 대각선과 라임 포인트</small></button>
+        </div>
+        <div class="custom-theme-editor" data-custom-theme>
+          <label for="custom-theme-color"><b>직접 색상 만들기</b><span>고른 색을 바탕으로 읽기 쉬운 배경과 글자색을 자동 조합합니다.</span></label>
+          <input id="custom-theme-color" type="color" value="#5267c9" aria-label="사용자 지정 테마색">
+          <button class="secondary-action" type="button" data-action="restore-theme">이전 테마 복원</button>
+        </div>
+        <p id="theme-current" class="theme-current" aria-live="polite"></p>
+      </fieldset>
+      <section class="order-editor"><h2>연락 버튼 순서</h2><p>손잡이를 끌어 놓거나 화살표로 순서를 바꿀 수 있습니다.</p><ol id="action-order"></ol></section>
+      <button class="secondary-action restore-content" type="button" data-action="restore-content">이전 저장 내용 복원</button>
+    </section>
+
+    <section class="view completion-view" data-view="complete" aria-labelledby="complete-title">
+      <div class="completion-check" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"></circle><path d="m18 33 9 9 20-21"></path></svg></div>
+      <h1 id="complete-title">전자명함이<br>준비됐습니다</h1>
+      <div class="completion-card"><div class="portrait-frame completion-photo is-placeholder" data-portrait-frame data-initials="김"><img data-profile-photo alt="등록한 프로필 사진" hidden></div><div><b id="complete-name">김하은</b><span id="complete-role">사회복지사</span></div></div>
+      <p>프로필과 연락 방법을 확인하고 바로 공유할 수 있습니다.</p>
+      <button class="primary-action" type="button" data-action="go-profile">완성된 명함 보기</button>
+    </section>
+
+    <nav class="bottom-nav" aria-label="전자명함 주요 화면">
+      <button type="button" data-nav="profile" class="selected">프로필</button>
+      <button type="button" data-nav="about">소개 · 경력</button>
+      <button type="button" data-nav="share">QR · NFC</button>
+      <button type="button" data-nav="edit">편집</button>
+    </nav>
+    <div class="toast" role="status" aria-live="polite"></div>
+  </main>
+  <script src="/electronic-card-product/app.js"></script>
+</body>
+</html>
