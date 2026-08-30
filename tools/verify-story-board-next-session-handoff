@@ -15,6 +15,9 @@ required = [
     "Story Profile + Scene Contract",
     "수집기 개선 계약",
     "같은 입력으로 V2 수집기 재실행",
+    "V2_CODEX_PLUGIN_ADOPTION_FOR_STORY_BOARD_2026-08-30.md",
+    "Sites: M2에 사용하지 않고 M3",
+    "플러그인은 Core가 아니라 교체 가능한 Adapter",
     "첫 사용자 개입: Visual Target 방향 승인",
     "Runtime·공개·결제·수익은 아직 not_proven",
 ]
@@ -28,6 +31,21 @@ else:
     for phrase in required:
         if phrase not in text:
             errors.append(f"missing contract phrase: {phrase}")
+
+plugin_contract = ROOT / "wiki" / "V2_CODEX_PLUGIN_ADOPTION_FOR_STORY_BOARD_2026-08-30.md"
+if not plugin_contract.exists():
+    errors.append(f"missing: {plugin_contract.relative_to(ROOT)}")
+else:
+    plugin_text = plugin_contract.read_text(encoding="utf-8")
+    for phrase in [
+        "runtime_integration_not_proven",
+        "Story M2 | Presentations",
+        "Story M3 | Sites",
+        "현재 저장소에는 `.openai/hosting.json`이 없으므로",
+        "Sites는 M3 이전에 설치·초기화·배포하지 않습니다.",
+    ]:
+        if phrase not in plugin_text:
+            errors.append(f"missing plugin contract phrase: {phrase}")
 
 def git(*args):
     return subprocess.check_output(["git", "-C", str(ROOT), *args], text=True).strip()

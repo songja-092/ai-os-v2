@@ -56,6 +56,19 @@ git fetch origin --prune --tags
    요청합니다.
 8. 선택 전 실제 제품 구현과 M3 공개 샘플 제작은 금지합니다.
 
+### Codex 플러그인 적용 순서
+
+플러그인 적용 판단의 공식 원본은
+`wiki/V2_CODEX_PLUGIN_ADOPTION_FOR_STORY_BOARD_2026-08-30.md`입니다.
+
+- M2: `Presentations → Product Design`을 우선 사용합니다.
+- PM2 구현: 승인된 Visual Target 이후에만 `Build Web Apps`를 사용합니다.
+- PM6: `Browser + Frontend Testing + Product Design Audit`으로 기능과 마감을 분리 검사합니다.
+- Sites: M2에 사용하지 않고 M3의 개인정보·결제 없는 공개 샘플에서만 격리 Pilot합니다.
+- Stripe는 M5, Supabase·Cloudflare는 M7, 유료 영상 Provider는 M8 Gate 이전에 연결하지 않습니다.
+- 플러그인은 Core가 아니라 교체 가능한 Adapter입니다. Core 호출·Artifact Hash·실패·복구 증거 없이
+  V2 Capability로 승격하지 않습니다.
+
 ## 4. 수집기 개선 계약
 
 스토리 보드 조사에서는 Codex가 외부에서 확인한 결과와 V2 수집기가 낸 결과를 반드시 비교합니다.
