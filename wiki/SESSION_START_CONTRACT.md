@@ -80,6 +80,7 @@ session_preflight:
 - 사용자의 결정이 필요한 경우 `회의할 항목이 있습니다`라고 알리고 한 번에 한 주제씩 다룹니다.
 - 회의가 끝나면 `회의가 끝났습니다`라고 명확히 말하고 결과를 기록합니다.
 - PM 범위를 벗어난 요청이면 현재 작업을 섞지 않고 어느 PM 범위인지 먼저 알립니다.
+- 사용자가 PM 진행을 승인한 뒤에는 매 단계마다 `다음` 입력을 요구하지 않고 승인 범위 안의 작업을 연속 수행합니다. 사람의 디자인·사업 판정, 로그인·권한·비용, 범위 확대, Dirty·잠금 충돌에서만 멈추며 PM 잠금 전 자동화 후보 감사와 최종 PASS는 생략하지 않습니다.
 - 사용자가 PM을 PASS하면 해당 PM의 승인 화면·동작·유지 범위·복구 기준을 고정하고 잠근 뒤 다음 PM으로 이동합니다.
 - PM이 완료되거나 Repo-local Skill을 새로 만들거나 변경하면 같은 작업에서 이 세션 공통계약의 `정확한 상태`와 Skill 목록을 갱신합니다. 공통계약 반영 전에는 PM 저장이 끝났다고 보고하지 않습니다.
 - Dirty 변경은 사용자의 변경으로 보존하며 임의로 Reset·Restore·Stash·Commit하지 않습니다.
@@ -95,6 +96,7 @@ session_preflight:
 - V2의 현재 엔지니어링 기본 방향은 `Harness-first, Spec-guided, Eval-driven, Human-approved, Loop-assisted`입니다. 짧게 `Harness-first, Loop-ready`라고 부릅니다. 사람의 목표·범위·승인·복구 계약 안에서 AI가 작업하고, 반복 가능하며 기계적으로 검증·복구 가능한 병목만 제한된 Loop로 자동화합니다.
 - 새로운 방법은 `조사 → 격리 시험 → 기존 방식 비교 → 사용자 채택 → 실제 프로젝트 → 반복 성공` 순서를 거쳐야 기본값이 됩니다. 유행, GitHub Star, 홍보 문구만으로 기본 Skill이나 Core 기능으로 승격하지 않습니다.
 - 자동화에는 시도·시간·비용 제한, PASS·중단 조건, Rollback, 사용자 호출 조건이 있어야 하며 효과가 없으면 수동 흐름과 기존 Artifact를 보존한 채 제거할 수 있어야 합니다.
+- 모든 PM은 마지막 잠금 전에 읽기 전용 `자동화 후보 감사`를 수행합니다. 후보가 없으면 근거를 기록하고 잠금으로 진행합니다. 후보가 있으면 자동화 대상·증거·최소 범위·위험·복구 방법을 먼저 보여주고 사용자의 `채택 | 보류 | 폐기` 판정을 받은 뒤, 공통계약·PM 잠금·승인 범위와 충돌이 없을 때만 자동화하고 재검증합니다. PM PASS를 자동화 승인으로 간주하지 않습니다.
 - PM을 넘기기 전 `tools/verify-pm-transition-evidence`를 실행해 잠금·Tag·사용자 PASS·기술 증거·현재 상태의 누락과 충돌을 읽기 전용으로 확인합니다. 이 검사는 기본 자동화이지만 PM을 자동 PASS하거나 파일을 자동 수정하지 않습니다.
 - 상세 운영 원본은 `wiki/V2_ENGINEERING_OPERATING_MODEL.md`입니다. 이 문서와 충돌하는 임시 대화·보고서는 공식 기본 규칙으로 사용하지 않습니다.
 
@@ -231,6 +233,11 @@ Skill의 최신 상세 기능과 상태는 `wiki/V2_SKILL_INVENTORY_AND_TRANSLAT
 - `UI Remix`·`Misty`는 설치된 V2 Skill·Runtime이 아니라 디자인 탐색·부분 선택의 외부 연구 근거입니다. 현재 전체 디자인 흐름은 Draft Recipe와 Section Trace까지 증명됐고, 승인 Recipe 기반 실제 제품 구현→독립 Fidelity 검증→사용자 최종 승인→Version Restore는 아직 `not_proven`입니다. 새 세션은 `wiki/DESIGN_WORKFLOW_EVIDENCE_AUDIT_2026-08-20.md`의 첫 누락 Handoff부터 이어가며, 추가 조사는 `wiki/DESIGN_WORKFLOW_RESEARCH_HANDOFF_2026-08-20.md`를 그대로 사용합니다.
 - 디자인 E2E 구현 Handoff는 2026-08-20 고정 Hash와 격리 Base Commit으로 생성됐습니다. 현재 첫 Blocker는 Handoff가 아니라 `antigravity_execution`이며 CLI Chat 명령 호환 오류 때문에 제품 파일은 0개입니다. Codex 대체 구현으로 이 단계를 PASS 처리하지 말고 `pm3-artifacts/design-flow-e2e-v1/execution-attempt.json`에서 이어갑니다.
 - 디자인 E2E를 나중에 재개할 때는 `wiki/DESIGN_FLOW_E2E_CONTINUATION_2026-08-21.md`를 읽고, 격리 저장소·고정 Hash·첫 Blocker를 재확인한 뒤 그 문서의 다음 작업 하나부터 이어갑니다.
+- PM4 콘텐츠 Reference 지능화는 `조건부 승격 후보`입니다. 현재 허용 범위는
+  `자동 수집 → AI 한글 분석 → URL·이미지 Hash·의미 유사 후보 묶기 → 사용자 판정`이며,
+  취향 학습·명세 적합성 자동 점수·성공 가능성 추천은 현재 비활성·미구현입니다. 서로 다른
+  실제 프로젝트의 채택·폐기 이유와 구현·최종 판정이 반복 기록되고 자동 추천의 PASS·FAIL을
+  판정할 수 있을 때만 사용자에게 `승격 검토 요청`을 제시합니다. 자동 승격·자동 제품 적용은 금지합니다.
 - `Interview Me(인터뷰 미)` 원본 Skill Trial은 2026-08-20 사용자의 당시 결정으로
   `discarded_by_user`였고 전역 Skill·Core Registry에는 연결되지 않았습니다. 이 과거
   판정은 유지합니다. 2026-08-21 사용자는 **V2가 만드는 모든 새 제작을 인터뷰로

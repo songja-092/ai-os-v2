@@ -113,3 +113,6 @@ M6에서는 Quick Change Run `run-fa8b4386`으로 `HERO-01`만 수정했습니�
 - M5의 공식 분석 요청은 `PDF 도면 위에 스탬프를 배치·이동·크기 조절하고 원본을 보존한 채 새 PDF로 저장`이며, 구현이나 패키지 설치 없이 최대 두 개의 현실적인 레시피와 다음 작업 하나만 제시합니다.
 - M7은 M5에서 선택한 레시피로 모바일 PDF 도면 스탬프 `local_product`를 E2E 검증 및 승인 받았습니다.
 - 다른 세션은 [[POST_MVP_PM0_PM6_BASELINE]]에서 시작합니다. [[POST_MVP_FINAL_DESIGN]], [[GPT_SESSION_CHANGE_CONTINUATION_HANDOFF]], [[PM1_HANDOFF]]의 이전 번호 체계는 역사적 기준으로만 사용합니다.
+# PM4 전자명함 외부 시안 Core 연결 — 2026-08-26
+
+채택 Reference 6개에서 전자명함 Design DNA를 작성하고, Codex Product Design `ideate`와 OpenAI ImageGen으로 만든 외부 시안 5개를 전자명함 Artifact에 저장했습니다. 이 이미지는 Core가 생성한 결과가 아니며 `core_generated: false`로 고정합니다. Core는 이미지 Hash·생성 출처·DNA·교체 가능 데이터 계약·사용자 선택만 관리합니다. 실제 Runtime에서 후보 5개 표시, 선택·취소, Dashboard 재시작 후 선택 복원, 시험 상태 원상복구, 제품 자동 적용 차단을 PASS했습니다. 현재 선택은 `pending`이며 이름·사진·연락처·대표색·보조색·배경색 등은 후속 실제 Module의 교체 가능 데이터입니다. 사용자 선택 전 구현·제품 적용·PM4 PASS는 승인되지 않았습니다.
