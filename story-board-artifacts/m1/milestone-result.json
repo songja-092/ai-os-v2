@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "project_id": "story-board",
+  "milestone": "M1",
+  "run_id": "story-board-m1-20260830",
+  "status": "completed",
+  "base_commit": "c3dfd92ad209ce2843ff126ff61ae198ec3f3d52",
+  "evidence_commit": "05d2629fa0330f8dae61012a8748dca60b2821ad",
+  "tag": "story-board-m1-result-v1",
+  "contracts": [
+    {
+      "path": "story-board-artifacts/m1/meeting-record.json",
+      "sha256": "5cb477c29762b1dcc670e2a071eba193ec8161feb4268682e60409fd57b7c626"
+    },
+    {
+      "path": "story-board-artifacts/m1/intake-draft.json",
+      "sha256": "bc3a49b26fb1ee5ad0b6d1ca575135db444001c467d7b5b4c37158b48e62e1a7"
+    },
+    {
+      "path": "story-board-artifacts/m1/product-contract.draft.json",
+      "sha256": "b757d5caf3cc266f6d5d27f7b9b0a5e5414ea263ea2c895b24e17a6c8b6136ba"
+    },
+    {
+      "path": "story-board-artifacts/m1/story-contracts/story-profile.json",
+      "sha256": "a637128e1c5fd5e1ef23f7a02f4608f575a795b2b281301cbd1c5a796fd9266a"
+    },
+    {
+      "path": "story-board-artifacts/m1/story-contracts/scene-contract.json",
+      "sha256": "0c77645c8897d81f2e9c971dd91969d57e8bdb86c25ae49f44233ebf255994d2"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "story-board-artifacts/m1/ppt-fixture/knowledge-story-fixture.pptx",
+      "sha256": "d5f4229168e33d946f238c39d4f45fd5207bdf3d7582b1d48d2f210c2cc1eea5"
+    },
+    {
+      "path": "story-board-artifacts/m1/m1-foundation-verification.json",
+      "sha256": "4cd2076838dccedd32b8562f97bdd274e4b2cbc99f8b1271b34d9849cc249f5f"
+    },
+    {
+      "path": "story-board-artifacts/m1/resolution-plan.json",
+      "sha256": "a626ef435f8a19b5ff610be21bf8e8edb380378031115b148fd085caf14b456c"
+    },
+    {
+      "path": "wiki/STORY_BOARD_M1_CAPABILITY_ENVIRONMENT_RESEARCH_2026-08-30.md",
+      "sha256": "436158c237e14c95359d2ad40172b4c920fc8c85beb22916cb3722e73d7298cb"
+    }
+  ],
+  "verifications": [
+    {
+      "command": [
+        "tools/verify-storyboard-m1-foundation"
+      ],
+      "exit_code": 0,
+      "verdict": "PASS"
+    },
+    {
+      "command": [
+        "tools/verify-product-contract",
+        "story-board-artifacts/m1/product-contract.draft.json"
+      ],
+      "exit_code": 0,
+      "verdict": "PASS"
+    },
+    {
+      "command": [
+        "tools/resolve-product-harness",
+        "--contract",
+        "story-board-artifacts/m1/product-contract.draft.json"
+      ],
+      "exit_code": 0,
+      "verdict": "PASS"
+    }
+  ],
+  "intervention": {
+    "user_question_count": 0,
+    "codex_manual_edit_count": 4,
+    "customer_specific_code_count": 0
+  },
+  "restore": {
+    "tested": true,
+    "method": "separate_worktree",
+    "evidence": "detached worktree at 05d2629fa0330f8dae61012a8748dca60b2821ad: foundation, product contract, and resolver PASS; worktree removed after verification"
+  }
+}

@@ -1,15 +1,16 @@
 # Current State
 
 2026-08-30 사용자가 새 프로젝트의 공식 이름을 `스토리 보드`로 확정했습니다. `V2 Story Pilot`은
-과거 임시 작업명이고 `V2 Story Core`는 내부 공통 제품 계층입니다. Story M1은 시작됐으며 현재
-회의 기록 → 적응형 인터뷰 초안의 Core 연결과 Result Snapshot Gate를 구축 중입니다. 실제 Story
-Schema·PPT Adapter·제품 Runtime은 아직 `not_implemented`입니다.
+과거 임시 작업명이고 `V2 Story Core`는 내부 공통 제품 계층입니다. Story M1 Foundation은
+`PASS_M1_FOUNDATION`으로 완료했습니다. 회의 기록 → 적응형 Intake, Story Profile·Scene Schema,
+가상 PPTX Import Draft, Product Harness Resolver, Snapshot Gate를 Core에 연결했습니다. 실제 Story
+제품 Runtime·Visual Target·정식 PPT Export Adapter는 아직 `not_implemented`입니다.
 
-Story M1의 첫 Core 명령 `v2 storyboard intake`를 연결했습니다. 기존 회의 Record에서 확정된 7개
-결정은 재질문하지 않고 미확정 8개만 질문 묶음으로 생성하며, 인터뷰 전
-`implementation_allowed: false`를 유지합니다. 중복 Decision·불완전 Result Manifest 차단 Fixture는
-`tools/verify-storyboard-m1-foundation`에서 PASS했습니다. 이는 M1 기반 일부의 구현 증거이며 Story
-Contract 잠금·PPT 변환·M1 완료가 아닙니다. 환경 조사는
+Story M1의 Core 명령 `v2 storyboard intake`는 기존 회의 Record의 확정 결정 12개를 재사용하고,
+현재 작업을 막지 않는 후속 질문 3개만 남깁니다. Visual Target·최종 승인 전
+`implementation_allowed: false`를 유지합니다. 중복 Decision·손상 PPTX·불완전 Result Manifest
+차단 Fixture와 별도 Worktree Restore 검사는 PASS했습니다. 이는 M1 Foundation 완료 증거이며
+Story 제품 Runtime·정식 PPT Export·매출 증거가 아닙니다. 환경 조사는
 `wiki/STORY_BOARD_M1_CAPABILITY_ENVIRONMENT_RESEARCH_2026-08-30.md`를 사용합니다.
 
 2026-08-30 수익화·범용성 회의는 `Memory Story`와 `Knowledge Story`의 좁은 비교 Pilot로 종료했습니다.
@@ -28,8 +29,9 @@ M1~M8 Gate와 단계별 금지선은 `wiki/V2_STORY_M1_M8_EXECUTION_BASELINE_202
 
 Story M1부터는 각 마일스톤 종료 시 전체 저장소 상태와 증거를 `Milestone Result Snapshot`으로
 고정합니다. Result Manifest·Commit·불변 Tag·GitHub main·Obsidian SHA 정합성과 별도 Worktree 기반
-Restore 검사가 없으면 완료로 기록하지 않습니다. 현재 M1은 진행 중이며 Story Result Snapshot은
-아직 존재하지 않습니다.
+Restore 검사가 없으면 완료로 기록하지 않습니다. M1 Evidence Commit은
+`05d2629fa0330f8dae61012a8748dca60b2821ad`이며 별도 Worktree Restore 검사를 통과했습니다. 최신
+Seal Commit·Tag·전체 동기화 값은 `story-board-artifacts/m1/milestone-result.json`을 사용합니다.
 
 2026-08-30 회의에서 V2 MVP의 남은 핵심을 `초기 모델 → 제품 계약 → 제품 조립 → Product Harness
 → PM6 → 배포·운영 확인·복구` 연결로 확정했습니다. 새 PM·Workflow 엔진·외부 패키지는 추가하지
