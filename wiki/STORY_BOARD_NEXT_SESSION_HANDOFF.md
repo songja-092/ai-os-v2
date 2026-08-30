@@ -10,8 +10,8 @@
 - Core 식별자: `story-board`
 - M1 불변 결과 Tag: `story-board-m1-result-v1`
 - M1 Seal Commit: `edd0d299974b33d571c3f212188efa4ad2a7e0d3`
-- 현재 단계: `M1_foundation_pass / M2_not_started`
-- 다음 작업: `M2 내부 Fixture`
+- 현재 단계: `M1_foundation_pass / product_interview_supplement_required / M2_not_started`
+- 다음 작업: `미확정 3문항 통합 인터뷰 후 M2 내부 Fixture`
 
 먼저 다음을 실행합니다.
 
@@ -32,16 +32,32 @@ git fetch origin --prune --tags
    Product Contract Draft, Product Harness Resolver, Verifier, Version·Restore 기반입니다.
 2. M1은 Story 제품 Runtime, 정식 PPT Export, Visual Target, 외부 공개, 결제, 수익을 증명하지 않습니다.
 3. `PPT`는 입력·출력 형식이고 내부 원본은 `Story Profile + Scene Contract`입니다.
-4. M2는 `Memory Story`와 `Knowledge Story` 가상 입력을 사용해 PPT 양방향 변환과 서로 다른
+4. 기존 회의 결정 12개는 재사용했지만 신규 제품 인터뷰는 수행하지 않았습니다. 미확정 3문항은
+   M2 시작 전에 다른 세션이 한 번에 질문하고 답변을 계약에 반영해야 합니다.
+5. M2는 `Memory Story`와 `Knowledge Story` 가상 입력을 사용해 PPT 양방향 변환과 서로 다른
    Visual Target을 격리 시험하는 단계입니다.
-5. M2에서도 사용자 승인 전 `implementation_allowed: false`를 유지합니다.
-6. 실제 고객 자료·유료 Provider·도메인 구매·공개·결제·TTS·POD는 승인 없이 실행하지 않습니다.
-7. 정상 결과를 Codex가 직접 고쳐 끝내지 않습니다. 실패 원인을 Contract·Profile·Adapter·Recipe·
+6. M2에서도 사용자 승인 전 `implementation_allowed: false`를 유지합니다.
+7. 실제 고객 자료·유료 Provider·도메인 구매·공개·결제·TTS·POD는 승인 없이 실행하지 않습니다.
+8. 정상 결과를 Codex가 직접 고쳐 끝내지 않습니다. 실패 원인을 Contract·Profile·Adapter·Recipe·
    Verifier·수집기 중 올바른 계층에 반영하고 동일 Core Run을 다시 실행합니다.
-8. 두 번째 고객부터 고객별 코드 수정 0회가 장기 목표이며, 정상 제작에서 Codex 개입은 점차
+9. 두 번째 고객부터 고객별 코드 수정 0회가 장기 목표이며, 정상 제작에서 Codex 개입은 점차
    줄어야 합니다.
 
-## 3. M2 실행 순서
+## 3. M2 전 필수 통합 인터뷰
+
+다음 세션은 M2 파일을 더 만들기 전에 `story-board-artifacts/m1/intake-draft.json`의 미확정 질문
+3개를 사용자에게 **한 메시지로 묶어** 질문합니다. 기존 확정 질문 12개는 다시 묻지 않습니다.
+
+1. 첫 유료 상품과 시험 가격 범위
+2. 선호하는 디자인과 피해야 할 디자인
+3. 첫 실제 사용자 모집 채널과 인원 범위
+
+답변을 Meeting Record·Intake·Product/Design/Revenue Contract Draft에 반영하고 Core Intake를
+재실행합니다. 세 항목이 확정되고 새로운 Hash·검증 증거가 남기 전에는 M2 Visual Target 제작을
+시작하지 않습니다. 사용자가 특정 항목을 아직 결정하지 못하면 사용자가 명시적으로 허용한
+`가설`로만 기록하며 승인으로 바꾸지 않습니다.
+
+## 4. M2 실행 순서
 
 1. M1 Tag와 현재 Core 계약을 읽고 M1 결과를 다시 해석하거나 덮어쓰지 않습니다.
 2. PPT Capability Lab에서 `extract_content`, `preserve_and_polish`, `restructure`,
@@ -69,7 +85,7 @@ git fetch origin --prune --tags
 - 플러그인은 Core가 아니라 교체 가능한 Adapter입니다. Core 호출·Artifact Hash·실패·복구 증거 없이
   V2 Capability로 승격하지 않습니다.
 
-## 4. 수집기 개선 계약
+## 5. 수집기 개선 계약
 
 스토리 보드 조사에서는 Codex가 외부에서 확인한 결과와 V2 수집기가 낸 결과를 반드시 비교합니다.
 비교 항목은 검색어 범위, 플랫폼·공급원, 국내외 균형, 시각적 다양성, 제품 기능 근거, 최신성,
@@ -94,10 +110,10 @@ git fetch origin --prune --tags
   재실행 증거가 있어야 수집기 개선입니다.
 - 도구 하나의 실패는 다른 공급원과 기존 채택 결과를 손상시키지 않아야 합니다.
 
-## 5. 사용자 개입을 요청할 때
+## 6. 사용자 개입을 요청할 때
 
-M2에서 사용자의 기본 개입은 **서로 다른 Visual Target 중 방향 승인 한 번**입니다. 다음 항목만
-그보다 먼저 묻습니다.
+M2 전 사용자 개입은 **미확정 3문항 통합 인터뷰 한 번**, M2 중 개입은 **서로 다른 Visual Target
+중 방향 승인 한 번**입니다. 다음 항목만 그 사이에 추가로 묻습니다.
 
 - 실제 개인정보·가족·미성년자 자료 사용
 - 외부 Provider 전송 또는 비용 발생
@@ -108,7 +124,7 @@ M2에서 사용자의 기본 개입은 **서로 다른 Visual Target 중 방향 
 디자인 후보 추천, 기술 도구 선택, Fixture 값, 실패 수정, 회귀검사는 증거 기반 기본값으로 진행하고
 승인 상태를 위조하지 않습니다.
 
-## 6. M2 완료 조건
+## 7. M2 완료 조건
 
 - 두 Story Fixture와 PPT 네 모드의 Core Artifact
 - 원본 불변 Hash와 지원·경고·차단 손실 보고서
@@ -122,7 +138,7 @@ M2에서 사용자의 기본 개입은 **서로 다른 Visual Target 중 방향 
 
 위 조건 전에는 `M2 완료`, `제품 구현 완료`, `수익 검증`, `V2 범용성 증명`이라고 표현하지 않습니다.
 
-## 7. 이해 확인 응답
+## 8. 이해 확인 응답
 
 다음 세션은 작업을 시작하기 전에 아래 여섯 줄을 현재 파일·검사 결과에 맞게 채워 사용자에게
 간단히 보고합니다.
@@ -131,8 +147,9 @@ M2에서 사용자의 기본 개입은 **서로 다른 Visual Target 중 방향 
 프로젝트: 스토리 보드 (story-board)
 확인한 기준점: <현재 HEAD> / M1 Tag story-board-m1-result-v1
 완료 범위: M1 Foundation만 완료
-현재 작업: M2 내부 Fixture
-첫 사용자 개입: Visual Target 방향 승인
+현재 작업: 미확정 3문항 통합 인터뷰 후 M2 내부 Fixture
+첫 사용자 개입: 유료 상품·디자인 선호·모집 범위 통합 인터뷰
+다음 사용자 개입: Visual Target 방향 승인
 금지 오해: Runtime·공개·결제·수익은 아직 not_proven
 ```
 

@@ -15,12 +15,15 @@
 - 각 Story 마일스톤은 파일 변경으로 종료하지 않습니다. 전체 저장소 상태·계약 Hash·Artifact·검증·
   사용자 판정·복구 절차를 Result Manifest·Commit·불변 Tag로 고정하고 GitHub main·Obsidian·현재
   작업 저장소 SHA가 같을 때만 완료·동기화로 기록합니다.
-- 현재 상태는 `M1_foundation_pass / M2_not_started / product_runtime_not_started / revenue_not_proven`입니다.
+- 현재 상태는 `M1_foundation_pass / product_interview_supplement_required / M2_not_started /
+  product_runtime_not_started / revenue_not_proven`입니다.
 - `v2 storyboard intake`, Story Profile·Scene Schema, PPTX Import Draft와 M1 Foundation Verifier는
   Core에 연결됐습니다. Visual Target·정식 PPT Export·제품 Runtime은 M2 이후 범위입니다.
 - M1 이후 다른 세션에서 스토리 보드를 계속할 때는
   `wiki/STORY_BOARD_NEXT_SESSION_HANDOFF.md`를 단일 실행 진입점으로 사용하고
   `tools/verify-story-board-next-session-handoff`를 통과한 뒤 M2를 시작합니다.
+- 다음 세션은 기존 확정 답변 12개를 다시 묻지 않고, Intake에 남은 `첫 유료 상품·디자인 선호·
+  실제 사용자 모집 범위` 3문항을 한 번에 인터뷰해 계약 Hash를 갱신한 뒤 M2를 시작합니다.
 - 스토리 보드의 Codex 플러그인 적용 순서와 Sites M3 격리 경계는
   `wiki/V2_CODEX_PLUGIN_ADOPTION_FOR_STORY_BOARD_2026-08-30.md`를 따릅니다. 플러그인 결과는
   Core 호출·Hash·실패·복구 증거 없이 V2 Capability로 승격하지 않습니다.
