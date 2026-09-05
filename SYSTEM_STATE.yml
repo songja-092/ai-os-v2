@@ -1,6 +1,6 @@
 schema_version: "1.0"
-state_revision: 13
-recorded_at_commit: "a2c390a9851fe4a19eceaf8edf4611b77e4142c3"
+state_revision: 14
+recorded_at_commit: "e98f73190f7219e279ff44117eac09e9ba0a7d09"
 
 system:
   id: ai-os-v2
@@ -11,8 +11,8 @@ system:
 
 program:
   active_program: post_mvp_system
-  active_stage: system_design
-  status: collector_scope_verified_editor_revalidation_active
+  active_stage: ready_for_project
+  status: maintenance_complete_optional_editor_security_deferred
 
 locks:
   core_mvp:
@@ -71,9 +71,9 @@ capability_workstreams:
   design:
     planned_stages: [idea, planning, mockup, static, dynamic_runtime, staging, production, restore]
     current_stage: restore
-    status: verified_limited
+    status: completed
     next_stage: restore
-    blocker: product_runtime_fidelity_not_proven
+    blocker: none
   collector:
     planned_stages: [idea, planning, static, dynamic_runtime, staging, production, restore]
     current_stage: dynamic_runtime
@@ -89,9 +89,9 @@ capability_workstreams:
   editor:
     planned_stages: [idea, planning, mockup, static, dynamic_runtime, staging, production, restore]
     current_stage: dynamic_runtime
-    status: blocked
-    next_stage: dynamic_runtime
-    blocker: browser_runtime_revalidation_required
+    status: verified_limited
+    next_stage: staging
+    blocker: transitive_tiptap_moderate_vulnerability
   deployment_operations:
     planned_stages: [idea, planning, staging, production, restore]
     current_stage: restore
@@ -102,7 +102,7 @@ capability_workstreams:
 focus:
   strategy: single_highest_bottleneck
   active_workstream: editor
-  active_bottleneck: browser_runtime_revalidation_required
+  active_bottleneck: optional_editor_dependency_security_deferred
   priority_order:
     - shared_core_blocker
     - paused_failure
@@ -164,5 +164,5 @@ roadmap:
       status: completed
 
 next_action:
-  id: editor-browser-runtime-revalidation
-  description: Collector 임의 주제 Runtime 검증을 유지하며 격리 Editor의 브라우저 Runtime을 재검증
+  id: project-intake-ready
+  description: 필수 V2 정비 완료 상태에서 다음 실제 프로젝트 목표와 범위를 등록; 선택형 Editor는 보안 업데이트 전까지 격리 유지
