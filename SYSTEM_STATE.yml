@@ -1,5 +1,5 @@
 schema_version: "1.0"
-state_revision: 6
+state_revision: 10
 recorded_at_commit: "36f926442335a2bcc797e0cf43d9c6b2a405650b"
 
 system:
@@ -10,9 +10,9 @@ system:
   canonical_branch: main
 
 program:
-  active_program: post_mvp
-  active_stage: PM0
-  status: control_plane_phase_4_completed
+  active_program: post_mvp_system
+  active_stage: system_design
+  status: frontend_fidelity_production_approval_required
 
 locks:
   core_mvp:
@@ -26,7 +26,7 @@ products:
     evidence_scope: single_product_runtime
     production: not_proven
   story_board:
-    status: m1_foundation_pass
+    status: paused_at_m1_foundation
     evidence_scope: fixture_specific
     runtime: not_started
     production: not_proven
@@ -42,6 +42,25 @@ harness_policy:
     - production_deploy
     - previous_version_restore
 
+quality_policy:
+  role_or_registration_is_sufficient: false
+  evidence_documents_required: false
+  sufficient_verdict_requires:
+    - objective_runtime_checks_pass
+    - expected_and_actual_result_compared
+    - failure_and_recovery_paths_pass
+  design_checks:
+    - same_viewport_target_runtime_comparison
+    - layout_spacing_color_typography_classified
+    - mobile_desktop_and_accessibility_pass
+  function_checks:
+    - primary_user_task_completed
+    - interaction_states_and_error_paths_pass
+    - restart_and_previous_version_restore_pass
+  user_experience:
+    final_human_judgment_required: true
+    objective_checks_cannot_be_replaced_by_role_presence: true
+
 capability_workstreams:
   core:
     planned_stages: [idea, planning, static, dynamic_runtime, staging, production, restore]
@@ -54,7 +73,7 @@ capability_workstreams:
     current_stage: dynamic_runtime
     status: partial
     next_stage: staging
-    blocker: end_to_end_design_runtime_not_proven
+    blocker: objective_fidelity_gate_not_proven
   collector:
     planned_stages: [idea, planning, static, dynamic_runtime, staging, production, restore]
     current_stage: dynamic_runtime
@@ -66,7 +85,7 @@ capability_workstreams:
     current_stage: dynamic_runtime
     status: verified_limited
     next_stage: staging
-    blocker: limited_to_registered_products
+    blocker: runtime_proof_limited_to_one_product
   editor:
     planned_stages: [idea, planning, mockup, static, dynamic_runtime, staging, production, restore]
     current_stage: dynamic_runtime
@@ -82,8 +101,8 @@ capability_workstreams:
 
 focus:
   strategy: single_highest_bottleneck
-  active_workstream: core
-  active_bottleneck: cross_product_runtime_not_proven
+  active_workstream: design
+  active_bottleneck: post_design_implementation_fidelity
   priority_order:
     - shared_core_blocker
     - paused_failure
@@ -145,5 +164,5 @@ roadmap:
       status: completed
 
 next_action:
-  id: core-cross-product-runtime
-  description: 4차 Control Plane 완료 상태를 유지하며 다음 공통 병목인 Core의 여러 제품 재사용성을 처리
+  id: frontend-fidelity-production-approval
+  description: Staging 배포·복구 예행을 통과한 V2 완성도 시스템의 Git Commit과 GitHub main 반영 승인

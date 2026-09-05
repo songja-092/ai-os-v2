@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "fixture_id": "v2-system-fidelity-isolated-v1",
+  "scope": "system_only",
+  "product_dependency": false,
+  "viewports": [
+    {"id": "desktop", "width": 1280, "height": 800},
+    {"id": "mobile", "width": 390, "height": 844}
+  ],
+  "visual_tokens": {
+    "background": "rgb(245, 247, 250)",
+    "surface": "rgb(255, 255, 255)",
+    "accent": "rgb(37, 99, 235)",
+    "text": "rgb(15, 23, 42)",
+    "radius": "18px"
+  },
+  "required_states": ["ready", "success", "error", "restored"],
+  "required_controls": ["run-primary", "simulate-error", "restore"]
+}

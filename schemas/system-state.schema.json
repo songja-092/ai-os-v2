@@ -4,7 +4,7 @@
   "title": "AI OS V2 System State",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "state_revision", "recorded_at_commit", "system", "program", "locks", "products", "harness_policy", "capability_workstreams", "focus", "governance", "environments", "gates", "roadmap", "next_action"],
+  "required": ["schema_version", "state_revision", "recorded_at_commit", "system", "program", "locks", "products", "harness_policy", "quality_policy", "capability_workstreams", "focus", "governance", "environments", "gates", "roadmap", "next_action"],
   "properties": {
     "schema_version": {"const": "1.0"},
     "state_revision": {"type": "integer", "minimum": 1},
@@ -23,6 +23,27 @@
     "locks": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "object"}},
     "products": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "object"}},
     "harness_policy": {"type": "object", "required": ["mode", "follow_planned_order", "active_bottlenecks", "completion_requires"], "additionalProperties": true},
+    "quality_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role_or_registration_is_sufficient", "evidence_documents_required", "sufficient_verdict_requires", "design_checks", "function_checks", "user_experience"],
+      "properties": {
+        "role_or_registration_is_sufficient": {"const": false},
+        "evidence_documents_required": {"const": false},
+        "sufficient_verdict_requires": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"type": "string"}},
+        "design_checks": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"type": "string"}},
+        "function_checks": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"type": "string"}},
+        "user_experience": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["final_human_judgment_required", "objective_checks_cannot_be_replaced_by_role_presence"],
+          "properties": {
+            "final_human_judgment_required": {"const": true},
+            "objective_checks_cannot_be_replaced_by_role_presence": {"const": true}
+          }
+        }
+      }
+    },
     "capability_workstreams": {
       "type": "object", "minProperties": 1,
       "additionalProperties": {

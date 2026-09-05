@@ -10,8 +10,8 @@
 - Core 식별자: `story-board`
 - M1 불변 결과 Tag: `story-board-m1-result-v1`
 - M1 Seal Commit: `edd0d299974b33d571c3f212188efa4ad2a7e0d3`
-- 현재 단계: `M1_foundation_pass / product_interview_supplement_required / M2_not_started`
-- 다음 작업: `미확정 3문항 통합 인터뷰 후 M2 내부 Fixture`
+- 현재 단계: `M1_foundation_pass / M2_internal_fixture_allowed / visual_target_approval_pending`
+- 다음 작업: `추가 인터뷰 없이 M2 내부 Fixture 제작·검사`
 
 먼저 다음을 실행합니다.
 
@@ -32,8 +32,8 @@ git fetch origin --prune --tags
    Product Contract Draft, Product Harness Resolver, Verifier, Version·Restore 기반입니다.
 2. M1은 Story 제품 Runtime, 정식 PPT Export, Visual Target, 외부 공개, 결제, 수익을 증명하지 않습니다.
 3. `PPT`는 입력·출력 형식이고 내부 원본은 `Story Profile + Scene Contract`입니다.
-4. 기존 회의 결정 12개는 재사용했지만 신규 제품 인터뷰는 수행하지 않았습니다. 미확정 3문항은
-   M2 시작 전에 다른 세션이 한 번에 질문하고 답변을 계약에 반영해야 합니다.
+4. 기존 회의 결정 12개를 재사용합니다. 가격·모집 범위는 해당 사업 마일스톤으로 미루고,
+   디자인 취향은 서로 다른 Visual Target 후보를 먼저 만든 뒤 사용자가 선택합니다.
 5. M2는 `Memory Story`와 `Knowledge Story` 가상 입력을 사용해 PPT 양방향 변환과 서로 다른
    Visual Target을 격리 시험하는 단계입니다.
 6. M2에서도 사용자 승인 전 `implementation_allowed: false`를 유지합니다.
@@ -43,19 +43,17 @@ git fetch origin --prune --tags
 9. 두 번째 고객부터 고객별 코드 수정 0회가 장기 목표이며, 정상 제작에서 Codex 개입은 점차
    줄어야 합니다.
 
-## 3. M2 전 필수 통합 인터뷰
+## 3. M2 인터뷰 최소화
 
-다음 세션은 M2 파일을 더 만들기 전에 `story-board-artifacts/m1/intake-draft.json`의 미확정 질문
-3개를 사용자에게 **한 메시지로 묶어** 질문합니다. 기존 확정 질문 12개는 다시 묻지 않습니다.
+총괄 승인 허브의 사용자 개입 최소화 방식을 따릅니다. 기존 확정 결정 12개는 다시 묻지 않고,
+M2 내부 Fixture와 서로 다른 Visual Target 후보를 먼저 제작·검사합니다.
 
-1. 첫 유료 상품과 시험 가격 범위
-2. 선호하는 디자인과 피해야 할 디자인
-3. 첫 실제 사용자 모집 채널과 인원 범위
+1. 첫 유료 상품과 시험 가격 범위: 수익 검증 마일스톤에서 확인
+2. 선호하는 디자인과 피해야 할 디자인: Visual Target 후보 비교 화면에서 선택
+3. 첫 실제 사용자 모집 채널과 인원 범위: 실제 모집 마일스톤에서 확인
 
-답변을 Meeting Record·Intake·Product/Design/Revenue Contract Draft에 반영하고 Core Intake를
-재실행합니다. 세 항목이 확정되고 새로운 Hash·검증 증거가 남기 전에는 M2 Visual Target 제작을
-시작하지 않습니다. 사용자가 특정 항목을 아직 결정하지 못하면 사용자가 명시적으로 허용한
-`가설`로만 기록하며 승인으로 바꾸지 않습니다.
+이 세 항목은 삭제하지 않고 `deferred_non_blocking`으로 보존합니다. 해당 판단이 실제로 필요한 단계에서만
+한 번 묻고, M2 내부 Fixture 제작을 차단하지 않습니다.
 
 ## 4. M2 실행 순서
 
@@ -112,8 +110,8 @@ git fetch origin --prune --tags
 
 ## 6. 사용자 개입을 요청할 때
 
-M2 전 사용자 개입은 **미확정 3문항 통합 인터뷰 한 번**, M2 중 개입은 **서로 다른 Visual Target
-중 방향 승인 한 번**입니다. 다음 항목만 그 사이에 추가로 묻습니다.
+M2의 첫 사용자 개입은 **서로 다른 Visual Target 중 방향 승인 한 번**입니다.
+가격·모집 범위는 해당 사업 단계전까지 묻지 않습니다. 다음 항목만 그 사이에 추가로 묻습니다.
 
 - 실제 개인정보·가족·미성년자 자료 사용
 - 외부 Provider 전송 또는 비용 발생
@@ -147,9 +145,9 @@ M2 전 사용자 개입은 **미확정 3문항 통합 인터뷰 한 번**, M2 �
 프로젝트: 스토리 보드 (story-board)
 확인한 기준점: <현재 HEAD> / M1 Tag story-board-m1-result-v1
 완료 범위: M1 Foundation만 완료
-현재 작업: 미확정 3문항 통합 인터뷰 후 M2 내부 Fixture
-첫 사용자 개입: 유료 상품·디자인 선호·모집 범위 통합 인터뷰
-다음 사용자 개입: Visual Target 방향 승인
+현재 작업: 추가 인터뷰 없이 M2 내부 Fixture 제작·검사
+첫 사용자 개입: Visual Target 방향 승인
+다음 사용자 개입: Production 배포 승인
 금지 오해: Runtime·공개·결제·수익은 아직 not_proven
 ```
 

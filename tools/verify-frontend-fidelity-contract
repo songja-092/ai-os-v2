@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+import sys
+from pathlib import Path
+
+import jsonschema
+import yaml
+
+ROOT = Path(__file__).resolve().parent.parent
+contract_path = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "contracts/frontend-implementation-fidelity.yml"
+schema = yaml.safe_load((ROOT / "schemas/frontend-implementation-fidelity.schema.json").read_text(encoding="utf-8"))
+contract = yaml.safe_load(contract_path.read_text(encoding="utf-8"))
+
+try:
+    jsonschema.validate(contract, schema)
+    stages = contract["stages"]
+    ids = [stage["id"] for stage in stages]
+    expected = ["control_plane", "fidelity_contract", "isolated_fixture", "objective_validation", "staging", "production", "restore"]
+    assert ids == expected, "stages must follow the approved order"
+    assert len(ids) == len(set(ids)), "stage ids must be unique"
+    by_id = {stage["id"]: stage for stage in stages}
+    assert by_id[contract["current_stage"]]["status"] == "in_progress", "current stage must be in_progress"
+    assert ids.index(contract["next_stage"]) == ids.index(contract["current_stage"]) + 1, "next stage must immediately follow current stage"
+    assert contract["final_stage"] == ids[-1], "final stage must be last"
+    assert sum(stage["status"] == "in_progress" for stage in stages) == 1, "exactly one stage must be in_progress"
+except (jsonschema.ValidationError, AssertionError, KeyError, ValueError) as exc:
+    print(f"frontend_fidelity_contract: FAIL\nreason: {exc}")
+    raise SystemExit(1)
+
+print(f"frontend_fidelity_contract: PASS\ncurrent: {contract['current_stage']}\nnext: {contract['next_stage']}\nfinal: {contract['final_stage']}")

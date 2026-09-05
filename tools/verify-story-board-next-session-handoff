@@ -9,8 +9,8 @@ HANDOFF = ROOT / "wiki" / "STORY_BOARD_NEXT_SESSION_HANDOFF.md"
 required = [
     "스토리 보드 M2 다음 세션 단일 인계 지시서",
     "story-board-m1-result-v1",
-    "M1_foundation_pass / product_interview_supplement_required / M2_not_started",
-    "M2 전 필수 통합 인터뷰",
+    "M1_foundation_pass / M2_internal_fixture_allowed / visual_target_approval_pending",
+    "M2 인터뷰 최소화",
     "첫 유료 상품과 시험 가격 범위",
     "선호하는 디자인과 피해야 할 디자인",
     "첫 실제 사용자 모집 채널과 인원 범위",
@@ -22,8 +22,8 @@ required = [
     "V2_CODEX_PLUGIN_ADOPTION_FOR_STORY_BOARD_2026-08-30.md",
     "Sites: M2에 사용하지 않고 M3",
     "플러그인은 Core가 아니라 교체 가능한 Adapter",
-    "첫 사용자 개입: 유료 상품·디자인 선호·모집 범위 통합 인터뷰",
-    "다음 사용자 개입: Visual Target 방향 승인",
+    "첫 사용자 개입: Visual Target 방향 승인",
+    "다음 사용자 개입: Production 배포 승인",
     "Runtime·공개·결제·수익은 아직 not_proven",
 ]
 
@@ -78,7 +78,7 @@ if errors:
 
 print("PASS_STORY_BOARD_NEXT_SESSION_HANDOFF")
 print(f"handoff: {HANDOFF.relative_to(ROOT)}")
-print("next: three-question product interview, then M2 internal fixture")
-print("user_gate_1: paid offer, visual preference, recruitment scope")
-print("user_gate_2: visual target direction approval")
+print("next: M2 internal fixture without another interview")
+print("user_gate_1: visual target direction approval")
+print("user_gate_2: production deployment approval")
 print("runtime_revenue: not_proven")

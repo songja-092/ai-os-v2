@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+import json
+from html.parser import HTMLParser
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+FIXTURE = ROOT / "test-fixtures/frontend-fidelity"
+
+class Inspector(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.testids = set()
+        self.labels = 0
+        self.live_regions = 0
+        self.viewport = False
+
+    def handle_starttag(self, tag, attrs):
+        values = dict(attrs)
+        if values.get("data-testid"):
+            self.testids.add(values["data-testid"])
+        self.labels += int(bool(values.get("aria-label")))
+        self.live_regions += int(bool(values.get("aria-live")))
+        if tag == "meta" and values.get("name") == "viewport":
+            self.viewport = True
+
+contract = json.loads((FIXTURE / "fixture-contract.json").read_text(encoding="utf-8"))
+html = (FIXTURE / "index.html").read_text(encoding="utf-8")
+inspector = Inspector()
+inspector.feed(html)
+expected = set(contract["required_controls"])
+checks = {
+    "system_only": contract["scope"] == "system_only" and contract["product_dependency"] is False,
+    "desktop_mobile": {item["id"] for item in contract["viewports"]} == {"desktop", "mobile"},
+    "controls": inspector.testids == expected,
+    "accessibility": inspector.labels >= 2 and inspector.live_regions >= 1,
+    "responsive_meta": inspector.viewport,
+    "states_implemented": all(f"'{state}'" in html or f'\"{state}\"' in html for state in contract["required_states"]),
+}
+failed = [name for name, passed in checks.items() if not passed]
+if failed:
+    print("frontend_fidelity_fixture: FAIL\nfailed: " + ", ".join(failed))
+    raise SystemExit(1)
+print("frontend_fidelity_fixture: PASS\nchecks: " + ", ".join(checks))

@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+import sys
+from pathlib import Path
+
+import yaml
+
+ROOT = Path(__file__).resolve().parent.parent
+release = yaml.safe_load((ROOT / "operations/frontend-fidelity-release.yml").read_text(encoding="utf-8"))["release"]
+required = {
+    "fidelity_contract", "isolated_fixture", "objective_checks", "human_experience_review",
+    "staging_rehearsal", "user_production_approval", "production_deploy", "previous_version_restore"
+}
+if not required.issubset(set(release.get("gates", []))):
+    print("frontend_fidelity_release: FAIL\nreason: required_gate_missing")
+    raise SystemExit(1)
+if release["production"]["status"] not in {"waiting_user_approval", "deployed"}:
+    print("frontend_fidelity_release: FAIL\nreason: production_status_invalid")
+    raise SystemExit(1)
+if release["restore"]["strategy"] != "previous_fixture_copy_in_isolated_worktree" or not release["restore"]["required"]:
+    print("frontend_fidelity_release: FAIL\nreason: restore_contract_missing")
+    raise SystemExit(1)
+ready = release["staging"]["status"] == "passed" and release["restore"]["status"] == "passed_in_staging"
+print("frontend_fidelity_release: " + ("READY_FOR_PRODUCTION_GATE" if ready else "STAGING_IN_PROGRESS"))
+print("production: " + release["production"]["status"])

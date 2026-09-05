@@ -1,0 +1,22 @@
+schema_version: "1.0"
+release:
+  target: frontend_fidelity_system
+  staging:
+    mode: isolated_temporary_worktree
+    status: passed
+  production:
+    target: github_main
+    status: waiting_user_approval
+  restore:
+    strategy: previous_fixture_copy_in_isolated_worktree
+    required: true
+    status: passed_in_staging
+  gates:
+    - fidelity_contract
+    - isolated_fixture
+    - objective_checks
+    - human_experience_review
+    - staging_rehearsal
+    - user_production_approval
+    - production_deploy
+    - previous_version_restore

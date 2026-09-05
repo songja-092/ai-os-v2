@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+result="$(tools/rehearse-frontend-fidelity-release)"
+grep -q 'frontend_fidelity_staging_rehearsal: PASS' <<<"$result"
+grep -q 'failure_detection: PASS' <<<"$result"
+grep -q 'previous_version_restore: PASS' <<<"$result"
+grep -q 'production_changed: false' <<<"$result"
+printf 'test_frontend_fidelity_staging: PASS\n'

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+tools/verify-frontend-fidelity-fixture
+bad="$(mktemp)"
+trap 'rm -f "$bad"' EXIT
+sed 's/data-testid="restore"/data-testid="missing-restore"/' test-fixtures/frontend-fidelity/index.html > "$bad"
+cp test-fixtures/frontend-fidelity/index.html test-fixtures/frontend-fidelity/index.html.test-backup
+trap 'mv test-fixtures/frontend-fidelity/index.html.test-backup test-fixtures/frontend-fidelity/index.html; rm -f "$bad"' EXIT
+cp "$bad" test-fixtures/frontend-fidelity/index.html
+if tools/verify-frontend-fidelity-fixture >/dev/null 2>&1; then
+  echo "invalid fixture was accepted" >&2
+  exit 1
+fi
+mv test-fixtures/frontend-fidelity/index.html.test-backup test-fixtures/frontend-fidelity/index.html
+rm -f "$bad"
+trap - EXIT
+echo "test_frontend_fidelity_fixture: PASS"

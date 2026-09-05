@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>V2 격리 완성도 시험</title>
+  <style>
+    :root { --bg:#f5f7fa; --surface:#fff; --text:#0f172a; --muted:#64748b; --line:#dbe2ea; --accent:#2563eb; --ok:#047857; --error:#b91c1c; --radius:18px; font-family:Inter,Pretendard,"Noto Sans KR",system-ui,sans-serif; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:var(--bg); color:var(--text); }
+    main { width:min(1040px,calc(100% - 40px)); margin:0 auto; padding:56px 0; }
+    header { display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:28px; }
+    h1 { margin:0; font-size:clamp(30px,4vw,48px); line-height:1.08; letter-spacing:-.04em; }
+    header p { max-width:480px; margin:0; color:var(--muted); line-height:1.65; }
+    .workspace { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(280px,.6fr); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:var(--surface); box-shadow:0 18px 60px rgba(15,23,42,.08); }
+    .task { padding:34px; min-height:430px; display:flex; flex-direction:column; }
+    .task h2 { margin:0 0 8px; font-size:24px; }
+    .task > p { margin:0; color:var(--muted); line-height:1.6; }
+    .state { margin:auto 0 28px; padding:24px; border-left:4px solid var(--accent); background:#f8fafc; }
+    .state strong { display:block; font-size:20px; margin-bottom:8px; }
+    .state p { margin:0; color:var(--muted); }
+    .state[data-state="success"] { border-color:var(--ok); }
+    .state[data-state="error"] { border-color:var(--error); }
+    .actions { display:flex; flex-wrap:wrap; gap:10px; }
+    button { min-height:44px; border-radius:12px; border:1px solid var(--line); padding:0 16px; background:#fff; color:var(--text); font:700 14px/1 inherit; cursor:pointer; }
+    button:hover { border-color:#94a3b8; background:#f8fafc; }
+    button:focus-visible { outline:3px solid rgba(37,99,235,.35); outline-offset:2px; }
+    button.primary { border-color:var(--accent); background:var(--accent); color:#fff; }
+    aside { padding:30px; border-left:1px solid var(--line); background:#f8fafc; }
+    aside h2 { margin:0 0 20px; font-size:17px; }
+    .check { display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-bottom:1px solid var(--line); font-size:14px; }
+    .check output { color:var(--ok); font-weight:800; }
+    .summary { margin-top:24px; color:var(--muted); font-size:13px; line-height:1.6; }
+    @media (max-width:720px) {
+      main { width:min(100% - 24px,520px); padding:30px 0; }
+      header { display:block; }
+      header p { margin-top:12px; }
+      .workspace { grid-template-columns:1fr; }
+      .task { padding:24px; min-height:410px; }
+      aside { border-left:0; border-top:1px solid var(--line); padding:24px; }
+      .actions { display:grid; }
+      button { width:100%; }
+    }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>V2 격리 완성도 시험</h1>
+      <p>제품과 분리된 화면에서 주요 작업, 오류 처리, 초기화와 반응형 구조를 빠르게 확인합니다.</p>
+    </header>
+    <section class="workspace" aria-label="완성도 시험 작업공간">
+      <div class="task">
+        <h2>주요 작업 실행</h2>
+        <p>버튼을 누르면 실제 화면 상태와 검사 결과가 함께 변경됩니다.</p>
+        <div class="state" data-state="ready" role="status" aria-live="polite">
+          <strong id="state-title">준비됨</strong>
+          <p id="state-copy">아직 실행하지 않았습니다.</p>
+        </div>
+        <div class="actions">
+          <button class="primary" data-testid="run-primary">주요 작업 실행</button>
+          <button data-testid="simulate-error">오류 상태 시험</button>
+          <button data-testid="restore">초기 상태 복구</button>
+        </div>
+      </div>
+      <aside aria-label="자동 검사 결과">
+        <h2>자동 검사</h2>
+        <div class="check"><span>디자인 Token</span><output data-check="tokens">검사 중</output></div>
+        <div class="check"><span>필수 Control</span><output data-check="controls">검사 중</output></div>
+        <div class="check"><span>오류·복구 상태</span><output data-check="states">대기</output></div>
+        <div class="check"><span>접근성 Label</span><output data-check="a11y">검사 중</output></div>
+        <p class="summary">파일이나 역할의 존재가 아니라 브라우저에서 계산된 값과 실제 상태 전환으로 판정합니다.</p>
+      </aside>
+    </section>
+  </main>
+  <script>
+    const state = document.querySelector('.state');
+    const title = document.querySelector('#state-title');
+    const copy = document.querySelector('#state-copy');
+    const stateOutput = document.querySelector('[data-check="states"]');
+    const setState = (name, heading, detail, verdict) => {
+      state.dataset.state = name; title.textContent = heading; copy.textContent = detail; stateOutput.textContent = verdict;
+      document.documentElement.dataset.fixtureState = name;
+    };
+    document.querySelector('[data-testid="run-primary"]').addEventListener('click', () => setState('success','주요 작업 성공','정상 경로가 화면 상태를 변경했습니다.','정상 PASS'));
+    document.querySelector('[data-testid="simulate-error"]').addEventListener('click', () => setState('error','오류를 안전하게 표시함','화면을 멈추지 않고 다시 시도할 수 있습니다.','오류 PASS'));
+    document.querySelector('[data-testid="restore"]').addEventListener('click', () => setState('restored','초기 상태 복구 완료','직전 시험 상태를 제거했습니다.','복구 PASS'));
+    const computed = getComputedStyle(document.documentElement);
+    const tokenPass = computed.getPropertyValue('--bg').trim() === '#f5f7fa' && computed.getPropertyValue('--radius').trim() === '18px';
+    document.querySelector('[data-check="tokens"]').textContent = tokenPass ? 'PASS' : 'FAIL';
+    document.querySelector('[data-check="controls"]').textContent = document.querySelectorAll('button[data-testid]').length === 3 ? 'PASS' : 'FAIL';
+    document.querySelector('[data-check="a11y"]').textContent = document.querySelectorAll('[aria-label]').length >= 2 && state.getAttribute('aria-live') === 'polite' ? 'PASS' : 'FAIL';
+    document.documentElement.dataset.fixtureReady = tokenPass ? 'true' : 'false';
+  </script>
+</body>
+</html>

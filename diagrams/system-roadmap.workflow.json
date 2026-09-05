@@ -3,48 +3,58 @@
   "diagram_type": "workflow",
   "meta": {
     "title": "AI OS V2 한눈에 보는 진행판",
-    "subtitle": "상태 6번 · 4차 완료 · 다음 병목까지 계속 최신화",
+    "subtitle": "상태 10번 · 현재: Production 승인 대기 · 다음·최종: 배포와 복구",
     "animation": "none",
     "visual_preset": "signal-flow",
     "quality_profile": "showcase",
     "viewBox": [
-      1100,
+      700,
       980
     ],
     "views": [
       {
         "id": "current",
-        "label": "지금 어디인가요?",
+        "label": "1 완료: 운영 기반",
         "focus": [
-          "core",
-          "design",
-          "collector",
-          "harness",
-          "editor",
-          "deploy"
+          "state"
         ],
-        "note": "각 작업이 현재 어디까지 왔는지 봅니다."
+        "note": "완료한 작업: SYSTEM_STATE, 세션 시작 검사, 단계·승인 규칙, 격리 복구 연습을 공통 운영 기반으로 연결했습니다."
       },
       {
-        "id": "bottleneck",
-        "label": "무엇이 막혔나요?",
+        "id": "current-contract",
+        "label": "2 완료: 공통 계약",
         "focus": [
-          "state",
-          "core",
+          "design",
           "blocked"
         ],
-        "note": "지금은 Core를 여러 제품에서 재사용하는 문제를 먼저 해결합니다."
+        "note": "완료한 작업: 역할이나 파일 존재가 아니라 실제 화면·기능·오류·복구를 판정할 기계 판독형 계약과 실패 검사를 등록했습니다."
       },
       {
-        "id": "target",
-        "label": "언제 완성인가요?",
+        "id": "next-fixture",
+        "label": "3 완료: 격리 시험",
         "focus": [
-          "core",
-          "staging",
+          "design",
+          "staging"
+        ],
+        "note": "완료한 작업: 제품과 분리된 V2 예제 화면에서 데스크톱·모바일, 정상 작업, 오류 표시와 초기 복구를 모두 통과했습니다."
+      },
+      {
+        "id": "staging",
+        "label": "4 완료: 객관 검사·Staging",
+        "focus": [
+          "design",
+          "staging"
+        ],
+        "note": "완료한 작업: 자동 객관 검사와 사용자 체감 확인을 통과했고, 격리 Staging에서 고의 실패 감지와 이전 Version 복구까지 성공했습니다."
+      },
+      {
+        "id": "final",
+        "label": "5 현재·최종: 배포 승인·복구",
+        "focus": [
           "production",
           "restore"
         ],
-        "note": "실제 배포와 이전 버전 복구가 모두 성공하면 완성입니다."
+        "note": "현재 필요한 일: 명시적 승인 후 Git Commit과 GitHub main에 반영합니다. 그 뒤 이전 정상 Version 복구 가능성을 확인하면 V2 정비 완료입니다."
       }
     ]
   },
@@ -142,8 +152,8 @@
       "col": 2,
       "type": "security",
       "label": "현재 집중",
-      "sublabel": "핵심 기능",
-      "tag": "여러 제품 재사용"
+      "sublabel": "화면·기능 판정 규칙",
+      "tag": "계약 완료"
     },
     {
       "id": "staging",
@@ -151,7 +161,7 @@
       "col": 3,
       "type": "backend",
       "label": "시험",
-      "sublabel": "다음 목표",
+      "sublabel": "격리 시험",
       "width": 42
     },
     {
@@ -177,17 +187,17 @@
       "lane": "coreLane",
       "col": 2,
       "type": "backend",
-      "label": "일부 작동",
-      "sublabel": "여러 제품 재사용 필요",
-      "tag": "현재 작업"
+      "label": "재사용 구조",
+      "sublabel": "제품 확장 검증 남음"
     },
     {
       "id": "design",
       "lane": "designLane",
       "col": 2,
       "type": "frontend",
-      "label": "일부 작동",
-      "sublabel": "전체 흐름 연결 필요"
+      "label": "객관 판정 기준",
+      "sublabel": "화면·동작·복구 비교",
+      "tag": "자동 검사 PASS"
     },
     {
       "id": "collector",
@@ -203,7 +213,7 @@
       "col": 2,
       "type": "security",
       "label": "일부 작동",
-      "sublabel": "등록 제품만 가능"
+      "sublabel": "새 제품 등록 가능 확인"
     },
     {
       "id": "editor",
@@ -251,29 +261,29 @@
   "cards": [
     {
       "dot": "cyan",
-      "title": "어떻게 진행하나요?",
+      "title": "지금 정확한 상황",
       "items": [
-        "기획된 다음 단계만 진행합니다",
-        "작은 순서 조정은 자동으로 처리합니다",
-        "큰 단계 변경만 사용자에게 묻습니다"
+        "완료: SYSTEM_STATE·4차 운영 기반·GitHub main 배포·복구 연습",
+        "완료: V2 공통 구현 완성도 계약과 실패 검사",
+        "완료: 자동 검사·사용자 체감 확인·Staging 복구 예행"
       ]
     },
     {
       "dot": "amber",
-      "title": "지금 무엇을 하나요?",
+      "title": "충분 판정 원칙",
       "items": [
-        "한 번에 가장 큰 병목 하나만 처리합니다",
-        "현재는 핵심 기능을 여러 제품에서 쓰게 만듭니다",
-        "이미 성공한 작업은 그대로 보존합니다"
+        "역할·등록·파일 존재만으로는 충분 판정 금지",
+        "디자인: 같은 크기에서 구조·간격·색·글자·접근성 비교",
+        "기능: 주요 작업·상태·오류·재시작·이전 버전 복구 확인"
       ]
     },
     {
       "dot": "emerald",
-      "title": "언제 완성인가요?",
+      "title": "다음 순서와 완성",
       "items": [
-        "실제 사용 환경에 배포합니다",
-        "문제가 생기면 이전 버전으로 돌아갑니다",
-        "두 가지가 모두 성공해야 완성입니다"
+        "현재: Production 반영 승인 대기",
+        "다음: Git Commit·GitHub main 반영",
+        "최종: 실제 반영과 이전 Version 복구 가능성 확인"
       ]
     }
   ]

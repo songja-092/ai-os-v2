@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "contract_id", "scope", "principles", "current_stage", "next_stage", "final_stage", "stages", "required_checks"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "contract_id": {"const": "v2-frontend-implementation-fidelity"},
+    "scope": {"const": "ai-os-v2-system"},
+    "excluded_products": {"type": "array", "contains": {"const": "story_board"}},
+    "principles": {
+      "type": "object",
+      "required": ["role_or_file_presence_is_sufficient", "extra_evidence_document_required", "new_library_or_agent_required", "objective_checks_before_human_judgment"],
+      "properties": {
+        "role_or_file_presence_is_sufficient": {"const": false},
+        "extra_evidence_document_required": {"const": false},
+        "new_library_or_agent_required": {"const": false},
+        "objective_checks_before_human_judgment": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "current_stage": {"type": "string"},
+    "next_stage": {"type": "string"},
+    "final_stage": {"const": "restore"},
+    "stages": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "status", "work", "exit_condition", "user_intervention"],
+        "properties": {
+          "id": {"type": "string"}, "label": {"type": "string"},
+          "status": {"enum": ["completed", "in_progress", "pending"]},
+          "work": {"type": "string", "minLength": 5},
+          "exit_condition": {"type": "string", "minLength": 5},
+          "user_intervention": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "required_checks": {
+      "type": "object",
+      "required": ["design", "function"],
+      "properties": {
+        "design": {"type": "array", "minItems": 3, "items": {"type": "string"}},
+        "function": {"type": "array", "minItems": 3, "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
