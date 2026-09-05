@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+import argparse
+import json
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+import jsonschema
+import yaml
+
+ROOT = Path(__file__).resolve().parent.parent
+STATE = ROOT / "SYSTEM_STATE.yml"
+EVENTS = ROOT / "state/control-plane-events.jsonl"
+EVENT_SCHEMA = ROOT / "schemas/control-plane-event.schema.json"
+
+
+def load_state(path=STATE):
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
+def load_events(path=EVENTS):
+    if not path.exists():
+        return []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def validate_events(events):
+    schema = json.loads(EVENT_SCHEMA.read_text(encoding="utf-8"))
+    seen = set()
+    for event in events:
+        jsonschema.validate(event, schema, format_checker=jsonschema.FormatChecker())
+        if event["event_id"] in seen:
+            raise ValueError(f"duplicate_event_id:{event['event_id']}")
+        seen.add(event["event_id"])
+
+
+def status(args):
+    state = load_state(Path(args.state))
+    payload = {
+        "state_revision": state["state_revision"],
+        "phase": state["roadmap"]["current_phase"],
+        "focus": state["focus"],
+        "workstreams": {key: {"current": value["current_stage"], "next": value["next_stage"], "status": value["status"], "blocker": value["blocker"]} for key, value in state["capability_workstreams"].items()},
+        "environments": state["environments"],
+    }
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+
+
+def check(args):
+    state = load_state(Path(args.state))
+    events = load_events(Path(args.events))
+    validate_events(events)
+    if not events:
+        raise ValueError("event_log_empty")
+    allowed = state["governance"]["approvals"]
+    overlap = set(allowed["required_for"]) & set(allowed["automatic_for"])
+    if overlap:
+        raise ValueError(f"approval_policy_overlap:{sorted(overlap)}")
+    phase_events = [event for event in events if event["action"] == "advance_phase"]
+    for previous, current in zip(phase_events, phase_events[1:]):
+        if current["from"] != previous["to"] or current["to"] != current["from"] + 1:
+            raise ValueError("phase_event_sequence_broken")
+    if phase_events and phase_events[-1]["to"] != state["roadmap"]["current_phase"]:
+        raise ValueError("event_log_state_phase_mismatch")
+    if state["governance"]["failure_isolation"] != "workstream":
+        raise ValueError("failure_isolation_not_workstream")
+    print("control_plane: PASS")
+    print(f"events: {len(events)}")
+    print(f"phase: {state['roadmap']['current_phase']}")
+
+
+def plan(args):
+    state = load_state(Path(args.state))
+    stream = state["capability_workstreams"].get(args.workstream)
+    if stream is None:
+        raise ValueError("unknown_workstream")
+    if args.to not in stream["planned_stages"]:
+        raise ValueError("target_not_in_planned_stages")
+    current_index = stream["planned_stages"].index(stream["current_stage"])
+    target_index = stream["planned_stages"].index(args.to)
+    step_size = target_index - current_index
+    change_kind = "small_reorder" if abs(step_size) <= 1 else "major_stage_change"
+    approval = "automatic" if change_kind in state["governance"]["approvals"]["automatic_for"] else "user_required"
+    print(json.dumps({"workstream": args.workstream, "from": stream["current_stage"], "to": args.to, "change_kind": change_kind, "approval": approval, "will_modify": False}, ensure_ascii=False, indent=2))
+
+
+def main():
+    parser = argparse.ArgumentParser(description="AI OS V2 lightweight control plane")
+    parser.add_argument("--state", default=str(STATE))
+    parser.add_argument("--events", default=str(EVENTS))
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("status").set_defaults(func=status)
+    sub.add_parser("check").set_defaults(func=check)
+    plan_parser = sub.add_parser("plan-transition")
+    plan_parser.add_argument("--workstream", required=True)
+    plan_parser.add_argument("--to", required=True)
+    plan_parser.set_defaults(func=plan)
+    args = parser.parse_args()
+    try:
+        args.func(args)
+    except Exception as exc:
+        print(f"control_plane: BLOCKED\nreason: {exc}")
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -u
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root" || exit 1
+
+tools/control-plane check >/dev/null || exit 1
+tools/control-plane status >/dev/null || exit 1
+tools/control-plane plan-transition --workstream core --to staging | grep -q '"approval": "automatic"' || exit 1
+
+tools/control-plane plan-transition --workstream core --to restore | grep -q '"approval": "user_required"' || exit 1
+
+printf 'control-plane fixtures: PASS\n'

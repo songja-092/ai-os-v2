@@ -1,0 +1,19 @@
+schema_version: "1.0"
+release:
+  target: control_plane
+  source_branch: main
+  staging:
+    mode: isolated_temporary_worktree
+    status: passed
+  production:
+    target: not_configured
+    status: waiting_user_approval
+  restore:
+    strategy: previous_git_commit
+    required: true
+    status: ready_after_production_commit
+  gates:
+    - staging_rehearsal
+    - user_production_approval
+    - production_deploy
+    - previous_version_restore

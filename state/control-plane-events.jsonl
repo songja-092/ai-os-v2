@@ -1,0 +1,5 @@
+{"event_id":"evt-20260905-001","recorded_at":"2026-09-05T14:01:00+09:00","actor":"owner","action":"initialize","target":"system_control_plane","from":null,"to":"phase_1","reason":"사용자가 4차 발전 구조와 상태 기반 진행판을 승인","approval":"user"}
+{"event_id":"evt-20260905-002","recorded_at":"2026-09-05T14:01:30+09:00","actor":"owner","action":"advance_phase","target":"roadmap","from":1,"to":2,"reason":"공식 상태·세션 Gate·다이어그램 동기화와 GitHub 검사를 연결","approval":"user"}
+{"event_id":"evt-20260905-003","recorded_at":"2026-09-05T14:08:00+09:00","actor":"executor","action":"advance_phase","target":"roadmap","from":2,"to":3,"reason":"가벼운 변경 Event와 중요 승인 분리를 구현하고 검사","approval":"automatic"}
+{"event_id":"evt-20260905-004","recorded_at":"2026-09-05T14:11:40+09:00","actor":"executor","action":"advance_phase","target":"roadmap","from":3,"to":4,"reason":"제품·환경·역할 상태와 작업별 실패 격리를 구현하고 검사","approval":"automatic"}
+{"event_id":"evt-20260905-005","recorded_at":"2026-09-05T14:18:00+09:00","actor":"executor","action":"advance_workstream","target":"deployment_operations","from":"planning","to":"staging","reason":"전체 변경을 임시 분리 Worktree에서 실행해 배포 전 시험 통과","approval":"automatic"}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-os-v2.local/schemas/control-plane-event.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "recorded_at", "actor", "action", "target", "from", "to", "reason", "approval"],
+  "properties": {
+    "event_id": {"type": "string", "pattern": "^evt-[0-9]{8}-[0-9]{3}$"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "actor": {"enum": ["owner", "executor", "verifier"]},
+    "action": {"enum": ["initialize", "advance_phase", "advance_workstream", "change_plan", "approve", "block", "restore"]},
+    "target": {"type": "string", "minLength": 1},
+    "from": {"type": ["string", "integer", "null"]},
+    "to": {"type": ["string", "integer", "null"]},
+    "reason": {"type": "string", "minLength": 1},
+    "approval": {"enum": ["automatic", "user", "not_required"]}
+  }
+}

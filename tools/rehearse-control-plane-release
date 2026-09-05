@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -u
+
+repo_root="$(git rev-parse --show-toplevel)"
+stage_root="$(mktemp -d)"
+cleanup() {
+  git -C "$repo_root" worktree remove --force "$stage_root" >/dev/null 2>&1 || true
+}
+trap cleanup EXIT
+
+git -C "$repo_root" worktree add --detach "$stage_root" HEAD >/dev/null || exit 1
+
+paths=(
+  SYSTEM_STATE.yml
+  schemas/system-state.schema.json
+  schemas/control-plane-event.schema.json
+  state/control-plane-events.jsonl
+  operations/control-plane-release.yml
+  diagrams/system-roadmap.workflow.json
+  diagrams/system-roadmap.html
+  tools/control-plane
+  tools/update-system-roadmap
+  tools/verify-control-plane-release
+  tools/verify-system-state
+  tools/verify-system-diagram-sync
+  tools/session-preflight
+  tests/test-control-plane
+  tests/test-control-plane-release
+  tests/test-system-state
+  tests/test-system-diagram-sync
+  test-fixtures/system-state/invalid-current-phase.yml
+)
+
+for path in "${paths[@]}"; do
+  mkdir -p "$stage_root/$(dirname "$path")"
+  cp -a "$repo_root/$path" "$stage_root/$path"
+done
+
+cd "$stage_root" || exit 1
+tests/test-system-state >/dev/null || exit 1
+tests/test-system-diagram-sync >/dev/null || exit 1
+tests/test-control-plane >/dev/null || exit 1
+tests/test-control-plane-release >/dev/null || exit 1
+tools/session-preflight >/dev/null || exit 1
+
+printf 'control_plane_staging_rehearsal: PASS\n'
+printf 'isolation: temporary_detached_worktree\n'
+printf 'production_changed: false\n'

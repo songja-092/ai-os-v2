@@ -34,12 +34,25 @@ if len(active) != 1 or active[0]["id"] != f"phase_{phase}":
     print("system_state: FAIL")
     print("reason: current_phase_mismatch")
     sys.exit(1)
+for index, item in enumerate(phases, start=1):
+    expected = "completed" if index < phase else "in_progress" if index == phase else "pending"
+    if item["status"] != expected:
+        print("system_state: FAIL")
+        print(f"reason: roadmap_order_mismatch: {item['id']}")
+        sys.exit(1)
 
 for workstream_id, workstream in state["capability_workstreams"].items():
     planned = workstream["planned_stages"]
     if workstream["current_stage"] not in planned or workstream["next_stage"] not in planned:
         print("system_state: FAIL")
         print(f"reason: unplanned_stage: {workstream_id}")
+        sys.exit(1)
+    current_index = planned.index(workstream["current_stage"])
+    next_index = planned.index(workstream["next_stage"])
+    allowed_same_stage = workstream["status"] == "blocked" and next_index == current_index
+    if not allowed_same_stage and next_index != min(current_index + 1, len(planned) - 1):
+        print("system_state: FAIL")
+        print(f"reason: next_stage_order_mismatch: {workstream_id}")
         sys.exit(1)
 
 focus = state["focus"]

@@ -1,5 +1,5 @@
 schema_version: "1.0"
-state_revision: 1
+state_revision: 5
 recorded_at_commit: "36f926442335a2bcc797e0cf43d9c6b2a405650b"
 
 system:
@@ -12,7 +12,7 @@ system:
 program:
   active_program: post_mvp
   active_stage: PM0
-  status: approved_not_started
+  status: control_plane_phase_4_in_progress
 
 locks:
   core_mvp:
@@ -24,6 +24,11 @@ products:
   electronic_business_card:
     status: verified_limited
     evidence_scope: single_product_runtime
+    production: not_proven
+  story_board:
+    status: m1_foundation_pass
+    evidence_scope: fixture_specific
+    runtime: not_started
     production: not_proven
 
 harness_policy:
@@ -70,26 +75,47 @@ capability_workstreams:
     blocker: browser_runtime_revalidation_required
   deployment_operations:
     planned_stages: [idea, planning, staging, production, restore]
-    current_stage: planning
-    status: in_progress
-    next_stage: staging
-    blocker: deployment_runtime_not_implemented
+    current_stage: staging
+    status: verified_limited
+    next_stage: production
+    blocker: user_production_approval_required
 
 focus:
   strategy: single_highest_bottleneck
-  active_workstream: core
-  active_bottleneck: cross_product_runtime_not_proven
+  active_workstream: deployment_operations
+  active_bottleneck: user_production_approval_required
   priority_order:
     - shared_core_blocker
     - paused_failure
     - repeated_cross_workstream_problem
     - production_restore_blocker
     - convenience_and_new_ideas
-  story_board:
-    status: m1_foundation_pass
-    evidence_scope: fixture_specific
-    runtime: not_started
-    production: not_proven
+
+governance:
+  change_log: state/control-plane-events.jsonl
+  roles:
+    owner:
+      can: [plan, approve, deploy, restore]
+    executor:
+      can: [inspect, implement, verify, small_reorder]
+    verifier:
+      can: [inspect, verify]
+  approvals:
+    required_for: [major_stage_change, git_commit, git_push, production_deploy, delete, cost, external_transfer]
+    automatic_for: [implementation, relevant_checks, ordinary_repairs, diagram_refresh, small_reorder]
+  failure_isolation: workstream
+  state_owner: control_plane
+
+environments:
+  local:
+    status: active
+    purpose: development
+  staging:
+    status: verified_local_rehearsal
+    isolated: true
+  production:
+    status: waiting_user_deploy_gate
+    restore_required: true
 
 gates:
   session_preflight: required
@@ -101,21 +127,21 @@ gates:
   restore_validation: required_for_completion
 
 roadmap:
-  current_phase: 1
+  current_phase: 4
   phases:
     - id: phase_1
       name: 상태 기준 통일
-      status: in_progress
+      status: completed
     - id: phase_2
       name: 변경 이력과 승인 체계
-      status: pending
+      status: completed
     - id: phase_3
       name: 제품·환경·권한 분리
-      status: pending
+      status: completed
     - id: phase_4
       name: 시각적 관제와 운영 자동화
-      status: pending
+      status: in_progress
 
 next_action:
-  id: phase-1-control-plane-foundation
-  description: 전체 작업 흐름을 막는 Core 범용성 병목을 단계 계획과 연결
+  id: phase-4-production-gate
+  description: 사용자가 Production 배포 범위와 Git 공식 저장을 승인하면 배포 후 이전 Version 복구를 확인

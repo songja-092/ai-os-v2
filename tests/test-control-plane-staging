@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -u
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root" || exit 1
+tools/rehearse-control-plane-release | grep -q 'control_plane_staging_rehearsal: PASS' || exit 1
+printf 'control-plane staging: PASS\n'

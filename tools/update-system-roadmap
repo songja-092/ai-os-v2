@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+import argparse
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+import yaml
+
+ROOT = Path(__file__).resolve().parent.parent
+STATE = ROOT / "SYSTEM_STATE.yml"
+SPEC = ROOT / "diagrams/system-roadmap.workflow.json"
+HTML = ROOT / "diagrams/system-roadmap.html"
+COLUMNS = {"idea": 0, "planning": 0, "mockup": 1, "static": 1, "dynamic_runtime": 2, "staging": 3, "production": 4, "restore": 5}
+NODE_IDS = {"core": "core", "design": "design", "collector": "collector", "product_harness": "harness", "editor": "editor", "deployment_operations": "deploy"}
+WORKSTREAM_LABELS = {"core": "핵심 기능", "design": "디자인", "collector": "자료 수집", "product_harness": "제품 조립·검사", "editor": "화면 편집기", "deployment_operations": "배포·운영"}
+BLOCKER_LABELS = {"cross_product_runtime_not_proven": "여러 제품 재사용", "end_to_end_design_runtime_not_proven": "전체 흐름 연결", "arbitrary_topic_runtime_not_proven": "주제 범위 확대", "limited_to_registered_products": "등록 제품 제한", "browser_runtime_revalidation_required": "화면 재검사", "deployment_runtime_not_implemented": "배포 기능 준비", "user_production_approval_required": "실제 배포 승인"}
+
+
+def locate_archify():
+    candidates = [
+        os.environ.get("ARCHIFY_BIN"),
+        "/home/user/.codex/skills/archify/bin/archify.mjs",
+    ]
+    for candidate in candidates:
+        if candidate and Path(candidate).is_file():
+            return candidate
+    return None
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Refresh the beginner progress diagram from SYSTEM_STATE.yml")
+    parser.add_argument("--spec-only", action="store_true")
+    args = parser.parse_args()
+
+    state = yaml.safe_load(STATE.read_text(encoding="utf-8"))
+    diagram = json.loads(SPEC.read_text(encoding="utf-8"))
+    nodes = {node["id"]: node for node in diagram["nodes"]}
+    phase = state["roadmap"]["current_phase"]
+    diagram["meta"]["subtitle"] = f"상태 {state['state_revision']}번 · {phase}차 진행 중 · 지금 위치부터 배포와 복구까지"
+    nodes["state"]["tag"] = f"{phase}차 진행 중"
+    focus = state["focus"]
+    nodes["blocked"]["sublabel"] = WORKSTREAM_LABELS.get(focus["active_workstream"], focus["active_workstream"])
+    nodes["blocked"]["tag"] = BLOCKER_LABELS.get(focus["active_bottleneck"], focus["active_bottleneck"])
+
+    for workstream_id, workstream in state["capability_workstreams"].items():
+        nodes[NODE_IDS[workstream_id]]["col"] = COLUMNS[workstream["current_stage"]]
+
+    candidate = json.dumps(diagram, ensure_ascii=False, indent=2) + "\n"
+    if SPEC.read_text(encoding="utf-8") != candidate:
+        SPEC.write_text(candidate, encoding="utf-8")
+
+    if args.spec_only:
+        print("system_roadmap: SPEC_UPDATED")
+        return 0
+
+    archify = locate_archify()
+    if not archify:
+        print("system_roadmap: BLOCKED\nreason: archify_not_available")
+        return 2
+    validate = subprocess.run(["node", archify, "validate", "workflow", str(SPEC), "--quality", "showcase", "--json"], cwd=ROOT)
+    if validate.returncode != 0:
+        return validate.returncode
+    return subprocess.run(["node", archify, "deliver", "workflow", str(SPEC), str(HTML), "--quality", "showcase", "--json"], cwd=ROOT).returncode
+
+
+if __name__ == "__main__":
+    sys.exit(main())

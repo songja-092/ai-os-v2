@@ -66,6 +66,8 @@ printf '  note: local refs only; run an approved git fetch before claiming curre
 required=(
   SYSTEM_STATE.yml
   schemas/system-state.schema.json
+  schemas/control-plane-event.schema.json
+  state/control-plane-events.jsonl
   diagrams/system-roadmap.workflow.json
   diagrams/system-roadmap.html
   AGENTS.md

@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+import subprocess
+import sys
+from pathlib import Path
+
+import yaml
+
+root = Path(__file__).resolve().parent.parent
+plan = yaml.safe_load((root / "operations/control-plane-release.yml").read_text(encoding="utf-8"))
+release = plan["release"]
+required = {"staging_rehearsal", "user_production_approval", "production_deploy", "previous_version_restore"}
+gates = set(release.get("gates", []))
+
+if not required.issubset(gates):
+    print("control_plane_release: FAIL\nreason: required_gate_missing")
+    sys.exit(1)
+if release["production"]["status"] != "waiting_user_approval":
+    print("control_plane_release: FAIL\nreason: production_gate_not_closed")
+    sys.exit(1)
+if release["staging"]["status"] != "passed":
+    print("control_plane_release: FAIL\nreason: staging_not_passed")
+    sys.exit(1)
+if release["restore"]["strategy"] != "previous_git_commit" or not release["restore"]["required"]:
+    print("control_plane_release: FAIL\nreason: restore_contract_missing")
+    sys.exit(1)
+if subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD^"], capture_output=True).returncode != 0:
+    print("control_plane_release: FAIL\nreason: previous_version_missing")
+    sys.exit(1)
+
+print("control_plane_release: READY_FOR_PRODUCTION_GATE")
+print("production: waiting_user_approval")
+print("restore: previous_git_commit")

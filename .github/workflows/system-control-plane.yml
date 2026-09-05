@@ -21,3 +21,9 @@ jobs:
         run: tests/test-system-state
       - name: Verify state and diagram alignment
         run: tests/test-system-diagram-sync
+      - name: Verify control-plane transitions and policy
+        run: tests/test-control-plane
+      - name: Verify release and restore gates
+        run: tests/test-control-plane-release
+      - name: Rehearse in an isolated staging worktree
+        run: tests/test-control-plane-staging
