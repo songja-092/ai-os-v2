@@ -6,12 +6,12 @@ release:
     mode: isolated_temporary_worktree
     status: passed
   production:
-    target: not_configured
-    status: waiting_user_approval
+    target: github_main
+    status: deployed
   restore:
     strategy: previous_git_commit
     required: true
-    status: ready_after_production_commit
+    status: passed
   gates:
     - staging_rehearsal
     - user_production_approval

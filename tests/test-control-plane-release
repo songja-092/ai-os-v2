@@ -3,5 +3,5 @@ set -u
 
 repo_root="$(git rev-parse --show-toplevel)"
 cd "$repo_root" || exit 1
-tools/verify-control-plane-release | grep -q 'READY_FOR_PRODUCTION_GATE' || exit 1
+tools/verify-control-plane-release | grep -Eq 'READY_FOR_PRODUCTION_GATE|OPERATIONAL_SYSTEM_COMPLETE' || exit 1
 printf 'control-plane release contract: PASS\n'

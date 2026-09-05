@@ -59,9 +59,10 @@
     "environments": {"type": "object", "required": ["local", "staging", "production"], "additionalProperties": {"type": "object"}},
     "gates": {"type": "object", "required": ["session_preflight", "state_schema", "dirty_conflict", "protected_lock_change", "evidence_validation", "final_user_approval", "restore_validation"], "additionalProperties": {"type": "string"}},
     "roadmap": {
-      "type": "object", "additionalProperties": false, "required": ["current_phase", "phases"],
+      "type": "object", "additionalProperties": false, "required": ["current_phase", "status", "phases"],
       "properties": {
         "current_phase": {"type": "integer", "minimum": 1, "maximum": 4},
+        "status": {"enum": ["in_progress", "completed"]},
         "phases": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "object", "additionalProperties": false, "required": ["id", "name", "status"], "properties": {"id": {"type": "string"}, "name": {"type": "string"}, "status": {"enum": ["pending", "in_progress", "completed", "blocked"]}}}}
       }
     },

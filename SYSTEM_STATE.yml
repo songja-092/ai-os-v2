@@ -1,5 +1,5 @@
 schema_version: "1.0"
-state_revision: 5
+state_revision: 6
 recorded_at_commit: "36f926442335a2bcc797e0cf43d9c6b2a405650b"
 
 system:
@@ -12,7 +12,7 @@ system:
 program:
   active_program: post_mvp
   active_stage: PM0
-  status: control_plane_phase_4_in_progress
+  status: control_plane_phase_4_completed
 
 locks:
   core_mvp:
@@ -75,15 +75,15 @@ capability_workstreams:
     blocker: browser_runtime_revalidation_required
   deployment_operations:
     planned_stages: [idea, planning, staging, production, restore]
-    current_stage: staging
-    status: verified_limited
-    next_stage: production
-    blocker: user_production_approval_required
+    current_stage: restore
+    status: completed
+    next_stage: restore
+    blocker: none
 
 focus:
   strategy: single_highest_bottleneck
-  active_workstream: deployment_operations
-  active_bottleneck: user_production_approval_required
+  active_workstream: core
+  active_bottleneck: cross_product_runtime_not_proven
   priority_order:
     - shared_core_blocker
     - paused_failure
@@ -114,8 +114,9 @@ environments:
     status: verified_local_rehearsal
     isolated: true
   production:
-    status: waiting_user_deploy_gate
+    status: deployed_to_github_main
     restore_required: true
+    restore_status: passed_in_isolated_worktree
 
 gates:
   session_preflight: required
@@ -128,6 +129,7 @@ gates:
 
 roadmap:
   current_phase: 4
+  status: completed
   phases:
     - id: phase_1
       name: 상태 기준 통일
@@ -140,8 +142,8 @@ roadmap:
       status: completed
     - id: phase_4
       name: 시각적 관제와 운영 자동화
-      status: in_progress
+      status: completed
 
 next_action:
-  id: phase-4-production-gate
-  description: 사용자가 Production 배포 범위와 Git 공식 저장을 승인하면 배포 후 이전 Version 복구를 확인
+  id: core-cross-product-runtime
+  description: 4차 Control Plane 완료 상태를 유지하며 다음 공통 병목인 Core의 여러 제품 재사용성을 처리

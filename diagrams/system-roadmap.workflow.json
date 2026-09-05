@@ -3,7 +3,7 @@
   "diagram_type": "workflow",
   "meta": {
     "title": "AI OS V2 한눈에 보는 진행판",
-    "subtitle": "상태 5번 · 4차 진행 중 · 지금 위치부터 배포와 복구까지",
+    "subtitle": "상태 6번 · 4차 완료 · 다음 병목까지 계속 최신화",
     "animation": "none",
     "visual_preset": "signal-flow",
     "quality_profile": "showcase",
@@ -134,7 +134,7 @@
       "type": "database",
       "label": "공식 상태",
       "sublabel": "모든 작업의 기준",
-      "tag": "4차 진행 중"
+      "tag": "4차 완료"
     },
     {
       "id": "blocked",
@@ -142,8 +142,8 @@
       "col": 2,
       "type": "security",
       "label": "현재 집중",
-      "sublabel": "배포·운영",
-      "tag": "실제 배포 승인"
+      "sublabel": "핵심 기능",
+      "tag": "여러 제품 재사용"
     },
     {
       "id": "staging",
@@ -216,7 +216,7 @@
     {
       "id": "deploy",
       "lane": "deployLane",
-      "col": 3,
+      "col": 5,
       "type": "cloud",
       "label": "기획 중",
       "sublabel": "아직 실제 배포 없음"

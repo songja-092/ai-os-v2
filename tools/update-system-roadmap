@@ -38,8 +38,10 @@ def main():
     diagram = json.loads(SPEC.read_text(encoding="utf-8"))
     nodes = {node["id"]: node for node in diagram["nodes"]}
     phase = state["roadmap"]["current_phase"]
-    diagram["meta"]["subtitle"] = f"상태 {state['state_revision']}번 · {phase}차 진행 중 · 지금 위치부터 배포와 복구까지"
-    nodes["state"]["tag"] = f"{phase}차 진행 중"
+    roadmap_status = state["roadmap"].get("status", "in_progress")
+    phase_label = "4차 완료" if roadmap_status == "completed" else f"{phase}차 진행 중"
+    diagram["meta"]["subtitle"] = f"상태 {state['state_revision']}번 · {phase_label} · 다음 병목까지 계속 최신화"
+    nodes["state"]["tag"] = phase_label
     focus = state["focus"]
     nodes["blocked"]["sublabel"] = WORKSTREAM_LABELS.get(focus["active_workstream"], focus["active_workstream"])
     nodes["blocked"]["tag"] = BLOCKER_LABELS.get(focus["active_bottleneck"], focus["active_bottleneck"])

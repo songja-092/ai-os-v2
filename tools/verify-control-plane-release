@@ -14,8 +14,8 @@ gates = set(release.get("gates", []))
 if not required.issubset(gates):
     print("control_plane_release: FAIL\nreason: required_gate_missing")
     sys.exit(1)
-if release["production"]["status"] != "waiting_user_approval":
-    print("control_plane_release: FAIL\nreason: production_gate_not_closed")
+if release["production"]["status"] not in {"waiting_user_approval", "deployed"}:
+    print("control_plane_release: FAIL\nreason: production_status_invalid")
     sys.exit(1)
 if release["staging"]["status"] != "passed":
     print("control_plane_release: FAIL\nreason: staging_not_passed")
@@ -27,6 +27,7 @@ if subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD^"], capture_output
     print("control_plane_release: FAIL\nreason: previous_version_missing")
     sys.exit(1)
 
-print("control_plane_release: READY_FOR_PRODUCTION_GATE")
-print("production: waiting_user_approval")
+verdict = "OPERATIONAL_SYSTEM_COMPLETE" if release["production"]["status"] == "deployed" and release["restore"]["status"] == "passed" else "READY_FOR_PRODUCTION_GATE"
+print(f"control_plane_release: {verdict}")
+print(f"production: {release['production']['status']}")
 print("restore: previous_git_commit")

@@ -30,16 +30,22 @@ if not exists:
 phase = state["roadmap"]["current_phase"]
 phases = state["roadmap"]["phases"]
 active = [item for item in phases if item["status"] == "in_progress"]
-if len(active) != 1 or active[0]["id"] != f"phase_{phase}":
+roadmap_completed = state["roadmap"]["status"] == "completed"
+if roadmap_completed and (phase != 4 or active or any(item["status"] != "completed" for item in phases)):
+    print("system_state: FAIL")
+    print("reason: completed_roadmap_mismatch")
+    sys.exit(1)
+if not roadmap_completed and (len(active) != 1 or active[0]["id"] != f"phase_{phase}"):
     print("system_state: FAIL")
     print("reason: current_phase_mismatch")
     sys.exit(1)
-for index, item in enumerate(phases, start=1):
-    expected = "completed" if index < phase else "in_progress" if index == phase else "pending"
-    if item["status"] != expected:
-        print("system_state: FAIL")
-        print(f"reason: roadmap_order_mismatch: {item['id']}")
-        sys.exit(1)
+if not roadmap_completed:
+    for index, item in enumerate(phases, start=1):
+        expected = "completed" if index < phase else "in_progress" if index == phase else "pending"
+        if item["status"] != expected:
+            print("system_state: FAIL")
+            print(f"reason: roadmap_order_mismatch: {item['id']}")
+            sys.exit(1)
 
 for workstream_id, workstream in state["capability_workstreams"].items():
     planned = workstream["planned_stages"]
