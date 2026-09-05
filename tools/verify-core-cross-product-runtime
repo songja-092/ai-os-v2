@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+tools/verify-electronic-card-content-runtime >/dev/null
+tools/verify-knowledge-checklist-runtime >/dev/null
+printf 'core_cross_product_runtime: PASS\n'
+printf 'runtime_1: electronic_business_card\n'
+printf 'runtime_2: knowledge_checklist_isolated_fixture\n'
+printf 'story_board_used: false\n'

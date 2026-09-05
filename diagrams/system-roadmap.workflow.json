@@ -3,7 +3,7 @@
   "diagram_type": "workflow",
   "meta": {
     "title": "AI OS V2 한눈에 보는 진행판",
-    "subtitle": "상태 11번 · 완성도 흐름 완료 · 현재·다음: Core 재사용 확장",
+    "subtitle": "상태 12번 · Core 재사용 PASS · 현재·다음: Collector 범위 확장",
     "animation": "none",
     "visual_preset": "signal-flow",
     "quality_profile": "showcase",
@@ -54,7 +54,7 @@
           "production",
           "restore"
         ],
-        "note": "완료한 작업: GitHub main 반영과 직전 정상 Commit 복구 검사를 통과했습니다. 다음 병목은 Core의 두 번째 독립 Runtime 재사용 검증입니다."
+        "note": "완료한 작업: GitHub main 반영·복구와 Core의 두 번째 독립 Runtime 재사용을 통과했습니다. 다음 병목은 Collector의 임의 주제 실행 검증입니다."
       }
     ]
   },
@@ -189,8 +189,8 @@
       "col": 2,
       "type": "backend",
       "label": "재사용 구조",
-      "sublabel": "두 번째 독립 Runtime",
-      "tag": "현재·다음 작업"
+      "sublabel": "독립 Runtime 2종",
+      "tag": "재사용 PASS"
     },
     {
       "id": "design",
@@ -207,7 +207,8 @@
       "col": 2,
       "type": "messagebus",
       "label": "일부 작동",
-      "sublabel": "주제 범위 확대 필요"
+      "sublabel": "임의 주제 Runtime",
+      "tag": "현재·다음 작업"
     },
     {
       "id": "harness",
@@ -284,7 +285,8 @@
       "title": "다음 순서와 완성",
       "items": [
         "완료: 구현 완성도 계약의 전체 단계",
-        "현재·다음: Core 두 번째 독립 Runtime 재사용 검증",
+        "완료: Core 두 번째 독립 Runtime 재사용 검증",
+        "현재·다음: Collector 임의 주제 Runtime 검증",
         "최종 원칙: 각 흐름은 실제 배포와 이전 Version 복구로 종료"
       ]
     }

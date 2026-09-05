@@ -34,8 +34,8 @@
     {
       "id": "product-harness-resolver",
       "priority": 11,
-      "paths": ["schemas/product-harness-registry.schema.json", "product-harness-registry.json", "tools/resolve-product-harness", "tools/portrait-composer", "tools/verify-portrait-composer", "tools/verify-pm6-electronic-card", "tests/test-product-harness-resolver", "pm5-artifacts/**/product-harness-plan*.json"],
-      "commands": [{"id": "product-harness-resolver-fixtures", "command": ["tests/test-product-harness-resolver"], "classification": "fixture_specific", "side_effect": "read_only"}]
+      "paths": ["schemas/product-harness-registry.schema.json", "product-harness-registry.json", "tools/resolve-product-harness", "tools/portrait-composer", "tools/verify-portrait-composer", "tools/verify-pm6-electronic-card", "tools/verify-knowledge-checklist-runtime", "tools/verify-core-cross-product-runtime", "tests/test-product-harness-resolver", "test-fixtures/core-reuse/**", "pm5-artifacts/**/product-harness-plan*.json"],
+      "commands": [{"id": "product-harness-resolver-fixtures", "command": ["tests/test-product-harness-resolver"], "classification": "fixture_specific", "side_effect": "read_only"}, {"id": "core-cross-product-runtime", "command": ["tools/verify-core-cross-product-runtime"], "classification": "runtime", "side_effect": "temporary_with_restore", "mutable_paths": []}]
     },
     {
       "id": "product-contract",

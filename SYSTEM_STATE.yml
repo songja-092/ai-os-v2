@@ -1,6 +1,6 @@
 schema_version: "1.0"
-state_revision: 11
-recorded_at_commit: "679f77fa8ccf70177afc7fb8cc78ce18932e07f1"
+state_revision: 12
+recorded_at_commit: "ce7a781ba4a17b06e958d606ee274d43222575f5"
 
 system:
   id: ai-os-v2
@@ -12,7 +12,7 @@ system:
 program:
   active_program: post_mvp_system
   active_stage: system_design
-  status: frontend_fidelity_completed_next_bottleneck_active
+  status: core_cross_product_runtime_verified_next_bottleneck_active
 
 locks:
   core_mvp:
@@ -65,9 +65,9 @@ capability_workstreams:
   core:
     planned_stages: [idea, planning, static, dynamic_runtime, staging, production, restore]
     current_stage: dynamic_runtime
-    status: verified_limited
+    status: completed
     next_stage: staging
-    blocker: cross_product_runtime_not_proven
+    blocker: none
   design:
     planned_stages: [idea, planning, mockup, static, dynamic_runtime, staging, production, restore]
     current_stage: restore
@@ -101,8 +101,8 @@ capability_workstreams:
 
 focus:
   strategy: single_highest_bottleneck
-  active_workstream: core
-  active_bottleneck: cross_product_runtime_not_proven
+  active_workstream: collector
+  active_bottleneck: arbitrary_topic_runtime_not_proven
   priority_order:
     - shared_core_blocker
     - paused_failure
@@ -164,5 +164,5 @@ roadmap:
       status: completed
 
 next_action:
-  id: core-cross-product-runtime
-  description: 완료된 공통 완성도 흐름을 유지하며 Core 재사용의 두 번째 독립 Runtime 경로를 검증
+  id: collector-arbitrary-topic-runtime
+  description: Core 다중 Runtime 재사용 검증을 유지하며 Collector의 임의 주제 실행 범위를 검증

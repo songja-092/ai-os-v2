@@ -12,6 +12,7 @@ RESOLVER = ROOT / "tools/resolve-product-harness"
 CONTRACT = ROOT / "pm5-artifacts/electronic-business-card-v1/product-contract.v1.json"
 STORY_BOARD_CONTRACT = ROOT / "story-board-artifacts/m1/product-contract.draft.json"
 REGISTRY = ROOT / "product-harness-registry.json"
+KNOWLEDGE_CONTRACT = ROOT / "test-fixtures/core-reuse/knowledge-checklist-contract.json"
 
 
 def run(contract: Path, registry: Path) -> tuple[int, dict]:
@@ -91,51 +92,17 @@ with tempfile.TemporaryDirectory(prefix="v2-product-harness-") as temporary:
     assert code == 2
     assert result["reason"] == "profile_match_must_be_exactly_one"
 
-    # Prove registry extensibility with a third product type. Only contract and
-    # registry data change; tools/resolve-product-harness remains untouched.
-    third_contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
-    third_contract["contract_id"] = "knowledge-checklist-v1"
-    third_contract["project_type"] = "knowledge_checklist"
-    third_contract_path = root / "knowledge-checklist-contract.json"
-    write(third_contract_path, third_contract)
 
-    third_registry = json.loads(json.dumps(registry))
-    machine_gates = [
-        gate["id"]
-        for gate in third_contract["acceptance_gates"]
-        if gate.get("automatable")
-    ]
-    third_registry["profiles"].append({
-        "id": "knowledge_checklist.v1",
-        "project_types": ["knowledge_checklist"],
-        "required_capabilities": ["content.editable"],
-        "required_gates": machine_gates,
-        "evidence_scope": "fixture_specific",
-    })
-    third_registry["adapters"].append({
-        "id": "generic-content-fixture.v1",
-        "status": "verified_limited",
-        "provides": ["content.editable"],
-        "project_types": ["knowledge_checklist"],
-        "side_effect": "read_only",
-        "evidence": ["README.md"],
-    })
-    third_registry["verifiers"].append({
-        "id": "generic-contract-fixture",
-        "command": ["tools/verify-product-contract", "{contract}"],
-        "proves": machine_gates,
-        "project_types": ["knowledge_checklist"],
-        "classification": "contract_only",
-        "side_effect": "read_only",
-    })
-    third_registry_path = root / "third-product-registry.json"
-    write(third_registry_path, third_registry)
-    code, result = run(third_contract_path, third_registry_path)
-    assert code == 0, result
-    assert result["technical_verdict"] == "RESOLVED_CONTRACT_ONLY"
-    assert result["profile"] == "knowledge_checklist.v1"
-    assert result["selected_adapters"] == ["generic-content-fixture.v1"]
-    assert result["missing_capabilities"] == []
-    assert result["uncovered_machine_gates"] == []
+# The third type is now a persistent isolated runtime fixture, not only a
+# temporary registry-extensibility example.
+code, result = run(KNOWLEDGE_CONTRACT, REGISTRY)
+assert code == 0, result
+assert result["technical_verdict"] == "RESOLVED_CONTRACT_ONLY"
+assert result["profile"] == "knowledge_checklist.v1"
+assert result["evidence_scope"] == "multi_product_runtime"
+assert result["selected_adapters"] == ["knowledge-checklist-core.v1"]
+assert {item["classification"] for item in result["selected_verifiers"]} == {"contract_only", "runtime"}
+assert result["missing_capabilities"] == []
+assert result["uncovered_machine_gates"] == []
 
 print("product-harness resolver fixtures: PASS")

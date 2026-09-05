@@ -29,6 +29,13 @@
       "required_capabilities": ["intake.adaptive", "source.pptx_import", "story.profile", "story.scenes"],
       "required_gates": ["contract_complete", "confirmed_not_reasked", "pptx_import_draft", "story_contracts_validate"],
       "evidence_scope": "fixture_specific"
+    },
+    {
+      "id": "knowledge_checklist.v1",
+      "project_types": ["knowledge_checklist"],
+      "required_capabilities": ["content.editable", "state.restore"],
+      "required_gates": ["contract_complete", "state_matrix_runtime", "restore"],
+      "evidence_scope": "multi_product_runtime"
     }
   ],
   "adapters": [
@@ -79,6 +86,14 @@
       "project_types": ["story_board"],
       "side_effect": "local_write",
       "evidence": ["story-board-artifacts/m1/ppt-fixture/knowledge-story-fixture.pptx", "story-board-artifacts/m1/story-contracts/story-profile.json", "story-board-artifacts/m1/story-contracts/scene-contract.json"]
+    },
+    {
+      "id": "knowledge-checklist-core.v1",
+      "status": "verified_limited",
+      "provides": ["content.editable", "state.restore"],
+      "project_types": ["knowledge_checklist"],
+      "side_effect": "read_only",
+      "evidence": ["test-fixtures/core-reuse/knowledge-checklist-state.json"]
     }
   ],
   "verifiers": [
@@ -121,6 +136,22 @@
       "project_types": ["story_board"],
       "classification": "fixture_specific",
       "side_effect": "read_only"
+    },
+    {
+      "id": "knowledge-checklist-contract",
+      "command": ["tools/verify-product-contract", "{contract}"],
+      "proves": ["contract_complete"],
+      "project_types": ["knowledge_checklist"],
+      "classification": "contract_only",
+      "side_effect": "read_only"
+    },
+    {
+      "id": "knowledge-checklist-runtime",
+      "command": ["tools/verify-knowledge-checklist-runtime"],
+      "proves": ["state_matrix_runtime", "restore"],
+      "project_types": ["knowledge_checklist"],
+      "classification": "runtime",
+      "side_effect": "temporary_with_restore"
     }
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "schema_version":"1.0","contract_id":"knowledge-checklist-core-fixture-v1","project_type":"knowledge_checklist","status":"approved_locked",
+  "source_evidence":{"interview_receipt":"test-fixtures/frontend-fidelity/fixture-contract.json","research_artifacts":["README.md"],"approved_references":["test-fixtures/frontend-fidelity/index.html"]},
+  "user_outcomes":["항목을 추가하고 완료한 뒤 이전 상태로 복구"],
+  "content_fields":[{"id":"items","label":"항목","type":"list","required":true,"user_visible":true,"editable":true,"screens":["checklist"],"empty_behavior":"빈 목록 안내"}],
+  "screens":[{"id":"checklist","purpose":"지식 확인 항목 편집","content":["items"],"required_actions":["add","complete","restore"],"empty_state":"첫 항목 추가 안내"}],
+  "state_matrix":{"content_lengths":["empty","normal","long"],"content_presence":["complete","required_missing"],"assets":["none","missing"],"viewports":["390x844","1280x800"],"themes":["light","dark"],"interaction_states":["initial","edited","restored"]},
+  "asset_rules":{"original_preserved":true,"missing_asset_fallback":"텍스트 전용 유지","quality_gate":["no_missing_required_asset"],"runtime_variants":["desktop","mobile"]},
+  "theme_rules":{"semantic_tokens":["page_background","surface","primary_text","secondary_text","accent","border"],"contrast_gate":true,"all_screens_apply":true,"restore_required":true},
+  "acceptance_gates":[{"id":"contract_complete","classification":"contract","automatable":true,"pass_condition":"Schema 통과"},{"id":"state_matrix_runtime","classification":"runtime","automatable":true,"pass_condition":"추가·완료·복구 실행"},{"id":"restore","classification":"runtime","automatable":true,"pass_condition":"초기 상태 복구"}],
+  "approval":{"product_scope":"approved","visual_target":"approved","final_result":"approved"}
+}
