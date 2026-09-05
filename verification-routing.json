@@ -104,8 +104,8 @@
     {
       "id": "pm4-local-collector",
       "priority": 20,
-      "paths": ["plugins/v2-capability-lab/scripts/pm4_collector.py", "plugins/v2-capability-lab/scripts/pm4_analyzer.py", "pm4-artifacts/local-first-pilot-v1/**"],
-      "commands": [{"id": "pm4-local-collector", "command": ["tools/verify-pm4-collector"], "classification": "fixture_specific", "side_effect": "temporary_with_restore", "mutable_paths": []}]
+      "paths": ["plugins/v2-capability-lab/scripts/pm4_collector.py", "plugins/v2-capability-lab/scripts/pm4_analyzer.py", "pm4-artifacts/local-first-pilot-v1/**", "tools/verify-pm4-collector-arbitrary-topics"],
+      "commands": [{"id": "pm4-local-collector", "command": ["tools/verify-pm4-collector"], "classification": "fixture_specific", "side_effect": "temporary_with_restore", "mutable_paths": []}, {"id": "pm4-collector-arbitrary-topics", "command": ["tools/verify-pm4-collector-arbitrary-topics"], "classification": "runtime", "side_effect": "temporary_with_restore", "mutable_paths": []}]
     },
     {
       "id": "pm4-core",

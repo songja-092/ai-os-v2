@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+import json, subprocess, sys, tempfile
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+COLLECTOR = ROOT / "plugins/v2-capability-lab/scripts/pm4_collector.py"
+topics = [("restore", "이전 Version 복구 승인 절차"), ("design", "Design Recipe Reference 흐름"), ("collector", "Collector GitHub 자료 수집")]
+signatures = []
+with tempfile.TemporaryDirectory(prefix="v2-collector-topics-") as tmp:
+    root = Path(tmp)
+    for topic_id, request_text in topics:
+        request = {"request_id": f"arbitrary-{topic_id}", "original_request": request_text, "interview_answers": {"goal":"내부 범용성 검사", "target":"V2 로컬 자료", "priority":"관련 문서"}, "local_roots": ["wiki", "tools", "plugins/v2-capability-lab/skills"]}
+        request_path, output_path = root / f"{topic_id}.request.json", root / f"{topic_id}.output.json"
+        request_path.write_text(json.dumps(request, ensure_ascii=False), encoding="utf-8")
+        result = subprocess.run([sys.executable, str(COLLECTOR), "run", "--repo", str(ROOT), "--request-file", str(request_path), "--output", str(output_path)], capture_output=True, text=True)
+        assert result.returncode == 0, result.stderr
+        output = json.loads(output_path.read_text(encoding="utf-8"))
+        assert output["local_collection"]["item_count"] > 0
+        assert output["automatic_network_execution"] is False and not any(output["side_effects"].values())
+        signatures.append(tuple((item["path"], tuple(item["matched_terms"])) for item in output["local_collection"]["items"]))
+assert len(set(signatures)) == len(topics), "different topics produced identical result signatures"
+print("pm4_collector_arbitrary_topics: PASS")
+print("topics: " + ", ".join(item[0] for item in topics))
+print("network: false\ncore_changed: false")

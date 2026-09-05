@@ -1,6 +1,6 @@
 schema_version: "1.0"
-state_revision: 12
-recorded_at_commit: "ce7a781ba4a17b06e958d606ee274d43222575f5"
+state_revision: 13
+recorded_at_commit: "a2c390a9851fe4a19eceaf8edf4611b77e4142c3"
 
 system:
   id: ai-os-v2
@@ -12,7 +12,7 @@ system:
 program:
   active_program: post_mvp_system
   active_stage: system_design
-  status: core_cross_product_runtime_verified_next_bottleneck_active
+  status: collector_scope_verified_editor_revalidation_active
 
 locks:
   core_mvp:
@@ -77,15 +77,15 @@ capability_workstreams:
   collector:
     planned_stages: [idea, planning, static, dynamic_runtime, staging, production, restore]
     current_stage: dynamic_runtime
-    status: verified_limited
+    status: completed
     next_stage: staging
-    blocker: arbitrary_topic_runtime_not_proven
+    blocker: none
   product_harness:
     planned_stages: [idea, planning, static, dynamic_runtime, staging, production, restore]
     current_stage: dynamic_runtime
-    status: verified_limited
+    status: completed
     next_stage: staging
-    blocker: runtime_proof_limited_to_one_product
+    blocker: none
   editor:
     planned_stages: [idea, planning, mockup, static, dynamic_runtime, staging, production, restore]
     current_stage: dynamic_runtime
@@ -101,8 +101,8 @@ capability_workstreams:
 
 focus:
   strategy: single_highest_bottleneck
-  active_workstream: collector
-  active_bottleneck: arbitrary_topic_runtime_not_proven
+  active_workstream: editor
+  active_bottleneck: browser_runtime_revalidation_required
   priority_order:
     - shared_core_blocker
     - paused_failure
@@ -164,5 +164,5 @@ roadmap:
       status: completed
 
 next_action:
-  id: collector-arbitrary-topic-runtime
-  description: Core 다중 Runtime 재사용 검증을 유지하며 Collector의 임의 주제 실행 범위를 검증
+  id: editor-browser-runtime-revalidation
+  description: Collector 임의 주제 Runtime 검증을 유지하며 격리 Editor의 브라우저 Runtime을 재검증

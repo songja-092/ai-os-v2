@@ -3,7 +3,7 @@
   "diagram_type": "workflow",
   "meta": {
     "title": "AI OS V2 한눈에 보는 진행판",
-    "subtitle": "상태 12번 · Core 재사용 PASS · 현재·다음: Collector 범위 확장",
+    "subtitle": "상태 13번 · Collector 범위 PASS · 현재·다음: Editor 화면 재검사",
     "animation": "none",
     "visual_preset": "signal-flow",
     "quality_profile": "showcase",
@@ -207,24 +207,25 @@
       "col": 2,
       "type": "messagebus",
       "label": "일부 작동",
-      "sublabel": "임의 주제 Runtime",
-      "tag": "현재·다음 작업"
+      "sublabel": "서로 다른 주제 3종",
+      "tag": "범위 PASS"
     },
     {
       "id": "harness",
       "lane": "harnessLane",
       "col": 2,
       "type": "security",
-      "label": "일부 작동",
-      "sublabel": "새 제품 등록 가능 확인"
+      "label": "다중 Runtime",
+      "sublabel": "등록·실행·복구 PASS"
     },
     {
       "id": "editor",
       "lane": "editorLane",
       "col": 2,
       "type": "security",
-      "label": "멈춤",
-      "sublabel": "화면 재검사 필요"
+      "label": "화면 재검사",
+      "sublabel": "격리 Editor Runtime",
+      "tag": "현재·다음 작업"
     },
     {
       "id": "deploy",
@@ -285,8 +286,8 @@
       "title": "다음 순서와 완성",
       "items": [
         "완료: 구현 완성도 계약의 전체 단계",
-        "완료: Core 두 번째 독립 Runtime 재사용 검증",
-        "현재·다음: Collector 임의 주제 Runtime 검증",
+        "완료: Core 재사용·Collector 임의 주제 Runtime",
+        "현재·다음: 격리 Editor 브라우저 Runtime 재검사",
         "최종 원칙: 각 흐름은 실제 배포와 이전 Version 복구로 종료"
       ]
     }

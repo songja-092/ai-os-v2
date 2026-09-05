@@ -4498,7 +4498,7 @@
         <div class="pulse-dot"></div>
         <h1>AI OS V2 한눈에 보는 진행판</h1>
       </div>
-      <p class="subtitle">상태 12번 · Core 재사용 PASS · 현재·다음: Collector 범위 확장</p>
+      <p class="subtitle">상태 13번 · Collector 범위 PASS · 현재·다음: Editor 화면 재검사</p>
     </div>
 
     <script id="archify-guided-views-data" type="application/json">[{"id":"current","label":"1 완료: 운영 기반","focus":["state"],"note":"완료한 작업: SYSTEM_STATE, 세션 시작 검사, 단계·승인 규칙, 격리 복구 연습을 공통 운영 기반으로 연결했습니다."},{"id":"current-contract","label":"2 완료: 공통 계약","focus":["design","blocked"],"note":"완료한 작업: 역할이나 파일 존재가 아니라 실제 화면·기능·오류·복구를 판정할 기계 판독형 계약과 실패 검사를 등록했습니다."},{"id":"next-fixture","label":"3 완료: 격리 시험","focus":["design","staging"],"note":"완료한 작업: 제품과 분리된 V2 예제 화면에서 데스크톱·모바일, 정상 작업, 오류 표시와 초기 복구를 모두 통과했습니다."},{"id":"staging","label":"4 완료: 객관 검사·Staging","focus":["design","staging"],"note":"완료한 작업: 자동 객관 검사와 사용자 체감 확인을 통과했고, 격리 Staging에서 고의 실패 감지와 이전 Version 복구까지 성공했습니다."},{"id":"final","label":"5 완료: 배포·복구","focus":["production","restore"],"note":"완료한 작업: GitHub main 반영·복구와 Core의 두 번째 독립 Runtime 재사용을 통과했습니다. 다음 병목은 Collector의 임의 주제 실행 검증입니다."}]</script>
@@ -4546,7 +4546,7 @@
     <div class="diagram-container" data-detail-level="read">
       <svg viewBox="0 0 700 980" role="img" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="signal-flow" data-quality-profile="showcase">
         <title id="archify-diagram-title">AI OS V2 한눈에 보는 진행판</title>
-        <desc id="archify-diagram-description">상태 12번 · Core 재사용 PASS · 현재·다음: Collector 범위 확장</desc>
+        <desc id="archify-diagram-description">상태 13번 · Collector 범위 PASS · 현재·다음: Editor 화면 재검사</desc>
         <!-- Definitions -->
         <defs>
           <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
@@ -4711,8 +4711,8 @@
         <text data-detail="fine" x="625" y="389" class="t-frontend" font-size="7" text-anchor="middle">자동 검사 PASS</text>
         </g>
 
-        <g id="node-collector" data-node-id="collector" data-node-label="일부 작동" tabindex="0" role="button" aria-label="Focus 일부 작동, 임의 주제 Runtime, 자료 수집 › 실제 동작" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="임의 주제 Runtime" data-node-tag="현재·다음 작업" data-node-context="자료 수집 › 실제 동작">
-          <title>일부 작동 · 임의 주제 Runtime · 자료 수집 › 실제 동작 · 현재·다음 작업</title>
+        <g id="node-collector" data-node-id="collector" data-node-label="일부 작동" tabindex="0" role="button" aria-label="Focus 일부 작동, 서로 다른 주제 3종, 자료 수집 › 실제 동작" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="서로 다른 주제 3종" data-node-tag="범위 PASS" data-node-context="자료 수집 › 실제 동작">
+          <title>일부 작동 · 서로 다른 주제 3종 · 자료 수집 › 실제 동작 · 범위 PASS</title>
           <rect x="254" y="457" width="92" height="68" rx="6" class="c-mask"/>
           <rect x="254" y="457" width="92" height="68" rx="6" class="c-messagebus" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(260 463) scale(0.6875)">
@@ -4722,32 +4722,33 @@
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
           <text data-detail-anchor x="300" y="478" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">일부 작동</text>
-          <text data-detail="context" x="300" y="495" class="t-muted" font-size="8" text-anchor="middle">임의 주제 Runtime</text>
-        <text data-detail="fine" x="300" y="513" class="t-messagebus" font-size="7" text-anchor="middle">현재·다음 작업</text>
+          <text data-detail="context" x="300" y="495" class="t-muted" font-size="7.7" text-anchor="middle">서로 다른 주제 3종</text>
+        <text data-detail="fine" x="300" y="513" class="t-messagebus" font-size="7" text-anchor="middle">범위 PASS</text>
         </g>
 
-        <g id="node-harness" data-node-id="harness" data-node-label="일부 작동" tabindex="0" role="button" aria-label="Focus 일부 작동, 새 제품 등록 가능 확인, 제품 조립·검사 › 실제 동작" aria-pressed="false" data-node-kind="security" data-node-sublabel="새 제품 등록 가능 확인" data-node-context="제품 조립·검사 › 실제 동작">
-          <title>일부 작동 · 새 제품 등록 가능 확인 · 제품 조립·검사 › 실제 동작</title>
+        <g id="node-harness" data-node-id="harness" data-node-label="다중 Runtime" tabindex="0" role="button" aria-label="Focus 다중 Runtime, 등록·실행·복구 PASS, 제품 조립·검사 › 실제 동작" aria-pressed="false" data-node-kind="security" data-node-sublabel="등록·실행·복구 PASS" data-node-context="제품 조립·검사 › 실제 동작">
+          <title>다중 Runtime · 등록·실행·복구 PASS · 제품 조립·검사 › 실제 동작</title>
           <rect x="254" y="589" width="92" height="52" rx="6" class="c-mask"/>
           <rect x="254" y="589" width="92" height="52" rx="6" class="c-security" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(260 595) scale(0.6875)">
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-detail-anchor x="300" y="610" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">일부 작동</text>
-          <text data-detail="context" x="300" y="627" class="t-muted" font-size="6.3" text-anchor="middle">새 제품 등록 가능 확인</text>
+          <text data-detail-anchor x="300" y="610" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">다중 Runtime</text>
+          <text data-detail="context" x="300" y="627" class="t-muted" font-size="7.3" text-anchor="middle">등록·실행·복구 PASS</text>
         </g>
 
-        <g id="node-editor" data-node-id="editor" data-node-label="멈춤" tabindex="0" role="button" aria-label="Focus 멈춤, 화면 재검사 필요, 화면 편집기 › 실제 동작" aria-pressed="false" data-node-kind="security" data-node-sublabel="화면 재검사 필요" data-node-context="화면 편집기 › 실제 동작">
-          <title>멈춤 · 화면 재검사 필요 · 화면 편집기 › 실제 동작</title>
-          <rect x="254" y="713" width="92" height="52" rx="6" class="c-mask"/>
-          <rect x="254" y="713" width="92" height="52" rx="6" class="c-security" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(260 719) scale(0.6875)">
+        <g id="node-editor" data-node-id="editor" data-node-label="화면 재검사" tabindex="0" role="button" aria-label="Focus 화면 재검사, 격리 Editor Runtime, 화면 편집기 › 실제 동작" aria-pressed="false" data-node-kind="security" data-node-sublabel="격리 Editor Runtime" data-node-tag="현재·다음 작업" data-node-context="화면 편집기 › 실제 동작">
+          <title>화면 재검사 · 격리 Editor Runtime · 화면 편집기 › 실제 동작 · 현재·다음 작업</title>
+          <rect x="254" y="705" width="92" height="68" rx="6" class="c-mask"/>
+          <rect x="254" y="705" width="92" height="68" rx="6" class="c-security" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(260 711) scale(0.6875)">
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-detail-anchor x="300" y="734" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">멈춤</text>
-          <text data-detail="context" x="300" y="751" class="t-muted" font-size="8" text-anchor="middle">화면 재검사 필요</text>
+          <text data-detail-anchor x="300" y="726" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">화면 재검사</text>
+          <text data-detail="context" x="300" y="743" class="t-muted" font-size="7.3" text-anchor="middle">격리 Editor Runtime</text>
+        <text data-detail="fine" x="300" y="761" class="t-security" font-size="7" text-anchor="middle">현재·다음 작업</text>
         </g>
 
         <g id="node-deploy" data-node-id="deploy" data-node-label="배포·복구 완료" tabindex="0" role="button" aria-label="Focus 배포·복구 완료, GitHub main·직전 Commit, 배포·운영 › 이전 버전 복구" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="GitHub main·직전 Commit" data-node-context="배포·운영 › 이전 버전 복구">
@@ -5009,8 +5010,8 @@
         </div>
         <ul>
           <li>&bull; 완료: 구현 완성도 계약의 전체 단계</li>
-          <li>&bull; 완료: Core 두 번째 독립 Runtime 재사용 검증</li>
-          <li>&bull; 현재·다음: Collector 임의 주제 Runtime 검증</li>
+          <li>&bull; 완료: Core 재사용·Collector 임의 주제 Runtime</li>
+          <li>&bull; 현재·다음: 격리 Editor 브라우저 Runtime 재검사</li>
           <li>&bull; 최종 원칙: 각 흐름은 실제 배포와 이전 Version 복구로 종료</li>
         </ul>
       </div>
