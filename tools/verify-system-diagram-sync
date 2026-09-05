@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+import json
+import sys
+from pathlib import Path
+
+import yaml
+
+root = Path(__file__).resolve().parent.parent
+state_path = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else root / "SYSTEM_STATE.yml"
+diagram_path = Path(sys.argv[2]).resolve() if len(sys.argv) > 2 else root / "diagrams/system-roadmap.workflow.json"
+
+state = yaml.safe_load(state_path.read_text(encoding="utf-8"))
+diagram = json.loads(diagram_path.read_text(encoding="utf-8"))
+nodes = {node["id"]: node for node in diagram["nodes"]}
+node_ids = {
+    "core": "core", "design": "design", "collector": "collector",
+    "product_harness": "harness", "editor": "editor", "deployment_operations": "deploy",
+}
+columns = {"idea": 0, "planning": 0, "mockup": 1, "static": 1, "dynamic_runtime": 2, "staging": 3, "production": 4, "restore": 5}
+
+errors = []
+revision_markers = (f"State revision {state['state_revision']}", f"상태 {state['state_revision']}번")
+if not any(marker in diagram["meta"].get("subtitle", "") for marker in revision_markers):
+    errors.append("state_revision_mismatch")
+
+for workstream_id, workstream in state["capability_workstreams"].items():
+    node_id = node_ids.get(workstream_id)
+    if node_id not in nodes:
+        errors.append(f"missing_node:{workstream_id}")
+        continue
+    expected = columns[workstream["current_stage"]]
+    if nodes[node_id]["col"] != expected:
+        errors.append(f"stage_column_mismatch:{workstream_id}")
+
+if errors:
+    print("system_diagram_sync: FAIL")
+    for error in errors:
+        print(f"reason: {error}")
+    sys.exit(1)
+
+print("system_diagram_sync: PASS")
+print(f"state_revision: {state['state_revision']}")
+print(f"workstreams: {len(state['capability_workstreams'])}")

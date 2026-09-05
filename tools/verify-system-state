@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+import jsonschema
+import yaml
+
+root = Path(__file__).resolve().parent.parent
+state_path = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else root / "SYSTEM_STATE.yml"
+schema_path = root / "schemas/system-state.schema.json"
+
+try:
+    state = yaml.safe_load(state_path.read_text(encoding="utf-8"))
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    jsonschema.validate(state, schema)
+except Exception as exc:
+    print("system_state: FAIL")
+    print(f"reason: schema_or_parse_error: {exc}")
+    sys.exit(1)
+
+recorded = state["recorded_at_commit"]
+exists = subprocess.run(["git", "-C", str(root), "cat-file", "-e", f"{recorded}^{{commit}}"], capture_output=True).returncode == 0
+if not exists:
+    print("system_state: FAIL")
+    print("reason: recorded_at_commit_not_found")
+    sys.exit(1)
+
+phase = state["roadmap"]["current_phase"]
+phases = state["roadmap"]["phases"]
+active = [item for item in phases if item["status"] == "in_progress"]
+if len(active) != 1 or active[0]["id"] != f"phase_{phase}":
+    print("system_state: FAIL")
+    print("reason: current_phase_mismatch")
+    sys.exit(1)
+
+for workstream_id, workstream in state["capability_workstreams"].items():
+    planned = workstream["planned_stages"]
+    if workstream["current_stage"] not in planned or workstream["next_stage"] not in planned:
+        print("system_state: FAIL")
+        print(f"reason: unplanned_stage: {workstream_id}")
+        sys.exit(1)
+
+focus = state["focus"]
+if focus["active_workstream"] not in state["capability_workstreams"]:
+    print("system_state: FAIL")
+    print("reason: active_workstream_not_registered")
+    sys.exit(1)
+
+print("system_state: PASS")
+print(f"state_revision: {state['state_revision']}")
+print(f"recorded_at_commit: {recorded}")
+print(f"active_stage: {state['program']['active_stage']}")
+print(f"roadmap_phase: {phase}")

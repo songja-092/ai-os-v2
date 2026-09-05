@@ -1,0 +1,16 @@
+schema_version: "1.0"
+state_revision: 1
+recorded_at_commit: "36f926442335a2bcc797e0cf43d9c6b2a405650b"
+system: {id: ai-os-v2, name: AI OS V2, target: enterprise_control_plane, canonical_repository: songja-092/ai-os-v2, canonical_branch: main}
+program: {active_program: post_mvp, active_stage: PM0, status: approved_not_started}
+locks: {core_mvp: {status: completed_locked}}
+products: {story_board: {status: m1_foundation_pass}}
+gates: {session_preflight: required, state_schema: required, dirty_conflict: block, protected_lock_change: block, evidence_validation: required, final_user_approval: required, restore_validation: required_for_completion}
+roadmap:
+  current_phase: 2
+  phases:
+    - {id: phase_1, name: 상태 기준 통일, status: in_progress}
+    - {id: phase_2, name: 변경 이력과 승인 체계, status: pending}
+    - {id: phase_3, name: 제품·환경·권한 분리, status: pending}
+    - {id: phase_4, name: 시각적 관제와 운영 자동화, status: pending}
+next_action: {id: invalid, description: 실패 Fixture}

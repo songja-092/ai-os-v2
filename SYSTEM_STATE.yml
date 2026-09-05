@@ -1,0 +1,121 @@
+schema_version: "1.0"
+state_revision: 1
+recorded_at_commit: "36f926442335a2bcc797e0cf43d9c6b2a405650b"
+
+system:
+  id: ai-os-v2
+  name: AI OS V2
+  target: enterprise_control_plane
+  canonical_repository: songja-092/ai-os-v2
+  canonical_branch: main
+
+program:
+  active_program: post_mvp
+  active_stage: PM0
+  status: approved_not_started
+
+locks:
+  core_mvp:
+    range: M1-M7
+    status: completed_locked
+    modification_requires: explicit_user_approval
+
+products:
+  electronic_business_card:
+    status: verified_limited
+    evidence_scope: single_product_runtime
+    production: not_proven
+
+harness_policy:
+  mode: lightweight_stage_control
+  evidence_documents_required: false
+  follow_planned_order: true
+  small_reorder: automatic
+  major_stage_change: user_approval
+  active_bottlenecks: 1
+  completion_requires:
+    - production_deploy
+    - previous_version_restore
+
+capability_workstreams:
+  core:
+    planned_stages: [idea, planning, static, dynamic_runtime, staging, production, restore]
+    current_stage: dynamic_runtime
+    status: verified_limited
+    next_stage: staging
+    blocker: cross_product_runtime_not_proven
+  design:
+    planned_stages: [idea, planning, mockup, static, dynamic_runtime, staging, production, restore]
+    current_stage: dynamic_runtime
+    status: partial
+    next_stage: staging
+    blocker: end_to_end_design_runtime_not_proven
+  collector:
+    planned_stages: [idea, planning, static, dynamic_runtime, staging, production, restore]
+    current_stage: dynamic_runtime
+    status: verified_limited
+    next_stage: staging
+    blocker: arbitrary_topic_runtime_not_proven
+  product_harness:
+    planned_stages: [idea, planning, static, dynamic_runtime, staging, production, restore]
+    current_stage: dynamic_runtime
+    status: verified_limited
+    next_stage: staging
+    blocker: limited_to_registered_products
+  editor:
+    planned_stages: [idea, planning, mockup, static, dynamic_runtime, staging, production, restore]
+    current_stage: dynamic_runtime
+    status: blocked
+    next_stage: dynamic_runtime
+    blocker: browser_runtime_revalidation_required
+  deployment_operations:
+    planned_stages: [idea, planning, staging, production, restore]
+    current_stage: planning
+    status: in_progress
+    next_stage: staging
+    blocker: deployment_runtime_not_implemented
+
+focus:
+  strategy: single_highest_bottleneck
+  active_workstream: core
+  active_bottleneck: cross_product_runtime_not_proven
+  priority_order:
+    - shared_core_blocker
+    - paused_failure
+    - repeated_cross_workstream_problem
+    - production_restore_blocker
+    - convenience_and_new_ideas
+  story_board:
+    status: m1_foundation_pass
+    evidence_scope: fixture_specific
+    runtime: not_started
+    production: not_proven
+
+gates:
+  session_preflight: required
+  state_schema: required
+  dirty_conflict: block
+  protected_lock_change: block
+  evidence_validation: required
+  final_user_approval: required
+  restore_validation: required_for_completion
+
+roadmap:
+  current_phase: 1
+  phases:
+    - id: phase_1
+      name: 상태 기준 통일
+      status: in_progress
+    - id: phase_2
+      name: 변경 이력과 승인 체계
+      status: pending
+    - id: phase_3
+      name: 제품·환경·권한 분리
+      status: pending
+    - id: phase_4
+      name: 시각적 관제와 운영 자동화
+      status: pending
+
+next_action:
+  id: phase-1-control-plane-foundation
+  description: 전체 작업 흐름을 막는 Core 범용성 병목을 단계 계획과 연결

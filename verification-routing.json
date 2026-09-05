@@ -2,6 +2,7 @@
   "schema_version": "1.0",
   "global_checks": {
     "precheck": [
+      {"id": "system-state", "command": ["tools/verify-system-state"], "classification": "contract_only", "side_effect": "read_only"},
       {"id": "session-preflight", "command": ["tools/session-preflight"], "classification": "runtime", "side_effect": "read_only"},
       {"id": "ai-evidence-guard", "command": ["tools/verify-ai-evidence-guard"], "classification": "contract_only", "side_effect": "read_only"},
       {"id": "pm-locks", "command": ["tools/verify-pm-locks"], "classification": "runtime", "side_effect": "read_only"}
@@ -15,6 +16,15 @@
     ]
   },
   "routes": [
+    {
+      "id": "system-control-plane",
+      "priority": 1,
+      "paths": ["SYSTEM_STATE.yml", "schemas/system-state.schema.json", "tools/verify-system-state", "tools/verify-system-diagram-sync", "tools/session-preflight", "tests/test-system-state", "tests/test-system-diagram-sync", "test-fixtures/system-state/**", "diagrams/system-roadmap.*", ".github/workflows/system-control-plane.yml"],
+      "commands": [
+        {"id": "system-state-fixtures", "command": ["tests/test-system-state"], "classification": "fixture_specific", "side_effect": "read_only"},
+        {"id": "system-diagram-sync-fixtures", "command": ["tests/test-system-diagram-sync"], "classification": "fixture_specific", "side_effect": "read_only"}
+      ]
+    },
     {
       "id": "product-harness-resolver",
       "priority": 11,

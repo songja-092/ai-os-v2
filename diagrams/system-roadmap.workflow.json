@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {"title": "AI OS V2 한눈에 보는 진행판", "subtitle": "상태 1번 · 지금 위치부터 배포와 복구까지", "animation": "none", "visual_preset": "signal-flow", "quality_profile": "showcase", "viewBox": [1100, 980], "views": [
+    {"id": "current", "label": "지금 어디인가요?", "focus": ["core", "design", "collector", "harness", "editor", "deploy"], "note": "각 작업이 현재 어디까지 왔는지 봅니다."},
+    {"id": "bottleneck", "label": "무엇이 막혔나요?", "focus": ["state", "core", "blocked"], "note": "지금은 Core를 여러 제품에서 재사용하는 문제를 먼저 해결합니다."},
+    {"id": "target", "label": "언제 완성인가요?", "focus": ["core", "staging", "production", "restore"], "note": "실제 배포와 이전 버전 복구가 모두 성공하면 완성입니다."}
+  ]},
+  "lanes": [
+    {"id": "control", "label": "전체 진행"}, {"id": "coreLane", "label": "핵심 기능"},
+    {"id": "designLane", "label": "디자인"}, {"id": "collectorLane", "label": "자료 수집"},
+    {"id": "harnessLane", "label": "제품 조립·검사"}, {"id": "editorLane", "label": "화면 편집기", "variant": "exception"},
+    {"id": "deployLane", "label": "배포·운영"}
+  ],
+  "phases": [
+    {"id": "prepare", "label": "아이디어·기획", "fromCol": 0, "toCol": 0},
+    {"id": "prototype", "label": "목업·정적 화면", "fromCol": 1, "toCol": 1},
+    {"id": "runtime", "label": "실제 동작", "fromCol": 2, "toCol": 2, "variant": "emphasis"},
+    {"id": "stage", "label": "배포 전 시험", "fromCol": 3, "toCol": 3},
+    {"id": "prod", "label": "실제 배포", "fromCol": 4, "toCol": 4},
+    {"id": "recover", "label": "이전 버전 복구", "fromCol": 5, "toCol": 5, "variant": "security"}
+  ],
+  "mainPath": ["state", "core", "staging", "production", "restore"],
+  "nodes": [
+    {"id": "state", "lane": "control", "col": 0, "type": "database", "label": "공식 상태", "sublabel": "모든 작업의 기준", "tag": "1차 진행 중"},
+    {"id": "blocked", "lane": "control", "col": 2, "type": "security", "label": "현재 집중", "sublabel": "핵심 기능 재사용", "tag": "병목 1개"},
+    {"id": "staging", "lane": "control", "col": 3, "type": "backend", "label": "시험", "sublabel": "다음 목표", "width": 42},
+    {"id": "production", "lane": "control", "col": 4, "type": "cloud", "label": "배포", "sublabel": "실제 사용", "width": 42},
+    {"id": "restore", "lane": "control", "col": 5, "type": "security", "label": "복구", "sublabel": "이전 버전", "tag": "완성 조건"},
+    {"id": "core", "lane": "coreLane", "col": 2, "type": "backend", "label": "일부 작동", "sublabel": "여러 제품 재사용 필요", "tag": "현재 작업"},
+    {"id": "design", "lane": "designLane", "col": 2, "type": "frontend", "label": "일부 작동", "sublabel": "전체 흐름 연결 필요"},
+    {"id": "collector", "lane": "collectorLane", "col": 2, "type": "messagebus", "label": "일부 작동", "sublabel": "주제 범위 확대 필요"},
+    {"id": "harness", "lane": "harnessLane", "col": 2, "type": "security", "label": "일부 작동", "sublabel": "등록 제품만 가능"},
+    {"id": "editor", "lane": "editorLane", "col": 2, "type": "security", "label": "멈춤", "sublabel": "화면 재검사 필요"},
+    {"id": "deploy", "lane": "deployLane", "col": 0, "type": "cloud", "label": "기획 중", "sublabel": "아직 실제 배포 없음"}
+  ],
+  "edges": [
+    {"id": "state-core", "from": "state", "to": "core", "variant": "emphasis"},
+    {"id": "core-stage", "from": "core", "to": "staging", "variant": "default"},
+    {"id": "stage-prod", "from": "staging", "to": "production", "variant": "default"},
+    {"id": "prod-restore", "from": "production", "to": "restore", "variant": "security"}
+  ],
+  "cards": [
+    {"dot": "cyan", "title": "어떻게 진행하나요?", "items": ["기획된 다음 단계만 진행합니다", "작은 순서 조정은 자동으로 처리합니다", "큰 단계 변경만 사용자에게 묻습니다"]},
+    {"dot": "amber", "title": "지금 무엇을 하나요?", "items": ["한 번에 가장 큰 병목 하나만 처리합니다", "현재는 핵심 기능을 여러 제품에서 쓰게 만듭니다", "이미 성공한 작업은 그대로 보존합니다"]},
+    {"dot": "emerald", "title": "언제 완성인가요?", "items": ["실제 사용 환경에 배포합니다", "문제가 생기면 이전 버전으로 돌아갑니다", "두 가지가 모두 성공해야 완성입니다"]}
+  ]
+}

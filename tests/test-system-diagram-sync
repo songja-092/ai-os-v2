@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -u
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root" || exit 1
+
+tools/verify-system-diagram-sync >/dev/null || exit 1
+
+test_dir="$(mktemp -d)"
+trap 'rm -rf -- "$test_dir"' EXIT
+jq '(.nodes[] | select(.id == "core") | .col) = 4' diagrams/system-roadmap.workflow.json > "$test_dir/invalid-diagram.json"
+
+if tools/verify-system-diagram-sync SYSTEM_STATE.yml "$test_dir/invalid-diagram.json" >/dev/null 2>&1; then
+  printf 'system-diagram invalid fixture: FAIL\n'
+  exit 1
+fi
+
+printf 'system-diagram sync fixtures: PASS\n'

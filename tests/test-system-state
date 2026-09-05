@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -u
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root" || exit 1
+
+tools/verify-system-state >/dev/null || exit 1
+
+if tools/verify-system-state test-fixtures/system-state/invalid-current-phase.yml >/dev/null 2>&1; then
+  printf 'system-state invalid fixture: FAIL\n'
+  exit 1
+fi
+
+printf 'system-state fixtures: PASS\n'

@@ -9,6 +9,21 @@ fi
 
 cd "$repo_root" || exit 1
 
+if [[ ! -x tools/verify-system-state ]]; then
+  printf 'session_preflight: FAIL\nreason: system_state_verifier_missing\n'
+  exit 1
+fi
+
+if ! tools/verify-system-state; then
+  printf 'session_preflight: FAIL\nreason: system_state_gate_failed\n'
+  exit 1
+fi
+
+if [[ ! -x tools/verify-system-diagram-sync ]] || ! tools/verify-system-diagram-sync; then
+  printf 'session_preflight: FAIL\nreason: system_diagram_sync_gate_failed\n'
+  exit 1
+fi
+
 branch="$(git branch --show-current 2>/dev/null || true)"
 local_head="$(git rev-parse HEAD 2>/dev/null || true)"
 origin_main="$(git rev-parse origin/main 2>/dev/null || true)"
@@ -49,6 +64,10 @@ printf '  obsidian_alignment: %s\n' "$obsidian_alignment"
 printf '  note: local refs only; run an approved git fetch before claiming current GitHub synchronization\n'
 
 required=(
+  SYSTEM_STATE.yml
+  schemas/system-state.schema.json
+  diagrams/system-roadmap.workflow.json
+  diagrams/system-roadmap.html
   AGENTS.md
   wiki/SESSION_START_CONTRACT.md
   wiki/GOAL.md
