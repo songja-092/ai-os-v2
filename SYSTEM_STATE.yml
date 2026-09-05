@@ -1,6 +1,6 @@
 schema_version: "1.0"
-state_revision: 10
-recorded_at_commit: "36f926442335a2bcc797e0cf43d9c6b2a405650b"
+state_revision: 11
+recorded_at_commit: "679f77fa8ccf70177afc7fb8cc78ce18932e07f1"
 
 system:
   id: ai-os-v2
@@ -12,7 +12,7 @@ system:
 program:
   active_program: post_mvp_system
   active_stage: system_design
-  status: frontend_fidelity_production_approval_required
+  status: frontend_fidelity_completed_next_bottleneck_active
 
 locks:
   core_mvp:
@@ -70,10 +70,10 @@ capability_workstreams:
     blocker: cross_product_runtime_not_proven
   design:
     planned_stages: [idea, planning, mockup, static, dynamic_runtime, staging, production, restore]
-    current_stage: dynamic_runtime
-    status: partial
-    next_stage: staging
-    blocker: objective_fidelity_gate_not_proven
+    current_stage: restore
+    status: verified_limited
+    next_stage: restore
+    blocker: product_runtime_fidelity_not_proven
   collector:
     planned_stages: [idea, planning, static, dynamic_runtime, staging, production, restore]
     current_stage: dynamic_runtime
@@ -101,8 +101,8 @@ capability_workstreams:
 
 focus:
   strategy: single_highest_bottleneck
-  active_workstream: design
-  active_bottleneck: post_design_implementation_fidelity
+  active_workstream: core
+  active_bottleneck: cross_product_runtime_not_proven
   priority_order:
     - shared_core_blocker
     - paused_failure
@@ -164,5 +164,5 @@ roadmap:
       status: completed
 
 next_action:
-  id: frontend-fidelity-production-approval
-  description: Staging 배포·복구 예행을 통과한 V2 완성도 시스템의 Git Commit과 GitHub main 반영 승인
+  id: core-cross-product-runtime
+  description: 완료된 공통 완성도 흐름을 유지하며 Core 재사용의 두 번째 독립 Runtime 경로를 검증

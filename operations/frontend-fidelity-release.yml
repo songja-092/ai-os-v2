@@ -6,11 +6,11 @@ release:
     status: passed
   production:
     target: github_main
-    status: waiting_user_approval
+    status: deployed
   restore:
     strategy: previous_fixture_copy_in_isolated_worktree
     required: true
-    status: passed_in_staging
+    status: passed
   gates:
     - fidelity_contract
     - isolated_fixture

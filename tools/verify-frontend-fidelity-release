@@ -19,6 +19,7 @@ if release["production"]["status"] not in {"waiting_user_approval", "deployed"}:
 if release["restore"]["strategy"] != "previous_fixture_copy_in_isolated_worktree" or not release["restore"]["required"]:
     print("frontend_fidelity_release: FAIL\nreason: restore_contract_missing")
     raise SystemExit(1)
-ready = release["staging"]["status"] == "passed" and release["restore"]["status"] == "passed_in_staging"
-print("frontend_fidelity_release: " + ("READY_FOR_PRODUCTION_GATE" if ready else "STAGING_IN_PROGRESS"))
+complete = release["production"]["status"] == "deployed" and release["restore"]["status"] == "passed"
+ready = release["staging"]["status"] == "passed" and release["restore"]["status"] in {"passed_in_staging", "passed"}
+print("frontend_fidelity_release: " + ("COMPLETE" if complete else "READY_FOR_PRODUCTION_GATE" if ready else "STAGING_IN_PROGRESS"))
 print("production: " + release["production"]["status"])

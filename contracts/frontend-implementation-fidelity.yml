@@ -7,7 +7,7 @@ principles:
   extra_evidence_document_required: false
   new_library_or_agent_required: false
   objective_checks_before_human_judgment: true
-current_stage: production
+current_stage: restore
 next_stage: restore
 final_stage: restore
 stages:
@@ -43,13 +43,13 @@ stages:
     user_intervention: none
   - id: production
     label: 실제 배포
-    status: in_progress
+    status: completed
     work: 승인된 결과를 GitHub main과 Production에 반영
     exit_condition: 실제 배포 상태 확인
     user_intervention: explicit_approval
   - id: restore
     label: 이전 Version 복구
-    status: pending
+    status: completed
     work: 실패 시 직전 정상 Version으로 되돌아갈 수 있음을 확인
     exit_condition: Production 배포와 복구가 모두 성공
     user_intervention: only_if_recovery_changes_production

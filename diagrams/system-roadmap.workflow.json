@@ -3,7 +3,7 @@
   "diagram_type": "workflow",
   "meta": {
     "title": "AI OS V2 한눈에 보는 진행판",
-    "subtitle": "상태 10번 · 현재: Production 승인 대기 · 다음·최종: 배포와 복구",
+    "subtitle": "상태 11번 · 완성도 흐름 완료 · 현재·다음: Core 재사용 확장",
     "animation": "none",
     "visual_preset": "signal-flow",
     "quality_profile": "showcase",
@@ -49,12 +49,12 @@
       },
       {
         "id": "final",
-        "label": "5 현재·최종: 배포 승인·복구",
+        "label": "5 완료: 배포·복구",
         "focus": [
           "production",
           "restore"
         ],
-        "note": "현재 필요한 일: 명시적 승인 후 Git Commit과 GitHub main에 반영합니다. 그 뒤 이전 정상 Version 복구 가능성을 확인하면 V2 정비 완료입니다."
+        "note": "완료한 작업: GitHub main 반영과 직전 정상 Commit 복구 검사를 통과했습니다. 다음 병목은 Core의 두 번째 독립 Runtime 재사용 검증입니다."
       }
     ]
   },
@@ -171,6 +171,7 @@
       "type": "cloud",
       "label": "배포",
       "sublabel": "실제 사용",
+      "tag": "main PASS",
       "width": 42
     },
     {
@@ -180,7 +181,7 @@
       "type": "security",
       "label": "복구",
       "sublabel": "이전 버전",
-      "tag": "완성 조건"
+      "tag": "복구 PASS"
     },
     {
       "id": "core",
@@ -188,12 +189,13 @@
       "col": 2,
       "type": "backend",
       "label": "재사용 구조",
-      "sublabel": "제품 확장 검증 남음"
+      "sublabel": "두 번째 독립 Runtime",
+      "tag": "현재·다음 작업"
     },
     {
       "id": "design",
       "lane": "designLane",
-      "col": 2,
+      "col": 5,
       "type": "frontend",
       "label": "객관 판정 기준",
       "sublabel": "화면·동작·복구 비교",
@@ -228,8 +230,8 @@
       "lane": "deployLane",
       "col": 5,
       "type": "cloud",
-      "label": "기획 중",
-      "sublabel": "아직 실제 배포 없음"
+      "label": "배포·복구 완료",
+      "sublabel": "GitHub main·직전 Commit"
     }
   ],
   "edges": [
@@ -265,7 +267,7 @@
       "items": [
         "완료: SYSTEM_STATE·4차 운영 기반·GitHub main 배포·복구 연습",
         "완료: V2 공통 구현 완성도 계약과 실패 검사",
-        "완료: 자동 검사·사용자 체감 확인·Staging 복구 예행"
+        "완료: 자동 검사·체감 승인·Staging·GitHub main·복구 검사"
       ]
     },
     {
@@ -281,9 +283,9 @@
       "dot": "emerald",
       "title": "다음 순서와 완성",
       "items": [
-        "현재: Production 반영 승인 대기",
-        "다음: Git Commit·GitHub main 반영",
-        "최종: 실제 반영과 이전 Version 복구 가능성 확인"
+        "완료: 구현 완성도 계약의 전체 단계",
+        "현재·다음: Core 두 번째 독립 Runtime 재사용 검증",
+        "최종 원칙: 각 흐름은 실제 배포와 이전 Version 복구로 종료"
       ]
     }
   ]

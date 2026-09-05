@@ -18,10 +18,11 @@ try:
     assert ids == expected, "stages must follow the approved order"
     assert len(ids) == len(set(ids)), "stage ids must be unique"
     by_id = {stage["id"]: stage for stage in stages}
-    assert by_id[contract["current_stage"]]["status"] == "in_progress", "current stage must be in_progress"
-    assert ids.index(contract["next_stage"]) == ids.index(contract["current_stage"]) + 1, "next stage must immediately follow current stage"
+    completed = contract["current_stage"] == contract["final_stage"] and all(stage["status"] == "completed" for stage in stages)
+    assert completed or by_id[contract["current_stage"]]["status"] == "in_progress", "current stage must be in_progress unless lifecycle is complete"
+    assert completed or ids.index(contract["next_stage"]) == ids.index(contract["current_stage"]) + 1, "next stage must immediately follow current stage"
     assert contract["final_stage"] == ids[-1], "final stage must be last"
-    assert sum(stage["status"] == "in_progress" for stage in stages) == 1, "exactly one stage must be in_progress"
+    assert sum(stage["status"] == "in_progress" for stage in stages) == (0 if completed else 1), "active stage count is invalid"
 except (jsonschema.ValidationError, AssertionError, KeyError, ValueError) as exc:
     print(f"frontend_fidelity_contract: FAIL\nreason: {exc}")
     raise SystemExit(1)

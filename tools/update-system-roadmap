@@ -40,7 +40,7 @@ def main():
     phase = state["roadmap"]["current_phase"]
     roadmap_status = state["roadmap"].get("status", "in_progress")
     phase_label = "4차 완료" if roadmap_status == "completed" else f"{phase}차 진행 중"
-    diagram["meta"]["subtitle"] = f"상태 {state['state_revision']}번 · 현재: Production 승인 대기 · 다음·최종: 배포와 복구"
+    diagram["meta"]["subtitle"] = f"상태 {state['state_revision']}번 · 완성도 흐름 완료 · 현재·다음: Core 재사용 확장"
     nodes["state"]["tag"] = phase_label
     focus = state["focus"]
     nodes["blocked"]["sublabel"] = "화면·기능 판정 규칙"
